@@ -2,7 +2,16 @@ const productModel = require("../models/product");
 
 //create product
 exports.product_post_product = (req, res) => {
-  const { roaster, name, origin, roast, taste, price, image } = req.body;
+  const {
+    roaster,
+    name,
+    origin,
+    roast,
+    taste,
+    price,
+    image,
+    description,
+  } = req.body;
   const newProduct = new productModel({
     roaster,
     name,
@@ -11,6 +20,7 @@ exports.product_post_product = (req, res) => {
     taste,
     price,
     image,
+    description,
   });
 
   newProduct
@@ -27,6 +37,7 @@ exports.product_post_product = (req, res) => {
           taste: product.taste,
           price: product.price,
           image: product.image,
+          description: product.description,
           request: {
             type: "GET",
             url: "http://localhost:5000/product/" + product._id,
@@ -52,13 +63,14 @@ exports.product_get_all = (req, res) => {
         products: products.map((product) => {
           return {
             id: product._id,
+            roaster: product.roaster,
             name: product.name,
+            origin: product.origin,
+            roast: product.roast,
+            taste: product.taste,
             price: product.price,
-            category1: product.category1,
-            category2: product.category2,
-            brand: product.brand,
             image: product.image,
-            code: product.code,
+            description: product.description,
             request: {
               type: "GET",
               url: "http://localhost:5000/product/" + product._id,
@@ -85,13 +97,14 @@ exports.product_get_product = (req, res) => {
           message: "Product info for the provided ID",
           productInfo: {
             id: product._id,
+            roaster: product.roaster,
             name: product.name,
+            origin: product.origin,
+            roast: product.roast,
+            taste: product.taste,
             price: product.price,
-            category1: product.category1,
-            category2: product.category2,
-            brand: product.brand,
-            code: product.code,
             image: product.image,
+            description: product.description,
           },
           request: {
             type: "GET",

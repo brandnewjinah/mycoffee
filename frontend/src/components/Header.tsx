@@ -14,11 +14,11 @@ const Header: FC<Props> = (props) => {
       <Container>
         <Left>Logo</Left>
         <Center>
-          <Link to="/">
-            <Category>Home</Category>
+          <Link to="/home">
+            <Category>My Collection</Category>
           </Link>
-          <Link to="/">
-            <Category>Category</Category>
+          <Link to="/products">
+            <Category>Coffee</Category>
           </Link>
           <Link to="/">
             <Category>Category</Category>

@@ -3,9 +3,9 @@ import axios from "axios";
 import { productApi } from "../../services/api";
 
 //import components
-import HomePresenter from "./HomePresenter";
+import ProductPresenter from "./ProductPresenter";
 
-const HomeContainer = () => {
+const ProductContainer = () => {
   const [data, setData] = useState({});
 
   const [products, setProducts] = useState([]);
@@ -39,7 +39,7 @@ const HomeContainer = () => {
     getData();
   }, []);
 
-  return <HomePresenter {...data} products={products} />;
+  return <ProductPresenter {...data} products={products} />;
 };
 
-export default HomeContainer;
+export default ProductContainer;

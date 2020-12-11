@@ -25,6 +25,10 @@ const productSchema = mongoose.Schema({
   image: {
     type: String,
   },
+  description: {
+    type: String,
+    max: 100,
+  },
 });
 
 module.exports = mongoose.model("product", productSchema);

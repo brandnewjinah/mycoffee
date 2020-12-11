@@ -12,6 +12,8 @@ import Setup1 from "./pages/profile/Setup1";
 import Suggested from "./pages/Suggested";
 import Quiz from "./pages/quiz";
 import Add from "./pages/add";
+import Products from "./pages/products";
+import Detail from "./pages/detail";
 
 const Routes = () => {
   return (
@@ -25,6 +27,8 @@ const Routes = () => {
           <Route exact path="/suggested" component={Suggested} />
           <Route exact path="/quiz" component={Quiz} />
           <Route exact path="/add" component={Add} />
+          <Route exact path="/products" component={Products} />
+          <Route exact path="/products/:id" component={Detail} />
         </Layout>
       </Switch>
     </Router>

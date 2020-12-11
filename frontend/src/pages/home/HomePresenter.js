@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 //import components
-import { EmptyCard } from "../../components/Card";
+import { EmptyCard, Card } from "../../components/Card";
 import { Section } from "../../components/Section";
 
 //redux
@@ -83,7 +84,19 @@ const HomePresenter = (props) => {
       </Analyser>
       <Collection>
         <Section>
-          <EmptyCard />
+          <Link to="/add">
+            <EmptyCard />
+          </Link>
+          {props.products &&
+            props.products.map((p, idx) => (
+              <Card
+                key={idx}
+                imageUrl={p.image}
+                roaster={p.roaster}
+                name={p.name}
+                roast={p.roast}
+              />
+            ))}
         </Section>
       </Collection>
     </Wrapper>

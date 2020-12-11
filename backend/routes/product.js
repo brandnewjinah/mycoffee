@@ -15,9 +15,9 @@ const {
 //create
 router.post("/", checkAuth, product_post_product);
 
-// //get
-// router.get("/", product_get_all);
-// router.get("/:productId", product_get_product);
+//get
+router.get("/", product_get_all);
+router.get("/:productId", product_get_product);
 
 // //update
 // router.put("/:productId", checkAuth, product_update_product);

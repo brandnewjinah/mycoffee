@@ -16,6 +16,7 @@ const AddPresenter = (props) => {
     taste: "",
     price: "",
     image: "",
+    description: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -101,7 +102,13 @@ const AddPresenter = (props) => {
             error={errors.image}
             handleChange={handleChange}
           />
-
+          <Input
+            label="Description"
+            name="description"
+            value={data.description}
+            error={errors.description}
+            handleChange={handleChange}
+          />
           <Button label="Add" />
         </form>
       </Main>
