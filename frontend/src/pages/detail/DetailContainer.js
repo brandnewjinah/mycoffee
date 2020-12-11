@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { productApi } from "../../services/api";
 import { useParams, useLocation } from "react-router-dom";
 
@@ -18,6 +19,27 @@ const DetailContainer = ({ pathname }) => {
   useEffect(() => {
     getData();
   }, [id]);
+
+  // const postComment = async (comment) => {
+  //   const token = localStorage.getItem("token");
+
+  //   const options = {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   };
+
+  //   await axios
+  //     .post(`http://localhost:5000/product/comment/${id}`, comment, options)
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         window.location = "/home";
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       alert(err);
+  //     });
+  // };
 
   return <DetailPresenter {...detail} />;
 };

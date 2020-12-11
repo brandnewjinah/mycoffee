@@ -10,6 +10,7 @@ const {
   product_update_product,
   product_delete_all,
   product_delete_product,
+  product_post_comment,
 } = require("../controller/product");
 
 //create
@@ -25,5 +26,8 @@ router.get("/:productId", product_get_product);
 // //delete
 // router.delete("/", checkAuth, product_delete_all);
 // router.delete("/:productId", checkAuth, product_delete_product);
+
+//add comment
+router.post("/comment/:product_id", checkAuth, product_post_comment);
 
 module.exports = router;

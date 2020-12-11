@@ -1,16 +1,51 @@
 import React, { useState } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 
 import { Link } from "react-router-dom";
 
+//import components
 import { Section } from "../../components/Section";
+import Input from "../../components/Input";
 
 //import styles
 import styled from "styled-components";
 import { Heart } from "../../assets/Icons";
+import { Button } from "../../components/Button";
 
 const DetailPresenter = (props) => {
-  console.log(props);
+  const [data, setData] = useState({
+    text: "",
+  });
+
+  const handleChange = ({ currentTarget: input }) => {
+    const userInput = { ...data };
+    userInput[input.name] = input.value;
+    setData(userInput);
+  };
+
+  const postComment = async () => {
+    const token = localStorage.getItem("token");
+    const id = props.id;
+
+    const options = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    await axios
+      .post(`http://localhost:5000/product/comment/${id}`, data, options)
+      .then((res) => {
+        if (res.status === 200) {
+          window.location = "/home";
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
   return (
     <Container>
       <Content>
@@ -30,17 +65,27 @@ const DetailPresenter = (props) => {
             <p>{props.description && props.description}</p>
           </Data>
         </Header>
+        <Comments>
+          <div style={{ width: `85%` }}>
+            <Input
+              name="text"
+              placeholder="Comment"
+              value={data.text}
+              handleChange={handleChange}
+            />
+          </div>
+          <div style={{ width: `10%` }}>
+            <Button label="Comment" handleClick={postComment} />
+          </div>
+        </Comments>
+        <ListComment>
+          {console.log(`++`, props)}
+          {/* {props.postComment &&
+            props.postComment.map((c, idx) => <div>{c.text}</div>)} */}
+        </ListComment>
       </Content>
     </Container>
   );
-};
-
-DetailPresenter.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  result: PropTypes.object,
-  resultError: PropTypes.string,
-  similar: PropTypes.array,
-  similarError: PropTypes.string,
 };
 
 const Container = styled.div`
@@ -91,66 +136,15 @@ const Subtitle = styled.h4`
   font-size: 1rem;
 `;
 
-const ItemContainer = styled.div`
-  margin: 20px 0;
-`;
-
-const Item = styled.span`
-  font-size: 16px;
-
-  a {
-    &:not(:last-child):after {
-      content: ", ";
-    }
-  }
-`;
-
-const Part = styled.div`
+const Comments = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   font-size: 16px;
   margin: 1.5em 0;
 `;
 
-const Rate = styled.span`
-  display: flex;
-  margin: 2em 0;
-  div {
-    margin-right: 1em;
-    padding: 1em;
-    cursor: pointer;
-    background-color: #999999;
-    border-radius: 100%;
-    display: flex;
-  }
-`;
-
-const Divider = styled.span`
-  margin: 0 10px;
-`;
-
-const Overview = styled.p`
-  font-size: 15px;
-  opacity: 0.8;
-  line-height: 1.5;
-`;
-
-const Keywords = styled.div`
-  margin: 2em 0;
-
-  h6 {
-    font-size: 1.125rem;
-  }
-
-  span {
-    display: inline-block;
-    background-color: #eee;
-    padding: 0.3rem 0.75rem 0.3rem 0.75rem;
-    border-radius: 1em;
-    margin: 0.5em;
-
-    &:first-child {
-      margin-left: 0;
-    }
-  }
-`;
+const ListComment = styled.div``;
 
 export default DetailPresenter;

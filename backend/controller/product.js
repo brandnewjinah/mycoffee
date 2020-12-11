@@ -196,3 +196,20 @@ exports.product_delete_all = (req, res) => {
       });
     });
 };
+
+//post comment
+exports.product_post_comment = (req, res) => {
+  const newComment = {
+    user: req.user._id,
+    text: req.body.text,
+    name: req.user.name,
+  };
+
+  productModel
+    .findById(req.params.product_id)
+    .then((post) => {
+      post.comments.unshift(newComment);
+      post.save().then((post) => res.json(post));
+    })
+    .catch((err) => res.status(404).json({ postnotfound: "No post found" }));
+};
