@@ -15,6 +15,7 @@ require("./config/db");
 //req routes
 const userRoute = require("./routes/user");
 const profileRoute = require("./routes/profile");
+const productRoute = require("./routes/product");
 
 //use middleware
 app.use(morgan("dev"));
@@ -29,6 +30,7 @@ require("./config/passport")(passport);
 //use router
 app.use("/user", userRoute);
 app.use("/profile", profileRoute);
+app.use("/product", productRoute);
 
 const PORT = process.env.PORT || 7000;
 app.listen(PORT, console.log(`server started at ${PORT}`));

@@ -17,13 +17,13 @@ const Header: FC<Props> = (props) => {
           <Link to="/">
             <Category>Home</Category>
           </Link>
-          <Link to="/1">
+          <Link to="/">
             <Category>Category</Category>
           </Link>
-          <Link to="/2">
+          <Link to="/">
             <Category>Category</Category>
           </Link>
-          <Link to="/3">
+          <Link to="/">
             <Category>Category</Category>
           </Link>
         </Center>

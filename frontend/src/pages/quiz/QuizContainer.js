@@ -36,25 +36,25 @@ const QuizContainer = (props) => {
   };
 
   const postData = async (profile) => {
-    window.location = "/home";
-    // const token = localStorage.getItem("token");
+    // window.location = "/home";
+    const token = localStorage.getItem("token");
 
-    // const options = {
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    // };
+    const options = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-    // await axios
-    //   .post("http://localhost:5000/profile", profile, options)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       console.log("success");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
+    await axios
+      .post("http://localhost:5000/profile", profile, options)
+      .then((res) => {
+        if (res.status === 200) {
+          window.location = "/home";
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   return (

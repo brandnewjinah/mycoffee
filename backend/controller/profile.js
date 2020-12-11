@@ -1,7 +1,6 @@
 const profileModel = require("../models/profile");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const user = require("../models/user");
 
 // creating profile
 // @route POST http://localhost:5000/profile
@@ -9,23 +8,14 @@ const user = require("../models/user");
 // @access Private
 
 exports.profile_create = (req, res) => {
-  const profileFields = {
-    height: {},
-    weight: {},
-    goal_weight: {},
-  };
+  const profileFields = {};
 
   profileFields.user = req.user.id;
 
-  if (req.body.height.value) profileFields.height.value = req.body.height.value;
-  if (req.body.height.unit) profileFields.height.unit = req.body.height.unit;
-  if (req.body.weight.value) profileFields.weight.value = req.body.weight.value;
-  if (req.body.weight.unit) profileFields.weight.unit = req.body.weight.unit;
-  if (req.body.goal_weight.value)
-    profileFields.goal_weight.value = req.body.goal_weight.value;
-  if (req.body.goal_weight.unit)
-    profileFields.goal_weight.unit = req.body.goal_weight.unit;
-  if (req.body.health_goal) profileFields.health_goal = req.body.health_goal;
+  if (req.body.method) profileFields.method = req.body.method;
+  if (req.body.roast) profileFields.roast = req.body.roast;
+  if (req.body.beans) profileFields.beans = req.body.beans;
+  if (req.body.taste) profileFields.taste = req.body.taste;
 
   profileModel
     .findOne({ user: req.user.id })
