@@ -1,14 +1,38 @@
 import React, { FC } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 //import styles and assets
 import styled from "styled-components";
 
-interface Props {
-  user?: any;
-}
+//redux
+import { connect } from "react-redux";
+import { logoutUser } from "../actions/authActions";
 
-const Header: FC<Props> = (props) => {
+const Header = (props) => {
+  const onLogoutClick = (e) => {
+    // e.preventDefault();
+    props.logoutUser();
+  };
+
+  const authLinks = (
+    <>
+      <div>Hi, {props.auth.user.name}</div>
+      <div onClick={onLogoutClick}>Logout</div>
+    </>
+  );
+
+  const guestLinks = (
+    <>
+      <Link to="/signup">
+        <div>Signup</div>
+      </Link>
+      <Link to="/login">
+        <div>Login</div>
+      </Link>
+    </>
+  );
+
   return (
     <Wrapper>
       <Container>
@@ -28,17 +52,7 @@ const Header: FC<Props> = (props) => {
           </Link>
         </Center>
         <Right className="flex">
-          {!props.user && (
-            <>
-              <Link to="/signup">
-                <div>Signup</div>
-              </Link>
-              <Link to="/login">
-                <div>Login</div>
-              </Link>
-            </>
-          )}
-          {props.user && <div>Hi, {props.user.name}</div>}
+          {props.auth.isAuthenticated ? authLinks : guestLinks}
         </Right>
       </Container>
     </Wrapper>
@@ -84,4 +98,13 @@ const Right = styled.div`
   }
 `;
 
-export default Header;
+Header.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logoutUser })(Header);
