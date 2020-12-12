@@ -1,40 +1,48 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import { productApi } from "../../services/api";
 
 //import components
 import HomePresenter from "./HomePresenter";
 
-const HomeContainer = () => {
+//redux
+import { connect } from "react-redux";
+import { getCollection } from "../../actions/collectActions";
+
+const HomeContainer = (props) => {
   const [data, setData] = useState({});
 
   const [products, setProducts] = useState([]);
 
   const getData = async () => {
-    const token = localStorage.getItem("token");
+    props.getCollection();
+    console.log(props);
 
-    const options = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    // const token = localStorage.getItem("jwtToken");
 
-    await axios
-      .get("http://localhost:5000/profile", options)
-      .then((res) => {
-        if (res.status === 200) {
-          setData(res.data);
-        }
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    // const options = {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // };
 
-    const allProducts = await productApi.getAll();
-    setProducts(allProducts.data.products);
+    // await axios
+    //   .get("http://localhost:5000/profile", options)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       // setData(res.data);
+    //       console.log("+++++++++++", res.data);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     alert(err);
+    //   });
+
+    // const allProducts = await productApi.getAll();
+    // setProducts(allProducts.data.products);
   };
 
-  console.log(products);
   useEffect(() => {
     getData();
   }, []);
@@ -42,4 +50,13 @@ const HomeContainer = () => {
   return <HomePresenter {...data} products={products} />;
 };
 
-export default HomeContainer;
+HomeContainer.propTypes = {
+  getCollection: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  data: state.data,
+});
+
+export default connect(mapStateToProps, { getCollection })(HomeContainer);

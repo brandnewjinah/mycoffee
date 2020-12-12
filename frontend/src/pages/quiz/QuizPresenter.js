@@ -20,9 +20,6 @@ const QuizPresenter = (props) => {
     roast: props.roast,
     beans: props.beans,
     taste: props.taste,
-    height: props.height,
-    weight: props.weight,
-    goal_weight: props.goal_weight,
   });
 
   const handleSelection = (option) => {
@@ -64,7 +61,7 @@ const QuizPresenter = (props) => {
         <p>{quiz && quiz.sub}</p>
       </Header>
 
-      {quiz && quiz.type === "selection" && (
+      {/* {quiz && quiz.type === "selection" && (
         <Grid>
           {quiz &&
             quiz.selections.map((option, idx) => (
@@ -78,7 +75,7 @@ const QuizPresenter = (props) => {
               </Selection>
             ))}
         </Grid>
-      )}
+      )} */}
 
       {quiz && quiz.type === "input" && (
         <Section>

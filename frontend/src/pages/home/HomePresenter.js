@@ -15,7 +15,7 @@ const HomePresenter = (props) => {
   return (
     <Wrapper>
       <Header>
-        <h2>My Profile</h2>
+        <h2>My Collection</h2>
       </Header>
       <Analyser>
         <h4>
