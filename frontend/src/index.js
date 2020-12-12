@@ -6,17 +6,12 @@ import GlobalStyle from "./components/globalStyle";
 
 //redux
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import createStore from "./store/store";
-
-const { store, persistor } = createStore();
+import store from "./store";
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <GlobalStyle />
-      <Routes />
-    </PersistGate>
+    <GlobalStyle />
+    <Routes />
   </Provider>,
   document.getElementById("root")
 );

@@ -48,6 +48,24 @@ const productSchema = mongoose.Schema(
         },
       },
     ],
+    notes: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "user",
+        },
+        text: {
+          type: String,
+        },
+        name: {
+          type: String,
+        },
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-import { Link } from "react-router-dom";
-
 //import components
-import { Section } from "../../components/Section";
 import Input from "../../components/Input";
 
 //import styles
 import styled from "styled-components";
-import { Heart } from "../../assets/Icons";
 import { Button } from "../../components/Button";
+
+//토큰에 있는 유저정보와 note의 유저정보를 match 해서 맞으면 note 가 보이게. 아니면 null.
 
 const DetailPresenter = (props) => {
   const [data, setData] = useState({
@@ -80,8 +78,8 @@ const DetailPresenter = (props) => {
         </Comments>
         <ListComment>
           {console.log(`++`, props)}
-          {/* {props.postComment &&
-            props.postComment.map((c, idx) => <div>{c.text}</div>)} */}
+          {props.comments &&
+            props.comments.map((c, idx) => <div>{c.text}</div>)}
         </ListComment>
       </Content>
     </Container>

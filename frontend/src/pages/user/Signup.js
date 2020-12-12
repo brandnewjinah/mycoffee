@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 
 //import styles and assets
 import styled from "styled-components";
@@ -7,8 +9,11 @@ import { Button } from "../../components/Button";
 
 //import components
 import Header from "../../components/Header";
-
 import Input from "../../components/Input";
+
+//redux
+import { connect } from "react-redux";
+import { registerUser } from "../../actions/authActions";
 
 const Signup = (props) => {
   const [data, setData] = useState({
@@ -64,19 +69,21 @@ const Signup = (props) => {
       password: data.password,
     };
 
-    await axios
-      .post("http://localhost:5000/user/signup", user)
-      .then((res) => {
-        if (res.status === 200) {
-          const token = res.data.userInfo.token;
-          localStorage.setItem("token", token);
-          alert("User Registered successfully");
-          window.location = "/login";
-        }
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    props.registerUser(user, props.history);
+
+    // await axios
+    //   .post("http://localhost:5000/user/signup", user)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       const token = res.data.userInfo.token;
+    //       localStorage.setItem("token", token);
+    //       alert("User Registered successfully");
+    //       window.location = "/login";
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     alert(err);
+    //   });
   };
 
   return (
@@ -163,4 +170,15 @@ const BtnContainer = styled.div`
   margin: 2em 0;
 `;
 
-export default Signup;
+Signup.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { registerUser })(withRouter(Signup));

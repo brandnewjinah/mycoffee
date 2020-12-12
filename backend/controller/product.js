@@ -105,6 +105,8 @@ exports.product_get_product = (req, res) => {
             price: product.price,
             image: product.image,
             description: product.description,
+            comments: product.comments,
+            notes: product.notes,
           },
           request: {
             type: "GET",
@@ -209,6 +211,23 @@ exports.product_post_comment = (req, res) => {
     .findById(req.params.product_id)
     .then((post) => {
       post.comments.unshift(newComment);
+      post.save().then((post) => res.json(post));
+    })
+    .catch((err) => res.status(404).json({ postnotfound: "No post found" }));
+};
+
+//post notes
+exports.product_post_notes = (req, res) => {
+  const newNotes = {
+    user: req.user._id,
+    text: req.body.text,
+    name: req.user.name,
+  };
+
+  productModel
+    .findById(req.params.product_id)
+    .then((post) => {
+      post.notes.unshift(newNotes);
       post.save().then((post) => res.json(post));
     })
     .catch((err) => res.status(404).json({ postnotfound: "No post found" }));

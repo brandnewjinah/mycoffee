@@ -11,6 +11,7 @@ const {
   product_delete_all,
   product_delete_product,
   product_post_comment,
+  product_post_notes,
 } = require("../controller/product");
 
 //create
@@ -29,5 +30,8 @@ router.get("/:productId", product_get_product);
 
 //add comment
 router.post("/comment/:product_id", checkAuth, product_post_comment);
+
+//add notes
+router.post("/notes/:product_id", checkAuth, product_post_notes);
 
 module.exports = router;
