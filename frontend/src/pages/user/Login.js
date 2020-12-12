@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 //import components
 import Header from "../../components/Header";
@@ -8,6 +8,10 @@ import Input from "../../components/Input";
 //import styles and assets
 import styled from "styled-components";
 import { Button } from "../../components/Button";
+
+//redux
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/authActions";
 
 const Login = (props) => {
   const [data, setData] = useState({
@@ -49,21 +53,14 @@ const Login = (props) => {
       password: data.password,
     };
 
-    await axios
-      .post("http://localhost:5000/user/login", user)
-      .then((res) => {
-        if (res.status === 200) {
-          console.log(res.data);
-          const token = res.data.token;
-          localStorage.setItem("token", token);
-          window.location = "/quiz";
-          alert("Logged in successfully");
-        }
-      })
-      .catch((err) => {
-        alert("Wrong email or password");
-      });
+    props.loginUser(user, props.history);
   };
+
+  // useEffect(() => {
+  //   if (props.auth.isAuthenticated) {
+  //     props.history.push("/home");
+  //   }
+  // }, []);
 
   return (
     <Wrapper>
@@ -127,4 +124,15 @@ const BtnContainer = styled.div`
   margin: 2em 0;
 `;
 
-export default Login;
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { loginUser })(Login);

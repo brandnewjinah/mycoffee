@@ -1,2 +1,3 @@
 export const GET_ERRORS = "GET_ERRORS";
 export const POST_REGISTRATION = "POST_REGISTRATION";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
