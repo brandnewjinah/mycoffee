@@ -9,7 +9,7 @@ export const EmptyCard = () => {
   return (
     <Wrapper>
       <Plus width="20" height="20" color="#000" stroke="2" />
-      Add to my collection
+      <h6>Add to my collection</h6>
     </Wrapper>
   );
 };
@@ -43,12 +43,18 @@ const Flex = styled.div`
 `;
 
 const Wrapper = styled(Flex)`
+  background-color: seashell;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
   height: 100%;
+  text-align: center;
   margin-bottom: 1.5em;
-  flex-direction: column;
-  background-color: seashell;
   padding: 2em;
+
+  h6 {
+    margin-top: 1em;
+  }
 `;
 
 const Wrapper2 = styled(Flex)`

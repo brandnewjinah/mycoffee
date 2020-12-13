@@ -8,7 +8,6 @@ import CollectionPresenter from "./CollectionPresenter";
 
 //redux
 import { connect } from "react-redux";
-import { getCollection } from "../../actions/collectActions";
 
 const CollectionContainer = (props) => {
   const data = useState({});
@@ -16,17 +15,12 @@ const CollectionContainer = (props) => {
   const products = useState([]);
 
   const getData = async () => {
-    props.getCollection();
-    console.log(props);
-
     // const token = localStorage.getItem("jwtToken");
-
     // const options = {
     //   headers: {
     //     Authorization: `Bearer ${token}`,
     //   },
     // };
-
     // await axios
     //   .get("http://localhost:5000/profile", options)
     //   .then((res) => {
@@ -38,7 +32,6 @@ const CollectionContainer = (props) => {
     //   .catch((err) => {
     //     alert(err);
     //   });
-
     // const allProducts = await productApi.getAll();
     // setProducts(allProducts.data.products);
   };
@@ -60,4 +53,4 @@ const mapStateToProps = (state) => ({
   data: state.data,
 });
 
-export default connect(mapStateToProps, { getCollection })(CollectionContainer);
+export default connect(mapStateToProps, null)(CollectionContainer);

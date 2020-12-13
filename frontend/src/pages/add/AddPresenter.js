@@ -1,19 +1,31 @@
 import React, { useState } from "react";
+import Select from "react-select";
 
 //import components
 import Input from "../../components/Input";
 import { Button } from "../../components/Button";
+
+//import data
+import { groupedOptions } from "../../data/flavor";
+
+//redux
+import { connect } from "react-redux";
+import { addCoffee } from "../../reducers/collectionReducer";
 
 //import styles and assets
 import styled from "styled-components";
 
 const AddPresenter = (props) => {
   const [data, setData] = useState({
+    //id automatically create an id
+    //connect to the collection array in redux
+    //find the length
+    //id = length + 1
     roaster: "",
     name: "",
     origin: "",
     roast: "",
-    taste: "",
+    flavor: [],
     price: "",
     image: "",
     description: "",
@@ -25,6 +37,13 @@ const AddPresenter = (props) => {
     const userInput = { ...data };
     userInput[input.name] = input.value;
     setData(userInput);
+  };
+
+  const formatGroupLabel = (data) => <span>{data.label}</span>;
+
+  const handleSelect = (value) => {
+    const coffee = { ...data, flavor: value };
+    setData(coffee);
   };
 
   const validate = () => {
@@ -47,7 +66,12 @@ const AddPresenter = (props) => {
     const errors = validate();
     setErrors(errors || {});
     if (errors) return;
-    props.postData(data);
+
+    let id = props.collection.length + 1;
+    let newData = { ...data, id: id };
+    // props.postData(data); //post to server
+    props.addCoffee(newData); //add to redux
+    window.location = "/collection";
   };
 
   return (
@@ -55,6 +79,7 @@ const AddPresenter = (props) => {
       <Header>
         <h2>Add coffee</h2>
       </Header>
+
       <Main>
         <form onSubmit={handleSubmit}>
           <Input
@@ -76,17 +101,22 @@ const AddPresenter = (props) => {
             handleChange={handleChange}
           />
           <Input
-            label="Roast"
+            label="Roast Level"
             name="roast"
             error={errors.roast}
             handleChange={handleChange}
           />
-          <Input
-            label="Taste"
-            name="taste"
-            error={errors.taste}
-            handleChange={handleChange}
-          />
+          <div>
+            <p>Flavor</p>
+            <Select
+              isMulti
+              defaultValue={[]}
+              options={groupedOptions}
+              formatGroupLabel={formatGroupLabel}
+              onChange={handleSelect}
+            />
+          </div>
+
           <Input
             label="Price"
             name="price"
@@ -109,6 +139,7 @@ const AddPresenter = (props) => {
             error={errors.description}
             handleChange={handleChange}
           />
+
           <Button label="Add" />
         </form>
       </Main>
@@ -135,29 +166,12 @@ const Main = styled.div`
   margin: 2em auto;
   width: 100%;
   max-width: 960px;
-
-  h4 {
-    font-size: 1.5rem;
-    line-height: 2.8rem;
-    letter-spacing: 0.125rem;
-    margin: 1.5em 0;
-    text-rendering: optimizeLegibility;
-  }
-
-  span {
-    position: relative;
-    text-transform: lowercase;
-    cursor: pointer;
-
-    &:after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-bottom: 3px solid #e89161;
-    }
-  }
 `;
 
-export default AddPresenter;
+const mapStateToProps = (state) => {
+  return {
+    collection: state.collection.collection,
+  };
+};
+
+export default connect(mapStateToProps, { addCoffee })(AddPresenter);

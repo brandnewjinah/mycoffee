@@ -6,7 +6,7 @@ import { EmptyCard, Card } from "../../components/Card";
 import { Section } from "../../components/Section";
 
 //redux
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 
 //import styles and assets
 import styled from "styled-components";
@@ -82,6 +82,7 @@ const CollectionPresenter = (props) => {
           tastes.
         </h4>
       </Analyser>
+
       <Collection>
         <Section>
           <Link to="/add">
@@ -153,4 +154,13 @@ const Collection = styled.div`
   margin: 3em auto;
 `;
 
-export default CollectionPresenter;
+const mapStateToProps = (state) => {
+  return {
+    method: state.quiz.method,
+    roast: state.quiz.roast,
+    beans: state.quiz.beans,
+    taste: state.quiz.taste,
+  };
+};
+
+export default connect(mapStateToProps, null)(CollectionPresenter);

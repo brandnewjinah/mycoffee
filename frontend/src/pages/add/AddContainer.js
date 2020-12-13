@@ -13,7 +13,6 @@ const AddContainer = () => {
   }, []);
 
   const postData = async (product) => {
-    // window.location = "/home";
     const token = localStorage.getItem("token");
 
     const options = {

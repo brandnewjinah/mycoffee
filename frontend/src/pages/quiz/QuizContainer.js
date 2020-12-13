@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { quizApi } from "../../services/api";
-import axios from "axios";
+// import axios from "axios";
 
 import QuizPresenter from "./QuizPresenter";
 
