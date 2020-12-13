@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 
 //import components
-import { EmptyCard, Card } from "../../components/Card";
+import { Card } from "../../components/Card";
 import { Section } from "../../components/Section";
 
 //redux
@@ -58,16 +57,5 @@ const Collection = styled.div`
   width: 100%;
   margin: 3em auto;
 `;
-
-const mapStateToProps = (state) => {
-  return {
-    method: state.method,
-    roast: state.roast,
-    beans: state.beans,
-    taste: state.taste,
-  };
-};
-
-// export default connect(mapStateToProps, null)(ProductPresenter);
 
 export default ProductPresenter;

@@ -69,20 +69,6 @@ const Signup = (props) => {
     };
 
     props.registerUser(user, props.history);
-
-    // await axios
-    //   .post("http://localhost:5000/user/signup", user)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       const token = res.data.userInfo.token;
-    //       localStorage.setItem("token", token);
-    //       alert("User Registered successfully");
-    //       window.location = "/login";
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
   };
 
   return (
@@ -138,11 +124,6 @@ const Signup = (props) => {
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
-  /* display: flex;
-
-  @media (max-width: 840px) {
-    flex-direction: column;
-  } */
 `;
 
 const Main = styled.div`

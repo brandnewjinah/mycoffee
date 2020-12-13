@@ -1,8 +1,7 @@
-import React, { ChangeEvent, FC } from "react";
+import React, { FC } from "react";
 
 //import styles and assets
 import styled from "styled-components";
-import { ArrowRight, ArrowLeft } from "../assets/Icons";
 
 interface Props {
   label?: string;

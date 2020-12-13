@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 //redux
-import { connect } from "react-redux";
+import { connect } from "../collection/node_modules/react-redux";
 
 //import styles and assets
 import styled from "styled-components";

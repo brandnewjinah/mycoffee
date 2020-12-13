@@ -21,6 +21,7 @@ const QuizContainer = (props) => {
 
   useEffect(() => {
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const handlePrev = () => {
@@ -36,25 +37,27 @@ const QuizContainer = (props) => {
   };
 
   const postData = async (profile) => {
-    // window.location = "/home";
-    const token = localStorage.getItem("token");
+    window.location = "/collection";
 
-    const options = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    // //connect to server
+    // const token = localStorage.getItem("token");
 
-    await axios
-      .post("http://localhost:5000/profile", profile, options)
-      .then((res) => {
-        if (res.status === 200) {
-          window.location = "/home";
-        }
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    // const options = {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // };
+
+    // await axios
+    //   .post("http://localhost:5000/profile", profile, options)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       window.location = "/home";
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     alert(err);
+    //   });
   };
 
   return (

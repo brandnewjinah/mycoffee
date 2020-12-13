@@ -235,4 +235,36 @@ export const Coffee = ({ width, height, stroke, color }) => {
   );
 };
 
+export const Blob = ({ width, height, fill }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 200 200"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill={fill}
+        d="M142.9 44.6c10.4 13.1 15.1 28.7 21.4 46.7 6.3 18 14.2 38.3 8.3 52.7-5.8 14.4-25.5 23-44.8 28.2-19.3 5.2-38.3 7-55.1 1.5-16.7-5.6-31.2-18.6-40.5-34.6S18.8 104 23.8 88.5c5.1-15.4 19.4-27.3 33.6-39.7C71.6 36.4 85.8 23.5 101 22.3c15.2-1.2 31.4 9.2 41.9 22.3z"
+      />
+    </svg>
+  );
+};
+
+export const Blob2 = ({ width, height, fill }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 180 180"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill={fill}
+        d="M157.2 51.6c13.4 19.5 18.1 43.1 12.2 62.2-6 19.1-22.7 33.7-40.3 39.3-17.5 5.7-35.9 2.3-57.1-4.3-21.2-6.7-45.2-16.6-52.1-34.1-6.8-17.5 3.5-42.5 19.8-62.7 16.2-20.2 38.2-35.5 60.2-35.5 22 .1 44 15.6 57.3 35.1z"
+      />
+    </svg>
+  );
+};
+
 //width="20" height="20" color="#000" stroke="2"

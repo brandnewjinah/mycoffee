@@ -1,167 +1,107 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 //import components
-import { EmptyCard, Card } from "../../components/Card";
-import { Section } from "../../components/Section";
+import Header from "../../components/Header";
+import { Button, BtnText } from "../../components/Button";
 
 //redux
 // import { connect } from "react-redux";
 
 //import styles and assets
 import styled from "styled-components";
+import { Blob, Blob2 } from "../../assets/Icons";
 
 const HomePresenter = (props) => {
   return (
     <Wrapper>
-      <Header>
-        <h2>My Collection</h2>
-      </Header>
-      <Analyser>
-        <h4>
-          I brew my coffee with{" "}
-          {props.method &&
-            props.method.map((m, idx, arr) =>
-              arr.length > 1 && idx === arr.length - 1 ? (
-                <>
-                  and <span key={idx}>{m.title}</span>
-                </>
-              ) : idx === arr.length - 1 ? (
-                <span key={idx}>{m.title}</span>
-              ) : (
-                <>
-                  <span key={idx}>{m.title}</span>,{" "}
-                </>
-              )
-            )}
-          . I enjoy{" "}
-          {props.roast &&
-            props.roast.map((r, idx, arr) =>
-              arr.length > 1 && idx === arr.length - 1 ? (
-                <>
-                  and <span key={idx}>{r.title}</span>
-                </>
-              ) : idx === arr.length - 1 ? (
-                <span key={idx}>{r.title}</span>
-              ) : (
-                <>
-                  <span key={idx}>{r.title}</span>,{" "}
-                </>
-              )
-            )}
-          . I usually buy{" "}
-          {props.beans &&
-            props.beans.map((b, idx, arr) =>
-              arr.length > 1 && idx === arr.length - 1 ? (
-                <>
-                  and <span key={idx}>{b.title}</span>
-                </>
-              ) : idx === arr.length - 1 ? (
-                <span key={idx}>{b.title}</span>
-              ) : (
-                <>
-                  <span key={idx}>{b.title}</span>,{" "}
-                </>
-              )
-            )}
-          . I like{" "}
-          {props.taste &&
-            props.taste.map((t, idx, arr) =>
-              arr.length > 1 && idx === arr.length - 1 ? (
-                <>
-                  and <span key={idx}>{t.title}</span>
-                </>
-              ) : idx === arr.length - 1 ? (
-                <span key={idx}>{t.title}</span>
-              ) : (
-                <>
-                  <span key={idx}>{t.title}</span>,{" "}
-                </>
-              )
-            )}{" "}
-          tastes.
-        </h4>
-      </Analyser>
-      <Collection>
-        <Section>
-          <Link to="/add">
-            <EmptyCard />
+      <Top>
+        <Header />
+      </Top>
+      <Container>
+        <div className="blob1">
+          <Blob width="800" height="800" fill="#ffbd59" />
+        </div>
+        <div className="blob2">
+          <Blob2 width="600" height="600" fill="#d3b88c" />
+        </div>
+        <Main>
+          <h1>Home Barista</h1>
+          <h4>This is where I keep track of all my coffee things</h4>
+          <Link to="/quiz">
+            <div className="btnContainer">
+              <Button label="Take Quiz" imp="primary" />
+            </div>
           </Link>
-          {props.products &&
-            props.products.map((p, idx) => (
-              <Card
-                key={idx}
-                imageUrl={p.image}
-                roaster={p.roaster}
-                name={p.name}
-                roast={p.roast}
-              />
-            ))}
-        </Section>
-      </Collection>
+          <BtnText label="View My Profile" />
+        </Main>
+      </Container>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  width: 100%;
-  margin: 3em auto;
+  background-color: #feead4;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  z-index: 1;
 `;
 
-const Header = styled.div`
+const Top = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+`;
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+
+  .blob1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: -10%;
+    margin-left: -10%;
+  }
+
+  .blob2 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: -10%;
+    margin-right: -10%;
+  }
+`;
+
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  h2 {
-    font-size: 2.8rem;
-    font-weight: 500;
-  }
-`;
+  z-index: 2;
 
-const Analyser = styled.div`
-  margin: 2em auto;
-  width: 100%;
-  max-width: 960px;
-  text-align: center;
+  h1 {
+    text-align: center;
+  }
 
   h4 {
-    font-size: 1.5rem;
-    line-height: 2.8rem;
-    letter-spacing: 0.125rem;
-    margin: 1.5em 0;
-    text-rendering: optimizeLegibility;
+    margin: 0.5em;
   }
 
-  span {
-    position: relative;
-    text-transform: lowercase;
+  .btnContainer {
+    margin: 1.5em;
     cursor: pointer;
-
-    &:after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-bottom: 3px solid #e89161;
-    }
   }
 `;
-
-const Collection = styled.div`
-  width: 100%;
-  margin: 3em auto;
-`;
-
-const mapStateToProps = (state) => {
-  return {
-    method: state.method,
-    roast: state.roast,
-    beans: state.beans,
-    taste: state.taste,
-  };
-};
-
-// export default connect(mapStateToProps, null)(HomePresenter);
 
 export default HomePresenter;

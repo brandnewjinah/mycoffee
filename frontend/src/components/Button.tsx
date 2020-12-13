@@ -25,7 +25,7 @@ export const Button: FC<Props> = ({
 }) => {
   return (
     <Wrapper
-      style={{ backgroundColor: imp === "primary" ? "#f2665c" : "#f2665c" }}
+      style={{ backgroundColor: imp === "primary" ? "#d46f4a" : "#f2665c" }}
       onClick={handleClick}
     >
       {label}
@@ -41,9 +41,9 @@ export const BtnArrow: FC<Props> = ({ label, direction, handleClick }) => {
   return (
     <Circle onClick={handleClick}>
       {direction === "left" ? (
-        <ArrowLeft width="20" height="20" color="#000" stroke="2" />
+        <ArrowLeft width="20" height="20" color="#fff" stroke="2" />
       ) : (
-        <ArrowRight width="20" height="20" color="#000" stroke="2" />
+        <ArrowRight width="20" height="20" color="#fff" stroke="2" />
       )}
     </Circle>
   );
@@ -68,18 +68,18 @@ const Wrapper = styled.button`
   text-transform: uppercase;
   padding: 1.5em 3.5em;
   cursor: pointer;
-  transition: opacity 0.15s linear;
-
-  &:hover {
-    opacity: 0.8;
-  }
+  transition: opacity 0.25s linear;
 `;
 
 const Text = styled.button`
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.025rem;
+  color: #54494b;
   outline: transparent;
   border: transparent;
   background-color: transparent;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #54494b;
   cursor: pointer;
 
   &:hover {
@@ -91,6 +91,8 @@ const Circle = styled.button`
   display: flex;
   padding: 1em;
   border-radius: 50%;
+  background-color: #d46f4a;
   border: none;
+  outline: transparent;
   cursor: pointer;
 `;

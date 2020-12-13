@@ -9,9 +9,10 @@ import { Selector } from "../../components/Selector";
 
 //redux
 import { connect } from "react-redux";
-import { addProfile } from "../../store/quiz";
+import { addProfile } from "../../reducers/quizReducer";
 
 const QuizPresenter = (props) => {
+  console.log(props);
   const quiz = props.quiz && props.quiz;
   const page = props.quiz && props.quiz.page;
   const name = quiz && quiz.name;
@@ -57,25 +58,25 @@ const QuizPresenter = (props) => {
   return (
     <Wrapper>
       <Header>
-        <h4>{quiz && quiz.header}</h4>
+        <h3>{quiz && quiz.header}</h3>
         <p>{quiz && quiz.sub}</p>
       </Header>
 
-      {/* {quiz && quiz.type === "selection" && (
+      {quiz && quiz.type === "selection" && (
         <Grid>
           {quiz &&
             quiz.selections.map((option, idx) => (
               <Selection key={idx} onClick={() => handleSelection(option)}>
                 {profile[name].find((f) => f.id === option.id) && (
                   <div>
-                    <Check width="20" height="20" color="#000" stroke="2" />
+                    <Check width="20" height="20" color="#d46f4a" stroke="3" />
                   </div>
                 )}
                 {option.title}
               </Selection>
             ))}
         </Grid>
-      )} */}
+      )}
 
       {quiz && quiz.type === "input" && (
         <Section>
@@ -121,6 +122,7 @@ const QuizPresenter = (props) => {
 
 const Wrapper = styled.div`
   width: 100%;
+  height: 100vh;
   margin: 3em auto;
 `;
 
@@ -132,6 +134,10 @@ const Flex = styled.div`
 
 const Header = styled.div`
   text-align: center;
+
+  h3 {
+    font-weight: 600;
+  }
 
   p {
     margin: 1em 0;
@@ -155,7 +161,7 @@ const Selection = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: aliceblue;
+  border: 1px solid #d3b88c;
   width: 20em;
   padding: 2em;
   text-align: center;
@@ -187,13 +193,10 @@ const Buttons = styled.div`
 
 const mapStateToProps = (state) => {
   return {
-    method: state.method,
-    roast: state.roast,
-    beans: state.beans,
-    taste: state.taste,
-    height: state.height,
-    weight: state.weight,
-    goal_weight: state.goal_weight,
+    method: state.quiz.method,
+    roast: state.quiz.roast,
+    beans: state.quiz.beans,
+    taste: state.quiz.taste,
   };
 };
 

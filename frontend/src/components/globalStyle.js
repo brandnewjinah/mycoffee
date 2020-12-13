@@ -24,8 +24,8 @@ const GlobalStyle = createGlobalStyle`
     }
     h1 {
         font-weight: 600;
-        font-size: 3.25rem;
-        line-height: 2.375rem;
+        font-size: 4rem;
+        line-height: 3.75rem;
     }
     h2 {
         font-weight: 500;
@@ -73,7 +73,7 @@ const GlobalStyle = createGlobalStyle`
         &:hover,
         &:focus {
           outline: 0;
-          opacity: 0.5;
+          opacity: 0.75;
         }
     }
     code {

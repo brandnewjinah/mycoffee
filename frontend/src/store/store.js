@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, combineReducers } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import quizReducer from "./quiz";
@@ -22,6 +22,7 @@ const initialStore = {
 const middleware = [thunk];
 const persistedReducer = persistReducer(persistConfig, quizReducer);
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
   const store = createStore(
     persistedReducer,

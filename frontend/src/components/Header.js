@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
@@ -38,7 +38,7 @@ const Header = (props) => {
       <Container>
         <Left>Logo</Left>
         <Center>
-          <Link to="/home">
+          <Link to="/collection">
             <Category>My Collection</Category>
           </Link>
           <Link to="/products">

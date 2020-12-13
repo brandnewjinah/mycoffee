@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import jwtDecode from "jwt-decode";
 import axios from "axios";
 
 //import components
@@ -55,7 +54,9 @@ const Layout = ({ children }) => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  background-color: #fffdfa;
+`;
 
 const Container = styled.main`
   width: 100%;

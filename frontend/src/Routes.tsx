@@ -6,6 +6,7 @@ import Layout from "./components/Layout";
 
 //import pages
 import Home from "./pages/home";
+import Collection from "./pages/collection";
 import Signup from "./pages/user/Signup";
 import Login from "./pages/user/Login";
 import Setup1 from "./pages/profile/Setup1";
@@ -21,8 +22,9 @@ const Routes = () => {
       <Switch>
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Home} />
         <Layout>
-          <Route exact path="/home" component={Home} />
+          <Route exact path="/collection" component={Collection} />
           <Route exact path="/setup1" component={Setup1} />
           <Route exact path="/suggested" component={Suggested} />
           <Route exact path="/quiz" component={Quiz} />

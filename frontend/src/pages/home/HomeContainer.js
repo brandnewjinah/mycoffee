@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
-import { productApi } from "../../services/api";
+// import axios from "axios";
+// import { productApi } from "../../services/api";
 
 //import components
 import HomePresenter from "./HomePresenter";
@@ -11,9 +11,9 @@ import { connect } from "react-redux";
 import { getCollection } from "../../actions/collectActions";
 
 const HomeContainer = (props) => {
-  const [data, setData] = useState({});
+  const data = useState({});
 
-  const [products, setProducts] = useState([]);
+  const products = useState([]);
 
   const getData = async () => {
     props.getCollection();
@@ -45,6 +45,7 @@ const HomeContainer = (props) => {
 
   useEffect(() => {
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <HomePresenter {...data} products={products} />;

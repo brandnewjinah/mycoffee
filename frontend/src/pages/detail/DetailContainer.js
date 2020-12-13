@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { productApi } from "../../services/api";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import DetailPresenter from "./DetailPresenter";
 
@@ -18,6 +17,7 @@ const DetailContainer = ({ pathname }) => {
 
   useEffect(() => {
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   // const postComment = async (comment) => {
