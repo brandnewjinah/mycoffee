@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 //import components
 import Input from "../../components/Input";
+import { DetailCard } from "../../components/Card";
+
+//import redux
+import { connect } from "react-redux";
+import { deleteCoffee } from "../../reducers/collectionReducer";
 
 //import styles
 import styled from "styled-components";
@@ -43,6 +49,11 @@ const DetailPresenter = (props) => {
       });
   };
 
+  const editCoffee = () => {
+    // props.deleteCoffee(props.item);
+    // window.location = "/collection";
+  };
+
   return (
     <Container>
       <Content>
@@ -50,18 +61,42 @@ const DetailPresenter = (props) => {
           <ImageContainer>
             <Image
               src={
-                props.image
-                  ? props.image
+                props.item.image
+                  ? props.item.image
                   : "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
               }
             />
           </ImageContainer>
           <Data>
-            <Subtitle>{props.roaster && props.roaster}</Subtitle>
-            <Title>{props.name && props.name}</Title>
-            <p>{props.description && props.description}</p>
+            <h4>{props.item.roaster && props.item.roaster}</h4>
+            <h2>{props.item.name && props.item.name}</h2>
+            <p>{props.item.description && props.item.description}</p>
           </Data>
         </Header>
+        <More>
+          {props.item.origin && (
+            <DetailCard header="Origin">
+              <span>{props.item.origin}</span>
+            </DetailCard>
+          )}
+          {props.item.roast && (
+            <DetailCard header="Roast Level">
+              {props.item.roast.map((r, idx) => (
+                <span key={idx}>{r.label}</span>
+              ))}
+            </DetailCard>
+          )}
+          {props.item.flavor && (
+            <DetailCard header="Flavor">
+              <Flavor>
+                {props.item.flavor &&
+                  props.item.flavor.map((f, idx) => (
+                    <span key={idx}>{f.label}</span>
+                  ))}
+              </Flavor>
+            </DetailCard>
+          )}
+        </More>
         <Comments>
           <div style={{ width: `85%` }}>
             <Input
@@ -76,14 +111,21 @@ const DetailPresenter = (props) => {
           </div>
         </Comments>
         <ListComment>
-          {console.log(`++`, props)}
-          {props.comments &&
-            props.comments.map((c, idx) => <div>{c.text}</div>)}
+          {props.item.comments &&
+            props.item.comments.map((c, idx) => <div>{c.text}</div>)}
         </ListComment>
+        <Link to={`/edit/${props.item.id}`}>
+          <div>Edit</div>
+        </Link>
       </Content>
     </Container>
   );
 };
+
+const Flex = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const Container = styled.div`
   /* margin: 6em auto; */
@@ -94,7 +136,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  margin: 6em auto;
+  margin: 0 auto;
   width: 100%;
   max-width: 1260px;
   position: relative;
@@ -102,10 +144,7 @@ const Content = styled.div`
   height: 100%;
 `;
 
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-`;
+const Header = styled(Flex)``;
 
 const Image = styled.img`
   width: 100%;
@@ -116,26 +155,46 @@ const Image = styled.img`
 `;
 
 const ImageContainer = styled.div`
-  width: 45%;
+  width: 50%;
   position: relative;
 `;
 
 const Data = styled.div`
   width: 70%;
   margin-left: 4em;
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
 `;
 
-const Title = styled.h3`
-  font-size: 2rem;
+const Flavor = styled.div`
+  margin-bottom: 1em;
+
+  span {
+    font-size: 0.875rem;
+    background-color: #eee;
+    border-radius: 1em;
+    padding: 0.25em 0.75em;
+    margin-left: 0.5em;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
 `;
 
-const Subtitle = styled.h4`
-  font-size: 1rem;
+const More = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2em;
 `;
 
-const Comments = styled.div`
-  display: flex;
-  align-items: center;
+const Comments = styled(Flex)`
   justify-content: space-between;
   width: 100%;
   font-size: 16px;
@@ -144,4 +203,10 @@ const Comments = styled.div`
 
 const ListComment = styled.div``;
 
-export default DetailPresenter;
+const mapStateToProps = (state) => {
+  return {
+    collection: state.collection.collection,
+  };
+};
+
+export default connect(mapStateToProps, { deleteCoffee })(DetailPresenter);

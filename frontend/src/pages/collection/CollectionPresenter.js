@@ -4,14 +4,19 @@ import { Link } from "react-router-dom";
 //import components
 import { EmptyCard, Card } from "../../components/Card";
 import { Section } from "../../components/Section";
+import { Button } from "../../components/Button";
 
 //redux
 import { connect } from "react-redux";
+import { resetCoffee } from "../../reducers/collectionReducer";
 
 //import styles and assets
 import styled from "styled-components";
 
 const CollectionPresenter = (props) => {
+  const handleReset = () => {
+    props.resetCoffee(1);
+  };
   return (
     <Wrapper>
       <Header>
@@ -85,21 +90,22 @@ const CollectionPresenter = (props) => {
 
       <Collection>
         <Section>
-          <Link to="/add">
-            <EmptyCard />
-          </Link>
-          {props.products &&
-            props.products.map((p, idx) => (
+          <EmptyCard label="Add to my collection" path="/add" />
+          {props.collection &&
+            props.collection.map((p, idx) => (
               <Card
                 key={idx}
+                id={p.id}
                 imageUrl={p.image}
                 roaster={p.roaster}
                 name={p.name}
                 roast={p.roast}
+                toDetail={true}
               />
             ))}
         </Section>
       </Collection>
+      <Button label="reset" handleClick={handleReset} />
     </Wrapper>
   );
 };
@@ -160,7 +166,8 @@ const mapStateToProps = (state) => {
     roast: state.quiz.roast,
     beans: state.quiz.beans,
     taste: state.quiz.taste,
+    collection: state.collection.collection,
   };
 };
 
-export default connect(mapStateToProps, null)(CollectionPresenter);
+export default connect(mapStateToProps, { resetCoffee })(CollectionPresenter);

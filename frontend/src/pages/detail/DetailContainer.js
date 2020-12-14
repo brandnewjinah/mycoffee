@@ -2,17 +2,24 @@ import React, { useEffect, useState } from "react";
 import { productApi } from "../../services/api";
 import { useParams } from "react-router-dom";
 
+//import redux
+import { connect } from "react-redux";
+
+//import components
 import DetailPresenter from "./DetailPresenter";
 
-const DetailContainer = ({ pathname }) => {
+const DetailContainer = (props) => {
   let { id } = useParams();
-
-  const [detail, setDetail] = useState({});
+  const [item, setItem] = useState({});
 
   const getData = async () => {
-    const productDetail = await productApi.getDetail(id);
-    // setDetail(allProducts.data.products);
-    setDetail(productDetail.data.productInfo);
+    //from redux store
+    const currentItem = props.collection.find((c) => c.id === parseInt(id));
+    setItem(currentItem);
+
+    // //connect to server
+    // const productDetail = await productApi.getDetail(id);
+    // setDetail(productDetail.data.productInfo);
   };
 
   useEffect(() => {
@@ -41,7 +48,13 @@ const DetailContainer = ({ pathname }) => {
   //     });
   // };
 
-  return <DetailPresenter {...detail} />;
+  return <DetailPresenter item={item} />;
 };
 
-export default DetailContainer;
+const mapStateToProps = (state) => {
+  return {
+    collection: state.collection.collection,
+  };
+};
+
+export default connect(mapStateToProps, null)(DetailContainer);

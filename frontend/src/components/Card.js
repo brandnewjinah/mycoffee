@@ -1,39 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 //import styles and assets
 import styled from "styled-components";
-import { Plus } from "../assets/Icons";
+import { Plus, Coffee } from "../assets/Icons";
 
-export const EmptyCard = () => {
+export const EmptyCard = ({ label, path }) => {
   return (
-    <Wrapper>
-      <Plus width="20" height="20" color="#000" stroke="2" />
-      <h6>Add to my collection</h6>
-    </Wrapper>
+    <Link to={path}>
+      <Wrapper>
+        <Plus width="20" height="20" color="#000" stroke="2" />
+        <h6>{label}</h6>
+      </Wrapper>
+    </Link>
   );
 };
 
 export const Card = ({ imageUrl, roaster, name, roast, toDetail, id }) => {
+  const [imgErr, setImgErr] = useState(false);
+
+  const handleDefaultImg = (e) => {
+    if (e.type === "error") {
+      setImgErr(true);
+    }
+  };
+
   return (
     <Link to={toDetail && `/products/${id}`}>
       <Wrapper2>
         <ImageContainer>
-          <Image
+          {/* <Image
+            onError={handleDefaultImg}
             src={
               imageUrl
                 ? imageUrl
                 : "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
             }
-          />
+          /> */}
+          {imgErr ? (
+            <ErrImg>
+              <Coffee width="20" height="20" color="#8F8F8F" stroke="2" />
+            </ErrImg>
+          ) : (
+            <Image
+              onError={handleDefaultImg}
+              src={imageUrl ? imageUrl : setImgErr(true)}
+            />
+          )}
         </ImageContainer>
-        <Title>{roaster}</Title>
         <Details>
-          <div>{name}</div>
-          <div>{roast}</div>
+          <div className="sub">{roaster}</div>
+          <div className="title">{name}</div>
+          <div>
+            {roast.map((r, idx, arr) =>
+              idx === arr.length - 1 ? (
+                <span key={idx}>{r.label}</span>
+              ) : (
+                <>
+                  <span key={idx}>{r.label}</span>,{" "}
+                </>
+              )
+            )}
+          </div>
         </Details>
       </Wrapper2>
     </Link>
+  );
+};
+
+export const DetailCard = ({ header, children }) => {
+  return (
+    <Wrapper2>
+      <h6>{header}</h6>
+      <Details>{children}</Details>
+    </Wrapper2>
   );
 };
 
@@ -59,18 +99,24 @@ const Wrapper = styled(Flex)`
 
 const Wrapper2 = styled(Flex)`
   width: 100%;
-  margin-bottom: 1.5em;
   flex-direction: column;
+  background-color: #fff;
   border: 1px solid whitesmoke;
+  padding-bottom: 1em;
 `;
 
 const Image = styled.img`
   width: 100%;
   height: auto;
-  /* min-height: 348px; */
+  min-height: 169px;
   object-fit: contain;
   transition: opacity 0.1s linear;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.1); */
+`;
+
+const ErrImg = styled(Flex)`
+  justify-content: center;
+  min-height: 169px;
 `;
 
 const ImageContainer = styled.div`
@@ -82,22 +128,26 @@ const ImageContainer = styled.div`
   }
 `;
 
-const Title = styled.span`
-  display: block;
-  font-size: 1rem;
-  font-weight: 500;
-  margin: 0.5em 0;
-`;
-
 const Details = styled.span`
   display: flex;
   flex-direction: column;
   align-items: center;
-  div {
+
+  .sub {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 0.875rem;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  p {
     font-size: 0.75rem;
-    margin: 0.25em 0;
-    /* &:not(:last-child):after {
-      content: " \\B7\\a0 ";
-    } */
+  }
+
+  span {
+    font-size: 0.75rem;
   }
 `;

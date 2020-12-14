@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import { useHistory } from "react-router-dom";
 
 //import components
 import Input from "../../components/Input";
@@ -11,12 +12,14 @@ import { roastLevel } from "../../data/data";
 
 //redux
 import { connect } from "react-redux";
-import { addCoffee } from "../../reducers/collectionReducer";
+import { addCoffee, editCoffee } from "../../reducers/collectionReducer";
 
 //import styles and assets
 import styled from "styled-components";
 
-const AddPresenter = (props) => {
+const EditPresenter = (props) => {
+  const history = useHistory();
+
   const [data, setData] = useState({
     roaster: "",
     name: "",
@@ -26,7 +29,15 @@ const AddPresenter = (props) => {
     price: "",
     image: "",
     description: "",
+    id: "",
   });
+
+  useEffect(() => {
+    const currentItem = props.collection.find(
+      (c) => c.id === parseInt(props.id)
+    );
+    setData(currentItem);
+  }, []);
 
   const [errors, setErrors] = useState({});
 
@@ -69,17 +80,17 @@ const AddPresenter = (props) => {
     setErrors(errors || {});
     if (errors) return;
 
-    let id = props.collection.length + 1;
-    let newData = { ...data, id: id };
     // props.postData(data); //post to server
-    props.addCoffee(newData); //add to redux
-    window.location = "/collection";
+    props.editCoffee(data); //add to redux
+    alert("Updated");
+    history.push(`/products/${data.id}`);
   };
 
+  console.log(props.collection);
   return (
     <Wrapper>
       <Header>
-        <h2>Add coffee</h2>
+        <h2>Edit coffee</h2>
       </Header>
 
       <Main>
@@ -87,18 +98,21 @@ const AddPresenter = (props) => {
           <Input
             label="Roaster"
             name="roaster"
+            value={data.roaster}
             error={errors.roaster}
             handleChange={handleChange}
           />
           <Input
             label="Name"
             name="name"
+            value={data.name}
             error={errors.name}
             handleChange={handleChange}
           />
           <Input
             label="Origin"
             name="origin"
+            value={data.origin}
             error={errors.origin}
             handleChange={handleChange}
           />
@@ -151,7 +165,7 @@ const AddPresenter = (props) => {
             handleChange={handleChange}
           />
 
-          <Button label="Add" />
+          <Button label="Edit" />
         </form>
       </Main>
     </Wrapper>
@@ -185,4 +199,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addCoffee })(AddPresenter);
+export default connect(mapStateToProps, { addCoffee, editCoffee })(
+  EditPresenter
+);

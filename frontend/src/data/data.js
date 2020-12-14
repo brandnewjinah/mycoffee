@@ -137,3 +137,22 @@ export const quizContents = [
     ],
   },
 ];
+
+export const roastLevel = [
+  {
+    id: 1,
+    name: "Light",
+  },
+  {
+    id: 2,
+    name: "Medium",
+  },
+  {
+    id: 3,
+    name: "Dark",
+  },
+  {
+    id: 4,
+    name: "Not Sure",
+  },
+];
