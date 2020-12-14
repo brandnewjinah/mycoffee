@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 
 //import components
-import { Input } from "../../components/Input";
+import Input from "../../components/Input";
 import { Button } from "../../components/Button";
 
 //import data
@@ -26,7 +26,6 @@ const AddPresenter = (props) => {
     price: "",
     image: "",
     description: "",
-    notes: [],
   });
 
   const [errors, setErrors] = useState({});
@@ -80,7 +79,7 @@ const AddPresenter = (props) => {
   return (
     <Wrapper>
       <Header>
-        <h2>Add coffee</h2>
+        <h2>Add Notes</h2>
       </Header>
 
       <Main>

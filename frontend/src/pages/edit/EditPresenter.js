@@ -3,7 +3,7 @@ import Select from "react-select";
 import { useHistory } from "react-router-dom";
 
 //import components
-import Input from "../../components/Input";
+import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 
 //import data

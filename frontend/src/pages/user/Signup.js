@@ -8,7 +8,7 @@ import { Button } from "../../components/Button";
 
 //import components
 import Header from "../../components/Header";
-import Input from "../../components/Input";
+import { Input } from "../../components/Input";
 
 //redux
 import { connect } from "react-redux";

@@ -3,6 +3,8 @@ const ADD_COFFEE = "ADD_COFFEE";
 const EDIT_COFFEE = "EDIT_COFFEE";
 const DELETE_COFFEE = "DELETE_COFFEE";
 const RESET_COFFEE = "RESET_COFFEE";
+const ADD_NOTE = "ADD_NOTE";
+const DELETE_NOTE = "DELETE_NOTE";
 
 // Action creators
 export const addCoffee = (item) => {
@@ -49,6 +51,28 @@ export const resetCoffee = (item) => {
   };
 };
 
+export const addNote = (item) => {
+  return (dispatch) => {
+    dispatch({
+      type: ADD_NOTE,
+      payload: {
+        item,
+      },
+    });
+  };
+};
+
+export const deleteNote = (item) => {
+  return (dispatch) => {
+    dispatch({
+      type: DELETE_NOTE,
+      payload: {
+        item,
+      },
+    });
+  };
+};
+
 // State
 const initialState = {
   collection: [],
@@ -70,6 +94,42 @@ const reducer = (state = initialState, action) => {
       (item) => item.id === updatedCoffee.id
     );
     newCollection[index] = updatedCoffee;
+
+    return { ...state, collection: newCollection };
+  }
+
+  if (action.type === ADD_NOTE) {
+    let newNote = action.payload.item;
+    let newCollection = [...state.collection];
+
+    const index = newCollection.findIndex(
+      (item) => item.id === newNote.coffeeId
+    );
+
+    let thisCoffee = newCollection[index];
+    let notes = [...thisCoffee.notes, newNote];
+    thisCoffee = { ...thisCoffee, notes: notes };
+
+    newCollection[index] = thisCoffee;
+
+    return { ...state, collection: newCollection };
+  }
+
+  if (action.type === DELETE_NOTE) {
+    let thisNote = action.payload.item;
+    let newCollection = [...state.collection];
+
+    const index = newCollection.findIndex(
+      (item) => item.id === thisNote.coffeeId
+    );
+
+    let thisCoffee = newCollection[index];
+    let notes = [...thisCoffee.notes];
+
+    notes = notes.filter((n) => n.id !== thisNote.id);
+    thisCoffee = { ...thisCoffee, notes: notes };
+
+    newCollection[index] = thisCoffee;
 
     return { ...state, collection: newCollection };
   }

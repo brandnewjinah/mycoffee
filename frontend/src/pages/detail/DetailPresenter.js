@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 //import components
-import Input from "../../components/Input";
+import { Input } from "../../components/Input";
 import { DetailCard } from "../../components/Card";
+import Table from "../../components/Table";
 
 //import redux
 import { connect } from "react-redux";
-import { deleteCoffee } from "../../reducers/collectionReducer";
+import {
+  deleteCoffee,
+  addNote,
+  deleteNote,
+} from "../../reducers/collectionReducer";
+
+//imprt data
+import { testTable } from "../../data/data";
 
 //import styles
 import styled from "styled-components";
@@ -17,6 +25,7 @@ import { Button } from "../../components/Button";
 //토큰에 있는 유저정보와 note의 유저정보를 match 해서 맞으면 note 가 보이게. 아니면 null.
 
 const DetailPresenter = (props) => {
+  const history = useHistory();
   const [data, setData] = useState({
     text: "",
   });
@@ -54,6 +63,18 @@ const DetailPresenter = (props) => {
     // window.location = "/collection";
   };
 
+  const postNote = (note) => {
+    let id = props.item.notes.length + 1;
+    const thisNote = { ...note, coffeeId: props.item.id, id: id };
+    props.addNote(thisNote);
+    history.go(0);
+  };
+
+  const deleteNote = (note) => {
+    props.deleteNote(note);
+    history.go(0);
+  };
+
   return (
     <Container>
       <Content>
@@ -71,6 +92,9 @@ const DetailPresenter = (props) => {
             <h4>{props.item.roaster && props.item.roaster}</h4>
             <h2>{props.item.name && props.item.name}</h2>
             <p>{props.item.description && props.item.description}</p>
+            <Link to={`/edit/${props.item.id}`}>
+              <div>Edit</div>
+            </Link>
           </Data>
         </Header>
         <More>
@@ -114,9 +138,13 @@ const DetailPresenter = (props) => {
           {props.item.comments &&
             props.item.comments.map((c, idx) => <div>{c.text}</div>)}
         </ListComment>
-        <Link to={`/edit/${props.item.id}`}>
-          <div>Edit</div>
-        </Link>
+        <Notes>
+          <Table
+            data={props.item.notes}
+            postNote={(note) => postNote(note)}
+            deleteNote={(note) => deleteNote(note)}
+          />
+        </Notes>
       </Content>
     </Container>
   );
@@ -201,6 +229,8 @@ const Comments = styled(Flex)`
   margin: 1.5em 0;
 `;
 
+const Notes = styled.div``;
+
 const ListComment = styled.div``;
 
 const mapStateToProps = (state) => {
@@ -209,4 +239,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { deleteCoffee })(DetailPresenter);
+export default connect(mapStateToProps, { deleteCoffee, addNote, deleteNote })(
+  DetailPresenter
+);

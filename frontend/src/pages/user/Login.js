@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 //import components
 import Header from "../../components/Header";
-import Input from "../../components/Input";
+import { Input } from "../../components/Input";
 
 //import styles and assets
 import styled from "styled-components";

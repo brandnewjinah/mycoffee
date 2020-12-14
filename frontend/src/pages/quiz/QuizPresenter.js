@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { BtnArrow } from "../../components/Button";
 import { Check } from "../../assets/Icons";
-import Input from "../../components/Input";
+import { Input } from "../../components/Input";
 import { Selector } from "../../components/Selector";
 
 //redux

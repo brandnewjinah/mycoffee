@@ -16,6 +16,7 @@ import Add from "./pages/add";
 import Edit from "./pages/edit";
 import Products from "./pages/products";
 import Detail from "./pages/detail";
+import Brew from "./pages/detail/AddNotes.js";
 
 const Routes = () => {
   return (
