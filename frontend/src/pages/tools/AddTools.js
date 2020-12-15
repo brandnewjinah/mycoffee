@@ -86,7 +86,7 @@ const AddTools = (props) => {
             handleChange={handleChange}
           />
           <Input
-            label="Instructions"
+            label="Instructions URL"
             name="instructions"
             error={errors.instructions}
             handleChange={handleChange}
@@ -99,17 +99,22 @@ const AddTools = (props) => {
             handleChange={handleChange}
           />
 
-          <label>
-            Essential?
+          <span>Essential? </span>
+          <span style={{ color: `#a8a8a8` }}>
+            (mark only your primary coffee maker and grinder as essential)
+          </span>
+          <span style={{ display: `inline-block`, marginLeft: `.5em` }}>
             <input
               type="checkbox"
               name="essential"
+              style={{ verticalAlign: `middle` }}
               checked={data.essential}
               onChange={handleChange}
             />
-          </label>
-
-          <Button label="Add" />
+          </span>
+          <div style={{ margin: `2em 0` }}>
+            <Button label="Add" />
+          </div>
         </form>
       </Main>
     </Wrapper>
@@ -135,6 +140,10 @@ const Main = styled.div`
   margin: 2em auto;
   width: 100%;
   max-width: 960px;
+
+  span {
+    font-size: 0.875rem;
+  }
 `;
 
 const mapStateToProps = (state) => {

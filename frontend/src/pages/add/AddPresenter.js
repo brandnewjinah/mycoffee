@@ -103,7 +103,7 @@ const AddPresenter = (props) => {
             error={errors.origin}
             handleChange={handleChange}
           />
-          <div>
+          <Selector>
             <p>Roast Level</p>
             <Select
               isMulti
@@ -116,8 +116,8 @@ const AddPresenter = (props) => {
               }))}
               onChange={handleRoast}
             />
-          </div>
-          <div>
+          </Selector>
+          <Selector>
             <p>Flavor</p>
             <Select
               isMulti
@@ -127,7 +127,7 @@ const AddPresenter = (props) => {
               onChange={handleFlavor}
               name="flavor"
             />
-          </div>
+          </Selector>
 
           <Input
             label="Price"
@@ -151,8 +151,9 @@ const AddPresenter = (props) => {
             error={errors.description}
             handleChange={handleChange}
           />
-
-          <Button label="Add" />
+          <div style={{ margin: `2em 0` }}>
+            <Button label="Add" />
+          </div>
         </form>
       </Main>
     </Wrapper>
@@ -178,6 +179,10 @@ const Main = styled.div`
   margin: 2em auto;
   width: 100%;
   max-width: 960px;
+`;
+
+const Selector = styled.div`
+  margin: 1.125em 0;
 `;
 
 const mapStateToProps = (state) => {

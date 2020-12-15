@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 
 //import components
 import { Input } from "../../components/Input";
-import { DetailCard } from "../../components/Card";
+import { BtnText, Button } from "../../components/Button";
 import Table from "../../components/Table";
 
 //import redux
@@ -15,12 +15,8 @@ import {
   deleteNote,
 } from "../../reducers/collectionReducer";
 
-//imprt data
-import { testTable } from "../../data/data";
-
 //import styles
 import styled from "styled-components";
-import { Button } from "../../components/Button";
 
 //토큰에 있는 유저정보와 note의 유저정보를 match 해서 맞으면 note 가 보이게. 아니면 null.
 
@@ -58,11 +54,6 @@ const DetailPresenter = (props) => {
       });
   };
 
-  const editCoffee = () => {
-    // props.deleteCoffee(props.item);
-    // window.location = "/collection";
-  };
-
   const postNote = (note) => {
     let id = props.item.notes.length + 1;
     const thisNote = { ...note, coffeeId: props.item.id, id: id };
@@ -77,75 +68,95 @@ const DetailPresenter = (props) => {
 
   return (
     <Container>
-      <Content>
-        <Header>
-          <ImageContainer>
-            <Image
-              src={
-                props.item.image
-                  ? props.item.image
-                  : "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
-              }
-            />
-          </ImageContainer>
-          <Data>
-            <h4>{props.item.roaster && props.item.roaster}</h4>
-            <h2>{props.item.name && props.item.name}</h2>
-            <p>{props.item.description && props.item.description}</p>
-            <Link to={`/edit/${props.item.id}`}>
-              <div>Edit</div>
-            </Link>
-          </Data>
-        </Header>
-        <More>
-          {props.item.origin && (
-            <DetailCard header="Origin">
-              <span>{props.item.origin}</span>
-            </DetailCard>
-          )}
-          {props.item.roast && (
-            <DetailCard header="Roast Level">
-              {props.item.roast.map((r, idx) => (
-                <span key={idx}>{r.label}</span>
-              ))}
-            </DetailCard>
-          )}
-          {props.item.flavor && (
-            <DetailCard header="Flavor">
-              <Flavor>
-                {props.item.flavor &&
-                  props.item.flavor.map((f, idx) => (
-                    <span key={idx}>{f.label}</span>
-                  ))}
-              </Flavor>
-            </DetailCard>
-          )}
-        </More>
-        <ListComment>
-          {props.item.comments &&
-            props.item.comments.map((c, idx) => <div>{c.text}</div>)}
-        </ListComment>
-        <Notes>
-          <Table
-            data={props.item.notes}
-            postNote={(note) => postNote(note)}
-            deleteNote={(note) => deleteNote(note)}
+      <Header>
+        <ImageContainer>
+          <img
+            alt=""
+            src={
+              props.item.image
+                ? props.item.image
+                : "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
+            }
           />
-        </Notes>
-        <Comments>
-          <div style={{ width: `85%` }}>
-            <Input
-              name="text"
-              placeholder="Comment"
-              value={data.text}
-              handleChange={handleChange}
-            />
+        </ImageContainer>
+        <Data>
+          <h4>{props.item.roaster && props.item.roaster}</h4>
+          <h2>{props.item.name && props.item.name}</h2>
+          <p>{props.item.description && props.item.description}</p>
+          <div>
+            {props.item.origin && (
+              <Block>
+                <div className="header">ORIGIN</div>
+                <div className="body">{props.item.origin}</div>
+              </Block>
+            )}
+
+            {props.item.roast && (
+              <Block>
+                <div className="header">ROAST LEVEL</div>
+                <div className="body">
+                  {props.item.roast.map((r, idx, arr) =>
+                    idx === arr.length - 1 ? (
+                      <span key={idx}>{r.label}</span>
+                    ) : (
+                      <>
+                        <span key={idx}>{r.label}</span>,{" "}
+                      </>
+                    )
+                  )}
+                </div>
+              </Block>
+            )}
+
+            {props.item.flavor && (
+              <Block>
+                <div className="header">Flavor</div>
+                <div className="body">
+                  {props.item.flavor.map((f, idx) => (
+                    <Flavor key={idx}>{f.label}</Flavor>
+                  ))}
+                </div>
+              </Block>
+            )}
           </div>
-          <div style={{ width: `10%` }}>
-            <Button label="Comment" handleClick={postComment} />
+
+          <div
+            style={{
+              fontSize: `.75rem`,
+              textDecoration: `underline`,
+              color: `#a8a8a8`,
+            }}
+          >
+            <Link to={`/edit/${props.item.id}`}>edit</Link>
           </div>
-        </Comments>
-      </Content>
+        </Data>
+      </Header>
+      <Notes>
+        <h6>BREW NOTES</h6>
+        <Table
+          data={props.item.notes}
+          postNote={(note) => postNote(note)}
+          deleteNote={(note) => deleteNote(note)}
+        />
+      </Notes>
+      <ListComment>
+        <h6>COMMENTS</h6>
+        {props.item.comments &&
+          props.item.comments.map((c, idx) => <div>{c.text}</div>)}
+      </ListComment>
+      <Comments>
+        <div style={{ width: `90%` }}>
+          <Input
+            name="text"
+            placeholder="Comment"
+            value={data.text}
+            handleChange={handleChange}
+          />
+        </div>
+        <div style={{ width: `10%`, textAlign: `right` }}>
+          <BtnText label="Comment" handleClick={postComment} />
+        </div>
+      </Comments>
     </Container>
   );
 };
@@ -156,70 +167,83 @@ const Flex = styled.div`
 `;
 
 const Container = styled.div`
-  /* margin: 6em auto; */
-  height: calc(100vh - 50px);
   width: 100%;
   position: relative;
-  padding: 50px;
-`;
-
-const Content = styled.div`
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1260px;
-  position: relative;
-  z-index: 1;
-  height: 100%;
 `;
 
 const Header = styled(Flex)``;
 
-const Image = styled.img`
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 8px;
-  transition: opacity 0.1s linear;
-`;
-
 const ImageContainer = styled.div`
   width: 50%;
-  position: relative;
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
 `;
 
 const Data = styled.div`
-  width: 70%;
-  margin-left: 4em;
+  width: 50%;
+  margin-left: 2em;
 
   h2 {
     font-size: 2rem;
+    line-height: 2rem;
   }
 
   h4 {
     font-size: 1rem;
   }
-`;
 
-const Flavor = styled.div`
-  margin-bottom: 1em;
-
-  span {
-    font-size: 0.875rem;
-    background-color: #eee;
-    border-radius: 1em;
-    padding: 0.25em 0.75em;
-    margin-left: 0.5em;
-
-    &:first-child {
-      margin-left: 0;
-    }
+  p {
+    margin: 1em 0;
   }
 `;
 
-const More = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 2em;
+const Block = styled.div`
+  margin-bottom: 1em;
+
+  .header {
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .body {
+    font-size: 0.875rem;
+    line-height: 0.875rem;
+  }
+`;
+
+const Flavor = styled.span`
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.025rem;
+  background-color: #eee;
+  border-radius: 1em;
+  padding: 0.25em 0.75em;
+  margin-left: 0.5em;
+  margin-top: 0.125em;
+
+  &:first-child {
+    margin-left: 0;
+  }
+`;
+
+const Notes = styled.div`
+  margin: 2em 0;
+
+  h6 {
+    font-weight: 500;
+    margin-bottom: 1em;
+  }
+`;
+
+const ListComment = styled.div`
+  h6 {
+    font-weight: 500;
+    margin-bottom: 1em;
+  }
 `;
 
 const Comments = styled(Flex)`
@@ -228,10 +252,6 @@ const Comments = styled(Flex)`
   font-size: 16px;
   margin: 1.5em 0;
 `;
-
-const Notes = styled.div``;
-
-const ListComment = styled.div``;
 
 const mapStateToProps = (state) => {
   return {

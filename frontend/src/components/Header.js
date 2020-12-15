@@ -43,14 +43,15 @@ const Header = (props) => {
           <Link to="/collection">
             <Category>My Collection</Category>
           </Link>
-          <Link to="/products">
+          {/* <Link to="/products">
             <Category>Coffee</Category>
-          </Link>
-          <Link to="/">
-            <Category>101</Category>
-          </Link>
+          </Link> */}
+
           <Link to="/tools">
             <Category>My Tools</Category>
+          </Link>
+          <Link to="/">
+            <Category>Recipe</Category>
           </Link>
         </Center>
         <Right className="flex">

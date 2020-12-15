@@ -116,7 +116,7 @@ export const ToolCard = ({
             more
           </Link>
         </div>
-        <div className="sub" onClick={handleDelete}>
+        <div className="delete" onClick={handleDelete}>
           Delete
         </div>
       </Text>
@@ -214,5 +214,14 @@ const Text = styled.div`
   .title {
     font-size: 1rem;
     line-height: 1.5em;
+  }
+
+  .delete {
+    font-size: 0.75rem;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.6;
+    }
   }
 `;

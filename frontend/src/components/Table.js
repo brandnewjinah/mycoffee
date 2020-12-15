@@ -61,7 +61,17 @@ const Table = (props) => {
                 <td>{t.time}</td>
                 <td>{t.ml}</td>
                 <td>{t.taste}</td>
-                <td onClick={() => handleDelete(t)}>x</td>
+                <td
+                  onClick={() => handleDelete(t)}
+                  style={{
+                    display: `flex`,
+                    justifyContent: `center`,
+                    color: `#a8a8a8`,
+                    cursor: `pointer`,
+                  }}
+                >
+                  x
+                </td>
               </tr>
             ))}
           <tr>
@@ -122,7 +132,7 @@ const Table = (props) => {
                 handleChange={handleChange}
               />
             </td>
-            <td>
+            <td style={{ textAlign: `center` }}>
               <BtnText label="post" handleClick={handleClick} />
             </td>
           </tr>

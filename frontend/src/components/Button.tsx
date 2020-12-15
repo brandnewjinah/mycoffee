@@ -58,6 +58,7 @@ export const BtnAdd: FC<Props> = ({ label, direction, handleClick }) => {
 };
 
 const Wrapper = styled.button`
+  width: 100%;
   outline: transparent;
   border: transparent;
   border-radius: 3em;

@@ -19,6 +19,7 @@ import Detail from "./pages/detail";
 import Brew from "./pages/detail/AddNotes.js";
 import Tools from "./pages/tools";
 import AddTools from "./pages/tools/AddTools";
+import Recipe from "./pages/recipe";
 
 const Routes = () => {
   return (
@@ -38,6 +39,7 @@ const Routes = () => {
           <Route exact path="/edit/:id" component={Edit} />
           <Route exact path="/tools" component={Tools} />
           <Route exact path="/tools/add" component={AddTools} />
+          <Route exact path="/recipe/:id" component={Recipe} />
         </Layout>
       </Switch>
     </Router>

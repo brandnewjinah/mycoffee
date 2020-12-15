@@ -78,6 +78,7 @@ const Wrapper = styled.div`
 
 const Header = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   h2 {
@@ -104,11 +105,6 @@ const Main = styled(Flex)`
     border: 1px solid #d3b88c;
     place-items: center;
     text-align: center;
-    transition: 0.25s;
-
-    &:hover {
-      opacity: 0.5;
-    }
 
     img {
       position: relative;
