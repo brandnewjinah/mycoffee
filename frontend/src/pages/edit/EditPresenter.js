@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 //import components
 import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
+import { BtnText, Button } from "../../components/Button";
 
 //import data
 import { groupedOptions } from "../../data/flavor";
@@ -12,7 +12,11 @@ import { roastLevel } from "../../data/data";
 
 //redux
 import { connect } from "react-redux";
-import { addCoffee, editCoffee } from "../../reducers/collectionReducer";
+import {
+  addCoffee,
+  editCoffee,
+  deleteCoffee,
+} from "../../reducers/collectionReducer";
 
 //import styles and assets
 import styled from "styled-components";
@@ -30,6 +34,7 @@ const EditPresenter = (props) => {
     image: "",
     description: "",
     id: "",
+    notes: [],
   });
 
   useEffect(() => {
@@ -81,12 +86,18 @@ const EditPresenter = (props) => {
     if (errors) return;
 
     // props.postData(data); //post to server
+
     props.editCoffee(data); //add to redux
     alert("Updated");
     history.push(`/products/${data.id}`);
   };
 
-  console.log(props.collection);
+  const handleDelete = (e) => {
+    props.deleteCoffee(data); //add to redux
+    alert("Deleted");
+    history.push(`/collection`);
+  };
+
   return (
     <Wrapper>
       <Header>
@@ -167,6 +178,7 @@ const EditPresenter = (props) => {
 
           <Button label="Edit" />
         </form>
+        <BtnText label="Delete" handleClick={handleDelete} />
       </Main>
     </Wrapper>
   );
@@ -199,6 +211,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addCoffee, editCoffee })(
-  EditPresenter
-);
+export default connect(mapStateToProps, {
+  addCoffee,
+  editCoffee,
+  deleteCoffee,
+})(EditPresenter);

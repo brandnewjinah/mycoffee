@@ -1,10 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 //import components
 import { EmptyCard, Card } from "../../components/Card";
 import { Section } from "../../components/Section";
-import { Button } from "../../components/Button";
+import { BtnText } from "../../components/Button";
 
 //redux
 import { connect } from "react-redux";
@@ -105,7 +104,7 @@ const CollectionPresenter = (props) => {
             ))}
         </Section>
       </Collection>
-      <Button label="reset" handleClick={handleReset} />
+      <BtnText label="Delete All" handleClick={handleReset} />
     </Wrapper>
   );
 };

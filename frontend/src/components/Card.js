@@ -77,6 +77,53 @@ export const DetailCard = ({ header, children }) => {
   );
 };
 
+export const ToolCard = ({
+  imageUrl,
+  title,
+  sub,
+  toDetail,
+  id,
+  reference,
+  handleDelete,
+}) => {
+  const [imgErr, setImgErr] = useState(false);
+
+  const handleDefaultImg = (e) => {
+    if (e.type === "error") {
+      setImgErr(true);
+    }
+  };
+
+  return (
+    <Tool>
+      <ImageContainer>
+        {imgErr ? (
+          <ErrImg>
+            <Coffee width="20" height="20" color="#8F8F8F" stroke="2" />
+          </ErrImg>
+        ) : (
+          <Image
+            onError={handleDefaultImg}
+            src={imageUrl ? imageUrl : setImgErr(true)}
+          />
+        )}
+      </ImageContainer>
+      <Text>
+        <div className="sub">{sub}</div>
+        <div className="title">{title}</div>
+        <div className="sub">
+          <Link to={{ pathname: `${reference}` }} target="_blank">
+            more
+          </Link>
+        </div>
+        <div className="sub" onClick={handleDelete}>
+          Delete
+        </div>
+      </Text>
+    </Tool>
+  );
+};
+
 const Flex = styled.div`
   display: flex;
   align-items: center;
@@ -149,5 +196,23 @@ const Details = styled.span`
 
   span {
     font-size: 0.75rem;
+  }
+`;
+
+const Tool = styled(Flex)`
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Text = styled.div`
+  .sub {
+    font-size: 0.75rem;
+  }
+
+  .title {
+    font-size: 1rem;
+    line-height: 1.5em;
   }
 `;

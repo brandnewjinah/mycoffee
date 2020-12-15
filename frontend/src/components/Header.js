@@ -36,7 +36,9 @@ const Header = (props) => {
   return (
     <Wrapper>
       <Container>
-        <Left>Logo</Left>
+        <Link to="/">
+          <Left>Logo</Left>
+        </Link>
         <Center>
           <Link to="/collection">
             <Category>My Collection</Category>
@@ -45,10 +47,10 @@ const Header = (props) => {
             <Category>Coffee</Category>
           </Link>
           <Link to="/">
-            <Category>Category</Category>
+            <Category>101</Category>
           </Link>
-          <Link to="/">
-            <Category>Category</Category>
+          <Link to="/tools">
+            <Category>My Tools</Category>
           </Link>
         </Center>
         <Right className="flex">

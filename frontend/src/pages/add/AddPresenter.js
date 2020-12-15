@@ -70,7 +70,7 @@ const AddPresenter = (props) => {
     setErrors(errors || {});
     if (errors) return;
 
-    let id = props.collection.length + 1;
+    let id = props.collection[props.collection.length - 1].id + 1;
     let newData = { ...data, id: id };
     // props.postData(data); //post to server
     props.addCoffee(newData); //add to redux

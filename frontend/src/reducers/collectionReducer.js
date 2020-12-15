@@ -137,6 +137,7 @@ const reducer = (state = initialState, action) => {
   if (action.type === DELETE_COFFEE) {
     let coffee = action.payload.item;
     let newCollection = [...state.collection];
+
     newCollection = newCollection.filter((c) => c.id !== coffee.id);
 
     return { ...state, collection: newCollection };

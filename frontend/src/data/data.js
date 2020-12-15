@@ -157,35 +157,13 @@ export const roastLevel = [
   },
 ];
 
-export const testTable = [
+export const toolOptions = [
   {
-    a: "mon",
-    b: 2,
-    c: "Cold",
-    d: 4.5,
-    e: 18,
-    f: 24,
-    g: 36,
-    h: "Acidy",
+    id: 1,
+    name: "Essential",
   },
   {
-    a: "tue",
-    b: 1,
-    c: "Room",
-    d: 4.5,
-    e: 18,
-    f: 24,
-    g: 36,
-    h: "Nutty",
-  },
-  {
-    a: "wed",
-    b: 2,
-    c: "Cold",
-    d: 4.5,
-    e: 18,
-    f: 24,
-    g: 36,
-    h: "Sweet",
+    id: 2,
+    name: "Accessories",
   },
 ];

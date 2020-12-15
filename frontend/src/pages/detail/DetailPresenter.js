@@ -121,6 +121,17 @@ const DetailPresenter = (props) => {
             </DetailCard>
           )}
         </More>
+        <ListComment>
+          {props.item.comments &&
+            props.item.comments.map((c, idx) => <div>{c.text}</div>)}
+        </ListComment>
+        <Notes>
+          <Table
+            data={props.item.notes}
+            postNote={(note) => postNote(note)}
+            deleteNote={(note) => deleteNote(note)}
+          />
+        </Notes>
         <Comments>
           <div style={{ width: `85%` }}>
             <Input
@@ -134,17 +145,6 @@ const DetailPresenter = (props) => {
             <Button label="Comment" handleClick={postComment} />
           </div>
         </Comments>
-        <ListComment>
-          {props.item.comments &&
-            props.item.comments.map((c, idx) => <div>{c.text}</div>)}
-        </ListComment>
-        <Notes>
-          <Table
-            data={props.item.notes}
-            postNote={(note) => postNote(note)}
-            deleteNote={(note) => deleteNote(note)}
-          />
-        </Notes>
       </Content>
     </Container>
   );
