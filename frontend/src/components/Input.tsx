@@ -12,6 +12,7 @@ interface Props {
   prefix?: string;
   label?: string;
   placeholder?: string;
+  id?: any;
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -23,6 +24,7 @@ export const Input: FC<Props> = ({
   prefix,
   placeholder,
   label,
+  id,
   handleChange,
 }) => {
   const [password, setPassword] = useState(true);
@@ -44,6 +46,7 @@ export const Input: FC<Props> = ({
       <InputContainer style={focusOutline}>
         {prefix && <div>{prefix}</div>}
         <input
+          id={id}
           className={error ? "input error" : "input"}
           type={type === "password" && password ? "password" : "text"}
           value={value}
@@ -127,12 +130,19 @@ const Wrapper = styled.div`
   }
 `;
 
-const Label = styled.div``;
+const Label = styled.div`
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+  margin-bottom: 0.5em;
+`;
 
 const InputContainer = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid #e4e4e4;
+  background-color: #fff;
   border-radius: 0.25em;
   padding: 0 1em;
   transition: all 0.15s linear;

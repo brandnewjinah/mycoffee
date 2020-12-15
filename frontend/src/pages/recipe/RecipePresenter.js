@@ -20,17 +20,9 @@ const RecipePresenter = (props) => {
     <Container>
       <Header>
         <ImageContainer>
-          <img
-            alt=""
-            src={
-              props.item.image
-                ? props.item.image
-                : "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
-            }
-          />
+          <img alt="" src={"https://www.pjscoffee.com/uploads/americano.jpg"} />
         </ImageContainer>
         <Data>
-          <h4>{props.item.roaster && props.item.roaster}</h4>
           <h2>Americano</h2>
           <p>{props.item.description && props.item.description}</p>
         </Data>
@@ -119,6 +111,7 @@ const ImageContainer = styled.div`
 
 const Data = styled.div`
   width: 50%;
+  margin-top: 2em;
 
   h2 {
     font-size: 2rem;

@@ -24,9 +24,15 @@ const Cup: FC<Props> = () => {
         >
           <p className="PercentText">50</p>
         </div> */}
+        {/* <div
+          className="coffee"
+          style={{ background: `ghostwhite`, height: `20%` }}
+        >
+          <p className="darktext">80%</p>
+        </div> */}
         <div
           className="coffee"
-          style={{ background: `aliceblue`, height: `80%` }}
+          style={{ background: `aliceblue`, height: `60%` }}
         >
           <p className="darktext">80%</p>
         </div>
@@ -49,11 +55,14 @@ const Wrapper = styled.div`
   .cup {
     background-color: ghostwhite;
     border: 1px solid #dedede;
-    border-radius: 6px;
+    border-radius: 0.5em;
+    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 2em;
     display: flex;
     flex-direction: column;
-    height: 160px;
-    width: 8em;
+    justify-content: flex-end;
+    height: 140px;
+    width: 7em;
     overflow: hidden;
   }
 
