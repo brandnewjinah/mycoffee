@@ -165,7 +165,7 @@ const Wrapper2 = styled(Flex)`
 const Image = styled.img`
   width: 100%;
   height: auto;
-  min-height: 169px;
+  height: 170px;
   object-fit: cover;
   transition: opacity 0.1s linear;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.1); */

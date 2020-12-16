@@ -12,7 +12,6 @@ import { connect } from "react-redux";
 import { addProfile } from "../../reducers/quizReducer";
 
 const QuizPresenter = (props) => {
-  console.log(props);
   const quiz = props.quiz && props.quiz;
   const page = props.quiz && props.quiz.page;
   const name = quiz && quiz.name;

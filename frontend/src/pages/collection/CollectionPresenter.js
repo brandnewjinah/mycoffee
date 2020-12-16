@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 //import components
 import { EmptyCard, Card } from "../../components/Card";
@@ -16,80 +17,105 @@ const CollectionPresenter = (props) => {
   const handleReset = () => {
     props.resetCoffee(1);
   };
+
   return (
     <Wrapper>
       <Header>
         <h2>My Collection</h2>
       </Header>
       <Analyser>
-        <h4>
-          I brew my coffee with{" "}
-          {props.method &&
-            props.method.map((m, idx, arr) =>
-              arr.length > 1 && idx === arr.length - 1 ? (
-                <>
-                  and <span key={idx}>{m.title}</span>
-                </>
-              ) : idx === arr.length - 1 ? (
-                <span key={idx}>{m.title}</span>
-              ) : (
-                <>
-                  <span key={idx}>{m.title}</span>,{" "}
-                </>
-              )
+        {Object.values(props.quiz).every((q) => !q.length) ? (
+          <h4>
+            <Link to="/quiz">
+              <span className="btn">Take Quiz</span> to get your coffee
+              analyzer.
+            </Link>
+          </h4>
+        ) : (
+          <h4>
+            {props.method && props.method.length > 0 && (
+              <>
+                I brew my coffee with{" "}
+                {props.method.map((m, idx, arr) =>
+                  arr.length > 1 && idx === arr.length - 1 ? (
+                    <>
+                      and <span key={idx}>{m.title}</span>
+                    </>
+                  ) : idx === arr.length - 1 ? (
+                    <span key={idx}>{m.title}</span>
+                  ) : (
+                    <>
+                      <span key={idx}>{m.title}</span>,{" "}
+                    </>
+                  )
+                )}
+                .{" "}
+              </>
             )}
-          . I enjoy{" "}
-          {props.roast &&
-            props.roast.map((r, idx, arr) =>
-              arr.length > 1 && idx === arr.length - 1 ? (
-                <>
-                  and <span key={idx}>{r.title}</span>
-                </>
-              ) : idx === arr.length - 1 ? (
-                <span key={idx}>{r.title}</span>
-              ) : (
-                <>
-                  <span key={idx}>{r.title}</span>,{" "}
-                </>
-              )
+            {props.roast && props.roast.length > 0 && (
+              <>
+                I enjoy{" "}
+                {props.roast.map((r, idx, arr) =>
+                  arr.length > 1 && idx === arr.length - 1 ? (
+                    <>
+                      and <span key={idx}>{r.title}</span>
+                    </>
+                  ) : idx === arr.length - 1 ? (
+                    <span key={idx}>{r.title}</span>
+                  ) : (
+                    <>
+                      <span key={idx}>{r.title}</span>,{" "}
+                    </>
+                  )
+                )}
+                .{" "}
+              </>
             )}
-          . I usually buy{" "}
-          {props.beans &&
-            props.beans.map((b, idx, arr) =>
-              arr.length > 1 && idx === arr.length - 1 ? (
-                <>
-                  and <span key={idx}>{b.title}</span>
-                </>
-              ) : idx === arr.length - 1 ? (
-                <span key={idx}>{b.title}</span>
-              ) : (
-                <>
-                  <span key={idx}>{b.title}</span>,{" "}
-                </>
-              )
+            {props.beans && props.beans.length > 0 && (
+              <>
+                I usually buy{" "}
+                {props.beans.map((b, idx, arr) =>
+                  arr.length > 1 && idx === arr.length - 1 ? (
+                    <>
+                      and <span key={idx}>{b.title}</span>
+                    </>
+                  ) : idx === arr.length - 1 ? (
+                    <span key={idx}>{b.title}</span>
+                  ) : (
+                    <>
+                      <span key={idx}>{b.title}</span>,{" "}
+                    </>
+                  )
+                )}
+                .{" "}
+              </>
             )}
-          . I like{" "}
-          {props.taste &&
-            props.taste.map((t, idx, arr) =>
-              arr.length > 1 && idx === arr.length - 1 ? (
-                <>
-                  and <span key={idx}>{t.title}</span>
-                </>
-              ) : idx === arr.length - 1 ? (
-                <span key={idx}>{t.title}</span>
-              ) : (
-                <>
-                  <span key={idx}>{t.title}</span>,{" "}
-                </>
-              )
-            )}{" "}
-          tastes.
-        </h4>
+            {props.taste && props.taste.length > 0 && (
+              <>
+                I like{" "}
+                {props.taste.map((t, idx, arr) =>
+                  arr.length > 1 && idx === arr.length - 1 ? (
+                    <>
+                      and <span key={idx}>{t.title}</span>
+                    </>
+                  ) : idx === arr.length - 1 ? (
+                    <span key={idx}>{t.title}</span>
+                  ) : (
+                    <>
+                      <span key={idx}>{t.title}</span>,{" "}
+                    </>
+                  )
+                )}{" "}
+                tastes.
+              </>
+            )}
+          </h4>
+        )}
       </Analyser>
 
       <Collection>
         <Section>
-          <EmptyCard label="Add to my collection" path="/add" />
+          <EmptyCard label="Add Coffee" path="/add" />
           {props.collection &&
             props.collection.map((p, idx) => (
               <Card
@@ -104,7 +130,7 @@ const CollectionPresenter = (props) => {
             ))}
         </Section>
       </Collection>
-      <BtnText label="Delete All" handleClick={handleReset} />
+      {/* <BtnText label="Delete All" handleClick={handleReset} /> */}
     </Wrapper>
   );
 };
@@ -152,6 +178,10 @@ const Analyser = styled.div`
       border-bottom: 3px solid #e89161;
     }
   }
+
+  .btn {
+    text-transform: none;
+  }
 `;
 
 const Collection = styled.div`
@@ -161,6 +191,7 @@ const Collection = styled.div`
 
 const mapStateToProps = (state) => {
   return {
+    quiz: state.quiz,
     method: state.quiz.method,
     roast: state.quiz.roast,
     beans: state.quiz.beans,

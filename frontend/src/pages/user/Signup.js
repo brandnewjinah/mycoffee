@@ -124,6 +124,7 @@ const Signup = (props) => {
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
+  background-color: #fffdfa;
 `;
 
 const Main = styled.div`
@@ -133,7 +134,7 @@ const Main = styled.div`
 
 const Hero = styled.div`
   width: 50%;
-  background-color: #d1e6d1;
+  background-color: #fcf7f0;
   margin: 0;
 `;
 

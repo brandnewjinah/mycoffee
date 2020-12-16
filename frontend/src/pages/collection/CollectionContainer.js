@@ -18,7 +18,7 @@ const CollectionContainer = (props) => {
   //   getData();
   // }, []);
 
-  return <CollectionPresenter roducts={products} />;
+  return <CollectionPresenter products={products} />;
 };
 
 // CollectionContainer.propTypes = {

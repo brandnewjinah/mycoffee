@@ -183,6 +183,13 @@ const Main = styled.div`
 
 const Selector = styled.div`
   margin: 1.125em 0;
+  p {
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5em;
+  }
 `;
 
 const mapStateToProps = (state) => {

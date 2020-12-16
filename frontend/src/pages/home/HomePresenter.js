@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 //import components
 import Header from "../../components/Header";
@@ -13,6 +13,11 @@ import styled from "styled-components";
 import { Blob, Blob2 } from "../../assets/Icons";
 
 const HomePresenter = (props) => {
+  const history = useHistory();
+  const handleProfile = () => {
+    history.push("/collection");
+  };
+
   return (
     <Wrapper>
       <Top>
@@ -33,7 +38,7 @@ const HomePresenter = (props) => {
               <Button label="Take Quiz" imp="primary" />
             </div>
           </Link>
-          <BtnText label="View My Profile" />
+          <BtnText label="View My Profile" handleClick={handleProfile} />
         </Main>
       </Container>
     </Wrapper>

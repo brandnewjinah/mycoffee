@@ -99,7 +99,15 @@ const AddTools = (props) => {
             handleChange={handleChange}
           />
 
-          <span>Essential? </span>
+          <span
+            style={{
+              textTransform: `uppercase`,
+              fontWeight: 500,
+              letterSpacing: `0.05rem`,
+            }}
+          >
+            Essential?{" "}
+          </span>
           <span style={{ color: `#a8a8a8` }}>
             (mark only your primary coffee maker and grinder as essential)
           </span>

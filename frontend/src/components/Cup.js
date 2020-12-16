@@ -10,32 +10,58 @@ const Cup = ({ data }) => {
   const total =
     data && data.reduce((sum, ratio) => sum + parseInt(ratio.value), 0);
 
-  const c180 = 180;
+  const bgColor = (name) => {
+    const color =
+      name === "Honey"
+        ? `#FFC30B`
+        : name === "Espresso"
+        ? `#6f4e37`
+        : name === "Coffee"
+        ? `#8B715E`
+        : name === "Water"
+        ? `#DFEFFF`
+        : name === "Tea"
+        ? `#D0F0C0`
+        : name === "Liqueur"
+        ? `#613a2d`
+        : name === "Milk"
+        ? `#FDFFF5`
+        : name === "Milk Foam"
+        ? `#F7E8BE`
+        : null;
+
+    return color;
+  };
 
   return (
     <Wrapper>
       <Flex>
         {total < 60 ? (
-          <C60>
-            {ratio.map((r, idx) => (
-              <Liquid
-                key={idx}
-                style={{
-                  background:
-                    r.id === 1
-                      ? `#6f4e37`
-                      : r.id === 4
-                      ? `#fdfff5`
-                      : r.id === 3
-                      ? `aliceblue`
-                      : null,
-                  height: `${(parseInt(r.value) / 60) * 100}%`,
-                }}
-              >
-                <p className="darktext">{r.name}</p>
-              </Liquid>
-            ))}
-          </C60>
+          <>
+            <C60>
+              {ratio.map((r, idx) => (
+                <Liquid
+                  key={idx}
+                  style={{
+                    backgroundColor: `${bgColor(r.name)}`,
+                    height: `${(parseInt(r.value) / 60) * 100}%`,
+                  }}
+                ></Liquid>
+              ))}
+            </C60>
+            <Label>
+              {ratio.map((r, idx) => (
+                <>
+                  <Icon
+                    style={{
+                      backgroundColor: `${bgColor(r.name)}`,
+                    }}
+                  ></Icon>
+                  <span>{r.name}</span>
+                </>
+              ))}
+            </Label>
+          </>
         ) : (
           <>
             <C180>
@@ -44,18 +70,8 @@ const Cup = ({ data }) => {
                   <Liquid
                     key={idx}
                     style={{
-                      background:
-                        r.id === 1
-                          ? `#6f4e37`
-                          : r.id === 4
-                          ? `#fdfff5`
-                          : r.id === 3
-                          ? `aliceblue`
-                          : r.id === 5
-                          ? `#f5f3e4`
-                          : null,
-
-                      height: `${(parseInt(r.value) / c180) * 100}%`,
+                      backgroundColor: `${bgColor(r.name)}`,
+                      height: `${(parseInt(r.value) / 180) * 100}%`,
                     }}
                   ></Liquid>
                 </>
@@ -66,14 +82,7 @@ const Cup = ({ data }) => {
                 <>
                   <Icon
                     style={{
-                      backgroundColor:
-                        r.id === 1
-                          ? `#6f4e37`
-                          : r.id === 4
-                          ? `#fdfff5`
-                          : r.id === 3
-                          ? `aliceblue`
-                          : null,
+                      backgroundColor: `${bgColor(r.name)}`,
                     }}
                   ></Icon>
                   <span>{r.name}</span>
@@ -87,19 +96,7 @@ const Cup = ({ data }) => {
   );
 };
 
-const Wrapper = styled.div`
-  .lighttext {
-    color: #ebeded;
-    text-align: center;
-    font-size: 0.875rem;
-  }
-
-  .darktext {
-    color: #8a8a8a;
-    text-align: center;
-    font-size: 0.875rem;
-  }
-`;
+const Wrapper = styled.div``;
 
 const Flex = styled.div`
   display: flex;

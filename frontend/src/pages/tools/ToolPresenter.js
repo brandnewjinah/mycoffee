@@ -27,6 +27,7 @@ const ToolPresenter = (props) => {
     <Wrapper>
       <Header>
         <h2>My Tools</h2>
+        <h4>Coffee tools I own</h4>
         <BtnText label="Add" handleClick={handleAdd} />
       </Header>
       <Main>
@@ -81,9 +82,18 @@ const Header = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   h2 {
     font-size: 2.8rem;
     font-weight: 500;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    line-height: 2.8rem;
+    letter-spacing: 0.125rem;
+    margin: 1.5em 0 0.75em;
+    text-rendering: optimizeLegibility;
   }
 `;
 
