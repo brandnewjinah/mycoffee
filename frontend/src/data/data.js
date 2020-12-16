@@ -167,3 +167,38 @@ export const toolOptions = [
     name: "Accessories",
   },
 ];
+
+export const liquidOptions = [
+  {
+    id: 1,
+    name: "Espresso",
+  },
+  {
+    id: 2,
+    name: "Coffee",
+  },
+  {
+    id: 3,
+    name: "Water",
+  },
+  {
+    id: 4,
+    name: "Milk",
+  },
+  {
+    id: 5,
+    name: "Milk Foam",
+  },
+  {
+    id: 6,
+    name: "Honey",
+  },
+  {
+    id: 7,
+    name: "Liqueur",
+  },
+  {
+    id: 8,
+    name: "Tea",
+  },
+];

@@ -16,7 +16,15 @@ export const EmptyCard = ({ label, path }) => {
   );
 };
 
-export const Card = ({ imageUrl, roaster, name, roast, toDetail, id }) => {
+export const Card = ({
+  imageUrl,
+  roaster,
+  name,
+  roast,
+  toDetail,
+  id,
+  toRecipe,
+}) => {
   const [imgErr, setImgErr] = useState(false);
 
   const handleDefaultImg = (e) => {
@@ -26,7 +34,7 @@ export const Card = ({ imageUrl, roaster, name, roast, toDetail, id }) => {
   };
 
   return (
-    <Link to={toDetail && `/products/${id}`}>
+    <Link to={toDetail ? `/products/${id}` : toRecipe ? `/recipe/${id}` : null}>
       <Wrapper2>
         <ImageContainer>
           {/* <Image
@@ -51,17 +59,19 @@ export const Card = ({ imageUrl, roaster, name, roast, toDetail, id }) => {
         <Details>
           <div className="sub">{roaster}</div>
           <div className="title">{name}</div>
-          <div>
-            {roast.map((r, idx, arr) =>
-              idx === arr.length - 1 ? (
-                <span key={idx}>{r.label}</span>
-              ) : (
-                <>
-                  <span key={idx}>{r.label}</span>,{" "}
-                </>
-              )
-            )}
-          </div>
+          {roast && (
+            <div>
+              {roast.map((r, idx, arr) =>
+                idx === arr.length - 1 ? (
+                  <span key={idx}>{r.label}</span>
+                ) : (
+                  <>
+                    <span key={idx}>{r.label}</span>,{" "}
+                  </>
+                )
+              )}
+            </div>
+          )}
         </Details>
       </Wrapper2>
     </Link>
@@ -156,7 +166,7 @@ const Image = styled.img`
   width: 100%;
   height: auto;
   min-height: 169px;
-  object-fit: contain;
+  object-fit: cover;
   transition: opacity 0.1s linear;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.1); */
 `;

@@ -14,7 +14,7 @@ const RecipeContainer = (props) => {
 
   const getData = async () => {
     //from redux store
-    const currentItem = props.collection.find((c) => c.id === parseInt(id));
+    const currentItem = props.recipes.find((c) => c.id === parseInt(id));
     setItem(currentItem);
 
     // //connect to server
@@ -48,12 +48,13 @@ const RecipeContainer = (props) => {
   //     });
   // };
 
+  console.log(item);
   return <RecipePresenter item={item} />;
 };
 
 const mapStateToProps = (state) => {
   return {
-    collection: state.collection.collection,
+    recipes: state.recipes.recipes,
   };
 };
 

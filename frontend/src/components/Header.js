@@ -50,8 +50,8 @@ const Header = (props) => {
           <Link to="/tools">
             <Category>My Tools</Category>
           </Link>
-          <Link to="/">
-            <Category>Recipe</Category>
+          <Link to="/recipes">
+            <Category>My Recipes</Category>
           </Link>
         </Center>
         <Right className="flex">

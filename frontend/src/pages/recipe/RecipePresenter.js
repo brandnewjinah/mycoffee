@@ -20,51 +20,36 @@ const RecipePresenter = (props) => {
     <Container>
       <Header>
         <ImageContainer>
-          <img alt="" src={"https://www.pjscoffee.com/uploads/americano.jpg"} />
+          <img alt="" src={props.item.image && props.item.image} />
         </ImageContainer>
         <Data>
-          <h2>Americano</h2>
+          <h2>{props.item.name && props.item.name}</h2>
           <p>{props.item.description && props.item.description}</p>
         </Data>
       </Header>
       <Content>
         <Diagram>
-          <Cup />
+          <Cup data={props.item.ratio} />
         </Diagram>
         <Instructions>
           <div>
-            {props.item.origin && (
+            {props.item.ingredients && props.item.ingredients.length > 0 && (
               <Block>
                 <div className="header">INGREDIENTS</div>
-                <div className="flex">
-                  <div>Ground Coffee</div>
-                  <div className="volume">18-20g</div>
-                </div>
-                <div className="flex">
-                  <div>Hot Water</div>
-                  <div className="volume">120ml</div>
-                </div>
+                {props.item.ingredients.map((ing, idx) => (
+                  <div className="flex">
+                    <div>{ing.ingredient}</div>
+                    <div className="volume">{ing.amount}</div>
+                  </div>
+                ))}
               </Block>
             )}
-
-            {props.item.roast && (
+            {props.item.directions && props.item.directions.length > 0 && (
               <Block>
                 <div className="header">STEPS</div>
-                <div className="body">
-                  1. Make espresso. It should yield 30ml in 25-30 seconds
-                </div>
-                <div className="body">2. Add hot water to the espresso</div>
-              </Block>
-            )}
-
-            {props.item.flavor && (
-              <Block>
-                <div className="header">Flavor</div>
-                <div className="body">
-                  {props.item.flavor.map((f, idx) => (
-                    <Flavor key={idx}>{f.label}</Flavor>
-                  ))}
-                </div>
+                {props.item.directions.map((dir, idx) => (
+                  <div className="body">{`${idx + 1}. ${dir.text}`}</div>
+                ))}
               </Block>
             )}
           </div>
@@ -151,21 +136,6 @@ const Block = styled.div`
   }
 `;
 
-const Flavor = styled.span`
-  display: inline-block;
-  font-size: 0.75rem;
-  letter-spacing: 0.025rem;
-  background-color: #eee;
-  border-radius: 1em;
-  padding: 0.25em 0.75em;
-  margin-left: 0.5em;
-  margin-top: 0.125em;
-
-  &:first-child {
-    margin-left: 0;
-  }
-`;
-
 const Diagram = styled.div`
   width: 50%;
 
@@ -194,7 +164,7 @@ const Instructions = styled.div`
 `;
 
 const Content = styled(Flex)`
-  margin: 4em 0;
+  margin: 2em 0;
 `;
 
 const mapStateToProps = (state) => {

@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import Select from "react-select";
 
 //import components
 import { Input } from "../../components/Input";
 import { BtnClose, BtnText, Button } from "../../components/Button";
 
+//import data
+import { liquidOptions } from "../../data/data";
+
 //redux
 import { connect } from "react-redux";
-import { addTool } from "../../reducers/toolReducer";
+import { addRecipe } from "../../reducers/recipeReducer";
 
 //import styles and assets
 import styled from "styled-components";
@@ -21,7 +25,7 @@ const AddTools = (props) => {
     image: "",
     ingredients: [{ id: 1, ingredient: "", amount: "" }],
     directions: [{ id: 1, text: "" }],
-    ratio: [{ id: 1, name: "", value: "" }],
+    ratio: [{ index: 1, id: "", name: "", value: "" }],
   });
 
   const [errors, setErrors] = useState({});
@@ -56,18 +60,6 @@ const AddTools = (props) => {
     setData(newData);
   };
 
-  const handleRatioChange = ({ currentTarget: input }) => {
-    let index = data.ratio.findIndex((i) => i.id === parseInt(input.id));
-    let newData = { ...data };
-    let newRatio = [...newData.ratio];
-    let currentItem = { ...newRatio[index] };
-    currentItem[input.name] = input.value;
-    newRatio[index] = currentItem;
-    newData = { ...newData, ratio: newRatio };
-
-    setData(newData);
-  };
-
   const handleIngAdd = () => {
     let newIng = [...data.ingredients];
     let id = newIng[newIng.length - 1].id + 1;
@@ -86,15 +78,6 @@ const AddTools = (props) => {
     setData({ ...data, directions: newDir });
   };
 
-  const handleRatioAdd = () => {
-    let newRatio = [...data.ratio];
-    let id = newRatio[newRatio.length - 1].id + 1;
-
-    newRatio = [...newRatio, { id: id, name: "", value: "" }];
-
-    setData({ ...data, ratio: newRatio });
-  };
-
   const handleIngDelete = (id) => {
     let newIng = [...data.ingredients];
     newIng = newIng.filter((i) => i.id !== id);
@@ -109,9 +92,39 @@ const AddTools = (props) => {
     setData({ ...data, directions: newDir });
   };
 
-  const handleRatioDelete = (id) => {
+  const handleLiquidChange = (a, b) => {
+    let index = data.ratio.findIndex((i) => i.index === parseInt(b.index));
+
+    let newData = { ...data };
+    let newRatio = [...newData.ratio];
+    let currentItem = { ...newRatio[index], name: a.value, id: a.id };
+    newRatio[index] = currentItem;
+    setData({ ...data, ratio: newRatio });
+  };
+
+  const handleRatioChange = ({ currentTarget: input }) => {
+    let index = data.ratio.findIndex((i) => i.index === parseInt(input.id));
+    let newData = { ...data };
+    let newRatio = [...newData.ratio];
+    let currentItem = { ...newRatio[index] };
+    currentItem[input.name] = input.value;
+    newRatio[index] = currentItem;
+    newData = { ...newData, ratio: newRatio };
+
+    setData(newData);
+  };
+
+  const handleRatioAdd = () => {
     let newRatio = [...data.ratio];
-    newRatio = newRatio.filter((i) => i.id !== id);
+    let index = newRatio[newRatio.length - 1].index + 1;
+
+    newRatio = [...newRatio, { index: index, id: "", name: "", value: "" }];
+    setData({ ...data, ratio: newRatio });
+  };
+
+  const handleRatioDelete = (index) => {
+    let newRatio = [...data.ratio];
+    newRatio = newRatio.filter((i) => i.index !== index);
 
     setData({ ...data, ratio: newRatio });
   };
@@ -130,15 +143,15 @@ const AddTools = (props) => {
     if (errors) return;
 
     let id =
-      props.tools.length === 0 ? 1 : props.tools[props.tools.length - 1].id + 1;
+      props.recipes.length === 0
+        ? 1
+        : props.recipes[props.recipes.length - 1].id + 1;
 
     let newData = { ...data, id: id };
     // // props.postData(data); //post to server
-    props.addTool(newData); //add to redux
-    history.push("/tools");
+    props.addRecipe(newData); //add to redux
+    history.push("/receipes");
   };
-
-  console.log(data);
 
   return (
     <Wrapper>
@@ -182,7 +195,7 @@ const AddTools = (props) => {
               <div style={{ width: `26%` }}>
                 <Input
                   id={i.id}
-                  placeholder="Amout with unit"
+                  placeholder="Amount with unit"
                   name="amount"
                   error={errors.volume}
                   handleChange={handleIngChange}
@@ -228,22 +241,26 @@ const AddTools = (props) => {
           </div>
         </Block>
         <Block>
-          <p>RATIO</p>
+          <p>Add Ratio</p>
           {data.ratio.map((i, idx) => (
             <div className="item">
               <div style={{ width: `70%` }}>
-                <Input
-                  id={i.id}
-                  placeholder="Liquid"
-                  name="name"
-                  handleChange={handleRatioChange}
+                <Select
+                  placeholder="Select"
+                  options={liquidOptions.map((item) => ({
+                    label: item.name,
+                    value: item.name,
+                    id: item.id,
+                  }))}
+                  onChange={(event) => handleLiquidChange(event, i)}
                 />
               </div>
               <div style={{ width: `26%` }}>
                 <Input
-                  id={i.id}
-                  placeholder="Ratio"
+                  id={i.index}
+                  placeholder="value"
                   name="value"
+                  error={errors.volume}
                   handleChange={handleRatioChange}
                 />
               </div>
@@ -251,7 +268,7 @@ const AddTools = (props) => {
                 <div style={{ width: `2%` }}></div>
               ) : (
                 <div style={{ width: `2%` }}>
-                  <BtnClose handleClick={() => handleRatioDelete(i.id)} />
+                  <BtnClose handleClick={() => handleRatioDelete(i.index)} />
                 </div>
               )}
             </div>
@@ -325,8 +342,8 @@ const Block = styled.div`
 
 const mapStateToProps = (state) => {
   return {
-    tools: state.tools.tools,
+    recipes: state.recipes.recipes,
   };
 };
 
-export default connect(mapStateToProps, { addTool })(AddTools);
+export default connect(mapStateToProps, { addRecipe })(AddTools);
