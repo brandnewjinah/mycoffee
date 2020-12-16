@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { productApi } from "../../services/api";
+// import { productApi } from "../../services/api";
 import { useParams } from "react-router-dom";
 
 //import redux
@@ -48,7 +48,6 @@ const RecipeContainer = (props) => {
   //     });
   // };
 
-  console.log(item);
   return <RecipePresenter item={item} />;
 };
 

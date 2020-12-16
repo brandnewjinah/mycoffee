@@ -1,5 +1,5 @@
-import axios from "axios";
-import { GET_COLLECTION, GET_ERRORS } from "./types";
+// import axios from "axios";
+// import { GET_COLLECTION, GET_ERRORS } from "./types";
 
 export const getCollection = () => (dispatch) => {
   // axios

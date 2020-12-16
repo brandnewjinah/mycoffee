@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 
 //import components
 import Cup from "../../components/Cup";
@@ -61,7 +61,7 @@ const RecipePresenter = (props) => {
               color: `#a8a8a8`,
             }}
           >
-            <Link to={`/edit/${props.item.id}`}>edit</Link>
+            <Link to={`/recipe/edit/${props.item.id}`}>edit</Link>
           </div>
         </Instructions>
       </Content>

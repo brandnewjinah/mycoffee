@@ -3,19 +3,19 @@ import { useHistory } from "react-router-dom";
 import Select from "react-select";
 
 //import components
-import { Input } from "../../components/Input";
-import { BtnClose, BtnText, Button } from "../../components/Button";
+import { Input } from "../../../components/Input";
+import { BtnClose, BtnText, Button } from "../../../components/Button";
 
 //import data
-import { liquidOptions } from "../../data/data";
+import { liquidOptions } from "../../../data/data";
 
 //redux
 import { connect } from "react-redux";
-import { addRecipe } from "../../reducers/recipeReducer";
+import { addRecipe } from "../../../reducers/recipeReducer";
 
 //import styles and assets
 import styled from "styled-components";
-import { gray } from "../../components/Colors";
+import { gray } from "../../../components/Colors";
 
 const AddTools = (props) => {
   const history = useHistory();
@@ -150,7 +150,7 @@ const AddTools = (props) => {
     let newData = { ...data, id: id };
     // // props.postData(data); //post to server
     props.addRecipe(newData); //add to redux
-    history.push("/receipes");
+    history.push("/recipes");
   };
 
   return (

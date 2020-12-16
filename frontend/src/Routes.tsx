@@ -16,14 +16,13 @@ import Add from "./pages/add";
 import Edit from "./pages/edit";
 import Products from "./pages/products";
 import Detail from "./pages/detail";
-import Brew from "./pages/detail/AddNotes.js";
 import Tools from "./pages/tools";
 import AddTools from "./pages/tools/AddTools";
 
 //Recipes
 import Recipe from "./pages/recipe";
 import Recipes from "./pages/recipes";
-import AddRecipe from "./pages/recipe/AddRecipe";
+import EditRecipe from "./pages/recipe/edit";
 
 const Routes = () => {
   return (
@@ -44,8 +43,9 @@ const Routes = () => {
           <Route exact path="/tools" component={Tools} />
           <Route exact path="/tools/add" component={AddTools} />
           <Route exact path="/recipes" component={Recipes} />
-          <Route exact path="/recipes/add" component={AddRecipe} />
+          <Route exact path="/recipes/add" component={EditRecipe} />
           <Route exact path="/recipe/:id" component={Recipe} />
+          <Route exact path="/recipe/edit/:id" component={EditRecipe} />
         </Layout>
       </Switch>
     </Router>
