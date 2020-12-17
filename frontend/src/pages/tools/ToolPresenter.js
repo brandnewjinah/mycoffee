@@ -92,7 +92,7 @@ const Header = styled.div`
     font-size: 1.5rem;
     line-height: 2.8rem;
     letter-spacing: 0.125rem;
-    margin: 1.5em 0 0.75em;
+    margin: 0.75em 0;
     text-rendering: optimizeLegibility;
   }
 `;

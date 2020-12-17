@@ -107,6 +107,12 @@ const Main = styled.div`
     margin: 1.5em;
     cursor: pointer;
   }
+
+  @media (max-width: 980px) {
+    h4 {
+      text-align: center;
+    }
+  }
 `;
 
 export default HomePresenter;

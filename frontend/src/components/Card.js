@@ -112,7 +112,7 @@ export const ToolCard = ({
             <Coffee width="20" height="20" color="#8F8F8F" stroke="2" />
           </ErrImg>
         ) : (
-          <Image
+          <ToolImage
             onError={handleDefaultImg}
             src={imageUrl ? imageUrl : setImgErr(true)}
           />
@@ -167,6 +167,15 @@ const Image = styled.img`
   height: auto;
   height: 170px;
   object-fit: cover;
+  transition: opacity 0.1s linear;
+  /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.1); */
+`;
+
+const ToolImage = styled.img`
+  width: 100%;
+  height: auto;
+  height: 170px;
+  object-fit: contain;
   transition: opacity 0.1s linear;
   /* box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.1); */
 `;

@@ -136,12 +136,26 @@ const Hero = styled.div`
   width: 50%;
   background-color: #fcf7f0;
   margin: 0;
+
+  @media (max-width: 980px) {
+    display: none;
+  }
 `;
 
 const Container = styled.div`
   width: 50%;
   max-width: 640px;
   padding: 4em;
+  margin: 0 auto;
+
+  @media (max-width: 980px) {
+    width: 100%;
+    padding: 2em;
+
+    h4 {
+      text-align: center;
+    }
+  }
 `;
 
 const BtnContainer = styled.div`

@@ -14,6 +14,7 @@ import {
 
 //import styles
 import styled from "styled-components";
+import { gray } from "../../components/Colors";
 
 const RecipePresenter = (props) => {
   return (
@@ -30,11 +31,14 @@ const RecipePresenter = (props) => {
       <Content>
         <Diagram>
           <Cup data={props.item.ratio} />
+          <Edit className="edit1">
+            <Link to={`/recipe/edit/${props.item.id}`}>edit</Link>
+          </Edit>
         </Diagram>
         <Instructions>
-          <div>
+          <div className="block">
             {props.item.ingredients && props.item.ingredients.length > 0 && (
-              <Block>
+              <div>
                 <div className="header">INGREDIENTS</div>
                 {props.item.ingredients.map((ing, idx) => (
                   <div className="flex">
@@ -42,27 +46,24 @@ const RecipePresenter = (props) => {
                     <div className="volume">{ing.amount}</div>
                   </div>
                 ))}
-              </Block>
+              </div>
             )}
             {props.item.directions && props.item.directions.length > 0 && (
-              <Block>
-                <div className="header">STEPS</div>
+              <div className="block">
+                <div className="header">DIRECTIONS</div>
                 {props.item.directions.map((dir, idx) => (
-                  <div className="body">{`${idx + 1}. ${dir.text}`}</div>
+                  <div className="flex2">
+                    <div style={{ marginRight: `.5rem` }}>{idx + 1}.</div>
+                    <div>{dir.text}</div>
+                  </div>
                 ))}
-              </Block>
+              </div>
             )}
           </div>
 
-          <div
-            style={{
-              fontSize: `.75rem`,
-              textDecoration: `underline`,
-              color: `#a8a8a8`,
-            }}
-          >
+          <Edit className="edit2">
             <Link to={`/recipe/edit/${props.item.id}`}>edit</Link>
-          </div>
+          </Edit>
         </Instructions>
       </Content>
     </Container>
@@ -76,12 +77,15 @@ const Flex = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  position: relative;
 `;
 
 const Header = styled(Flex)`
   flex-direction: column;
   text-align: center;
+
+  @media (max-width: 980px) {
+    text-align: left;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -91,6 +95,10 @@ const ImageContainer = styled.div`
     width: 100%;
     height: auto;
     object-fit: contain;
+  }
+
+  @media (max-width: 980px) {
+    width: 100%;
   }
 `;
 
@@ -103,17 +111,73 @@ const Data = styled.div`
     line-height: 2rem;
   }
 
-  h4 {
-    font-size: 1rem;
-  }
-
   p {
     margin: 1em 0;
+    color: ${gray.darkergray};
+  }
+
+  @media (max-width: 980px) {
+    width: 100%;
+    margin-top: 1em;
+
+    h2 {
+      font-size: 1.35rem;
+    }
+
+    p {
+      font-size: 0.875rem;
+      margin: 0;
+    }
   }
 `;
 
-const Block = styled.div`
-  margin-bottom: 1em;
+const Content = styled(Flex)`
+  margin: 2em 0;
+
+  .edit1 {
+    display: none;
+  }
+
+  .edit2 {
+    display: block;
+  }
+
+  @media (max-width: 980px) {
+    flex-direction: column-reverse;
+    margin: 0;
+
+    .edit1 {
+      display: block;
+    }
+    .edit2 {
+      display: none;
+    }
+  }
+`;
+
+const Diagram = styled.div`
+  width: 30%;
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  @media (max-width: 980px) {
+    width: 100%;
+  }
+`;
+
+const Instructions = styled.div`
+  border-left: 1px solid #e5e5e5;
+  width: 70%;
+  padding: 2em 0 0 2em;
+
+  .header {
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
 
   .flex {
     display: flex;
@@ -122,49 +186,48 @@ const Block = styled.div`
     font-size: 0.875rem;
   }
 
+  .flex2 {
+    display: flex;
+    width: 60%;
+    font-size: 0.875rem;
+  }
+
   .volume {
     color: #8c8c8c;
   }
 
-  .header {
-    font-size: 0.75rem;
-    font-weight: 600;
-  }
-
-  .body {
-    font-size: 0.875rem;
-  }
-`;
-
-const Diagram = styled.div`
-  width: 50%;
-
-  img {
+  @media (max-width: 980px) {
     width: 100%;
-    height: auto;
-    object-fit: contain;
+    border-left: none;
+    padding: 0;
+
+    .block {
+      margin: 2em 0;
+    }
+
+    .header {
+      font-size: 0.875rem;
+      letter-spacing: 0.1rem;
+    }
+
+    .flex {
+      width: 100%;
+      border-bottom: 1px solid ${gray.lightgray};
+      padding: 0.5em 0;
+    }
+
+    .flex2 {
+      width: 100%;
+      border-bottom: 1px solid ${gray.lightgray};
+      padding: 0.5em 0;
+    }
   }
 `;
 
-const Instructions = styled.div`
-  width: 50%;
-
-  h2 {
-    font-size: 2rem;
-    line-height: 2rem;
-  }
-
-  h4 {
-    font-size: 1rem;
-  }
-
-  p {
-    margin: 1em 0;
-  }
-`;
-
-const Content = styled(Flex)`
-  margin: 2em 0;
+const Edit = styled.div`
+  font-size: 0.75rem;
+  text-decoration: underline;
+  color: #a8a8a8;
 `;
 
 const mapStateToProps = (state) => {

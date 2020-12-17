@@ -46,6 +46,10 @@ const RecipesPresenter = (props) => {
 const Wrapper = styled.div`
   width: 100%;
   margin: 3em auto;
+
+  @media (max-width: 980px) {
+    margin: 1em auto;
+  }
 `;
 
 const Header = styled.div`
@@ -63,7 +67,7 @@ const Header = styled.div`
     font-size: 1.5rem;
     line-height: 2.8rem;
     letter-spacing: 0.125rem;
-    margin: 1.5em 0 0.75em;
+    margin: 0.75em 0;
     text-rendering: optimizeLegibility;
   }
 `;

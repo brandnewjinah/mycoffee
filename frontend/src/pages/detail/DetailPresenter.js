@@ -171,7 +171,11 @@ const Container = styled.div`
   position: relative;
 `;
 
-const Header = styled(Flex)``;
+const Header = styled(Flex)`
+  @media (max-width: 980px) {
+    flex-direction: column;
+  }
+`;
 
 const ImageContainer = styled.div`
   width: 50%;
@@ -180,6 +184,10 @@ const ImageContainer = styled.div`
     width: 100%;
     height: auto;
     object-fit: contain;
+  }
+
+  @media (max-width: 980px) {
+    width: 100%;
   }
 `;
 
@@ -198,6 +206,12 @@ const Data = styled.div`
 
   p {
     margin: 1em 0;
+  }
+
+  @media (max-width: 980px) {
+    width: 100%;
+    text-align: center;
+    margin-left: 0;
   }
 `;
 
@@ -237,12 +251,24 @@ const Notes = styled.div`
     font-weight: 500;
     margin-bottom: 1em;
   }
+
+  @media (max-width: 980px) {
+    h6 {
+      text-align: center;
+    }
+  }
 `;
 
 const ListComment = styled.div`
   h6 {
     font-weight: 500;
     margin-bottom: 1em;
+  }
+
+  @media (max-width: 980px) {
+    h6 {
+      text-align: center;
+    }
   }
 `;
 

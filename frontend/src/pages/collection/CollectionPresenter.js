@@ -138,6 +138,10 @@ const CollectionPresenter = (props) => {
 const Wrapper = styled.div`
   width: 100%;
   margin: 3em auto;
+
+  @media (max-width: 980px) {
+    margin: 1em auto;
+  }
 `;
 
 const Header = styled.div`
@@ -181,6 +185,12 @@ const Analyser = styled.div`
 
   .btn {
     text-transform: none;
+  }
+
+  @media (max-width: 980px) {
+    h4 {
+      line-height: 2.4rem;
+    }
   }
 `;
 

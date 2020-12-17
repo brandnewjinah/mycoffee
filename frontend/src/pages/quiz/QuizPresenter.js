@@ -121,8 +121,12 @@ const QuizPresenter = (props) => {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   margin: 3em auto;
+
+  @media (max-width: 980px) {
+    margin: 1em auto;
+  }
 `;
 
 const Flex = styled.div`
@@ -136,6 +140,7 @@ const Header = styled.div`
 
   h3 {
     font-weight: 600;
+    line-height: 2.75rem;
   }
 
   p {
@@ -149,6 +154,11 @@ const Grid = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1em;
   justify-items: center;
+
+  @media (max-width: 980px) {
+    grid-template-columns: repeat(1, 1fr);
+    margin: 2em auto;
+  }
 `;
 
 const Section = styled(Flex)`
@@ -176,6 +186,15 @@ const Selection = styled.div`
     display: flex;
     align-items: center;
     margin: 0 1em;
+  }
+
+  @media (max-width: 980px) {
+    padding: 2em;
+  }
+
+  @media (max-width: 384px) {
+    width: 100%;
+    padding: 2em;
   }
 `;
 

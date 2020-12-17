@@ -174,6 +174,78 @@ const Wrapper = styled.div`
     outline: transparent;
     padding: 0.16em;
   }
+
+  @media (max-width: 980px) {
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
+    }
+
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr {
+      margin: 0 0 1rem 0;
+    }
+
+    tr:nth-child(odd) {
+      background: #f5f5f5;
+    }
+
+    td {
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 40%;
+
+      &:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 0;
+        left: 6px;
+        width: 30%;
+        padding-right: 10px;
+        white-space: nowrap;
+      }
+    }
+
+    td:nth-of-type(1):before {
+      content: "Roasted On";
+    }
+    td:nth-of-type(2):before {
+      content: "Freshness";
+    }
+    td:nth-of-type(3):before {
+      content: "Temp";
+    }
+    td:nth-of-type(4):before {
+      content: "Grind";
+    }
+    td:nth-of-type(5):before {
+      content: "g";
+    }
+    td:nth-of-type(6):before {
+      content: "Time";
+    }
+    td:nth-of-type(7):before {
+      content: "ml";
+    }
+    td:nth-of-type(8):before {
+      content: "Taste";
+    }
+    td:nth-of-type(9):before {
+      content: "Action";
+    }
+  }
 `;
 
 export default Table;

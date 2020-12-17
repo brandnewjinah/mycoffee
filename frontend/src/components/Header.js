@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 //import styles and assets
 import styled from "styled-components";
+import { Coffee } from "../assets/Icons";
 
 //redux
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
 
 const Header = (props) => {
+  const [open, setOpen] = useState(false);
+
   const onLogoutClick = (e) => {
     // e.preventDefault();
     props.logoutUser();
@@ -25,38 +28,45 @@ const Header = (props) => {
   const guestLinks = (
     <>
       <Link to="/signup">
-        <div>Signup</div>
+        <div onClick={() => setOpen(!open)}>Signup</div>
       </Link>
       <Link to="/login">
-        <div>Login</div>
+        <div onClick={() => setOpen(!open)}>Login</div>
       </Link>
     </>
   );
 
   return (
-    <Wrapper>
+    <Wrapper open={open}>
       <Container>
-        <Link to="/">
-          <Left>Logo</Left>
-        </Link>
-        <Center>
-          <Link to="/collection">
-            <Category>My Collection</Category>
+        <Left>
+          <Link to="/">
+            <Coffee width="24" height="24" color="#000" stroke="2" />
           </Link>
-          {/* <Link to="/products">
-            <Category>Coffee</Category>
-          </Link> */}
+        </Left>
 
-          <Link to="/tools">
-            <Category>My Tools</Category>
-          </Link>
-          <Link to="/recipes">
-            <Category>My Recipes</Category>
-          </Link>
-        </Center>
-        <Right className="flex">
-          {props.auth.isAuthenticated ? authLinks : guestLinks}
-        </Right>
+        <Links open={open}>
+          <Center>
+            <Link to="/collection">
+              <Category onClick={() => setOpen(!open)}>My Collection</Category>
+            </Link>
+            <Link to="/tools">
+              <Category onClick={() => setOpen(!open)}>My Tools</Category>
+            </Link>
+            <Link to="/recipes">
+              <Category onClick={() => setOpen(!open)}>My Recipes</Category>
+            </Link>
+          </Center>
+          <Right>{props.auth.isAuthenticated ? authLinks : guestLinks}</Right>
+        </Links>
+
+        <Mobile>
+          {open ? (
+            <div onClick={() => setOpen(!open)}>Close</div>
+          ) : (
+            <div onClick={() => setOpen(!open)}>Menu</div>
+          )}
+        </Mobile>
       </Container>
     </Wrapper>
   );
@@ -68,27 +78,55 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  .flex {
-    display: flex;
-  }
+  background-color: ${({ open }) => (open ? "#fff" : null)};
 `;
 
 const Container = styled.div`
   width: 100%;
   max-width: 1360px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   font-size: 0.875rem;
   padding: 0 2em;
-  margin: 0 auto;
 `;
 
-const Left = styled.div``;
+const Left = styled.div`
+  flex: 1 1 33.33%;
+`;
+
+const Links = styled.div`
+  display: flex;
+  flex: 1 1 66.66%;
+
+  @media (max-width: 980px) {
+    height: 100vh;
+    flex-direction: column;
+    background-color: #fff;
+    position: absolute;
+    top: 2em;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    padding: 1em;
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: 500;
+    z-index: 2;
+    transform: ${({ open }) => (open ? "scale(1)" : "scale(0)")};
+    /* transition: all 300ms; */
+
+    a {
+      margin: 0.5em;
+    }
+  }
+`;
 
 const Center = styled.div`
   display: flex;
+
+  @media (max-width: 980px) {
+    flex-direction: column;
+  }
 `;
 
 const Category = styled.div`
@@ -96,8 +134,28 @@ const Category = styled.div`
 `;
 
 const Right = styled.div`
+  display: flex;
+  margin-left: auto;
+
   div {
     margin-left: 1.5em;
+  }
+
+  @media (max-width: 980px) {
+    flex-direction: column;
+    margin-left: 0;
+    div {
+      margin-left: 0;
+    }
+  }
+`;
+
+const Mobile = styled.div`
+  display: none;
+  cursor: pointer;
+
+  @media (max-width: 980px) {
+    display: block;
   }
 `;
 

@@ -31,4 +31,8 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 2em;
+
+  @media (max-width: 980px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
