@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 //import styles and assets
 import styled from "styled-components";
 import { Coffee } from "../assets/Icons";
+import { gray } from "./Colors";
 
 //redux
 import { connect } from "react-redux";
@@ -28,10 +29,10 @@ const Header = (props) => {
   const guestLinks = (
     <>
       <Link to="/signup">
-        <div onClick={() => setOpen(!open)}>Signup</div>
+        <div onClick={() => setOpen(false)}>Signup</div>
       </Link>
       <Link to="/login">
-        <div onClick={() => setOpen(!open)}>Login</div>
+        <div onClick={() => setOpen(false)}>Login</div>
       </Link>
     </>
   );
@@ -41,20 +42,20 @@ const Header = (props) => {
       <Container>
         <Left>
           <Link to="/">
-            <Coffee width="24" height="24" color="#000" stroke="2" />
+            <Coffee width="24" height="24" color={gray.darkergray} stroke="2" />
           </Link>
         </Left>
 
         <Links open={open}>
           <Center>
             <Link to="/collection">
-              <Category onClick={() => setOpen(!open)}>My Collection</Category>
+              <Category onClick={() => setOpen(false)}>My Collection</Category>
             </Link>
             <Link to="/tools">
-              <Category onClick={() => setOpen(!open)}>My Tools</Category>
+              <Category onClick={() => setOpen(false)}>My Tools</Category>
             </Link>
             <Link to="/recipes">
-              <Category onClick={() => setOpen(!open)}>My Recipes</Category>
+              <Category onClick={() => setOpen(false)}>My Recipes</Category>
             </Link>
           </Center>
           <Right>{props.auth.isAuthenticated ? authLinks : guestLinks}</Right>

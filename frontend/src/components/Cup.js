@@ -36,7 +36,7 @@ const Cup = ({ data }) => {
   return (
     <Wrapper>
       <Flex>
-        {total < 60 ? (
+        {total < 65 ? (
           <>
             <C60>
               {ratio.map((r, idx) => (

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 //import components
 import { EmptyCard, Card } from "../../components/Card";
 import { Section } from "../../components/Section";
-import { BtnText } from "../../components/Button";
+// import { BtnText } from "../../components/Button";
 
 //redux
 import { connect } from "react-redux";
@@ -14,9 +14,9 @@ import { resetCoffee } from "../../reducers/collectionReducer";
 import styled from "styled-components";
 
 const CollectionPresenter = (props) => {
-  const handleReset = () => {
-    props.resetCoffee(1);
-  };
+  // const handleReset = () => {
+  //   props.resetCoffee(1);
+  // };
 
   return (
     <Wrapper>
@@ -38,15 +38,15 @@ const CollectionPresenter = (props) => {
                 I brew my coffee with{" "}
                 {props.method.map((m, idx, arr) =>
                   arr.length > 1 && idx === arr.length - 1 ? (
-                    <>
-                      and <span key={idx}>{m.title}</span>
-                    </>
+                    <span key={idx}>
+                      and <Underline>{m.title}</Underline>
+                    </span>
                   ) : idx === arr.length - 1 ? (
-                    <span key={idx}>{m.title}</span>
+                    <Underline key={idx}>{m.title}</Underline>
                   ) : (
-                    <>
-                      <span key={idx}>{m.title}</span>,{" "}
-                    </>
+                    <span key={idx}>
+                      <Underline>{m.title}</Underline>,{" "}
+                    </span>
                   )
                 )}
                 .{" "}
@@ -57,15 +57,15 @@ const CollectionPresenter = (props) => {
                 I enjoy{" "}
                 {props.roast.map((r, idx, arr) =>
                   arr.length > 1 && idx === arr.length - 1 ? (
-                    <>
-                      and <span key={idx}>{r.title}</span>
-                    </>
+                    <span key={idx}>
+                      and <Underline>{r.title}</Underline>
+                    </span>
                   ) : idx === arr.length - 1 ? (
-                    <span key={idx}>{r.title}</span>
+                    <Underline key={idx}>{r.title}</Underline>
                   ) : (
-                    <>
-                      <span key={idx}>{r.title}</span>,{" "}
-                    </>
+                    <span>
+                      <Underline key={idx}>{r.title}</Underline>,{" "}
+                    </span>
                   )
                 )}
                 .{" "}
@@ -76,15 +76,15 @@ const CollectionPresenter = (props) => {
                 I usually buy{" "}
                 {props.beans.map((b, idx, arr) =>
                   arr.length > 1 && idx === arr.length - 1 ? (
-                    <>
-                      and <span key={idx}>{b.title}</span>
-                    </>
+                    <span key={idx}>
+                      and <Underline>{b.title}</Underline>
+                    </span>
                   ) : idx === arr.length - 1 ? (
-                    <span key={idx}>{b.title}</span>
+                    <Underline key={idx}>{b.title}</Underline>
                   ) : (
-                    <>
-                      <span key={idx}>{b.title}</span>,{" "}
-                    </>
+                    <span key={idx}>
+                      <Underline>{b.title}</Underline>,{" "}
+                    </span>
                   )
                 )}
                 .{" "}
@@ -95,15 +95,15 @@ const CollectionPresenter = (props) => {
                 I like{" "}
                 {props.taste.map((t, idx, arr) =>
                   arr.length > 1 && idx === arr.length - 1 ? (
-                    <>
-                      and <span key={idx}>{t.title}</span>
-                    </>
+                    <span key={idx}>
+                      and <Underline>{t.title}</Underline>
+                    </span>
                   ) : idx === arr.length - 1 ? (
-                    <span key={idx}>{t.title}</span>
+                    <Underline key={idx}>{t.title}</Underline>
                   ) : (
-                    <>
-                      <span key={idx}>{t.title}</span>,{" "}
-                    </>
+                    <span key={idx}>
+                      <Underline>{t.title}</Underline>,{" "}
+                    </span>
                   )
                 )}{" "}
                 tastes.
@@ -122,9 +122,9 @@ const CollectionPresenter = (props) => {
                 key={idx}
                 id={p.id}
                 imageUrl={p.image}
-                roaster={p.roaster}
+                overline={p.roaster}
                 name={p.name}
-                roast={p.roast}
+                caption={p.roast}
                 toDetail={true}
               />
             ))}
@@ -169,18 +169,6 @@ const Analyser = styled.div`
   }
 
   span {
-    position: relative;
-    text-transform: lowercase;
-    cursor: pointer;
-
-    &:after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-bottom: 3px solid #e89161;
-    }
   }
 
   .btn {
@@ -191,6 +179,21 @@ const Analyser = styled.div`
     h4 {
       line-height: 2.4rem;
     }
+  }
+`;
+
+const Underline = styled.span`
+  position: relative;
+  text-transform: lowercase;
+  cursor: pointer;
+
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: 3px solid #e89161;
   }
 `;
 

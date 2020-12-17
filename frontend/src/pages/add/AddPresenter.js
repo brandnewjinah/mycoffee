@@ -15,6 +15,7 @@ import { addCoffee } from "../../reducers/collectionReducer";
 
 //import styles and assets
 import styled from "styled-components";
+import { gray } from "../../components/Colors";
 
 const AddPresenter = (props) => {
   const [data, setData] = useState({
@@ -27,6 +28,7 @@ const AddPresenter = (props) => {
     image: "",
     description: "",
     notes: [],
+    comments: [],
   });
 
   const [errors, setErrors] = useState({});
@@ -109,6 +111,7 @@ const AddPresenter = (props) => {
               isMulti
               placeholder="Select"
               defaultValue={[]}
+              styles={customStyles}
               options={roastLevel.map((item) => ({
                 label: item.name,
                 value: item.name,
@@ -122,6 +125,7 @@ const AddPresenter = (props) => {
             <Select
               isMulti
               defaultValue={[]}
+              styles={customStyles}
               options={groupedOptions}
               formatGroupLabel={formatGroupLabel}
               onChange={handleFlavor}
@@ -158,6 +162,17 @@ const AddPresenter = (props) => {
       </Main>
     </Wrapper>
   );
+};
+
+const customStyles = {
+  control: (styles) => ({
+    ...styles,
+    border: `1px solid #e4e4e4`,
+  }),
+  multiValue: (styles) => ({
+    ...styles,
+    backgroundColor: gray.lightergray,
+  }),
 };
 
 const Wrapper = styled.div`

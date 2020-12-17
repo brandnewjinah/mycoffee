@@ -4,23 +4,24 @@ import { Link } from "react-router-dom";
 //import styles and assets
 import styled from "styled-components";
 import { Plus, Coffee } from "../assets/Icons";
+import { gray, primary } from "../components/Colors";
 
 export const EmptyCard = ({ label, path }) => {
   return (
     <Link to={path}>
-      <Wrapper>
+      <EmptyWrapper>
         <Plus width="20" height="20" color="#000" stroke="2" />
         <h6>{label}</h6>
-      </Wrapper>
+      </EmptyWrapper>
     </Link>
   );
 };
 
 export const Card = ({
   imageUrl,
-  roaster,
+  overline,
   name,
-  roast,
+  caption,
   toDetail,
   id,
   toRecipe,
@@ -35,16 +36,8 @@ export const Card = ({
 
   return (
     <Link to={toDetail ? `/products/${id}` : toRecipe ? `/recipe/${id}` : null}>
-      <Wrapper2>
+      <CardWrapper>
         <ImageContainer>
-          {/* <Image
-            onError={handleDefaultImg}
-            src={
-              imageUrl
-                ? imageUrl
-                : "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
-            }
-          /> */}
           {imgErr ? (
             <ErrImg>
               <Coffee width="20" height="20" color="#8F8F8F" stroke="2" />
@@ -57,33 +50,35 @@ export const Card = ({
           )}
         </ImageContainer>
         <Details>
-          <div className="sub">{roaster}</div>
-          <div className="title">{name}</div>
-          {roast && (
-            <div>
-              {roast.map((r, idx, arr) =>
+          <div className="sub">{overline}</div>
+          <div className="title">
+            {name.length > 14 ? `${name.substring(0, 14)}...` : name}
+          </div>
+          {caption && (
+            <div className="caption">
+              {caption.map((r, idx, arr) =>
                 idx === arr.length - 1 ? (
                   <span key={idx}>{r.label}</span>
                 ) : (
-                  <>
-                    <span key={idx}>{r.label}</span>,{" "}
-                  </>
+                  <span key={idx}>
+                    <span>{r.label}</span>,{" "}
+                  </span>
                 )
               )}
             </div>
           )}
         </Details>
-      </Wrapper2>
+      </CardWrapper>
     </Link>
   );
 };
 
 export const DetailCard = ({ header, children }) => {
   return (
-    <Wrapper2>
+    <CardWrapper>
       <h6>{header}</h6>
       <Details>{children}</Details>
-    </Wrapper2>
+    </CardWrapper>
   );
 };
 
@@ -121,9 +116,9 @@ export const ToolCard = ({
       <Text>
         <div className="sub">{sub}</div>
         <div className="title">{title}</div>
-        <div className="sub">
+        <div className="caption">
           <Link to={{ pathname: `${reference}` }} target="_blank">
-            more
+            instructions
           </Link>
         </div>
         <div className="delete" onClick={handleDelete}>
@@ -139,8 +134,8 @@ const Flex = styled.div`
   align-items: center;
 `;
 
-const Wrapper = styled(Flex)`
-  background-color: seashell;
+const EmptyWrapper = styled(Flex)`
+  background-color: rgba(233, 240, 236, 0.6);
   flex-direction: column;
   justify-content: center;
   width: 100%;
@@ -154,11 +149,11 @@ const Wrapper = styled(Flex)`
   }
 `;
 
-const Wrapper2 = styled(Flex)`
+const CardWrapper = styled(Flex)`
   width: 100%;
   flex-direction: column;
-  background-color: #fff;
-  border: 1px solid whitesmoke;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid #f7f1dc;
   padding-bottom: 1em;
 `;
 
@@ -198,23 +193,28 @@ const Details = styled.span`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 1em;
 
   .sub {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     font-weight: 500;
     line-height: 0.875rem;
+    color: ${primary.wintergreen};
   }
 
   .title {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: ${primary.orange};
   }
 
   p {
     font-size: 0.75rem;
   }
 
-  span {
+  .caption {
     font-size: 0.75rem;
+    color: ${gray.darkergray};
   }
 `;
 
@@ -227,16 +227,29 @@ const Tool = styled(Flex)`
 
 const Text = styled.div`
   .sub {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 0.875rem;
+    color: ${primary.wintergreen};
   }
 
   .title {
     font-size: 1rem;
     line-height: 1.5em;
+    font-weight: 500;
+    color: ${primary.orange};
+  }
+
+  .caption {
+    font-size: 0.75rem;
+    line-height: 1.5em;
+    color: ${gray.darkergray};
+    padding-top: 1em;
   }
 
   .delete {
     font-size: 0.75rem;
+    padding-top: 1em;
     cursor: pointer;
 
     &:hover {

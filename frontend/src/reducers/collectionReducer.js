@@ -3,6 +3,8 @@ const ADD_COFFEE = "ADD_COFFEE";
 const EDIT_COFFEE = "EDIT_COFFEE";
 const DELETE_COFFEE = "DELETE_COFFEE";
 const RESET_COFFEE = "RESET_COFFEE";
+const ADD_COMMENT = "ADD_COMMENT";
+const DELETE_COMMENT = "DELETE_COMMENT";
 const ADD_NOTE = "ADD_NOTE";
 const DELETE_NOTE = "DELETE_NOTE";
 
@@ -33,6 +35,28 @@ export const deleteCoffee = (item) => {
   return (dispatch) => {
     dispatch({
       type: DELETE_COFFEE,
+      payload: {
+        item,
+      },
+    });
+  };
+};
+
+export const addComment = (item) => {
+  return (dispatch) => {
+    dispatch({
+      type: ADD_COMMENT,
+      payload: {
+        item,
+      },
+    });
+  };
+};
+
+export const deleteComment = (item) => {
+  return (dispatch) => {
+    dispatch({
+      type: DELETE_COMMENT,
       payload: {
         item,
       },
@@ -94,6 +118,42 @@ const reducer = (state = initialState, action) => {
       (item) => item.id === updatedCoffee.id
     );
     newCollection[index] = updatedCoffee;
+
+    return { ...state, collection: newCollection };
+  }
+
+  if (action.type === ADD_COMMENT) {
+    let newComment = action.payload.item;
+    let newCollection = [...state.collection];
+
+    const index = newCollection.findIndex(
+      (item) => item.id === newComment.coffeeId
+    );
+
+    let thisCoffee = newCollection[index];
+    let comments = [...thisCoffee.comments, newComment];
+    thisCoffee = { ...thisCoffee, comments: comments };
+
+    newCollection[index] = thisCoffee;
+
+    return { ...state, collection: newCollection };
+  }
+
+  if (action.type === DELETE_COMMENT) {
+    let thisComment = action.payload.item;
+    let newCollection = [...state.collection];
+
+    const index = newCollection.findIndex(
+      (item) => item.id === thisComment.coffeeId
+    );
+
+    let thisCoffee = newCollection[index];
+    let comments = [...thisCoffee.comments];
+
+    comments = comments.filter((c) => c.id !== thisComment.id);
+    thisCoffee = { ...thisCoffee, comments: comments };
+
+    newCollection[index] = thisCoffee;
 
     return { ...state, collection: newCollection };
   }

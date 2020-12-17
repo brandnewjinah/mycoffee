@@ -109,6 +109,10 @@ const Main = styled.div`
   }
 
   @media (max-width: 980px) {
+    h1 {
+      line-height: 4rem;
+    }
+
     h4 {
       text-align: center;
     }

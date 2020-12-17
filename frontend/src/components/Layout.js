@@ -55,7 +55,7 @@ const Layout = ({ children }) => {
 };
 
 const Wrapper = styled.div`
-  background-color: #fffdfa;
+  background-color: #fffcf3;
   min-height: 100vh;
 `;
 

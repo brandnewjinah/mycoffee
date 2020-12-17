@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import moment from "moment";
 import { Link, useHistory } from "react-router-dom";
 
 //import components
 import { Input } from "../../components/Input";
-import { BtnText } from "../../components/Button";
+import { BtnText, BtnClose } from "../../components/Button";
 import Table from "../../components/Table";
 
 //import redux
@@ -13,17 +14,21 @@ import {
   deleteCoffee,
   addNote,
   deleteNote,
+  addComment,
+  deleteComment,
 } from "../../reducers/collectionReducer";
 
 //import styles
 import styled from "styled-components";
+import { primary, gray, yellow } from "../../components/Colors";
 
 //토큰에 있는 유저정보와 note의 유저정보를 match 해서 맞으면 note 가 보이게. 아니면 null.
 
 const DetailPresenter = (props) => {
   const history = useHistory();
   const [data, setData] = useState({
-    text: "",
+    comment: "",
+    time: moment().format("MMMM DD, YYYY"),
   });
 
   const handleChange = ({ currentTarget: input }) => {
@@ -33,25 +38,38 @@ const DetailPresenter = (props) => {
   };
 
   const postComment = async () => {
-    const token = localStorage.getItem("token");
-    const id = props.id;
-
-    const options = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    let id = props.item.comments.length + 1;
+    const thisComment = {
+      time: data.time,
+      comment: data.comment,
+      coffeeId: props.item.id,
+      id: id,
     };
+    props.addComment(thisComment);
+    history.go(0);
 
-    await axios
-      .post(`http://localhost:5000/product/comment/${id}`, data, options)
-      .then((res) => {
-        if (res.status === 200) {
-          window.location = "/home";
-        }
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    // const token = localStorage.getItem("token");
+    // const id = props.id;
+    // const options = {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // };
+    // await axios
+    //   .post(`http://localhost:5000/product/comment/${id}`, data, options)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       window.location = "/home";
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     alert(err);
+    //   });
+  };
+
+  const deleteComment = (comment) => {
+    props.deleteComment(comment);
+    history.go(0);
   };
 
   const postNote = (note) => {
@@ -99,9 +117,9 @@ const DetailPresenter = (props) => {
                     idx === arr.length - 1 ? (
                       <span key={idx}>{r.label}</span>
                     ) : (
-                      <>
+                      <span key={idx}>
                         <span key={idx}>{r.label}</span>,{" "}
-                      </>
+                      </span>
                     )
                   )}
                 </div>
@@ -110,7 +128,7 @@ const DetailPresenter = (props) => {
 
             {props.item.flavor && (
               <Block>
-                <div className="header">Flavor</div>
+                <div className="header">FLAVOR</div>
                 <div className="body">
                   {props.item.flavor.map((f, idx) => (
                     <Flavor key={idx}>{f.label}</Flavor>
@@ -131,32 +149,42 @@ const DetailPresenter = (props) => {
           </div>
         </Data>
       </Header>
-      <Notes>
+      <Section>
         <h6>BREW NOTES</h6>
         <Table
           data={props.item.notes}
           postNote={(note) => postNote(note)}
           deleteNote={(note) => deleteNote(note)}
         />
-      </Notes>
-      <ListComment>
+      </Section>
+      <Section>
         <h6>COMMENTS</h6>
         {props.item.comments &&
-          props.item.comments.map((c, idx) => <div>{c.text}</div>)}
-      </ListComment>
-      <Comments>
-        <div style={{ width: `90%` }}>
+          props.item.comments.map((c, idx) => (
+            <div className="item">
+              <div className="commentItem">
+                <div className="time">{c.time}</div>
+                <div className="comment">{c.comment}</div>
+              </div>
+              <div className="btnItem">
+                <BtnClose handleClick={() => deleteComment(c)} />
+              </div>
+            </div>
+          ))}
+      </Section>
+      <PostComments>
+        <div className="input">
           <Input
-            name="text"
+            name="comment"
             placeholder="Comment"
-            value={data.text}
+            value={data.comment}
             handleChange={handleChange}
           />
         </div>
-        <div style={{ width: `10%`, textAlign: `right` }}>
+        <div className="btnContainer">
           <BtnText label="Comment" handleClick={postComment} />
         </div>
-      </Comments>
+      </PostComments>
     </Container>
   );
 };
@@ -169,6 +197,18 @@ const Flex = styled.div`
 const Container = styled.div`
   width: 100%;
   position: relative;
+  color: ${gray.darkergray};
+
+  h6 {
+    font-weight: 500;
+    margin-bottom: 1em;
+  }
+
+  @media (max-width: 980px) {
+    h6 {
+      text-align: center;
+    }
+  }
 `;
 
 const Header = styled(Flex)`
@@ -198,6 +238,7 @@ const Data = styled.div`
   h2 {
     font-size: 2rem;
     line-height: 2rem;
+    color: ${primary.orange};
   }
 
   h4 {
@@ -205,6 +246,7 @@ const Data = styled.div`
   }
 
   p {
+    line-height: 1.5rem;
     margin: 1em 0;
   }
 
@@ -212,15 +254,19 @@ const Data = styled.div`
     width: 100%;
     text-align: center;
     margin-left: 0;
+    margin-top: 2em;
   }
 `;
 
 const Block = styled.div`
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 
   .header {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: 600;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    color: ${primary.wintergreen};
   }
 
   .body {
@@ -233,7 +279,7 @@ const Flavor = styled.span`
   display: inline-block;
   font-size: 0.75rem;
   letter-spacing: 0.025rem;
-  background-color: #eee;
+  background-color: ${yellow.dark};
   border-radius: 1em;
   padding: 0.25em 0.75em;
   margin-left: 0.5em;
@@ -244,39 +290,76 @@ const Flavor = styled.span`
   }
 `;
 
-const Notes = styled.div`
+const Section = styled.div`
   margin: 2em 0;
 
-  h6 {
-    font-weight: 500;
-    margin-bottom: 1em;
+  .item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #dedede;
+    font-size: 0.875rem;
+  }
+
+  .commentItem {
+    display: flex;
+    width: 90%;
+  }
+
+  .time {
+    width: 20%;
+    font-size: 0.75rem;
+  }
+
+  .comment {
+    width: 80%;
+  }
+
+  .btnItem {
+    width: 2%;
   }
 
   @media (max-width: 980px) {
-    h6 {
-      text-align: center;
+    margin-top: 4em;
+
+    .item {
+      align-items: center;
+    }
+
+    .commentItem {
+      flex-direction: column;
+    }
+
+    .time {
+      width: 100%;
+    }
+
+    .comment {
+      width: 100%;
     }
   }
 `;
 
-const ListComment = styled.div`
-  h6 {
-    font-weight: 500;
-    margin-bottom: 1em;
-  }
-
-  @media (max-width: 980px) {
-    h6 {
-      text-align: center;
-    }
-  }
-`;
-
-const Comments = styled(Flex)`
+const PostComments = styled(Flex)`
   justify-content: space-between;
   width: 100%;
-  font-size: 16px;
   margin: 1.5em 0;
+
+  .input {
+    width: 90%;
+  }
+
+  .btnContainer {
+    width: 10%;
+    text-align: right;
+  }
+
+  @media (max-width: 980px) {
+    flex-direction: column;
+
+    .input {
+      width: 100%;
+    }
+  }
 `;
 
 const mapStateToProps = (state) => {
@@ -285,6 +368,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { deleteCoffee, addNote, deleteNote })(
-  DetailPresenter
-);
+export default connect(mapStateToProps, {
+  deleteCoffee,
+  addNote,
+  deleteNote,
+  addComment,
+  deleteComment,
+})(DetailPresenter);

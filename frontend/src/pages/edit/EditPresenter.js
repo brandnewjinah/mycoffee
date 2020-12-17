@@ -20,6 +20,7 @@ import {
 
 //import styles and assets
 import styled from "styled-components";
+import { gray } from "../../components/Colors";
 
 const EditPresenter = (props) => {
   const history = useHistory();
@@ -127,12 +128,14 @@ const EditPresenter = (props) => {
             error={errors.origin}
             handleChange={handleChange}
           />
-          <div>
+          <Selector>
             <p>Roast Level</p>
             <Select
               isMulti
               placeholder="Select"
               defaultValue={[]}
+              styles={customStyles}
+              // defaultValue={[colourOptions[0]]}
               options={roastLevel.map((item) => ({
                 label: item.name,
                 value: item.name,
@@ -140,18 +143,19 @@ const EditPresenter = (props) => {
               }))}
               onChange={handleRoast}
             />
-          </div>
-          <div>
+          </Selector>
+          <Selector>
             <p>Flavor</p>
             <Select
               isMulti
               defaultValue={[]}
+              styles={customStyles}
               options={groupedOptions}
               formatGroupLabel={formatGroupLabel}
               onChange={handleFlavor}
               name="flavor"
             />
-          </div>
+          </Selector>
 
           <Input
             label="Price"
@@ -175,13 +179,27 @@ const EditPresenter = (props) => {
             error={errors.description}
             handleChange={handleChange}
           />
-
-          <Button label="Edit" />
+          <div className="primaryBtn">
+            <Button label="Update" />
+          </div>
         </form>
-        <BtnText label="Delete" handleClick={handleDelete} />
+        <div className="secondaryBtn">
+          <BtnText label="Delete" handleClick={handleDelete} />
+        </div>
       </Main>
     </Wrapper>
   );
+};
+
+const customStyles = {
+  control: (styles) => ({
+    ...styles,
+    border: `1px solid #e4e4e4`,
+  }),
+  multiValue: (styles) => ({
+    ...styles,
+    backgroundColor: gray.lightergray,
+  }),
 };
 
 const Wrapper = styled.div`
@@ -203,6 +221,23 @@ const Main = styled.div`
   margin: 2em auto;
   width: 100%;
   max-width: 960px;
+
+  .primaryBtn,
+  .secondaryBtn {
+    margin: 2em 0;
+    text-align: center;
+  }
+`;
+
+const Selector = styled.div`
+  margin: 1.125em 0;
+  p {
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5em;
+  }
 `;
 
 const mapStateToProps = (state) => {

@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 //import styles and assets
 import styled from "styled-components";
 import { Button } from "../../components/Button";
+import { Blob, Blob2 } from "../../assets/Icons";
 
 //import components
 import Header from "../../components/Header";
@@ -73,10 +74,17 @@ const Signup = (props) => {
 
   return (
     <Wrapper>
-      <Header />
-      <Main>
-        <Hero>Hero image</Hero>
-        <Container>
+      <Top>
+        <Header />
+      </Top>
+      <Container>
+        <div className="blob1">
+          <Blob width="800" height="800" fill="#ffbd59" />
+        </div>
+        <div className="blob2">
+          <Blob2 width="600" height="600" fill="#d3b88c" />
+        </div>
+        <Main>
           <h4>Sign up to keep track of your favorite coffee</h4>
           <form onSubmit={handleSubmit}>
             <Input
@@ -112,50 +120,66 @@ const Signup = (props) => {
               handleChange={handleChange}
             />
             <BtnContainer>
-              <Button label="Signup" />
+              <Button label="Signup" imp="primary" />
             </BtnContainer>
           </form>
-        </Container>
-      </Main>
+        </Main>
+      </Container>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  background-color: #feead4;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  z-index: 1;
+`;
+
+const Top = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100vh;
-  background-color: #fffdfa;
-`;
-
-const Main = styled.div`
-  display: flex;
-  height: 100vh;
-`;
-
-const Hero = styled.div`
-  width: 50%;
-  background-color: #fcf7f0;
-  margin: 0;
-
-  @media (max-width: 980px) {
-    display: none;
-  }
+  z-index: 2;
 `;
 
 const Container = styled.div`
-  width: 50%;
-  max-width: 640px;
-  padding: 4em;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
 
-  @media (max-width: 980px) {
-    width: 100%;
-    padding: 2em;
-
-    h4 {
-      text-align: center;
-    }
+  .blob1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: -10%;
+    margin-left: -10%;
   }
+
+  .blob2 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: -10%;
+    margin-right: -10%;
+  }
+`;
+
+const Main = styled.div`
+  width: 100%;
+  max-width: 640px;
+  height: 100vh;
+  padding: 4em;
+  margin-top: 8em;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.7);
 `;
 
 const BtnContainer = styled.div`

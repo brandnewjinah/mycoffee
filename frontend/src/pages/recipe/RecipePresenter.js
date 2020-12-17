@@ -14,7 +14,7 @@ import {
 
 //import styles
 import styled from "styled-components";
-import { gray } from "../../components/Colors";
+import { gray, primary } from "../../components/Colors";
 
 const RecipePresenter = (props) => {
   return (
@@ -36,9 +36,9 @@ const RecipePresenter = (props) => {
           </Edit>
         </Diagram>
         <Instructions>
-          <div className="block">
+          <div>
             {props.item.ingredients && props.item.ingredients.length > 0 && (
-              <div>
+              <div className="block">
                 <div className="header">INGREDIENTS</div>
                 {props.item.ingredients.map((ing, idx) => (
                   <div className="flex">
@@ -109,6 +109,7 @@ const Data = styled.div`
   h2 {
     font-size: 2rem;
     line-height: 2rem;
+    color: ${primary.orange};
   }
 
   p {
@@ -156,7 +157,7 @@ const Content = styled(Flex)`
 `;
 
 const Diagram = styled.div`
-  width: 30%;
+  width: 40%;
 
   img {
     width: 100%;
@@ -170,13 +171,17 @@ const Diagram = styled.div`
 `;
 
 const Instructions = styled.div`
-  border-left: 1px solid #e5e5e5;
-  width: 70%;
-  padding: 2em 0 0 2em;
+  width: 60%;
+  padding-left: 2em;
+
+  .block {
+    margin-bottom: 2em;
+  }
 
   .header {
     font-size: 0.75rem;
     font-weight: 600;
+    color: ${primary.wintergreen};
   }
 
   .flex {
@@ -184,12 +189,14 @@ const Instructions = styled.div`
     justify-content: space-between;
     width: 60%;
     font-size: 0.875rem;
+    border-bottom: 1px solid ${gray.lightgray};
   }
 
   .flex2 {
     display: flex;
     width: 60%;
     font-size: 0.875rem;
+    border-bottom: 1px solid ${gray.lightgray};
   }
 
   .volume {
@@ -198,7 +205,6 @@ const Instructions = styled.div`
 
   @media (max-width: 980px) {
     width: 100%;
-    border-left: none;
     padding: 0;
 
     .block {
@@ -212,13 +218,13 @@ const Instructions = styled.div`
 
     .flex {
       width: 100%;
-      border-bottom: 1px solid ${gray.lightgray};
+
       padding: 0.5em 0;
     }
 
     .flex2 {
       width: 100%;
-      border-bottom: 1px solid ${gray.lightgray};
+
       padding: 0.5em 0;
     }
   }

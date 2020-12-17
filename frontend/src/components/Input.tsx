@@ -128,6 +128,10 @@ const Wrapper = styled.div`
   .error {
     border: 1px solid red;
   }
+
+  @media (max-width: 980px) {
+    margin: 0.5em 0;
+  }
 `;
 
 const Label = styled.div`

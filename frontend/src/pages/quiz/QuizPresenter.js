@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 //import styles and assets
 import styled from "styled-components";
@@ -64,16 +65,25 @@ const QuizPresenter = (props) => {
       {quiz && quiz.type === "selection" && (
         <Grid>
           {quiz &&
-            quiz.selections.map((option, idx) => (
-              <Selection key={idx} onClick={() => handleSelection(option)}>
-                {profile[name].find((f) => f.id === option.id) && (
+            quiz.selections.map((option, idx) =>
+              profile[name].find((f) => f.id === option.id) ? (
+                <Selection
+                  key={idx}
+                  onClick={() => handleSelection(option)}
+                  style={{ border: `2px solid #899d90` }}
+                >
                   <div>
-                    <Check width="20" height="20" color="#d46f4a" stroke="3" />
+                    <Check width="20" height="20" color="#899d90" stroke="3" />
                   </div>
-                )}
-                {option.title}
-              </Selection>
-            ))}
+
+                  {option.title}
+                </Selection>
+              ) : (
+                <Selection key={idx} onClick={() => handleSelection(option)}>
+                  {option.title}
+                </Selection>
+              )
+            )}
         </Grid>
       )}
 
@@ -208,6 +218,12 @@ const Buttons = styled.div`
     margin: 0 1.5em;
   }
 `;
+
+QuizPresenter.propTypes = {
+  quiz: PropTypes.object,
+  page: PropTypes.number,
+  profile: PropTypes.object,
+};
 
 const mapStateToProps = (state) => {
   return {

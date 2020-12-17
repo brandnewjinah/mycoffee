@@ -6,6 +6,7 @@ import { SmallInput } from "./Input";
 
 //import styles and assets
 import styled from "styled-components";
+import { yellow } from "../components/Colors";
 
 const Table = (props) => {
   const [note, setNote] = useState({
@@ -64,8 +65,6 @@ const Table = (props) => {
                 <td
                   onClick={() => handleDelete(t)}
                   style={{
-                    display: `flex`,
-                    justifyContent: `center`,
                     color: `#a8a8a8`,
                     cursor: `pointer`,
                   }}
@@ -132,7 +131,7 @@ const Table = (props) => {
                 handleChange={handleChange}
               />
             </td>
-            <td style={{ textAlign: `center` }}>
+            <td>
               <BtnText label="post" handleClick={handleClick} />
             </td>
           </tr>
@@ -165,6 +164,10 @@ const Wrapper = styled.div`
     font-size: 0.875rem;
     color: #3e3a41;
     padding: 0.25em;
+
+    &:last-child {
+      text-align: center;
+    }
   }
 
   input {
@@ -195,8 +198,8 @@ const Wrapper = styled.div`
       margin: 0 0 1rem 0;
     }
 
-    tr:nth-child(odd) {
-      background: #f5f5f5;
+    tr:nth-child(even) {
+      background: ${yellow.dark};
     }
 
     td {
@@ -206,11 +209,13 @@ const Wrapper = styled.div`
       position: relative;
       padding-left: 40%;
 
+      &:last-child {
+        text-align: left;
+      }
+
       &:before {
-        /* Now like a table header */
         position: absolute;
-        /* Top/left values mimic padding */
-        top: 0;
+        top: 25%;
         left: 6px;
         width: 30%;
         padding-right: 10px;
