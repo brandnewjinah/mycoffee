@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { GoogleLogin } from "react-google-login";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 //import components
 import Header from "../../components/Header";
@@ -57,6 +59,23 @@ const Login = (props) => {
     props.loginUser(user, props.history);
   };
 
+  const responseGoogle = (response) => {
+    console.log("TEST");
+    console.log("GOOGLE", response);
+
+    // sendGoogleToken(response.tokenId)
+  };
+
+  const responseFacebook = (response) => {
+    console.log(response);
+
+    // sendGoogleToken(response.tokenId)
+  };
+
+  // const sendGoogleToken = (tokenId) => {
+
+  // }
+
   // useEffect(() => {
   //   if (props.auth.isAuthenticated) {
   //     props.history.push("/home");
@@ -98,6 +117,31 @@ const Login = (props) => {
               <Button label="Login" imp="primary" />
             </BtnContainer>
           </form>
+          <GoogleLogin
+            clientId={`958964886171-7i38qs8htg06ihrfaa2bj59ci5rmhgkd.apps.googleusercontent.com`}
+            // clientId={`934995609960-802ftdis9qvennlghppu2eqobmgqhdvi.apps.googleusercontent.com`}
+            onSucess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+            render={(renderProps) => (
+              <Button
+                label="Google Login"
+                handleClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+              />
+            )}
+          />
+          <FacebookLogin
+            appId={`998004220722554`}
+            autoLoad={false}
+            callback={responseFacebook}
+            render={(renderProps) => (
+              <Button
+                label="Facebook Login"
+                handleClick={renderProps.onClick}
+              />
+            )}
+          />
         </Main>
       </Container>
     </Wrapper>
