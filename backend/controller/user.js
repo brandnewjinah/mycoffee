@@ -1,8 +1,17 @@
 const userModel = require("../models/user");
 const jwt = require("jsonwebtoken");
+const { validationResult } = require("express-validator");
 
 exports.user_signup = (req, res) => {
   const { email, password, name } = req.body;
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array(),
+    });
+  }
 
   userModel
     .findOne({ email })
@@ -46,6 +55,14 @@ exports.user_signup = (req, res) => {
 
 exports.user_login = (req, res) => {
   const { email, password } = req.body;
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array(),
+    });
+  }
 
   userModel
     .findOne({ email })
