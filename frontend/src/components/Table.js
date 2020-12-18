@@ -6,7 +6,7 @@ import { SmallInput } from "./Input";
 
 //import styles and assets
 import styled from "styled-components";
-import { yellow } from "../components/Colors";
+import { yellow, gray } from "../components/Colors";
 
 const Table = (props) => {
   const [note, setNote] = useState({
@@ -152,18 +152,14 @@ const Wrapper = styled.div`
     font-size: 0.875rem;
     font-weight: 500;
     color: #808080;
-  }
-
-  td,
-  th {
-    border-top: 1px solid #dedede;
-    padding: 0.5em 0;
+    padding: 0.75em 0;
+    border-bottom: 1px solid ${gray.lightgray};
   }
 
   td {
     font-size: 0.875rem;
     color: #3e3a41;
-    padding: 0.25em;
+    padding: 1em 0.25em;
 
     &:last-child {
       text-align: center;
@@ -175,7 +171,7 @@ const Wrapper = styled.div`
     border: 1px solid #e4e4e4;
     border-radius: 0.25em;
     outline: transparent;
-    padding: 0.16em;
+    /* padding: 0.1em; */
   }
 
   @media (max-width: 980px) {

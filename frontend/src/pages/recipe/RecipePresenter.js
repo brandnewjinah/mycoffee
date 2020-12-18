@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 //import components
@@ -6,11 +7,6 @@ import Cup from "../../components/Cup";
 
 //import redux
 import { connect } from "react-redux";
-import {
-  deleteCoffee,
-  addNote,
-  deleteNote,
-} from "../../reducers/collectionReducer";
 
 //import styles
 import styled from "styled-components";
@@ -41,7 +37,7 @@ const RecipePresenter = (props) => {
               <div className="block">
                 <div className="header">INGREDIENTS</div>
                 {props.item.ingredients.map((ing, idx) => (
-                  <div className="flex">
+                  <div className="flex" key={idx}>
                     <div>{ing.ingredient}</div>
                     <div className="volume">{ing.amount}</div>
                   </div>
@@ -52,7 +48,7 @@ const RecipePresenter = (props) => {
               <div className="block">
                 <div className="header">DIRECTIONS</div>
                 {props.item.directions.map((dir, idx) => (
-                  <div className="flex2">
+                  <div className="flex2" key={idx}>
                     <div style={{ marginRight: `.5rem` }}>{idx + 1}.</div>
                     <div>{dir.text}</div>
                   </div>
@@ -109,7 +105,7 @@ const Data = styled.div`
   h2 {
     font-size: 2rem;
     line-height: 2rem;
-    color: ${primary.orange};
+    color: ${primary.wintergreen};
   }
 
   p {
@@ -181,7 +177,7 @@ const Instructions = styled.div`
   .header {
     font-size: 0.75rem;
     font-weight: 600;
-    color: ${primary.wintergreen};
+    color: ${primary.orange};
   }
 
   .flex {
@@ -236,12 +232,14 @@ const Edit = styled.div`
   color: #a8a8a8;
 `;
 
+RecipePresenter.propTypes = {
+  item: PropTypes.object,
+};
+
 const mapStateToProps = (state) => {
   return {
     collection: state.collection.collection,
   };
 };
 
-export default connect(mapStateToProps, { deleteCoffee, addNote, deleteNote })(
-  RecipePresenter
-);
+export default connect(mapStateToProps, null)(RecipePresenter);

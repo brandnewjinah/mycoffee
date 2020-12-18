@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import Select from "react-select";
 import { useHistory } from "react-router-dom";
 
@@ -43,7 +44,7 @@ const EditPresenter = (props) => {
       (c) => c.id === parseInt(props.id)
     );
     setData(currentItem);
-  }, []);
+  }, [props.collection, props.id]);
 
   const [errors, setErrors] = useState({});
 
@@ -239,6 +240,13 @@ const Selector = styled.div`
     margin-bottom: 0.5em;
   }
 `;
+
+EditPresenter.propTypes = {
+  addCoffee: PropTypes.func,
+  editCoffee: PropTypes.func,
+  deleteCoffee: PropTypes.func,
+  data: PropTypes.object,
+};
 
 const mapStateToProps = (state) => {
   return {

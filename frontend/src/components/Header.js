@@ -16,13 +16,16 @@ const Header = (props) => {
 
   const onLogoutClick = (e) => {
     // e.preventDefault();
+    setOpen(false);
     props.logoutUser();
   };
 
   const authLinks = (
     <>
-      <div>Hi, {props.auth.user.name}</div>
-      <div onClick={onLogoutClick}>Logout</div>
+      <div className="user">Hi, {props.auth.user.name}</div>
+      <div onClick={onLogoutClick} className="logout">
+        Logout
+      </div>
     </>
   );
 
@@ -80,6 +83,10 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${({ open }) => (open ? "#fff" : null)};
+
+  @media (max-width: 980px) {
+    border-bottom: 1px solid ${gray.lightgray};
+  }
 `;
 
 const Container = styled.div`
@@ -101,8 +108,8 @@ const Links = styled.div`
 
   @media (max-width: 980px) {
     height: 100vh;
-    flex-direction: column;
     background-color: #fff;
+    flex-direction: column;
     position: absolute;
     top: 2em;
     left: 0;
@@ -114,7 +121,6 @@ const Links = styled.div`
     font-weight: 500;
     z-index: 2;
     transform: ${({ open }) => (open ? "scale(1)" : "scale(0)")};
-    /* transition: all 300ms; */
 
     a {
       margin: 0.5em;
@@ -147,6 +153,14 @@ const Right = styled.div`
     margin-left: 0;
     div {
       margin-left: 0;
+    }
+
+    .user {
+      display: none;
+    }
+
+    .logout {
+      margin-top: 0.5em;
     }
   }
 `;

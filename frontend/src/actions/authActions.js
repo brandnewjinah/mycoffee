@@ -22,7 +22,7 @@ export const loginUser = (userData, history) => (dispatch) => {
       const { token } = res.data;
 
       //set toek to ls
-      localStorage.setItem("jwtToken", token);
+      localStorage.setItem("token", token);
 
       //set token to Auth header
       setAuthToken(token);
@@ -33,7 +33,7 @@ export const loginUser = (userData, history) => (dispatch) => {
       //set current user
       dispatch(setCurrentUser(decoded));
 
-      history.push("/home");
+      history.push("/");
     })
     .catch((err) =>
       dispatch({
@@ -53,7 +53,7 @@ export const setCurrentUser = (decoded) => {
 //Logout
 export const logoutUser = () => (dispatch) => {
   //Remove token from localStorage
-  localStorage.removeItem("jwtToken");
+  localStorage.removeItem("token");
 
   //Remove auth header for future requests
   setAuthToken(false);

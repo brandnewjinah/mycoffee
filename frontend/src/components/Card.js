@@ -199,13 +199,13 @@ const Details = styled.span`
     font-size: 0.8rem;
     font-weight: 500;
     line-height: 0.875rem;
-    color: ${primary.wintergreen};
+    color: ${primary.orange};
   }
 
   .title {
     font-size: 0.95rem;
     font-weight: 500;
-    color: ${primary.orange};
+    color: ${primary.wintergreen};
   }
 
   p {
@@ -230,14 +230,14 @@ const Text = styled.div`
     font-size: 0.8rem;
     font-weight: 500;
     line-height: 0.875rem;
-    color: ${primary.wintergreen};
+    color: ${primary.orange};
   }
 
   .title {
     font-size: 1rem;
     line-height: 1.5em;
     font-weight: 500;
-    color: ${primary.orange};
+    color: ${primary.wintergreen};
   }
 
   .caption {

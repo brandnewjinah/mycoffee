@@ -1,9 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 //import components
 import { EmptyCard, Card } from "../../components/Card";
 import { Section } from "../../components/Section";
-import { BtnText } from "../../components/Button";
 
 //redux
 import { connect } from "react-redux";
@@ -13,9 +13,6 @@ import { resetCoffee } from "../../reducers/collectionReducer";
 import styled from "styled-components";
 
 const RecipesPresenter = (props) => {
-  const handleReset = () => {
-    props.resetCoffee(1);
-  };
   return (
     <Wrapper>
       <Header>
@@ -76,6 +73,11 @@ const Collection = styled.div`
   width: 100%;
   margin: 3em auto;
 `;
+
+RecipesPresenter.propTypes = {
+  resetCoffee: PropTypes.func,
+  recipes: PropTypes.array,
+};
 
 const mapStateToProps = (state) => {
   return {

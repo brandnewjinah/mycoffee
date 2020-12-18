@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { quizApi } from "../../services/api";
-// import axios from "axios";
 
 import QuizPresenter from "./QuizPresenter";
 
@@ -8,6 +8,7 @@ import QuizPresenter from "./QuizPresenter";
 import { connect } from "react-redux";
 
 const QuizContainer = (props) => {
+  const history = useHistory();
   const [quiz, setQuiz] = useState({});
   const [page, setPage] = useState(1);
   const [length, setLength] = useState();
@@ -37,27 +38,19 @@ const QuizContainer = (props) => {
   };
 
   const postData = async (profile) => {
-    window.location = "/collection";
+    //connect to server
+    const token = localStorage.getItem("token");
 
-    // //connect to server
-    // const token = localStorage.getItem("token");
+    const options = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-    // const options = {
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    // };
+    await quizApi.postQuiz(profile, options);
 
-    // await axios
-    //   .post("http://localhost:5000/profile", profile, options)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       window.location = "/home";
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
+    //redirect (both redux and server)
+    history.push("/collection");
   };
 
   return (

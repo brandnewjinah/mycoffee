@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 //import components
@@ -201,6 +202,16 @@ const Collection = styled.div`
   width: 100%;
   margin: 3em auto;
 `;
+
+CollectionPresenter.propTypes = {
+  resetCoffee: PropTypes.func,
+  method: PropTypes.array,
+  roast: PropTypes.array,
+  beans: PropTypes.array,
+  taste: PropTypes.array,
+  collection: PropTypes.array,
+  quiz: PropTypes.object,
+};
 
 const mapStateToProps = (state) => {
   return {

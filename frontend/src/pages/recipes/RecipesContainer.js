@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import PropTypes from "prop-types";
 // import { productApi } from "../../services/api";
 
 //import components
@@ -20,9 +19,5 @@ const RecipesContainer = (props) => {
 
   return <RecipesPresenter roducts={products} />;
 };
-
-// CollectionContainer.propTypes = {
-//   data: PropTypes.object.isRequired,
-// };
 
 export default RecipesContainer;

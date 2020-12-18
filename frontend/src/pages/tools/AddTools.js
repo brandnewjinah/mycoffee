@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
 //import components
@@ -153,6 +154,12 @@ const Main = styled.div`
     font-size: 0.875rem;
   }
 `;
+
+AddTools.propTypes = {
+  addTool: PropTypes.func,
+  tools: PropTypes.array,
+  data: PropTypes.object,
+};
 
 const mapStateToProps = (state) => {
   return {

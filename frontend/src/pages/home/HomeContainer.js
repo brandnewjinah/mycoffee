@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 // import axios from "axios";
 // import { productApi } from "../../services/api";
 
@@ -17,7 +16,6 @@ const HomeContainer = (props) => {
 
   const getData = async () => {
     props.getCollection();
-    console.log(props);
 
     // const token = localStorage.getItem("jwtToken");
 
@@ -49,11 +47,6 @@ const HomeContainer = (props) => {
   }, []);
 
   return <HomePresenter {...data} products={products} />;
-};
-
-HomeContainer.propTypes = {
-  getCollection: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

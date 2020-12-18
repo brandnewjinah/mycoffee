@@ -66,27 +66,28 @@ const Cup = ({ data }) => {
           <>
             <C180>
               {ratio.map((r, idx) => (
-                <>
-                  <Liquid
-                    key={idx}
-                    style={{
-                      backgroundColor: `${bgColor(r.name)}`,
-                      height: `${(parseInt(r.value) / 180) * 100}%`,
-                    }}
-                  ></Liquid>
-                </>
+                <Liquid
+                  key={idx}
+                  style={{
+                    backgroundColor: `${bgColor(r.name)}`,
+                    height: `${(parseInt(r.value) / 180) * 100}%`,
+                  }}
+                ></Liquid>
               ))}
             </C180>
             <Label>
               {ratio.map((r, idx) => (
-                <>
+                <div
+                  style={{ display: `flex`, alignItems: `center` }}
+                  key={idx}
+                >
                   <Icon
                     style={{
                       backgroundColor: `${bgColor(r.name)}`,
                     }}
                   ></Icon>
                   <span>{r.name}</span>
-                </>
+                </div>
               ))}
             </Label>
           </>

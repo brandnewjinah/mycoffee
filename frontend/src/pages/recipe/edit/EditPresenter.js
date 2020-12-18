@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { useHistory, useParams, useLocation } from "react-router-dom";
 
 //import components
@@ -383,6 +384,14 @@ const Block = styled.div`
     text-align: center;
   }
 `;
+
+EditPresenter.propTypes = {
+  addRecipe: PropTypes.func,
+  deleteRecipe: PropTypes.func,
+  editRecipe: PropTypes.func,
+  data: PropTypes.object,
+  recipes: PropTypes.array,
+};
 
 const mapStateToProps = (state) => {
   return {

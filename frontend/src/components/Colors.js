@@ -19,7 +19,7 @@ export const yellow = {
 export const primary = {
   orange: "#d46f4a",
   darksage: "#6e7e74",
-  wintergreen: "#487069",
+  wintergreen: "#184c5f",
 };
 
 export const black = {

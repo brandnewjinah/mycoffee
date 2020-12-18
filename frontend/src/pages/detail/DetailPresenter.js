@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import PropTypes from "prop-types";
 import moment from "moment";
 import { Link, useHistory } from "react-router-dom";
 
@@ -98,10 +98,10 @@ const DetailPresenter = (props) => {
           />
         </ImageContainer>
         <Data>
-          <h4>{props.item.roaster && props.item.roaster}</h4>
+          <h6>{props.item.roaster && props.item.roaster}</h6>
           <h2>{props.item.name && props.item.name}</h2>
           <p>{props.item.description && props.item.description}</p>
-          <div>
+          <div className="more">
             {props.item.origin && (
               <Block>
                 <div className="header">ORIGIN</div>
@@ -138,53 +138,49 @@ const DetailPresenter = (props) => {
             )}
           </div>
 
-          <div
-            style={{
-              fontSize: `.75rem`,
-              textDecoration: `underline`,
-              color: `#a8a8a8`,
-            }}
-          >
+          <div className="edit">
             <Link to={`/edit/${props.item.id}`}>edit</Link>
           </div>
         </Data>
       </Header>
-      <Section>
-        <h6>BREW NOTES</h6>
-        <Table
-          data={props.item.notes}
-          postNote={(note) => postNote(note)}
-          deleteNote={(note) => deleteNote(note)}
-        />
-      </Section>
-      <Section>
-        <h6>COMMENTS</h6>
-        {props.item.comments &&
-          props.item.comments.map((c, idx) => (
-            <div className="item">
-              <div className="commentItem">
-                <div className="time">{c.time}</div>
-                <div className="comment">{c.comment}</div>
-              </div>
-              <div className="btnItem">
-                <BtnClose handleClick={() => deleteComment(c)} />
-              </div>
-            </div>
-          ))}
-      </Section>
-      <PostComments>
-        <div className="input">
-          <Input
-            name="comment"
-            placeholder="Comment"
-            value={data.comment}
-            handleChange={handleChange}
+      <Bottom>
+        <Section>
+          <h5>Brew Notes</h5>
+          <Table
+            data={props.item.notes}
+            postNote={(note) => postNote(note)}
+            deleteNote={(note) => deleteNote(note)}
           />
-        </div>
-        <div className="btnContainer">
-          <BtnText label="Comment" handleClick={postComment} />
-        </div>
-      </PostComments>
+        </Section>
+        <Section>
+          <h5>Comments</h5>
+          {props.item.comments &&
+            props.item.comments.map((c, idx) => (
+              <div className="item" key={idx}>
+                <div className="commentItem">
+                  <div className="time">{c.time}</div>
+                  <div className="comment">{c.comment}</div>
+                </div>
+                <div className="btnItem">
+                  <BtnClose handleClick={() => deleteComment(c)} />
+                </div>
+              </div>
+            ))}
+        </Section>
+        <PostComments>
+          <div className="input">
+            <Input
+              name="comment"
+              placeholder="Comment"
+              value={data.comment}
+              handleChange={handleChange}
+            />
+          </div>
+          <div className="btnContainer">
+            <BtnText label="Comment" handleClick={postComment} />
+          </div>
+        </PostComments>
+      </Bottom>
     </Container>
   );
 };
@@ -217,6 +213,8 @@ const Header = styled(Flex)`
   }
 `;
 
+const Bottom = styled.div``;
+
 const ImageContainer = styled.div`
   width: 50%;
 
@@ -238,16 +236,29 @@ const Data = styled.div`
   h2 {
     font-size: 2rem;
     line-height: 2rem;
-    color: ${primary.orange};
+    color: ${primary.wintergreen};
   }
 
-  h4 {
-    font-size: 1rem;
+  h6 {
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.025rem;
+    line-height: 1rem;
   }
 
   p {
     line-height: 1.5rem;
-    margin: 1em 0;
+    margin: 0.75em 0;
+  }
+
+  .more {
+    margin: 2em 0 1em;
+  }
+
+  .edit {
+    font-size: 0.75rem;
+    text-decoration: underline;
+    color: #a8a8a8;
   }
 
   @media (max-width: 980px) {
@@ -259,14 +270,14 @@ const Data = styled.div`
 `;
 
 const Block = styled.div`
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 
   .header {
     font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.05rem;
     text-transform: uppercase;
-    color: ${primary.wintergreen};
+    color: ${primary.orange};
   }
 
   .body {
@@ -293,10 +304,15 @@ const Flavor = styled.span`
 const Section = styled.div`
   margin: 2em 0;
 
+  h5 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1.5em;
+  }
+
   .item {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #dedede;
     font-size: 0.875rem;
   }
 
@@ -361,6 +377,15 @@ const PostComments = styled(Flex)`
     }
   }
 `;
+
+DetailPresenter.propTypes = {
+  deleteCoffee: PropTypes.func,
+  addNote: PropTypes.func,
+  deleteNote: PropTypes.func,
+  addComment: PropTypes.func,
+  deleteComment: PropTypes.func,
+  item: PropTypes.object,
+};
 
 const mapStateToProps = (state) => {
   return {

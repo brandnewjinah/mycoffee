@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import React, { useState } from "react";
 
 //import components
 import EditPresenter from "./EditPresenter";
@@ -11,8 +10,6 @@ import { liquidOptions } from "../../../data/data";
 import { connect } from "react-redux";
 
 const EditContainer = (props) => {
-  let { id } = useParams();
-  let location = useLocation();
   const liquid = liquidOptions;
 
   const [data, setData] = useState({

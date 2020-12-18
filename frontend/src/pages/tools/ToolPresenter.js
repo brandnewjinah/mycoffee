@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
 //import components
@@ -36,7 +37,7 @@ const ToolPresenter = (props) => {
           props.tools
             .filter((item) => item.essential === true)
             .map((t, idx) => (
-              <div className="box span2">
+              <div className="box span2" key={idx}>
                 <ToolCard
                   imageUrl={t.image}
                   title={t.name}
@@ -50,7 +51,7 @@ const ToolPresenter = (props) => {
           props.tools
             .filter((item) => item.essential !== true)
             .map((t, idx) => (
-              <div className="box">
+              <div className="box" key={idx}>
                 <ToolCard
                   imageUrl={t.image}
                   title={t.name}
@@ -112,7 +113,7 @@ const Main = styled(Flex)`
     padding: 20px;
     display: grid;
     font-size: 20px;
-    border: 1px solid #d3b88c;
+    border: 1px solid #f7f1dc;
     place-items: center;
     text-align: center;
 
@@ -139,6 +140,11 @@ const Main = styled(Flex)`
     }
   }
 `;
+
+ToolPresenter.propTypes = {
+  deleteTool: PropTypes.func,
+  tools: PropTypes.array,
+};
 
 const mapStateToProps = (state) => {
   return {
