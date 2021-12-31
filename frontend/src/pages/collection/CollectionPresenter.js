@@ -34,10 +34,10 @@ const CollectionPresenter = (props) => {
           </h4>
         ) : (
           <h4>
-            {props.method && props.method.length > 0 && (
+            {props.products.method && props.products.method.length > 0 && (
               <>
                 I brew my coffee with{" "}
-                {props.method.map((m, idx, arr) =>
+                {props.products.method.map((m, idx, arr) =>
                   arr.length > 1 && idx === arr.length - 1 ? (
                     <span key={idx}>
                       and <Underline>{m.title}</Underline>
@@ -53,10 +53,10 @@ const CollectionPresenter = (props) => {
                 .{" "}
               </>
             )}
-            {props.roast && props.roast.length > 0 && (
+            {props.products.roast && props.products.roast.length > 0 && (
               <>
                 I enjoy{" "}
-                {props.roast.map((r, idx, arr) =>
+                {props.products.roast.map((r, idx, arr) =>
                   arr.length > 1 && idx === arr.length - 1 ? (
                     <span key={idx}>
                       and <Underline>{r.title}</Underline>
@@ -72,10 +72,10 @@ const CollectionPresenter = (props) => {
                 .{" "}
               </>
             )}
-            {props.beans && props.beans.length > 0 && (
+            {props.products.beans && props.products.beans.length > 0 && (
               <>
                 I usually buy{" "}
-                {props.beans.map((b, idx, arr) =>
+                {props.products.beans.map((b, idx, arr) =>
                   arr.length > 1 && idx === arr.length - 1 ? (
                     <span key={idx}>
                       and <Underline>{b.title}</Underline>
@@ -91,10 +91,10 @@ const CollectionPresenter = (props) => {
                 .{" "}
               </>
             )}
-            {props.taste && props.taste.length > 0 && (
+            {props.products.taste && props.products.taste.length > 0 && (
               <>
                 I like{" "}
-                {props.taste.map((t, idx, arr) =>
+                {props.products.taste.map((t, idx, arr) =>
                   arr.length > 1 && idx === arr.length - 1 ? (
                     <span key={idx}>
                       and <Underline>{t.title}</Underline>
@@ -117,8 +117,8 @@ const CollectionPresenter = (props) => {
       <Collection>
         <Section>
           <EmptyCard label="Add Coffee" path="/add" />
-          {props.collection &&
-            props.collection.map((p, idx) => (
+          {props.products.collection &&
+            props.products.collection.map((p, idx) => (
               <Card
                 key={idx}
                 id={p.id}

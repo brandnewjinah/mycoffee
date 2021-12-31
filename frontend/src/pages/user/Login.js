@@ -60,14 +60,11 @@ const Login = (props) => {
   };
 
   const responseGoogle = (response) => {
-    console.log("TEST");
     console.log("GOOGLE", response);
-
-    // sendGoogleToken(response.tokenId)
   };
 
   const responseFacebook = (response) => {
-    console.log(response);
+    console.log("FACEBOOK", response);
 
     // sendGoogleToken(response.tokenId)
   };
@@ -117,10 +114,10 @@ const Login = (props) => {
               <Button label="Login" imp="primary" />
             </BtnContainer>
           </form>
+
           <GoogleLogin
             clientId={`958964886171-7i38qs8htg06ihrfaa2bj59ci5rmhgkd.apps.googleusercontent.com`}
-            // clientId={`934995609960-802ftdis9qvennlghppu2eqobmgqhdvi.apps.googleusercontent.com`}
-            onSucess={responseGoogle}
+            onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={"single_host_origin"}
             render={(renderProps) => (
@@ -132,7 +129,7 @@ const Login = (props) => {
             )}
           />
           <FacebookLogin
-            appId={`998004220722554`}
+            appId={`392528391907770`}
             autoLoad={false}
             callback={responseFacebook}
             render={(renderProps) => (
