@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 //comp
-import { Coffee } from "../../assets/Icons";
+import { Logo } from "../../assets/Icons";
 import { gray } from "../Colors";
+import { breakpoint, fontSize, size } from "../token";
 
 export interface Props {}
 
@@ -20,27 +21,33 @@ const Header: FC<Props> = () => {
       <Nav>
         <Left>
           <Link to="/">
-            <Coffee width="24" height="24" color={gray.darkergray} stroke="2" />
+            <Logo width={32} height={29} color="#000"></Logo>
           </Link>
         </Left>
         <Center open={open}>
           <List>
             <Item>
+              <NavLink to="/brew" onClick={() => setOpen(false)}>
+                Brew
+              </NavLink>
+            </Item>
+            <Item>
               <NavLink to="/collection" onClick={() => setOpen(false)}>
-                My Collection
+                Collection
+              </NavLink>
+            </Item>
+            <Item>
+              <NavLink to="/recipe" onClick={() => setOpen(false)}>
+                Recipe
               </NavLink>
             </Item>
             <Item>
               <NavLink to="/tools" onClick={() => setOpen(false)}>
-                My Tools
-              </NavLink>
-            </Item>
-            <Item>
-              <NavLink to="/recipes" onClick={() => setOpen(false)}>
-                My Recipes
+                Tools
               </NavLink>
             </Item>
           </List>
+
           <MobileLink>
             <Item>
               <NavLink to="/login" onClick={() => setOpen(false)}>
@@ -74,16 +81,17 @@ const Wrapper = styled.header`
   ${Flex}
   width: 100%;
   height: 4em;
-  background-color: #fff;
+  background-color: #f5f1e3;
 `;
 
 const Nav = styled.nav`
   ${Flex};
   justify-content: space-between;
   width: 100%;
-  max-width: 1360px;
-  font-size: 0.875rem;
+  max-width: ${size.xlg};
+  font-size: ${fontSize.sm2};
   padding: 0 2rem;
+  margin: 0 auto;
 `;
 
 const Left = styled.div`
@@ -97,7 +105,7 @@ const Center = styled.nav<Style>`
   justify-content: center;
   width: 100%;
 
-  @media (max-width: 980px) {
+  @media ${breakpoint.lg} {
     position: absolute;
     top: 4rem;
     left: 0;
@@ -116,7 +124,7 @@ const List = styled.ul`
   list-style-type: none;
   z-index: 2;
 
-  @media (max-width: 980px) {
+  @media ${breakpoint.lg} {
     flex-direction: column;
     flex: 0 1 auto;
     justify-content: flex-start;
@@ -128,7 +136,7 @@ const Item = styled.li`
   text-align: center;
   transition: border-bottom 0.5s ease-in-out;
 
-  @media (max-width: 980px) {
+  @media ${breakpoint.lg} {
     margin: 1rem 0.75rem;
   }
 `;
@@ -137,7 +145,7 @@ const MobileLink = styled.ul`
   display: none;
   list-style-type: none;
 
-  @media (max-width: 980px) {
+  @media ${breakpoint.lg} {
     display: block;
     ${Flex}
     flex-direction: column;
@@ -158,7 +166,7 @@ const Right = styled.nav`
   flex: 0 1 auto;
   justify-content: flex-end;
 
-  @media (max-width: 980px) {
+  @media ${breakpoint.lg} {
     display: none;
   }
 `;
@@ -167,7 +175,7 @@ const Mobile = styled.div`
   display: none;
   cursor: pointer;
 
-  @media (max-width: 980px) {
+  @media ${breakpoint.lg} {
     display: block;
   }
 `;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, FC } from "react";
 import styled from "styled-components";
+import { size } from "../token";
 
 //comp
 import Header from "./Header";
@@ -19,12 +20,13 @@ const Layout: FC<Props> = ({ children }) => {
 
 const Container = styled.div`
   min-height: 100vh;
+  background-color: #eedfdf;
 `;
 
 const Main = styled.main`
   width: 100%;
-  max-width: 1040px;
-  padding: 2rem;
+  max-width: ${size.xlg};
+  /* padding: 2rem; */
   margin: 0 auto;
 `;
 
