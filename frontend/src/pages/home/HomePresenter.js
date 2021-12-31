@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
 //import components
-import Header from "../../components/Header";
+
 import { Button, BtnText } from "../../components/Button";
 
 //redux
@@ -20,9 +20,6 @@ const HomePresenter = (props) => {
 
   return (
     <Wrapper>
-      <Top>
-        <Header />
-      </Top>
       <Container>
         <div className="blob1">
           <Blob width="800" height="800" fill="#ffbd59" />

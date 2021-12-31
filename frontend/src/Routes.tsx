@@ -2,9 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 //import components
-import Layout from "./components/Layout";
-
-import PrivateRoute from "./PrivateRoute";
+import Layout from "./components/layout/Layout";
 
 //import pages
 import Home from "./pages/home";
@@ -30,24 +28,24 @@ const Routes = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/" component={Home} />
         <Layout>
-          <PrivateRoute exact path="/collection" component={Collection} />
-          <PrivateRoute exact path="/setup1" component={Setup1} />
-          <PrivateRoute exact path="/suggested" component={Suggested} />
-          <PrivateRoute exact path="/quiz" component={Quiz} />
-          <PrivateRoute exact path="/add" component={Add} />
-          <PrivateRoute exact path="/products" component={Products} />
-          <PrivateRoute exact path="/products/:id" component={Detail} />
-          <PrivateRoute exact path="/edit/:id" component={Edit} />
-          <PrivateRoute exact path="/tools" component={Tools} />
-          <PrivateRoute exact path="/tools/add" component={AddTools} />
-          <PrivateRoute exact path="/recipes" component={Recipes} />
-          <PrivateRoute exact path="/recipes/add" component={EditRecipe} />
-          <PrivateRoute exact path="/recipe/:id" component={Recipe} />
-          <PrivateRoute exact path="/recipe/edit/:id" component={EditRecipe} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/collection" component={Collection} />
+          <Route exact path="/setup1" component={Setup1} />
+          <Route exact path="/suggested" component={Suggested} />
+          <Route exact path="/quiz" component={Quiz} />
+          <Route exact path="/add" component={Add} />
+          <Route exact path="/products" component={Products} />
+          <Route exact path="/products/:id" component={Detail} />
+          <Route exact path="/edit/:id" component={Edit} />
+          <Route exact path="/tools" component={Tools} />
+          <Route exact path="/tools/add" component={AddTools} />
+          <Route exact path="/recipes" component={Recipes} />
+          <Route exact path="/recipes/add" component={EditRecipe} />
+          <Route exact path="/recipe/:id" component={Recipe} />
+          <Route exact path="/recipe/edit/:id" component={EditRecipe} />
         </Layout>
       </Switch>
     </Router>

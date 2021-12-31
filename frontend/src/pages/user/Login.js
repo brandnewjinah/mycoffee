@@ -4,7 +4,7 @@ import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 //import components
-import Header from "../../components/Header";
+import Header from "../../components/layout/Header";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 

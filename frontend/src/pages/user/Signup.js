@@ -8,7 +8,7 @@ import { Button } from "../../components/Button";
 import { Blob, Blob2 } from "../../assets/Icons";
 
 //import components
-import Header from "../../components/Header";
+import Header from "../../components/layout/Header";
 import { Input } from "../../components/Input";
 
 //redux
