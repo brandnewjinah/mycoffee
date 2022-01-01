@@ -47,7 +47,6 @@ const Header: FC<Props> = () => {
               </NavLink>
             </Item>
           </List>
-
           <MobileLink>
             <Item>
               <NavLink to="/login" onClick={() => setOpen(false)}>
@@ -62,9 +61,23 @@ const Header: FC<Props> = () => {
 
         <Mobile>
           {open ? (
-            <div onClick={() => setOpen(!open)}>Close</div>
+            <button
+              type="button"
+              role="switch"
+              aria-pressed={open}
+              onClick={() => setOpen(!open)}
+            >
+              Close
+            </button>
           ) : (
-            <div onClick={() => setOpen(!open)}>Menu</div>
+            <button
+              type="button"
+              role="switch"
+              aria-pressed={open}
+              onClick={() => setOpen(!open)}
+            >
+              Menu
+            </button>
           )}
         </Mobile>
       </Nav>
@@ -80,8 +93,8 @@ const Flex = css`
 const Wrapper = styled.header`
   ${Flex}
   width: 100%;
-  height: 4em;
-  background-color: #f5f1e3;
+  height: 4rem;
+  background-color: #fff;
 `;
 
 const Nav = styled.nav`
@@ -111,10 +124,11 @@ const Center = styled.nav<Style>`
     left: 0;
     right: 0;
     background-color: #fff;
-    height: 100vh;
+    height: calc(100vh - 4rem);
     flex-direction: column;
     justify-content: flex-start;
     transform: ${({ open }) => (open ? "scale(1)" : "scale(0)")};
+    z-index: 100;
   }
 `;
 
@@ -174,6 +188,13 @@ const Right = styled.nav`
 const Mobile = styled.div`
   display: none;
   cursor: pointer;
+
+  button {
+    border: none;
+    background-color: transparent;
+    padding: 1rem;
+    cursor: pointer;
+  }
 
   @media ${breakpoint.lg} {
     display: block;

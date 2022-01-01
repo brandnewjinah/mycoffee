@@ -24,48 +24,7 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 400;
         color: ${black.dark}
     }
-    h1 {
-        font-weight: 600;
-        font-size: 4rem;
-        line-height: 3.75rem;
-    }
-    h2 {
-        font-weight: 500;
-        font-size: 2.4rem;
-        line-height: 3.4rem;
-    }
-    h3 {
-        font-weight: 500;
-        font-size: 2rem;
-        line-height: 3.5rem;
-    }
-    h4 {
-        font-weight: 500;
-        font-size: 1.35rem;
-    }
-
-    h5 {
-        font-weight: 500;
-        font-size: 1.25rem;
-    }
-
-    h6 {
-        font-weight: 400;
-        font-size: 1.05rem;
-    }
-
-    ul {
-        list-style-position: inside;
-        text-indent:-20px;
-    }
-
-    li {
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-
     a {
-        /* display: inline-block; */
         text-decoration: none;
         text-decoration-skip-ink: auto;
         color: inherit;

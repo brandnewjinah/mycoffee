@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { useEffect, FC } from "react";
 import styled from "styled-components";
 import { size } from "../token";
 
@@ -20,14 +20,12 @@ const Layout: FC<Props> = ({ children }) => {
 
 const Container = styled.div`
   min-height: 100vh;
-  background-color: #eedfdf;
 `;
 
 const Main = styled.main`
   width: 100%;
   max-width: ${size.xlg};
-  /* padding: 2rem; */
-  margin: 0 auto;
+  margin: -4rem auto 0;
 `;
 
 export default Layout;
