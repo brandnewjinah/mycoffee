@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 //import components
 import { BtnText } from "./Button";
-import { SmallInput } from "./Input";
+import { Input } from "./Input";
 
 //import styles and assets
 import styled from "styled-components";
@@ -83,49 +83,45 @@ const Table = (props) => {
               />
             </td>
             <td>
-              <SmallInput
+              <Input
                 name="freshness"
                 value={note.freshness}
                 handleChange={handleChange}
               />
             </td>
             <td>
-              <SmallInput
+              <Input
                 name="temp"
                 value={note.temp}
                 handleChange={handleChange}
               />
             </td>
             <td>
-              <SmallInput
+              <Input
                 name="grind"
                 value={note.grind}
                 handleChange={handleChange}
               />
             </td>
             <td>
-              <SmallInput
+              <Input
                 name="gram"
                 value={note.gram}
                 handleChange={handleChange}
               />
             </td>
             <td>
-              <SmallInput
+              <Input
                 name="time"
                 value={note.time}
                 handleChange={handleChange}
               />
             </td>
             <td>
-              <SmallInput
-                name="ml"
-                value={note.ml}
-                handleChange={handleChange}
-              />
+              <Input name="ml" value={note.ml} handleChange={handleChange} />
             </td>
             <td>
-              <SmallInput
+              <Input
                 name="taste"
                 value={note.taste}
                 handleChange={handleChange}

@@ -302,6 +302,25 @@ export const Question = ({ width, height, stroke, color }) => {
   );
 };
 
+export const SearchIcon = ({ width, height, stroke, color, fill }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke={color}
+      strokeWidth={stroke}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx={11} cy={11} r={8} />
+      <path d="M21 21l-4.35-4.35" />
+    </svg>
+  );
+};
+
 export const Store = ({ width, height, stroke, color, fill }) => {
   return (
     <svg

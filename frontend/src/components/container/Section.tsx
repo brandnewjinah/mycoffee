@@ -12,7 +12,6 @@ interface Props {
   image2Text?: string;
   image2?: string;
   children?: any;
-  divider?: boolean;
   text?: React.ReactNode;
 }
 
@@ -24,11 +23,11 @@ export const Section: FC<Props> = ({
   image2Text,
   image2,
   children,
-  divider,
+
   text,
 }) => {
   return (
-    <Wrapper divider={divider}>
+    <Wrapper>
       {title && (
         <header>
           <Text type="h2">{title}</Text>
@@ -57,8 +56,6 @@ const Wrapper = styled.section<Props>`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  border-bottom: ${(props) =>
-    props.divider === false ? null : `1px solid ${neutral[100]}`};
   padding: 0 0 1rem;
 
   header {
