@@ -103,7 +103,7 @@ const Nav = styled.nav`
   width: 100%;
   max-width: ${size.xlg};
   font-size: ${fontSize.sm2};
-  padding: 0 2rem;
+  padding: 0 1rem;
   margin: 0 auto;
 `;
 
@@ -187,12 +187,11 @@ const Right = styled.nav`
 
 const Mobile = styled.div`
   display: none;
-  cursor: pointer;
 
   button {
     border: none;
     background-color: transparent;
-    padding: 1rem;
+    padding: 1rem 0;
     cursor: pointer;
   }
 

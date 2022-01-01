@@ -1,11 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-//import components
 import Layout from "./components/layout/Layout";
-
-//import pages
 import Home from "./pages/home";
+
+//brew
+import Brew from "./pages/brew";
+import AddBean from "./pages/brew/add/AddBean";
 import Collection from "./pages/collection";
 import Signup from "./pages/user/Signup";
 import Login from "./pages/user/Login";
@@ -29,9 +30,11 @@ const Routes = () => {
     <Router>
       <Switch>
         <Layout>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/brew" component={Brew} />
+          <Route exact path="/brew/new" component={AddBean} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/" component={Home} />
           <Route exact path="/collection" component={Collection} />
           <Route exact path="/setup1" component={Setup1} />
           <Route exact path="/suggested" component={Suggested} />

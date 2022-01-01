@@ -25,7 +25,8 @@ const Container = styled.div`
 const Main = styled.main`
   width: 100%;
   max-width: ${size.xlg};
-  margin: -4rem auto 0;
+  padding: 1rem 0;
+  margin: 0 auto;
 `;
 
 export default Layout;
