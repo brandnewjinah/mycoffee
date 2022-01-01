@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 //import components
+import Header from "../../components/Header";
 import Cup from "../../components/Cup";
 
 //import redux
@@ -12,10 +13,11 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { gray, primary } from "../../components/Colors";
 
-const RecipePresenter = (props) => {
+const RecipePresenter = () => {
   return (
     <Container>
-      <Header>
+      <Header title="My Coffee Rercipes" />
+      {/* <Header>
         <ImageContainer>
           <img alt="" src={props.item.image && props.item.image} />
         </ImageContainer>
@@ -61,7 +63,7 @@ const RecipePresenter = (props) => {
             <Link to={`/recipe/edit/${props.item.id}`}>edit</Link>
           </Edit>
         </Instructions>
-      </Content>
+      </Content> */}
     </Container>
   );
 };
@@ -73,15 +75,6 @@ const Flex = styled.div`
 
 const Container = styled.div`
   width: 100%;
-`;
-
-const Header = styled(Flex)`
-  flex-direction: column;
-  text-align: center;
-
-  @media (max-width: 980px) {
-    text-align: left;
-  }
 `;
 
 const ImageContainer = styled.div`
@@ -236,10 +229,4 @@ RecipePresenter.propTypes = {
   item: PropTypes.object,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    collection: state.collection.collection,
-  };
-};
-
-export default connect(mapStateToProps, null)(RecipePresenter);
+export default RecipePresenter;

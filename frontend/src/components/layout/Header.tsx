@@ -37,8 +37,8 @@ const Header: FC<Props> = () => {
               </NavLink>
             </Item>
             <Item>
-              <NavLink to="/recipe" onClick={() => setOpen(false)}>
-                Recipe
+              <NavLink to="/recipes" onClick={() => setOpen(false)}>
+                Recipes
               </NavLink>
             </Item>
             <Item>

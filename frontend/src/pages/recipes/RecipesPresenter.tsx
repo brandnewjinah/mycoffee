@@ -1,7 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
+import styled from "styled-components";
 
 //import components
+import Header from "../../components/Header";
 import { EmptyCard, Card } from "../../components/Card";
 import { Section } from "../../components/Section";
 
@@ -9,18 +10,12 @@ import { Section } from "../../components/Section";
 import { connect } from "react-redux";
 import { resetCoffee } from "../../reducers/collectionReducer";
 
-//import styles and assets
-import styled from "styled-components";
-
-const RecipesPresenter = (props) => {
+const RecipesPresenter = () => {
   return (
     <Wrapper>
-      <Header>
-        <h2>My Drinks</h2>
-        <h4>My coffee recipes</h4>
-      </Header>
+      <Header title="My Recipes" />
 
-      <Collection>
+      {/* <Collection>
         <Section>
           <EmptyCard label="Add my recipe" path="/recipes/add" />
           {props.recipes &&
@@ -35,7 +30,7 @@ const RecipesPresenter = (props) => {
               />
             ))}
         </Section>
-      </Collection>
+      </Collection> */}
     </Wrapper>
   );
 };
@@ -49,40 +44,15 @@ const Wrapper = styled.div`
   }
 `;
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  h2 {
-    font-size: 2.8rem;
-    font-weight: 500;
-  }
-
-  h4 {
-    font-size: 1.5rem;
-    line-height: 2.8rem;
-    letter-spacing: 0.125rem;
-    margin: 0.75em 0;
-    text-rendering: optimizeLegibility;
-  }
-`;
-
 const Collection = styled.div`
   width: 100%;
   margin: 3em auto;
 `;
 
-RecipesPresenter.propTypes = {
-  resetCoffee: PropTypes.func,
-  recipes: PropTypes.array,
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     recipes: state.recipes.recipes,
+//   };
+// };
 
-const mapStateToProps = (state) => {
-  return {
-    recipes: state.recipes.recipes,
-  };
-};
-
-export default connect(mapStateToProps, { resetCoffee })(RecipesPresenter);
+export default RecipesPresenter;

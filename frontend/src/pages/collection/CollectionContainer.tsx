@@ -4,7 +4,7 @@ import { productApi } from "../../services/api";
 //import components
 import CollectionPresenter from "./CollectionPresenter";
 
-const CollectionContainer = (props) => {
+const CollectionContainer = () => {
   // const products = useState([]);
   const [products, setProducts] = useState([]);
 
@@ -19,7 +19,7 @@ const CollectionContainer = (props) => {
 
   console.log(products);
 
-  return <CollectionPresenter products={products} />;
+  return <CollectionPresenter />;
 };
 
 export default CollectionContainer;

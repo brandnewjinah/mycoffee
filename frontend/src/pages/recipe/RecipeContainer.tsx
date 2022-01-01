@@ -8,24 +8,24 @@ import { connect } from "react-redux";
 //import components
 import RecipePresenter from "./RecipePresenter";
 
-const RecipeContainer = (props) => {
-  let { id } = useParams();
+const RecipeContainer = () => {
+  // let { id } = useParams();
   const [item, setItem] = useState({});
 
-  const getData = async () => {
-    //from redux store
-    const currentItem = props.recipes.find((c) => c.id === parseInt(id));
-    setItem(currentItem);
+  // const getData = async () => {
+  //   //from redux store
+  //   const currentItem = props.recipes.find((c) => c.id === parseInt(id));
+  //   setItem(currentItem);
 
-    // //connect to server
-    // const productDetail = await productApi.getDetail(id);
-    // setDetail(productDetail.data.productInfo);
-  };
+  //   // //connect to server
+  //   // const productDetail = await productApi.getDetail(id);
+  //   // setDetail(productDetail.data.productInfo);
+  // };
 
-  useEffect(() => {
-    getData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  // useEffect(() => {
+  //   getData();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [id]);
 
   // const postComment = async (comment) => {
   //   const token = localStorage.getItem("token");
@@ -48,13 +48,11 @@ const RecipeContainer = (props) => {
   //     });
   // };
 
-  return <RecipePresenter item={item} />;
+  return (
+    <>
+      <RecipePresenter />
+    </>
+  );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    recipes: state.recipes.recipes,
-  };
-};
-
-export default connect(mapStateToProps, null)(RecipeContainer);
+export default RecipeContainer;

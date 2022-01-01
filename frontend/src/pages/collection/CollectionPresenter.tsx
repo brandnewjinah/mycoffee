@@ -1,8 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 //import components
+import Header from "../../components/Header";
 import { EmptyCard, Card } from "../../components/Card";
 import { Section } from "../../components/Section";
 // import { BtnText } from "../../components/Button";
@@ -14,17 +14,15 @@ import { resetCoffee } from "../../reducers/collectionReducer";
 //import styles and assets
 import styled from "styled-components";
 
-const CollectionPresenter = (props) => {
+const CollectionPresenter = () => {
   // const handleReset = () => {
   //   props.resetCoffee(1);
   // };
 
   return (
     <Wrapper>
-      <Header>
-        <h2>My Collection</h2>
-      </Header>
-      <Analyser>
+      <Header title="My Collection" />
+      {/* <Analyser>
         {Object.values(props.quiz).every((q) => !q.length) ? (
           <h4>
             <Link to="/quiz">
@@ -130,7 +128,7 @@ const CollectionPresenter = (props) => {
               />
             ))}
         </Section>
-      </Collection>
+      </Collection> */}
       {/* <BtnText label="Delete All" handleClick={handleReset} /> */}
     </Wrapper>
   );
@@ -142,16 +140,6 @@ const Wrapper = styled.div`
 
   @media (max-width: 980px) {
     margin: 1em auto;
-  }
-`;
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  h2 {
-    font-size: 2.8rem;
-    font-weight: 500;
   }
 `;
 
@@ -203,25 +191,15 @@ const Collection = styled.div`
   margin: 3em auto;
 `;
 
-CollectionPresenter.propTypes = {
-  resetCoffee: PropTypes.func,
-  method: PropTypes.array,
-  roast: PropTypes.array,
-  beans: PropTypes.array,
-  taste: PropTypes.array,
-  collection: PropTypes.array,
-  quiz: PropTypes.object,
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     quiz: state.quiz,
+//     method: state.quiz.method,
+//     roast: state.quiz.roast,
+//     beans: state.quiz.beans,
+//     taste: state.quiz.taste,
+//     collection: state.collection.collection,
+//   };
+// };
 
-const mapStateToProps = (state) => {
-  return {
-    quiz: state.quiz,
-    method: state.quiz.method,
-    roast: state.quiz.roast,
-    beans: state.quiz.beans,
-    taste: state.quiz.taste,
-    collection: state.collection.collection,
-  };
-};
-
-export default connect(mapStateToProps, { resetCoffee })(CollectionPresenter);
+export default CollectionPresenter;

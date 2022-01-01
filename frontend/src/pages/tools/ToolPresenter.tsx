@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
 //import components
+import Header from "../../components/Header";
 import { ToolCard } from "../../components/Card";
 import { BtnText } from "../../components/Button";
 
@@ -13,26 +14,21 @@ import { deleteTool } from "../../reducers/toolReducer";
 //import styles and assets
 import styled from "styled-components";
 
-const ToolPresenter = (props) => {
+const ToolPresenter = () => {
   const history = useHistory();
 
   const handleAdd = () => {
     history.push("/tools/add");
   };
 
-  const handleDelete = (t) => {
-    props.deleteTool(t);
-  };
+  // const handleDelete = (t) => {
+  //   props.deleteTool(t);
+  // };
 
   return (
     <Wrapper>
-      <Header>
-        <h2>My Tools</h2>
-        <h4>Coffee tools I own</h4>
-        <BtnText label="Add" handleClick={handleAdd} />
-      </Header>
-      <Main>
-        {/* { if essential, <div className="box span2"></div>} */}
+      <Header title="My Tools" />
+      {/* <Main>
         {props.tools &&
           props.tools
             .filter((item) => item.essential === true)
@@ -61,7 +57,7 @@ const ToolPresenter = (props) => {
                 />
               </div>
             ))}
-      </Main>
+      </Main> */}
     </Wrapper>
   );
 };
@@ -76,26 +72,6 @@ const Wrapper = styled.div`
   width: 100%;
   min-height: 100vh;
   margin: 3em auto;
-`;
-
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  h2 {
-    font-size: 2.8rem;
-    font-weight: 500;
-  }
-
-  h4 {
-    font-size: 1.5rem;
-    line-height: 2.8rem;
-    letter-spacing: 0.125rem;
-    margin: 0.75em 0;
-    text-rendering: optimizeLegibility;
-  }
 `;
 
 const Main = styled(Flex)`
@@ -141,15 +117,10 @@ const Main = styled(Flex)`
   }
 `;
 
-ToolPresenter.propTypes = {
-  deleteTool: PropTypes.func,
-  tools: PropTypes.array,
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     tools: state.tools.tools,
+//   };
+// };
 
-const mapStateToProps = (state) => {
-  return {
-    tools: state.tools.tools,
-  };
-};
-
-export default connect(mapStateToProps, { deleteTool })(ToolPresenter);
+export default ToolPresenter;

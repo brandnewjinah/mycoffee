@@ -4,7 +4,7 @@ import React, { useState } from "react";
 //import components
 import RecipesPresenter from "./RecipesPresenter";
 
-const RecipesContainer = (props) => {
+const RecipesContainer = () => {
   const products = useState([]);
   // const [products, setProducts] = useState([]);
 
@@ -17,7 +17,7 @@ const RecipesContainer = (props) => {
   //   getData();
   // }, []);
 
-  return <RecipesPresenter roducts={products} />;
+  return <RecipesPresenter />;
 };
 
 export default RecipesContainer;
