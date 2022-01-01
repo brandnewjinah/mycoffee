@@ -1,0 +1,24 @@
+{
+  "roasters": [
+    {
+      "id": 1,
+      "name": "Portrait"
+    },
+    {
+      "id": 2,
+      "name": "Madcap"
+    },
+    {
+      "id": 3,
+      "name": "Klatch"
+    },
+    {
+      "id": 4,
+      "name": "Blueprint"
+    },
+    {
+      "id": 5,
+      "name": "Verve"
+    }
+  ]
+}
