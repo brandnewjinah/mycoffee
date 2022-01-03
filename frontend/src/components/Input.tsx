@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC, useState, FocusEvent } from "react";
 import styled from "styled-components";
 
 //layout component
@@ -13,7 +13,8 @@ export interface Props {
   value?: string;
   prefix?: string;
   suffix?: string;
-  onChange: (value: string, name: string) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
 export const Input: FC<Props> = ({
@@ -28,11 +29,6 @@ export const Input: FC<Props> = ({
 }) => {
   const [isPassword, setIsPassword] = useState(true);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
-    onChange(value, name);
-  };
-
   return (
     <Container>
       {label && <label htmlFor={name}>{label}</label>}
@@ -42,7 +38,7 @@ export const Input: FC<Props> = ({
             name={name}
             type={type}
             maxLength={maxLength}
-            onChange={handleChange}
+            onChange={onChange}
             {...rest}
           />
           <div className="search" aria-hidden="true">
@@ -62,7 +58,7 @@ export const Input: FC<Props> = ({
           inputMode="decimal"
           pattern="[0-9]*"
           maxLength={maxLength}
-          onChange={handleChange}
+          onChange={onChange}
           {...rest}
         />
       ) : prefix || suffix ? (
@@ -77,7 +73,7 @@ export const Input: FC<Props> = ({
             type="text"
             inputMode="decimal"
             maxLength={maxLength}
-            onChange={handleChange}
+            onChange={onChange}
             {...rest}
           />
           {suffix && (
@@ -98,7 +94,7 @@ export const Input: FC<Props> = ({
                 : type
             }
             maxLength={maxLength}
-            onChange={handleChange}
+            onChange={onChange}
             {...rest}
           />
           {type === "password" && (
