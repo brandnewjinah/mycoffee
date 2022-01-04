@@ -19,17 +19,16 @@ const collectionSlice = createSlice({
     },
     addNote: (state, action) => {
       const newNote = action.payload;
-      const newBeans = current(state.beans);
+      let newBeans = [...current(state.beans)];
       const index = newBeans.findIndex((item) => item.id === newNote.beanId);
       let thisBean = newBeans[index];
 
-      let newNotes = [...thisBean.notes, newNote.data];
+      let newNotes = [...thisBean.notes, newNote.newNote];
       thisBean = { ...thisBean, notes: newNotes };
 
-      console.log(thisBean);
-      // newCollection[index] = thisBean;
+      newBeans[index] = thisBean;
 
-      // return { ...state, collection: newCollection };
+      state.beans = newBeans;
     },
   },
 });

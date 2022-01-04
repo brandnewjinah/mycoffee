@@ -31,21 +31,21 @@ const AddNote = () => {
     time: "",
     shot: "",
   });
-  const [taste, setTaste] = useState([
+  const [features, setFeatures] = useState([
     {
-      taste: "body",
+      feature: "crema",
       value: 5,
     },
     {
-      taste: "sweetness",
+      feature: "aroma",
       value: 5,
     },
     {
-      taste: "bitterness",
+      feature: "body",
       value: 5,
     },
     {
-      taste: "acidity",
+      feature: "flavor",
       value: 5,
     },
   ]);
@@ -59,19 +59,20 @@ const AddNote = () => {
 
   const handleSliderChange =
     (idx: number) => (e: ChangeEvent<HTMLInputElement>) => {
-      let tasteCopy = [...taste];
-      let thisTaste = tasteCopy[idx];
-      thisTaste.value = e.target.valueAsNumber;
-      tasteCopy[idx] = thisTaste;
-      setTaste(tasteCopy);
+      let featureCopy = [...features];
+      let thisFeature = featureCopy[idx];
+      thisFeature.value = e.target.valueAsNumber;
+      featureCopy[idx] = thisFeature;
+      setFeatures(featureCopy);
     };
 
   const handleNext = (page: number) => {
     if (page === 1) {
       setPage(page + 1);
     } else {
-      dispatch(addNote({ data, beanId }));
-      history.push(`/brew/${beanId}/1`);
+      let newNote = { ...data, features };
+      dispatch(addNote({ newNote, beanId }));
+      history.push(`/note/${beanId}/${data.id}`);
     }
   };
 
@@ -121,9 +122,9 @@ const AddNote = () => {
           <Section>
             <div style={{ height: `350px` }}>
               <ResponsiveRadar
-                data={taste}
+                data={features}
                 keys={["value"]}
-                indexBy="taste"
+                indexBy="feature"
                 maxValue={10}
                 margin={{ top: 30, right: 60, bottom: 30, left: 60 }}
                 curve="cardinalClosed"
@@ -143,15 +144,15 @@ const AddNote = () => {
             </div>
           </Section>
           <Section>
-            {taste &&
-              taste.map((item, idx) => (
+            {features &&
+              features.map((item, idx) => (
                 <Slider
                   key={idx}
                   initialSize={5}
                   minSize={1}
                   maxSize={10}
                   step={1}
-                  name={item.taste}
+                  name={item.feature}
                   value={item.value}
                   margin={`2rem 0`}
                   handleChange={handleSliderChange(idx)}

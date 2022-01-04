@@ -1,13 +1,3 @@
-export interface Note {
-  noteId: string;
-  today: string;
-  roastDate: string;
-  dose: string;
-  grind: string;
-  time: string;
-  shot: string;
-}
-
 export interface Bean {
   id: string;
   roaster: string;
@@ -16,7 +6,18 @@ export interface Bean {
   notes: Note[];
 }
 
-export interface Taste {
-  taste: string;
+export interface Feature {
+  feature: string;
   value: number;
+}
+
+export interface Note {
+  id: string;
+  today: string;
+  roastDate: string;
+  dose: string;
+  grind: string;
+  time: string;
+  shot: string;
+  features: Feature[];
 }
