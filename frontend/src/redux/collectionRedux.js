@@ -7,8 +7,10 @@ const collectionSlice = createSlice({
     collection: [],
   },
   reducers: {
-    addCoffee: (state, action) => {},
+    addBean: (state, action) => {
+      state.collection = [...state.collection, action.payload];
+    },
   },
 });
-
+export const { addBean } = collectionSlice.actions;
 export default collectionSlice.reducer;
