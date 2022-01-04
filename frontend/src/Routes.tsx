@@ -43,7 +43,7 @@ const Routes = () => {
           <Route exact path="/brew" component={Brew} />
           <Route exact path="/brew/new" component={AddBean} />
           {/* <Route exact path="/brew/:beanId/note" component={AddNote} /> */}
-          <Route exact path="/brew/note" component={AddNote} />
+          <Route exact path="/brew/:beanId/note" component={AddNote} />
           <Route exact path="/brew/beans" component={Beans} />
           <Route exact path="/brew/123" component={Bean} />
           <Route exact path="/brew/123/1" component={Note} />

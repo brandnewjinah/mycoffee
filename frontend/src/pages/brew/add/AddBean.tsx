@@ -14,6 +14,9 @@ import { Radio } from "../../../components/RadioButton";
 import { useDispatch } from "react-redux";
 import { addBean } from "../../../redux/collectionRedux";
 
+//interface
+import { Bean } from "../../../interfaces/interface";
+
 export interface StateProps {
   id: number;
   name: string;
@@ -24,11 +27,12 @@ const AddBean = () => {
   const dispatch = useDispatch();
   const [roasters, setRoasters] = useState<StateProps[]>([]);
   const [suggestions, setSuggestions] = useState<StateProps[]>([]);
-  const [data, setData] = useState<{ [key: string]: string }>({
+  const [data, setData] = useState<Bean>({
     id: nanoid(),
     roaster: "",
     name: "",
     level: "light",
+    notes: [],
   });
 
   useEffect(() => {
@@ -58,9 +62,9 @@ const AddBean = () => {
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     const userInput = { ...data };
-    userInput[name] = value;
+    userInput.name = value;
     setData(userInput);
   };
 
@@ -71,7 +75,7 @@ const AddBean = () => {
 
   const handleNext = () => {
     dispatch(addBean(data));
-    history.push("/brew/note");
+    history.push(`/brew/${data.id}/note`);
   };
 
   return (
