@@ -1,10 +1,12 @@
 import React, { ChangeEvent, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { ResponsiveRadar } from "@nivo/radar";
 
 //comp
+import { Section } from "../../../components/container/Section";
 import Header from "../../../components/Header";
 import { Input } from "../../../components/Input";
-import { Section } from "../../../components/container/Section";
+import Slider from "../../../components/Slider";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -29,6 +31,24 @@ const AddNote = () => {
     time: "",
     shot: "",
   });
+  const [taste, setTaste] = useState([
+    {
+      taste: "body",
+      value: 5,
+    },
+    {
+      taste: "sweetness",
+      value: 5,
+    },
+    {
+      taste: "bitterness",
+      value: 5,
+    },
+    {
+      taste: "acidity",
+      value: 5,
+    },
+  ]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -37,11 +57,20 @@ const AddNote = () => {
     setData(userInput);
   };
 
+  const handleSliderChange =
+    (idx: number) => (e: ChangeEvent<HTMLInputElement>) => {
+      let tasteCopy = [...taste];
+      let thisTaste = tasteCopy[idx];
+      thisTaste.value = e.target.valueAsNumber;
+      tasteCopy[idx] = thisTaste;
+      setTaste(tasteCopy);
+    };
+
   const handleNext = (page: number) => {
     if (page === 1) {
-      dispatch(addNote({ data, beanId }));
       setPage(page + 1);
     } else {
+      dispatch(addNote({ data, beanId }));
       history.push(`/brew/${beanId}/1`);
     }
   };
@@ -88,11 +117,49 @@ const AddNote = () => {
       )}
 
       {page === 2 && (
-        <Section>
-          <div>graph</div>
-          <div>selectors</div>
+        <>
+          <Section>
+            <div style={{ height: `350px` }}>
+              <ResponsiveRadar
+                data={taste}
+                keys={["value"]}
+                indexBy="taste"
+                maxValue={10}
+                margin={{ top: 30, right: 60, bottom: 30, left: 60 }}
+                curve="cardinalClosed"
+                borderWidth={2}
+                borderColor={{ from: "color" }}
+                gridLevels={5}
+                gridShape="circular"
+                gridLabelOffset={24}
+                enableDots={false}
+                colors={{ scheme: "accent" }}
+                fillOpacity={0.35}
+                blendMode="multiply"
+                animate={true}
+                motionConfig="stiff"
+                isInteractive={true}
+              />
+            </div>
+          </Section>
+          <Section>
+            {taste &&
+              taste.map((item, idx) => (
+                <Slider
+                  key={idx}
+                  initialSize={5}
+                  minSize={1}
+                  maxSize={10}
+                  step={1}
+                  name={item.taste}
+                  value={item.value}
+                  margin={`2rem 0`}
+                  handleChange={handleSliderChange(idx)}
+                />
+              ))}
+          </Section>
           <button onClick={() => handleNext(2)}>next</button>
-        </Section>
+        </>
       )}
     </div>
   );

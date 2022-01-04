@@ -15,3 +15,8 @@ export interface Bean {
   level: string;
   notes: Note[];
 }
+
+export interface Taste {
+  taste: string;
+  value: number;
+}
