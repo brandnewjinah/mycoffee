@@ -19,7 +19,9 @@ import { Bean, Note } from "../../../interfaces/interface";
 const NotePage = () => {
   let { beanId, noteId } = useParams<{ beanId: string; noteId: string }>();
   const beans = useSelector((state: RootState) => state.collection.beans);
-  const thisBean: Bean = beans.find((bean) => bean.id === beanId)!;
+  const thisBean: Bean = beans.find(
+    (bean: { id: string }) => bean.id === beanId
+  )!;
   const thisNote: Note = thisBean.notes.find((note) => note.id === noteId)!;
 
   const [data, setData] = useState([
@@ -49,7 +51,7 @@ const NotePage = () => {
 
   return (
     <div>
-      <Header title="Note for Bean 123" />
+      <Header title={`Note for ${thisBean.name}`} />
       <Section>
         <div style={{ height: `350px` }}>
           <ResponsiveRadar

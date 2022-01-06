@@ -21,7 +21,9 @@ const AddNote = () => {
   const history = useHistory();
   const { beanId } = useParams<{ beanId: string }>();
   const beans = useSelector((state: RootState) => state.collection.beans);
-  const thisBean: Bean = beans.find((bean) => bean.id === beanId)!;
+  const thisBean: Bean = beans.find(
+    (bean: { id: string }) => bean.id === beanId
+  )!;
   const [page, setPage] = useState(1);
   const [data, setData] = useState<{ [key: string]: string }>({
     id: new Date().valueOf().toString(),

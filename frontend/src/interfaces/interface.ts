@@ -6,6 +6,8 @@ export interface Bean {
   notes: Note[];
 }
 
+export interface Beans extends Array<Bean> {}
+
 export interface Feature {
   feature: string;
   value: number;
@@ -20,4 +22,9 @@ export interface Note {
   time: string;
   shot: string;
   features: Feature[];
+}
+
+export interface Initial {
+  beans: Beans;
+  initial: string;
 }

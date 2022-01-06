@@ -45,7 +45,7 @@ const Routes = () => {
           {/* <Route exact path="/brew/:beanId/note" component={AddNote} /> */}
           <Route exact path="/brew/:beanId/note" component={AddNote} />
           <Route exact path="/brew/beans" component={Beans} />
-          <Route exact path="/brew/:beanId" component={Bean} />
+          <Route exact path="/note/:beanId" component={Bean} />
           <Route exact path="/note/:beanId/:noteId" component={Note} />
           <Route exact path="/collection" component={Collection} />
           <Route exact path="/recipes" component={Recipes} />
