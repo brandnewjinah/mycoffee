@@ -5,8 +5,6 @@ import Text from "../Text";
 import { neutral, fontSize } from "../token";
 
 interface Props {
-  title?: string;
-  subtitle?: string;
   image?: string;
   imageText?: string;
   image2Text?: string;
@@ -16,8 +14,6 @@ interface Props {
 }
 
 export const Section: FC<Props> = ({
-  title,
-  subtitle,
   image,
   imageText,
   image2Text,
@@ -28,12 +24,6 @@ export const Section: FC<Props> = ({
 }) => {
   return (
     <Wrapper>
-      {title && (
-        <header>
-          <Text type="h2">{title}</Text>
-          {subtitle && <h3>{subtitle}</h3>}
-        </header>
-      )}
       {text && <>{text}</>}
       {image && (
         <ImageContainer>
@@ -57,12 +47,6 @@ const Wrapper = styled.section<Props>`
   flex-direction: column;
   gap: 1.5rem;
   padding: 0 0 1rem;
-
-  header {
-    padding: 1rem 0;
-    border-bottom: 1px solid ${neutral[300]};
-    margin-bottom: 2rem;
-  }
 `;
 
 const ImageContainer = styled.div`

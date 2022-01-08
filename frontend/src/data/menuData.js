@@ -43,6 +43,18 @@ export const homeMenu = [
 ];
 
 export const prepMenu = [
-  { id: 1, title: "New Brew Note", link: "/brew/new", delay: 100 },
-  { id: 2, title: "Saved Brew Notes", link: "/brew/beans", delay: 200 },
+  {
+    id: 1,
+    title: "New Bean",
+    link: "/brew/new",
+    desc: "Add note new bean",
+    delay: 100,
+  },
+  {
+    id: 2,
+    title: "Saved Beans",
+    link: "/brew/beans",
+    desc: "Add note existing bean",
+    delay: 200,
+  },
 ];

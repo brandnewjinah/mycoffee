@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import _, { divide } from "lodash";
+import styled from "styled-components";
 
 //comp
 import Header from "../../../components/Header";
@@ -13,6 +14,7 @@ import { RootState } from "../../../redux/store";
 
 //interface
 import { Bean, Initial } from "../../../interfaces/interface";
+import { neutral } from "../../../components/token";
 
 export interface accTypes {
   [key: string]: Initial;
@@ -40,13 +42,15 @@ const Saved = () => {
         {sorted &&
           sorted.map((item, idx) => (
             <div>
-              <header>{item.initial}</header>
+              <InitialHeader>{item.initial}</InitialHeader>
               {item.beans.map((bean) => (
                 <Card
                   key={bean.id}
                   link={`/note/${bean.id}`}
                   overline={bean.roaster}
-                  name={bean.name}
+                  header={bean.name}
+                  caption={bean.level}
+                  margin="0 0 1rem 0"
                 />
               ))}
             </div>
@@ -55,5 +59,11 @@ const Saved = () => {
     </div>
   );
 };
+
+const InitialHeader = styled.header`
+  text-transform: uppercase;
+  font-weight: 700;
+  color: ${neutral[300]};
+`;
 
 export default Saved;

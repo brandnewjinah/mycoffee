@@ -16,6 +16,7 @@ const Brew = () => {
             key={item.id}
             id={item.id}
             label={item.title}
+            desc={item.desc}
             link={item.link}
             delay={item.delay}
           />
