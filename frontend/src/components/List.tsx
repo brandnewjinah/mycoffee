@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Text from "./Text";
+import { fontSize, neutral, primaryColor } from "./token";
 
 interface Props {
   link?: string;
@@ -13,28 +15,56 @@ interface Props {
 
 export const List: FC<Props> = ({ link, date, crema, aroma, body, flavor }) => {
   return (
-    <Link to={`${link}`}>
-      <Wrapper>
-        <div>{date}</div>
-        <div>
-          <p>Crema</p>
-          <p>{crema}</p>
-        </div>
-        <div>
-          <p>Aroma</p>
-          <p>{aroma}</p>
-        </div>
-        <div>
-          <p>Body</p>
-          <p>{body}</p>
-        </div>
-        <div>
-          <p>Flavor</p>
-          <p>{flavor}</p>
-        </div>
-      </Wrapper>
-    </Link>
+    <Wrapper>
+      <Link to={`${link}`}>
+        <Text type="caption">{date}</Text>
+        <Content>
+          <Line>
+            <Item>
+              <p>Crema</p>
+              <p className="value">{crema}</p>
+            </Item>
+            <Item>
+              <p>Aroma</p>
+              <p className="value">{aroma}</p>
+            </Item>
+          </Line>
+          <Line>
+            <Item>
+              <p>Body</p>
+              <p className="value">{body}</p>
+            </Item>
+            <Item>
+              <p>Flavor</p>
+              <p className="value">{flavor}</p>
+            </Item>
+          </Line>
+        </Content>
+      </Link>
+    </Wrapper>
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.section``;
+
+const Content = styled.div`
+  padding: 0.5rem 0;
+`;
+
+const Line = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: ${fontSize.sm1};
+`;
+
+const Item = styled.div`
+  flex: 0 0 40%;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  color: ${neutral[500]};
+
+  .value {
+    color: ${primaryColor.orange};
+  }
+`;

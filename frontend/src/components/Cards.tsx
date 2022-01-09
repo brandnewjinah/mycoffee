@@ -37,7 +37,7 @@ export const Card: FC<Props> = ({
         <Text type="caption" color={primaryColor.orange}>
           {overline}
         </Text>
-        <Text type="body">{header}</Text>
+        <Text>{header}</Text>
         <Text type="caption" color={neutral[300]}>
           {caption}
         </Text>

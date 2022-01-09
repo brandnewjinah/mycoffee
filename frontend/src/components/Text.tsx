@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { fontSize, lineHeight, headingFontFamily } from "./token";
 
 interface Props {
-  type?: string;
+  type?: "h1" | "h2" | "h3" | "body_big" | "body_small" | "caption" | undefined;
   padding?: string;
   children?: string;
   color?: string;

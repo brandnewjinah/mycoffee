@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import _, { divide } from "lodash";
 import styled from "styled-components";
 
@@ -21,6 +21,7 @@ export interface accTypes {
 }
 
 const Saved = () => {
+  const history = useHistory();
   const beans = useSelector((state: RootState) => state.collection.beans);
 
   let alphabeticalGroups = beans.reduce((acc: accTypes, bean: Bean) => {
@@ -34,10 +35,15 @@ const Saved = () => {
 
   let result = Object.values(alphabeticalGroups);
   let sorted = _.orderBy(result, ["initial"], ["asc"]);
-  console.log(sorted);
+
+  const handleNew = () => {
+    history.push("/brew/new");
+  };
+
   return (
     <div>
       <Header title="Beans" />
+      <button onClick={handleNew}>New Bean</button>
       <Section>
         {sorted &&
           sorted.map((item, idx) => (

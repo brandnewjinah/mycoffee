@@ -5,7 +5,6 @@ import Layout from "./components/layout/Layout";
 import Home from "./pages/home";
 
 //brew
-import Brew from "./pages/brew";
 import AddBean from "./pages/brew/add/AddBean";
 import AddNote from "./pages/brew/add/AddNote";
 import Beans from "./pages/brew/saved";
@@ -40,11 +39,10 @@ const Routes = () => {
       <Switch>
         <Layout>
           <Route exact path="/" component={Home} />
-          <Route exact path="/brew" component={Brew} />
           <Route exact path="/brew/new" component={AddBean} />
           {/* <Route exact path="/brew/:beanId/note" component={AddNote} /> */}
           <Route exact path="/brew/:beanId/note" component={AddNote} />
-          <Route exact path="/brew/beans" component={Beans} />
+          <Route exact path="/brew" component={Beans} />
           <Route exact path="/note/:beanId" component={Bean} />
           <Route exact path="/note/:beanId/:noteId" component={Note} />
           <Route exact path="/collection" component={Collection} />

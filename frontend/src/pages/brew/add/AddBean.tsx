@@ -80,7 +80,7 @@ const AddBean = () => {
 
   return (
     <Container>
-      <Header title="What are you brewing today?" />
+      <Header title="Add New Bean" />
       <Section>
         <Input
           name="roaster"

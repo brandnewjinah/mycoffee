@@ -30,7 +30,12 @@ const collectionSlice = createSlice({
 
       state.beans = newBeans;
     },
+    deleteBean: (state, action) => {
+      let newBeans = [...current(state.beans)];
+      newBeans = newBeans.filter((bean) => bean.id !== action.payload);
+      state.beans = newBeans;
+    },
   },
 });
-export const { addBean, addNote } = collectionSlice.actions;
+export const { addBean, addNote, deleteBean } = collectionSlice.actions;
 export default collectionSlice.reducer;

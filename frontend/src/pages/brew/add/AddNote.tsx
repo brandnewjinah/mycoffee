@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { ResponsiveRadar } from "@nivo/radar";
 
 //comp
@@ -80,7 +80,7 @@ const AddNote = () => {
 
   return (
     <div>
-      <Header title={thisBean.name} />
+      <Header title={thisBean.name} subtitle="Add note" />
       {page === 1 && (
         <>
           <Section>
@@ -114,7 +114,8 @@ const AddNote = () => {
               suffix="grams"
               onChange={handleChange}
             />
-          </Section>{" "}
+          </Section>
+          <Link to="/brew">Go Back</Link>
           <button onClick={() => handleNext(1)}>next</button>
         </>
       )}
