@@ -4,6 +4,7 @@ import moment from "moment";
 
 //comp
 import Header from "../../../components/Header";
+import { Buttons } from "../../../components/Buttons";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -28,9 +29,11 @@ const BeanPage = () => {
   };
 
   const handleDeleteBean = () => {
-    dispatch(deleteBean(beanId));
-    //for future api, when success deleting, then move to next page
-    history.push("/brew");
+    if (window.confirm("Delete this bean?")) {
+      dispatch(deleteBean(beanId));
+      //for future api, when success deleting, then move to next page
+      history.push("/brew");
+    }
   };
 
   return (
@@ -49,7 +52,11 @@ const BeanPage = () => {
             flavor={note.features[3].value}
           />
         ))}
-      <button onClick={handleDeleteBean}>Delete this bean</button>
+      <Buttons
+        label="Delete this bean"
+        handleClick={handleDeleteBean}
+        variant="tertiary"
+      />
     </div>
   );
 };
