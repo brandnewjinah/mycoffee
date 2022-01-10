@@ -29,6 +29,14 @@ export interface Note {
   features: Feature[];
 }
 
+export interface NoteErrors {
+  roastDate?: string;
+  dose?: string;
+  grind?: string;
+  time?: string;
+  shot?: string;
+}
+
 export interface Initial {
   beans: Beans;
   initial: string;

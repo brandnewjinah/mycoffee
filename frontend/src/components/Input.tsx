@@ -55,36 +55,50 @@ export const Input: FC<Props> = ({
           </div>
         </form>
       ) : type === "number" ? (
-        <InputTag
-          name={name}
-          type="text"
-          inputMode="decimal"
-          pattern="[0-9]*"
-          maxLength={maxLength}
-          onChange={onChange}
-          {...rest}
-        />
-      ) : prefix || suffix ? (
-        <InputContainer prefix={prefix}>
-          {prefix && (
-            <div className="prefix" aria-hidden="true">
-              {prefix}
-            </div>
-          )}
-          <input
+        <>
+          <InputTag
             name={name}
             type="text"
             inputMode="decimal"
+            pattern="[0-9]*"
             maxLength={maxLength}
             onChange={onChange}
             {...rest}
           />
-          {suffix && (
-            <div className="suffix" aria-hidden="true">
-              {suffix}
-            </div>
+          {error && (
+            <Text type="caption" color="red">
+              {error}
+            </Text>
           )}
-        </InputContainer>
+        </>
+      ) : prefix || suffix ? (
+        <>
+          <InputContainer prefix={prefix}>
+            {prefix && (
+              <div className="prefix" aria-hidden="true">
+                {prefix}
+              </div>
+            )}
+            <input
+              name={name}
+              type="text"
+              inputMode="decimal"
+              maxLength={maxLength}
+              onChange={onChange}
+              {...rest}
+            />
+            {suffix && (
+              <div className="suffix" aria-hidden="true">
+                {suffix}
+              </div>
+            )}
+          </InputContainer>
+          {error && (
+            <Text type="caption" color="red">
+              {error}
+            </Text>
+          )}
+        </>
       ) : (
         <>
           <InputTag

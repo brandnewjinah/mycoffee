@@ -11,7 +11,7 @@ import { Section } from "../../../components/container/Section";
 import { Radio } from "../../../components/RadioButton";
 
 //util
-import { validate } from "../../../utils/validate";
+import { beanValidate } from "../../../utils/validate";
 
 //redux
 import { useDispatch } from "react-redux";
@@ -69,7 +69,7 @@ const AddBean = () => {
   };
 
   const handleNext = () => {
-    const errors = validate(data);
+    const errors = beanValidate(data);
 
     setErrors(errors || {});
     if (errors) return;

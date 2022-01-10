@@ -8,13 +8,16 @@ import Header from "../../../components/Header";
 import { Input } from "../../../components/Input";
 import Slider from "../../../components/Slider";
 
+//util
+import { noteValidate } from "../../../utils/validate";
+
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { addNote } from "../../../redux/collectionRedux";
 
 //interface
-import { Bean } from "../../../interfaces/interface";
+import { Bean, NoteErrors } from "../../../interfaces/interface";
 
 const AddNote = () => {
   const dispatch = useDispatch();
@@ -29,7 +32,7 @@ const AddNote = () => {
     id: new Date().valueOf().toString(),
     roastDate: "",
     dose: "",
-    size: "",
+    grind: "",
     time: "",
     shot: "",
   });
@@ -51,6 +54,7 @@ const AddNote = () => {
       value: 5,
     },
   ]);
+  const [errors, setErrors] = useState<NoteErrors>({});
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -70,6 +74,10 @@ const AddNote = () => {
 
   const handleNext = (page: number) => {
     if (page === 1) {
+      const errors = noteValidate(data);
+
+      setErrors(errors || {});
+      if (errors) return;
       setPage(page + 1);
     } else {
       let newNote = { ...data, features };
@@ -88,30 +96,35 @@ const AddNote = () => {
               label="Roast Date"
               name="roastDate"
               type="date"
+              error={errors.roastDate}
               onChange={handleChange}
             />
             <Input
               label="Dose"
               name="dose"
               suffix="grams"
+              error={errors.dose}
               onChange={handleChange}
             />
             <Input
               label="Grind Size"
               name="size"
               type="number"
+              error={errors.grind}
               onChange={handleChange}
             />
             <Input
               label="Brew Time"
               name="time"
               suffix="seconds"
+              error={errors.time}
               onChange={handleChange}
             />
             <Input
               label="Shot"
               name="shot"
               suffix="grams"
+              error={errors.shot}
               onChange={handleChange}
             />
           </Section>
