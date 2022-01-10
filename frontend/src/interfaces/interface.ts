@@ -6,6 +6,11 @@ export interface Bean {
   notes: Note[];
 }
 
+export interface BeanErrors {
+  roaster?: string;
+  name?: string;
+}
+
 export interface Beans extends Array<Bean> {}
 
 export interface Feature {

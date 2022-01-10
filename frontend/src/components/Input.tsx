@@ -4,6 +4,7 @@ import styled from "styled-components";
 //layout component
 import { fontSize, neutral } from "./token";
 import { Eye, EyeOff, SearchIcon } from "../assets/Icons";
+import Text from "./Text";
 
 export interface Props {
   label?: string;
@@ -13,6 +14,7 @@ export interface Props {
   value?: string;
   prefix?: string;
   suffix?: string;
+  error?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 }
@@ -24,6 +26,7 @@ export const Input: FC<Props> = ({
   type,
   prefix,
   suffix,
+  error,
   onChange,
   ...rest
 }) => {
@@ -97,6 +100,11 @@ export const Input: FC<Props> = ({
             onChange={onChange}
             {...rest}
           />
+          {error && (
+            <Text type="caption" color="red">
+              {error}
+            </Text>
+          )}
           {type === "password" && (
             <button
               type="button"

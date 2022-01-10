@@ -10,12 +10,15 @@ import { Input } from "../../../components/Input";
 import { Section } from "../../../components/container/Section";
 import { Radio } from "../../../components/RadioButton";
 
+//util
+import { validate } from "../../../utils/validate";
+
 //redux
 import { useDispatch } from "react-redux";
 import { addBean } from "../../../redux/collectionRedux";
 
 //interface
-import { Bean } from "../../../interfaces/interface";
+import { Bean, BeanErrors } from "../../../interfaces/interface";
 
 export interface StateProps {
   id: number;
@@ -34,15 +37,7 @@ const AddBean = () => {
     level: "light",
     notes: [],
   });
-
-  useEffect(() => {
-    const loadData = async () => {
-      const response = await axios.get("/data/coffeeData.json");
-      setRoasters(response.data.roasters);
-    };
-
-    loadData();
-  }, []);
+  const [errors, setErrors] = useState<BeanErrors>({});
 
   const handleRoasterChange = (value: string) => {
     let matches: { id: number; name: string }[] = [];
@@ -74,9 +69,23 @@ const AddBean = () => {
   };
 
   const handleNext = () => {
+    const errors = validate(data);
+
+    setErrors(errors || {});
+    if (errors) return;
+
     dispatch(addBean(data));
     history.push(`/brew/${data.id}/note`);
   };
+
+  useEffect(() => {
+    const loadData = async () => {
+      const response = await axios.get("/data/coffeeData.json");
+      setRoasters(response.data.roasters);
+    };
+
+    loadData();
+  }, []);
 
   return (
     <Container>
@@ -86,6 +95,7 @@ const AddBean = () => {
           name="roaster"
           label="Roaster"
           value={data.roaster}
+          error={errors.roaster}
           onChange={(e) => handleRoasterChange(e.target.value)}
           onBlur={() => {
             setTimeout(() => {
@@ -99,7 +109,12 @@ const AddBean = () => {
               {suggestion.name}
             </Sug>
           ))}
-        <Input name="name" label="Name" onChange={handleInputChange} />
+        <Input
+          name="name"
+          label="Name"
+          error={errors.name}
+          onChange={handleInputChange}
+        />
         <article>
           <h4>Roast Level</h4>
           <div>
