@@ -75,7 +75,6 @@ const AddNote = () => {
   const handleNext = (page: number) => {
     if (page === 1) {
       const errors = noteValidate(data);
-
       setErrors(errors || {});
       if (errors) return;
       setPage(page + 1);
@@ -108,7 +107,7 @@ const AddNote = () => {
             />
             <Input
               label="Grind Size"
-              name="size"
+              name="grind"
               type="number"
               error={errors.grind}
               onChange={handleChange}

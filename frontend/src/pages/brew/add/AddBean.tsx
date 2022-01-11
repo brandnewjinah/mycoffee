@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { nanoid } from "nanoid";
@@ -14,11 +14,12 @@ import { Radio } from "../../../components/RadioButton";
 import { beanValidate } from "../../../utils/validate";
 
 //redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 import { addBean } from "../../../redux/collectionRedux";
 
 //interface
-import { Bean, BeanErrors } from "../../../interfaces/interface";
+import { Bean, BeanErrors, Duplicate } from "../../../interfaces/interface";
 
 export interface StateProps {
   id: number;
@@ -30,6 +31,8 @@ const AddBean = () => {
   const dispatch = useDispatch();
   const [roasters, setRoasters] = useState<StateProps[]>([]);
   const [suggestions, setSuggestions] = useState<StateProps[]>([]);
+  const beans = useSelector((state: RootState) => state.collection.beans);
+  const [duplicate, setDuplicate] = useState<Duplicate>({});
   const [data, setData] = useState<Bean>({
     id: nanoid(),
     roaster: "",
@@ -74,8 +77,19 @@ const AddBean = () => {
     setErrors(errors || {});
     if (errors) return;
 
-    dispatch(addBean(data));
-    history.push(`/brew/${data.id}/note`);
+    const hasDuplicate = beans.filter(
+      (bean) =>
+        bean.roaster === data.roaster &&
+        bean.name === data.name &&
+        bean.level === data.level
+    );
+
+    if (hasDuplicate.length > 0) {
+      setDuplicate(hasDuplicate[0]);
+    } else {
+      dispatch(addBean(data));
+      history.push(`/brew/${data.id}/note`);
+    }
   };
 
   useEffect(() => {
@@ -143,6 +157,12 @@ const AddBean = () => {
         </article>
       </Section>
       <button onClick={handleNext}>next</button>
+      {duplicate && Object.keys(duplicate).length !== 0 && (
+        <>
+          <p>{`${duplicate.name} from ${duplicate.roaster} already exists.`}</p>
+          <Link to={`/note/${duplicate.id}`}>Go to Bean</Link>
+        </>
+      )}
     </Container>
   );
 };

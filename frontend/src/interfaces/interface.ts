@@ -6,6 +6,13 @@ export interface Bean {
   notes: Note[];
 }
 
+export interface Duplicate {
+  id?: string;
+  roaster?: string;
+  name?: string;
+  level?: string;
+}
+
 export interface BeanErrors {
   roaster?: string;
   name?: string;
