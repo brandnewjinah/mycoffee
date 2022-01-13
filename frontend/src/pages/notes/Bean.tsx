@@ -3,17 +3,17 @@ import { useParams, useHistory } from "react-router-dom";
 import moment from "moment";
 
 //comp
-import Header from "../../../components/Header";
-import { Buttons } from "../../../components/Buttons";
+import Header from "../../components/Header";
+import { Button } from "../../components/Buttons";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { deleteBean } from "../../../redux/collectionRedux";
+import { RootState } from "../../redux/store";
+import { deleteBean } from "../../redux/collectionRedux";
 
 //interface
-import { Bean } from "../../../interfaces/interface";
-import { List } from "../../../components/List";
+import { Bean } from "../../interfaces/interface";
+import { List } from "../../components/List";
 
 const BeanPage = () => {
   const history = useHistory();
@@ -25,7 +25,7 @@ const BeanPage = () => {
   )!;
 
   const handleNext = () => {
-    history.push(`/brew/${beanId}/note`);
+    history.push(`/notes/${beanId}/new`);
   };
 
   const handleDeleteBean = () => {
@@ -52,7 +52,7 @@ const BeanPage = () => {
             flavor={note.features[3].value}
           />
         ))}
-      <Buttons
+      <Button
         label="Delete this bean"
         handleClick={handleDeleteBean}
         variant="tertiary"

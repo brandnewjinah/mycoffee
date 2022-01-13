@@ -5,16 +5,16 @@ import moment from "moment";
 import styled from "styled-components";
 
 //comp
-import Header from "../../../components/Header";
-import { Section } from "../../../components/container/Section";
-import { neutral } from "../../../components/token";
+import Header from "../../components/Header";
+import { Section } from "../../components/container/Section";
+import { neutral } from "../../components/token";
 
 //redux
-import { RootState } from "../../../redux/store";
+import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 
 //interface
-import { Bean, Note } from "../../../interfaces/interface";
+import { Bean, Note } from "../../interfaces/interface";
 
 const NotePage = () => {
   let { beanId, noteId } = useParams<{ beanId: string; noteId: string }>();

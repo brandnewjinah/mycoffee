@@ -1,27 +1,39 @@
 import React, { FC, MouseEvent } from "react";
 import styled from "styled-components";
-import { neutral } from "./token";
+import { fontSize, neutral } from "./token";
 
 interface Props {
   label?: string;
   variant?: "primary" | "secondary" | "tertiary";
+  color?: string;
   handleClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const Buttons: FC<Props> = ({ label, variant, handleClick }) => {
+export const Button: FC<Props> = ({ label, variant, color, handleClick }) => {
   return (
-    <Container onClick={handleClick} variant={variant}>
+    <Container onClick={handleClick} variant={variant} color={color}>
       {label}
     </Container>
   );
 };
 
 const Container = styled.button<Props>`
-  border: ${(props) => props.variant === "tertiary" && "none"};
+  width: ${(props) => (props.variant === "tertiary" ? "auto" : "100%")};
+  border: none;
+  border-radius: ${(props) => (props.variant === "tertiary" ? 0 : "2rem")};
   border-bottom: ${(props) =>
     props.variant === "tertiary" && `1px solid ${neutral[200]}`};
-  background-color: ${(props) => props.variant === "tertiary" && "transparent"};
-  color: ${(props) => props.variant === "tertiary" && neutral[200]};
+  background-color: ${(props) =>
+    props.variant === "primary" ? props.color : "transparent"};
+  font-size: ${fontSize.base};
+  font-weight: 600;
+  color: ${(props) =>
+    props.variant === "primary"
+      ? "#fff"
+      : props.variant === "secondary"
+      ? props.color
+      : neutral[200]};
+  padding: ${(props) => (props.variant === "tertiary" ? "auto" : "1rem 0")};
   cursor: pointer;
 
   &:hover {

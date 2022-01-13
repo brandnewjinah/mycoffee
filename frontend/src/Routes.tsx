@@ -4,12 +4,12 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import Home from "./pages/home";
 
-//brew
-import AddBean from "./pages/brew/add/AddBean";
-import AddNote from "./pages/brew/add/AddNote";
-import Beans from "./pages/brew/saved";
-import Bean from "./pages/brew/saved/Bean";
-import Note from "./pages/brew/saved/Note";
+//notes
+import Beans from "./pages/notes";
+import AddBean from "./pages/notes/add/AddBean";
+import AddNote from "./pages/notes/add/AddNote";
+import Bean from "./pages/notes/Bean";
+import Note from "./pages/notes/Note";
 
 //collection
 import Collection from "./pages/collection";
@@ -39,11 +39,12 @@ const Routes = () => {
       <Switch>
         <Layout>
           <Route exact path="/" component={Home} />
-          <Route exact path="/brew/new" component={AddBean} />
-          {/* <Route exact path="/brew/:beanId/note" component={AddNote} /> */}
-          <Route exact path="/brew/:beanId/note" component={AddNote} />
-          <Route exact path="/brew" component={Beans} />
-          <Route exact path="/note/:beanId" component={Bean} />
+          <Route exact path="/notes" component={Beans} />
+          <Route exact path="/notes/:beanId/" component={Bean} />
+          <Route exact path="/notes/:beanId/new" component={AddNote} />
+
+          <Route exact path="/beans/new" component={AddBean} />
+
           <Route exact path="/note/:beanId/:noteId" component={Note} />
           <Route exact path="/collection" component={Collection} />
           <Route exact path="/recipes" component={Recipes} />

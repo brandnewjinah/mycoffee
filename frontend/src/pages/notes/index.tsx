@@ -4,17 +4,18 @@ import _, { divide } from "lodash";
 import styled from "styled-components";
 
 //comp
-import Header from "../../../components/Header";
-import { Section } from "../../../components/container/Section";
-import { Card } from "../../../components/Cards";
+import Header from "../../components/Header";
+import { Section } from "../../components/container/Section";
+import { Card } from "../../components/Cards";
 
 //redux
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
+import { RootState } from "../../redux/store";
 
 //interface
-import { Bean, Initial } from "../../../interfaces/interface";
-import { neutral } from "../../../components/token";
+import { Bean, Initial } from "../../interfaces/interface";
+import { neutral, primaryColor, ratio } from "../../components/token";
+import { Button } from "../../components/Buttons";
 
 export interface accTypes {
   [key: string]: Initial;
@@ -34,15 +35,16 @@ const Saved = () => {
   }, {});
 
   let result = Object.values(alphabeticalGroups);
-  let sorted = _.orderBy(result, ["initial"], ["asc"]);
+  // let sorted = _.orderBy(result, ["initial"], ["asc"]);
+  let sorted = _.orderBy(result, [(res) => res.initial.toLowerCase()], ["asc"]);
 
   const handleNew = () => {
-    history.push("/brew/new");
+    history.push("/beans/new");
   };
 
   return (
     <div>
-      <Header title="Beans" />
+      <Header title="Notes" />
       <button onClick={handleNew}>New Bean</button>
       <Section>
         {sorted &&
@@ -52,10 +54,12 @@ const Saved = () => {
               {item.beans.map((bean) => (
                 <Card
                   key={bean.id}
-                  link={`/note/${bean.id}`}
+                  linkToNote={`/notes/${bean.id}/new`}
+                  linkToBean={`/notes/${bean.id}`}
                   overline={bean.roaster}
                   header={bean.name}
                   caption={bean.level}
+                  ratio={ratio.landscape_169}
                   margin="0 0 1rem 0"
                 />
               ))}

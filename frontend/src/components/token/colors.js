@@ -37,5 +37,6 @@ export const primaryColor = {
   error: "#ff0000",
   orange: "#d46f4a",
   darksage: "#6e7e74",
+  turquoise: "#7eb7a7",
   wintergreen: "#184c5f",
 };
