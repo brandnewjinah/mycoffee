@@ -20,6 +20,11 @@ const Layout: FC<Props> = ({ children }) => {
 
 const Container = styled.div`
   min-height: 100vh;
+
+  .flex {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const Main = styled.main`

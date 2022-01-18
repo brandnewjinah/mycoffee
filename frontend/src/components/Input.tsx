@@ -66,7 +66,7 @@ export const Input: FC<Props> = ({
             {...rest}
           />
           {error && (
-            <Text type="caption" color="red">
+            <Text variant="caption" color="red">
               {error}
             </Text>
           )}
@@ -94,7 +94,7 @@ export const Input: FC<Props> = ({
             )}
           </InputContainer>
           {error && (
-            <Text type="caption" color="red">
+            <Text variant="caption" color="red">
               {error}
             </Text>
           )}
@@ -115,7 +115,7 @@ export const Input: FC<Props> = ({
             {...rest}
           />
           {error && (
-            <Text type="caption" color="red">
+            <Text variant="caption" color="red">
               {error}
             </Text>
           )}

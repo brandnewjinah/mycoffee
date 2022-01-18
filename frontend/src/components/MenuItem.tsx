@@ -30,7 +30,7 @@ const MenuItem: FC<Props> = ({ label, link, id, desc, delay }) => {
     >
       <Title data-aos="fade-up" data-aos-duration="800">
         <span className="sub">{`0${id}`}</span>
-        <Text type="h2">{label}</Text>
+        <Text variant="h2">{label}</Text>
       </Title>
       {desc && <Desc>{desc}</Desc>}
     </Item>

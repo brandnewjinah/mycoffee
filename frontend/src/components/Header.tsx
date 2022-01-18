@@ -6,22 +6,33 @@ import Text from "./Text";
 
 export interface Props {
   title: string;
+  variant?: "small";
   subtitle?: string;
   overlay?: string;
+  children?: any;
 }
 
-const Header: FC<Props> = ({ overlay, title, subtitle }) => {
+const Header: FC<Props> = ({ overlay, title, variant, subtitle, children }) => {
   return (
     <Wrapper>
-      {overlay && <Text type="caption">{overlay}</Text>}
-      <Text type="h1">{title}</Text>
+      {overlay && <Text variant="caption">{overlay}</Text>}
+      {variant && variant === "small" ? (
+        <Text bold>{title}</Text>
+      ) : (
+        <Text variant="h1">{title}</Text>
+      )}
+
       {subtitle && <Text>{subtitle}</Text>}
+      {children && children}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.header`
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 1rem 0;
 `;
 

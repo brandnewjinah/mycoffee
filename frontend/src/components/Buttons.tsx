@@ -5,20 +5,39 @@ import { fontSize, neutral } from "./token";
 interface Props {
   label?: string;
   variant?: "primary" | "secondary" | "tertiary";
+  fullWidth?: boolean;
   color?: string;
+  icon?: any;
   handleClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const Button: FC<Props> = ({ label, variant, color, handleClick }) => {
+export const Button: FC<Props> = ({
+  label,
+  variant,
+  fullWidth,
+  color,
+  icon,
+  handleClick,
+}) => {
   return (
-    <Container onClick={handleClick} variant={variant} color={color}>
+    <Container
+      onClick={handleClick}
+      variant={variant}
+      fullWidth={fullWidth}
+      color={color}
+    >
+      {icon && icon}
       {label}
     </Container>
   );
 };
 
 const Container = styled.button<Props>`
-  width: ${(props) => (props.variant === "tertiary" ? "auto" : "100%")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem;
+  width: ${(props) => (props.fullWidth ? "100%" : "auto")};
   border: none;
   border-radius: ${(props) => (props.variant === "tertiary" ? 0 : "2rem")};
   border-bottom: ${(props) =>
@@ -27,13 +46,8 @@ const Container = styled.button<Props>`
     props.variant === "primary" ? props.color : "transparent"};
   font-size: ${fontSize.base};
   font-weight: 600;
-  color: ${(props) =>
-    props.variant === "primary"
-      ? "#fff"
-      : props.variant === "secondary"
-      ? props.color
-      : neutral[200]};
-  padding: ${(props) => (props.variant === "tertiary" ? "auto" : "1rem 0")};
+  color: ${(props) => (props.variant === "primary" ? "#fff" : props.color)};
+  padding: ${(props) => (props.variant === "tertiary" ? "auto" : "1rem 2rem")};
   cursor: pointer;
 
   &:hover {

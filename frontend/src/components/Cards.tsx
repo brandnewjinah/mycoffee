@@ -43,11 +43,11 @@ export const Card: FC<Props> = ({
               <Coffee width="24" height="24" color="#000" stroke="1" />
             </Preview>
           )}
-          <Text type="caption" color={primaryColor.orange}>
+          <Text variant="caption" color={primaryColor.orange}>
             {overline}
           </Text>
           <Text>{header}</Text>
-          <Text type="caption" color={neutral[300]}>
+          <Text variant="caption" color={neutral[300]}>
             {caption}
           </Text>
         </Link>

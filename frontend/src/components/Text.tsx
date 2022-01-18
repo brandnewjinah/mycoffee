@@ -3,31 +3,41 @@ import styled from "styled-components";
 import { fontSize, lineHeight, headingFontFamily } from "./token";
 
 interface Props {
-  type?: "h1" | "h2" | "h3" | "body_big" | "body_small" | "caption" | undefined;
+  variant?:
+    | "h1"
+    | "h2"
+    | "h3"
+    | "body_big"
+    | "body_small"
+    | "caption"
+    | undefined;
+  bold?: boolean;
   padding?: string;
   children?: string;
   color?: string;
 }
 
-const Text: FC<Props> = ({ type, padding, color, children }) => {
+const Text: FC<Props> = ({ variant, bold, padding, color, children }) => {
   return (
     <>
-      {type === "h1" ? (
+      {variant === "h1" ? (
         <Heading1 padding={padding}>{children}</Heading1>
-      ) : type === "h2" ? (
+      ) : variant === "h2" ? (
         <Heading2 padding={padding}>{children}</Heading2>
-      ) : type === "h3" ? (
+      ) : variant === "h3" ? (
         <Heading3 padding={padding}>{children}</Heading3>
-      ) : type === "body_big" ? (
+      ) : variant === "body_big" ? (
         <BigParagraph padding={padding}>{children}</BigParagraph>
-      ) : type === "body_small" ? (
+      ) : variant === "body_small" ? (
         <SmallParagraph padding={padding}>{children}</SmallParagraph>
-      ) : type === "caption" ? (
+      ) : variant === "caption" ? (
         <Caption padding={padding} color={color}>
           {children}
         </Caption>
       ) : (
-        <Paragraph padding={padding}>{children}</Paragraph>
+        <Paragraph bold={bold} color={color} padding={padding}>
+          {children}
+        </Paragraph>
       )}
     </>
   );
@@ -61,6 +71,8 @@ const BigParagraph = styled.p<Props>`
 
 const Paragraph = styled.p<Props>`
   font-size: ${fontSize.base};
+  font-weight: ${(props) => (props.bold ? 600 : 400)};
+  color: ${(props) => (props.color ? props.color : "#000")};
   padding: ${(props) => props.padding};
 `;
 

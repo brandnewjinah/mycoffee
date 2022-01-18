@@ -17,7 +17,7 @@ export const List: FC<Props> = ({ link, date, crema, aroma, body, flavor }) => {
   return (
     <Wrapper>
       <Link to={`${link}`}>
-        <Text type="caption">{date}</Text>
+        <Text variant="caption">{date}</Text>
         <Content>
           <Line>
             <Item>
