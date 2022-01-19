@@ -9,6 +9,9 @@ import { Section } from "../../components/container/Section";
 import { Card } from "../../components/Cards";
 import { Button } from "../../components/Buttons";
 import { Plus } from "../../assets/Icons";
+import { Input } from "../../components/Input";
+import Text from "../../components/Text";
+import { neutral, primaryColor, ratio } from "../../components/token";
 
 //redux
 import { useSelector } from "react-redux";
@@ -16,8 +19,6 @@ import { RootState } from "../../redux/store";
 
 //interface
 import { Bean, Initial } from "../../interfaces/interface";
-import { neutral, primaryColor, ratio } from "../../components/token";
-import Text from "../../components/Text";
 
 export interface accTypes {
   [key: string]: Initial;
@@ -44,22 +45,27 @@ const Saved = () => {
     history.push("/beans/new");
   };
 
+  const handleSearch = () => {};
+
   return (
     <>
       {sorted && sorted.length > 0 ? (
         <>
-          <Header title="Notes">
+          <Header title="Brew Notes">
             <div className="flex">
-              {/* <Text>Bean not listed?</Text> */}
+              <Text>Bean not listed?</Text>
               <Button
                 label="Add New Bean"
                 variant="tertiary"
-                color="#3883E5"
+                color={primaryColor.blue}
                 // icon={<Plus width="20" height="20" color="#3883E5" stroke="2" />}
                 handleClick={handleNew}
               />
             </div>
           </Header>
+          <Section>
+            <Input name="search" type="search" onChange={handleSearch} />
+          </Section>
           <Section>
             {sorted.map((item) => (
               <>
@@ -91,7 +97,7 @@ const Saved = () => {
             <Button
               label="Add Bean"
               variant="primary"
-              color="#3883E5"
+              color={primaryColor.blue}
               icon={<Plus width="20" height="20" color="#fff" stroke="2" />}
               handleClick={handleNew}
             />

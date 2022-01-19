@@ -308,7 +308,7 @@ export const SearchIcon = ({ width, height, stroke, color, fill }) => {
       xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
-      viewBox="0 0 20 20"
+      viewBox="0 0 24 24"
       fill="none"
       stroke={color}
       strokeWidth={stroke}

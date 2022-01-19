@@ -46,8 +46,8 @@ export const Input: FC<Props> = ({
           />
           <div className="search" aria-hidden="true">
             <SearchIcon
-              width={20}
-              height={20}
+              width={18}
+              height={18}
               color="#000"
               stroke={1}
               fill={undefined}
@@ -225,7 +225,11 @@ const Container = styled.div`
 
   .search {
     position: absolute;
+    top: 50%;
     left: 0.75rem;
+    display: flex;
+    align-items: center;
+    transform: translateY(-50%);
   }
 `;
 
@@ -264,7 +268,7 @@ const InputTag = styled.input`
   width: 100%;
   font-size: ${fontSize.base};
   height: 3rem;
-  border-radius: 0.35rem;
+  border-radius: ${(props) => (props.type === "search" ? "2rem" : "0.35rem")};
   border: 1px solid #d2d2d7;
   padding: ${(props) =>
     props.type === "search" ? "0 0.875rem 0 2.5rem" : "0 0.875rem"};

@@ -31,7 +31,7 @@ const Text: FC<Props> = ({ variant, bold, padding, color, children }) => {
       ) : variant === "body_small" ? (
         <SmallParagraph padding={padding}>{children}</SmallParagraph>
       ) : variant === "caption" ? (
-        <Caption padding={padding} color={color}>
+        <Caption bold={bold} color={color} padding={padding}>
           {children}
         </Caption>
       ) : (
@@ -45,7 +45,7 @@ const Text: FC<Props> = ({ variant, bold, padding, color, children }) => {
 
 const Heading1 = styled.h1<Props>`
   font-family: ${headingFontFamily};
-  font-size: ${fontSize.lg5};
+  font-size: ${fontSize.lg4};
   font-weight: 700;
   padding: ${(props) => props.padding};
 `;
@@ -71,6 +71,7 @@ const BigParagraph = styled.p<Props>`
 
 const Paragraph = styled.p<Props>`
   font-size: ${fontSize.base};
+  line-height: ${lineHeight.base};
   font-weight: ${(props) => (props.bold ? 600 : 400)};
   color: ${(props) => (props.color ? props.color : "#000")};
   padding: ${(props) => props.padding};
@@ -85,6 +86,7 @@ const SmallParagraph = styled.p<Props>`
 const Caption = styled.p<Props>`
   font-size: ${fontSize.sm2};
   line-height: ${lineHeight.sm2};
+  font-weight: ${(props) => (props.bold ? 600 : 400)};
   color: ${(props) => props.color};
   padding: ${(props) => props.padding};
 `;

@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 
 //interface
 import { Bean, Note } from "../../interfaces/interface";
+import Text from "../../components/Text";
 
 const NotePage = () => {
   let { beanId, noteId } = useParams<{ beanId: string; noteId: string }>();
@@ -78,28 +79,42 @@ const NotePage = () => {
       </Section>
       <Section>
         <Item>
-          <h6>Recorded on</h6>
-          <h6>{moment(thisNote.today).format("MM-DD-YYYY")}</h6>
+          <Text variant="caption" bold>
+            Recorded on
+          </Text>
+          <Text variant="caption">
+            {moment(thisNote.today).format("MM-DD-YYYY")}
+          </Text>
         </Item>
         <Item>
-          <h6>Freshness</h6>
-          <h6>{getFreshness()}</h6>
+          <Text variant="caption" bold>
+            Freshness
+          </Text>
+          <Text variant="caption">{getFreshness()}</Text>
         </Item>
         <Item>
-          <h6>Dose</h6>
-          <h6>{`${thisNote.dose} grams`}</h6>
+          <Text variant="caption" bold>
+            Dose
+          </Text>
+          <Text variant="caption">{`${thisNote.dose} grams`}</Text>
         </Item>
         <Item>
-          <h6>Grind Level</h6>
-          <h6>{thisNote.grind}</h6>
+          <Text variant="caption" bold>
+            Grind Level
+          </Text>
+          <Text variant="caption">{thisNote.grind}</Text>
         </Item>
         <Item>
-          <h6>Time</h6>
-          <h6>{`${thisNote.time} seconds`}</h6>
+          <Text variant="caption" bold>
+            Time
+          </Text>
+          <Text variant="caption">{`${thisNote.time} seconds`}</Text>
         </Item>
         <Item>
-          <h6>Shot</h6>
-          <h6>{`${thisNote.shot} grams`}</h6>
+          <Text variant="caption" bold>
+            Shot
+          </Text>
+          <Text variant="caption">{`${thisNote.shot} grams`}</Text>
         </Item>
       </Section>
     </div>
@@ -111,7 +126,7 @@ const Item = styled.div`
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid ${neutral[100]};
-  padding: 0.35rem 0;
+  padding: 0.875rem 0;
 `;
 
 export default NotePage;

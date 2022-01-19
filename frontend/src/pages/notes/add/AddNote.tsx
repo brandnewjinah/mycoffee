@@ -3,10 +3,13 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { ResponsiveRadar } from "@nivo/radar";
 
 //comp
+import { Container } from "../../../components/container/Container";
 import { Section } from "../../../components/container/Section";
 import Header from "../../../components/Header";
 import { Input } from "../../../components/Input";
-import Slider from "../../../components/Slider";
+import Slider from "../../../components/Range";
+import { Button } from "../../../components/Buttons";
+import { primaryColor } from "../../../components/token";
 
 //util
 import { noteValidate } from "../../../utils/validate";
@@ -67,6 +70,7 @@ const AddNote = () => {
     (idx: number) => (e: ChangeEvent<HTMLInputElement>) => {
       let featureCopy = [...features];
       let thisFeature = featureCopy[idx];
+      console.log(e.target.valueAsNumber);
       thisFeature.value = e.target.valueAsNumber;
       featureCopy[idx] = thisFeature;
       setFeatures(featureCopy);
@@ -86,8 +90,8 @@ const AddNote = () => {
   };
 
   return (
-    <div>
-      <Header title={thisBean.name} subtitle="Add note" />
+    <Container>
+      <Header overlay={thisBean.roaster} title={thisBean.name} />
       {page === 1 && (
         <>
           <Section>
@@ -127,8 +131,13 @@ const AddNote = () => {
               onChange={handleChange}
             />
           </Section>
-          <Link to="/brew">Go Back</Link>
-          <button onClick={() => handleNext(1)}>next</button>
+          {/* <Link to="/brew">Go Back</Link> */}
+          <Button
+            label="Next"
+            variant="primary"
+            color={primaryColor.blue}
+            handleClick={() => handleNext(1)}
+          />
         </>
       )}
 
@@ -169,15 +178,23 @@ const AddNote = () => {
                   step={1}
                   name={item.feature}
                   value={item.value}
+                  linearColor="#90C786"
+                  rangeColor="#d7dcdf"
+                  thumbColor="#90C786"
                   margin={`2rem 0`}
-                  handleChange={handleSliderChange(idx)}
+                  handleSliderValue={handleSliderChange(idx)}
                 />
               ))}
           </Section>
-          <button onClick={() => handleNext(2)}>next</button>
+          <Button
+            label="Next"
+            variant="primary"
+            color={primaryColor.blue}
+            handleClick={() => handleNext(2)}
+          />
         </>
       )}
-    </div>
+    </Container>
   );
 };
 

@@ -93,8 +93,9 @@ const Flex = css`
 const Wrapper = styled.header`
   ${Flex}
   width: 100%;
-  height: 4rem;
-  background-color: #fff;
+  height: 60px;
+  /* background-color: #fff; */
+  background-color: palegreen;
 `;
 
 const Nav = styled.nav`
@@ -103,7 +104,7 @@ const Nav = styled.nav`
   width: 100%;
   max-width: ${size.xlg};
   font-size: ${fontSize.sm2};
-  padding: 0 1rem;
+  padding: 0 1.375rem;
   margin: 0 auto;
 `;
 

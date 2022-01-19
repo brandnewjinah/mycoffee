@@ -30,7 +30,7 @@ const Container = styled.div`
 const Main = styled.main`
   width: 100%;
   max-width: ${size.xlg};
-  padding: 1rem;
+  padding: 2rem 1.375rem;
   margin: 0 auto;
 `;
 

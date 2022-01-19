@@ -9,6 +9,7 @@ interface Props {
   imageText?: string;
   image2Text?: string;
   image2?: string;
+  gap?: string;
   children?: any;
   text?: React.ReactNode;
 }
@@ -19,11 +20,11 @@ export const Section: FC<Props> = ({
   image2Text,
   image2,
   children,
-
+  gap,
   text,
 }) => {
   return (
-    <Wrapper>
+    <Wrapper gap={gap}>
       {text && <>{text}</>}
       {image && (
         <ImageContainer>
@@ -45,8 +46,7 @@ export const Section: FC<Props> = ({
 const Wrapper = styled.section<Props>`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 0 0 1rem;
+  gap: ${(props) => props.gap && props.gap};
 `;
 
 const ImageContainer = styled.div`

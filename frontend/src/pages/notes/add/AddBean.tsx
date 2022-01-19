@@ -20,6 +20,8 @@ import { addBean } from "../../../redux/collectionRedux";
 
 //interface
 import { Bean, BeanErrors, Duplicate } from "../../../interfaces/interface";
+import { Button } from "../../../components/Buttons";
+import { neutral, primaryColor } from "../../../components/token";
 
 export interface StateProps {
   id: number;
@@ -88,7 +90,7 @@ const AddBean = () => {
       setDuplicate(hasDuplicate[0]);
     } else {
       dispatch(addBean(data));
-      history.push(`/brew/${data.id}/note`);
+      history.push(`/notes/${data.id}/new`);
     }
   };
 
@@ -104,7 +106,7 @@ const AddBean = () => {
   return (
     <Container>
       <Header title="Add New Bean" />
-      <Section>
+      <Section gap="1.625rem">
         <Input
           name="roaster"
           label="Roaster"
@@ -117,12 +119,18 @@ const AddBean = () => {
             }, 100);
           }}
         />
-        {suggestions &&
-          suggestions.map((suggestion, i) => (
-            <Sug key={i} onClick={() => handleSuggestClick(suggestion.name)}>
-              {suggestion.name}
-            </Sug>
-          ))}
+        {suggestions && suggestions.length > 0 && (
+          <Suggestions>
+            {suggestions.map((suggestion, i) => (
+              <Suggestion
+                key={i}
+                onClick={() => handleSuggestClick(suggestion.name)}
+              >
+                {suggestion.name}
+              </Suggestion>
+            ))}
+          </Suggestions>
+        )}
         <Input
           name="name"
           label="Name"
@@ -156,7 +164,12 @@ const AddBean = () => {
           </div>
         </article>
       </Section>
-      <button onClick={handleNext}>next</button>
+      <Button
+        label="Next"
+        variant="primary"
+        color={primaryColor.blue}
+        handleClick={handleNext}
+      />
       {duplicate && Object.keys(duplicate).length !== 0 && (
         <>
           <p>{`${duplicate.name} from ${duplicate.roaster} already exists.`}</p>
@@ -167,16 +180,31 @@ const AddBean = () => {
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+`;
 
-const Sug = styled.div`
+const Suggestions = styled.ul`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+`;
+
+const Suggestion = styled.li`
   cursor: pointer;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
+  display: flex;
+  align-items: center;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid ${neutral[200]};
 
   &:hover {
-    background-color: gray;
+    background-color: ${neutral[100]};
   }
 `;
 

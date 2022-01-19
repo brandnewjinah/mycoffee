@@ -35,7 +35,7 @@ const Flex = css`
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 120px);
 `;
 
 const Container = styled.div`
@@ -43,7 +43,6 @@ const Container = styled.div`
   height: 100%;
   ${Flex}
   flex-direction: column;
-  padding: 0 2rem;
 `;
 
 export default HomePresenter;
