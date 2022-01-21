@@ -7,6 +7,7 @@ import { neutral, primaryColor } from "./token";
 import Text from "./Text";
 import { Coffee } from "../assets/Icons";
 import { Button } from "./Buttons";
+import { link } from "fs";
 
 interface Props {
   linkToNote?: string;
@@ -32,17 +33,19 @@ export const Card: FC<Props> = ({
   const history = useHistory();
   return (
     <Wrapper margin={margin}>
+      <Link to={`${linkToBean}`}>
+        {imgsrc ? (
+          <Preview ratio={ratio}>
+            <img src={imgsrc} alt="" />
+          </Preview>
+        ) : (
+          <Preview ratio={ratio}>
+            <Coffee width="24" height="24" color="#000" stroke="1" />
+          </Preview>
+        )}
+      </Link>
       <Info>
         <Link to={`${linkToBean}`}>
-          {imgsrc ? (
-            <Preview ratio={ratio}>
-              <img src={imgsrc} alt="" />
-            </Preview>
-          ) : (
-            <Preview ratio={ratio}>
-              <Coffee width="24" height="24" color="#000" stroke="1" />
-            </Preview>
-          )}
           <Text variant="caption" color={primaryColor.orange}>
             {overline}
           </Text>
@@ -51,29 +54,33 @@ export const Card: FC<Props> = ({
             {caption}
           </Text>
         </Link>
+        {linkToNote && (
+          <Button
+            label="Add Note"
+            variant="primary"
+            color={primaryColor.blue}
+            small
+            handleClick={() => {
+              history.push(`${linkToNote}`);
+            }}
+          />
+        )}
       </Info>
-      <Button
-        label="Add Note"
-        variant="primary"
-        color={primaryColor.turquoise}
-        handleClick={() => {
-          history.push(`${linkToNote}`);
-        }}
-      />
     </Wrapper>
   );
 };
 
-const Wrapper = styled.section<Props>`
+const Wrapper = styled.article<Props>`
   display: grid;
-  gap: 1rem;
+  gap: 0.25rem;
   width: 100%;
-  padding: 1rem;
   margin: ${(props) => (props.margin ? props.margin : 0)};
 `;
 
 const Info = styled.div`
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Preview = styled.div<Props>`

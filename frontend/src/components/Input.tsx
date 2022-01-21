@@ -7,6 +7,7 @@ import { Eye, EyeOff, SearchIcon } from "../assets/Icons";
 import Text from "./Text";
 
 export interface Props {
+  id?: string;
   label?: string;
   name: string;
   type?: "text" | "password" | "search" | "number" | "email" | "date";
@@ -14,18 +15,21 @@ export interface Props {
   value?: string;
   prefix?: string;
   suffix?: string;
+  placeholder?: string;
   error?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
 export const Input: FC<Props> = ({
+  id,
   name,
   label,
   maxLength,
   type,
   prefix,
   suffix,
+  placeholder,
   error,
   onChange,
   ...rest
@@ -102,6 +106,7 @@ export const Input: FC<Props> = ({
       ) : (
         <>
           <InputTag
+            id={id ? id : name}
             name={name}
             type={
               type === "password" && isPassword

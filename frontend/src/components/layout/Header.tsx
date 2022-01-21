@@ -94,8 +94,8 @@ const Wrapper = styled.header`
   ${Flex}
   width: 100%;
   height: 60px;
-  /* background-color: #fff; */
-  background-color: palegreen;
+  background-color: #fff;
+  /* background-color: palegreen; */
 `;
 
 const Nav = styled.nav`

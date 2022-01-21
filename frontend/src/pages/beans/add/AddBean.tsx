@@ -91,7 +91,7 @@ const AddBean = () => {
       setDuplicate(hasDuplicate[0]);
     } else {
       dispatch(addBean(data));
-      history.push(`/notes/b/${data.id}/new`);
+      history.push(`/beans/b/${data.id}/details`);
     }
   };
 

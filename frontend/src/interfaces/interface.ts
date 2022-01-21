@@ -48,3 +48,37 @@ export interface Initial {
   beans: Beans;
   initial: string;
 }
+
+export interface Recipe {
+  id: string;
+  name: string;
+  desc: string;
+  ingredients: Ingredients[];
+  directions: Directions[];
+  ratio: Ratio[];
+}
+
+export interface Ingredients {
+  // [id:string] : string;
+  // ingredient: string;
+  // amount: string;
+  // unit: string;
+  [key: string]: string | undefined;
+}
+
+export interface Directions {
+  id: number;
+  direction: string;
+}
+
+export interface Ratio {
+  index: number;
+  id: number;
+  ingredient: string;
+  value: string;
+}
+
+export interface RecipeErrors {
+  name?: string;
+  desc?: string;
+}

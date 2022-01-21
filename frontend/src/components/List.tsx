@@ -45,7 +45,10 @@ export const List: FC<Props> = ({ link, date, crema, aroma, body, flavor }) => {
   );
 };
 
-const Wrapper = styled.section``;
+const Wrapper = styled.section`
+  border-bottom: 1px solid ${neutral[100]};
+  padding-bottom: 1.25rem;
+`;
 
 const Content = styled.div`
   padding: 0.5rem 0;

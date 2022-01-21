@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 //comp
 import Text from "./Text";
+import { Button } from "./Buttons";
 import { neutral, primaryColor } from "./token";
 
 export interface Props {
@@ -10,34 +11,58 @@ export interface Props {
   variant?: "small";
   subtitle?: string;
   overlay?: string;
+  button?: boolean;
+  btnLabel?: string;
+  handleClick?: () => void;
   children?: any;
 }
 
-const Header: FC<Props> = ({ overlay, title, variant, subtitle, children }) => {
+const Header: FC<Props> = ({
+  overlay,
+  title,
+  variant,
+  subtitle,
+  button,
+  btnLabel,
+  handleClick,
+  children,
+}) => {
   return (
     <Wrapper>
-      {overlay && (
-        <Text variant="caption" color={primaryColor.orange}>
-          {overlay}
-        </Text>
+      <div>
+        {overlay && (
+          <Text variant="caption" color={primaryColor.orange}>
+            {overlay}
+          </Text>
+        )}
+        {variant && variant === "small" ? (
+          <Text bold>{title}</Text>
+        ) : (
+          <Text variant="h1" padding=".35rem 0">
+            {title}
+          </Text>
+        )}
+        {subtitle && <Text color={neutral[400]}>{subtitle}</Text>}
+        {children && children}
+      </div>
+      {button && (
+        <Button
+          label={btnLabel}
+          variant="secondary"
+          color={primaryColor.blue}
+          bgColor={primaryColor.lightBlue}
+          small
+          handleClick={handleClick}
+        />
       )}
-      {variant && variant === "small" ? (
-        <Text bold>{title}</Text>
-      ) : (
-        <Text variant="h1" padding=".35rem 0">
-          {title}
-        </Text>
-      )}
-      {subtitle && <Text color={neutral[400]}>{subtitle}</Text>}
-      {children && children}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.header`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   /* background-color: honeydew; */
 `;
 

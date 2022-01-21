@@ -1,7 +1,5 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
-import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
-import styled from "styled-components";
+import React, { useState, ChangeEvent } from "react";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
 
 //comp
@@ -22,19 +20,21 @@ import { addBean } from "../../../redux/collectionRedux";
 //interface
 import { Bean, BeanErrors, Duplicate } from "../../../interfaces/interface";
 import { Button } from "../../../components/Buttons";
-import { neutral, primaryColor } from "../../../components/token";
+import { primaryColor } from "../../../components/token";
 
 export interface StateProps {
   id: number;
   name: string;
 }
 
-const AddBean = () => {
+const AddBeanDetails = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [roasters, setRoasters] = useState<StateProps[]>([]);
-  const [suggestions, setSuggestions] = useState<StateProps[]>([]);
+  const { beanId } = useParams<{ beanId: string }>();
   const beans = useSelector((state: RootState) => state.collection.beans);
+  const thisBean: Bean = beans.find(
+    (bean: { id: string }) => bean.id === beanId
+  )!;
   const [duplicate, setDuplicate] = useState<Duplicate>({});
   const [data, setData] = useState<Bean>({
     id: nanoid(),
@@ -43,24 +43,27 @@ const AddBean = () => {
     level: "light",
     notes: [],
   });
+
+  const [productInfo, setProductInfo] = useState({
+    img: "",
+  });
+
   const [errors, setErrors] = useState<BeanErrors>({});
 
-  const handleRoasterChange = (value: string) => {
-    let matches: { id: number; name: string }[] = [];
-    if (value.length > 0) {
-      matches = roasters.filter((roaster) => {
-        const regex = new RegExp(`${value}`, "gi");
-        return roaster.name.match(regex);
-      });
-    }
-    setSuggestions(matches);
-    setData({ ...data, roaster: value });
-  };
+  const [previewSource, setPreviewSource] = useState("");
 
-  const handleSuggestClick = (value: string) => {
-    setData({ ...data, roaster: value });
-    setSuggestions([]);
-  };
+  // const handleImageFile = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files![0];
+  //   previewFile(file);
+  // };
+
+  // const previewFile = (file: File) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onload = () => {
+  //     setPreviewSource(reader.result);
+  //   };
+  // };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -95,43 +98,17 @@ const AddBean = () => {
     }
   };
 
-  useEffect(() => {
-    const loadData = async () => {
-      const response = await axios.get("/data/coffeeData.json");
-      setRoasters(response.data.roasters);
-    };
-
-    loadData();
-  }, []);
-
   return (
     <Container gap="2.5rem">
-      <Header title="Add New Bean" />
+      <Header overlay={thisBean.roaster} title={thisBean.name} />
       <Section gap="1.625rem">
-        <Input
-          name="roaster"
-          label="Roaster"
-          value={data.roaster}
-          error={errors.roaster}
-          onChange={(e) => handleRoasterChange(e.target.value)}
-          onBlur={() => {
-            setTimeout(() => {
-              setSuggestions([]);
-            }, 100);
-          }}
+        <input
+          type="file"
+          name="img"
+          value={productInfo.img}
+          // onChange={handleImageFile}
         />
-        {suggestions && suggestions.length > 0 && (
-          <Suggestions>
-            {suggestions.map((suggestion, i) => (
-              <Suggestion
-                key={i}
-                onClick={() => handleSuggestClick(suggestion.name)}
-              >
-                {suggestion.name}
-              </Suggestion>
-            ))}
-          </Suggestions>
-        )}
+
         <Input
           name="name"
           label="Name"
@@ -181,20 +158,4 @@ const AddBean = () => {
   );
 };
 
-const Suggestions = styled.ul`
-  background-color: #fff;
-`;
-
-const Suggestion = styled.li`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 1.35rem 0;
-  border-bottom: 1px solid ${neutral[200]};
-
-  &:hover {
-    background-color: ${neutral[100]};
-  }
-`;
-
-export default AddBean;
+export default AddBeanDetails;

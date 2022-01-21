@@ -32,7 +32,8 @@ export const peach = {
 };
 
 export const primaryColor = {
-  blue: "#3883E5",
+  blue: "#3883e5",
+  lightBlue: "#e6ecf5",
   lightGold: "#d3a13b",
   gold: "#b58d3d",
   error: "#ff0000",

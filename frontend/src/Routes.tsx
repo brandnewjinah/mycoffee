@@ -5,18 +5,22 @@ import Layout from "./components/layout/Layout";
 import Home from "./pages/home";
 
 //notes
-import Beans from "./pages/notes";
-import AddBean from "./pages/notes/add/AddBean";
+import Notes from "./pages/notes";
+import NewBeanFromNotes from "./pages/notes/add/AddBean";
 import AddNote from "./pages/notes/add/AddNote";
-import Bean from "./pages/notes/Bean";
+import BeanForNotes from "./pages/notes/Bean";
 import Note from "./pages/notes/Note";
 
-//collection
-import Collection from "./pages/collection";
+//beans
+import Beans from "./pages/beans";
+import NewBean from "./pages/beans/add/AddBean";
+import NewBeanDetails from "./pages/beans/add/AddBeanDetails";
+import Bean from "./pages/beans/Bean";
 
 //Recipes
-import Recipe from "./pages/recipe";
 import Recipes from "./pages/recipes";
+import NewRecipe from "./pages/recipes/new";
+import Recipe from "./pages/recipe";
 import EditRecipe from "./pages/recipe/edit";
 
 //tools
@@ -39,15 +43,21 @@ const Routes = () => {
       <Switch>
         <Layout>
           <Route exact path="/" component={Home} />
-          <Route exact path="/notes" component={Beans} />
-          <Route exact path="/notes/:beanId/" component={Bean} />
-          <Route exact path="/notes/:beanId/new" component={AddNote} />
-
-          <Route exact path="/beans/new" component={AddBean} />
-
-          <Route exact path="/note/:beanId/:noteId" component={Note} />
-          <Route exact path="/collection" component={Collection} />
+          <Route exact path="/notes" component={Notes} />
+          <Route exact path="/notes/newbean" component={NewBeanFromNotes} />
+          <Route exact path="/notes/b/:beanId/new" component={AddNote} />
+          <Route exact path="/note/b/:beanId/:noteId" component={Note} />
+          <Route exact path="/notes/b/:beanId/" component={BeanForNotes} />
+          <Route exact path="/beans" component={Beans} />
+          <Route exact path="/beans/newbean" component={NewBean} />
+          <Route
+            exact
+            path="/beans/b/:beanId/details"
+            component={NewBeanDetails}
+          />
+          <Route exact path="/beans/b/:beanId" component={Bean} />
           <Route exact path="/recipes" component={Recipes} />
+          <Route exact path="/recipes/new" component={NewRecipe} />
           <Route exact path="/tools" component={Tools} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />

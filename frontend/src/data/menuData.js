@@ -15,7 +15,7 @@ export const homeMenu = [
   {
     id: 2,
     title: "Beans",
-    link: "/collection",
+    link: "/beans",
     desc: "collection of beans",
     delay: 200,
   },

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { ResponsiveRadar } from "@nivo/radar";
 import moment from "moment";
 import styled from "styled-components";
@@ -7,7 +7,9 @@ import styled from "styled-components";
 //comp
 import Header from "../../components/Header";
 import { Section } from "../../components/container/Section";
-import { neutral } from "../../components/token";
+import { neutral, primaryColor } from "../../components/token";
+import Text from "../../components/Text";
+import { Container } from "../../components/container/Container";
 
 //redux
 import { RootState } from "../../redux/store";
@@ -15,9 +17,10 @@ import { useSelector } from "react-redux";
 
 //interface
 import { Bean, Note } from "../../interfaces/interface";
-import Text from "../../components/Text";
+import { Button, LinkButton } from "../../components/Buttons";
 
 const NotePage = () => {
+  const history = useHistory();
   let { beanId, noteId } = useParams<{ beanId: string; noteId: string }>();
   const beans = useSelector((state: RootState) => state.collection.beans);
   const thisBean: Bean = beans.find(
@@ -50,8 +53,12 @@ const NotePage = () => {
     return `${recordDate.diff(roastDate, "days")} days`;
   };
 
+  const handlePrev = () => {
+    history.push(`/notes`);
+  };
+
   return (
-    <div>
+    <Container gap="1rem">
       <Header title={`Note for ${thisBean.name}`} />
       <Section>
         <div style={{ height: `350px` }}>
@@ -117,7 +124,13 @@ const NotePage = () => {
           <Text variant="caption">{`${thisNote.shot} grams`}</Text>
         </Item>
       </Section>
-    </div>
+      <LinkButton
+        label="Back to Notes"
+        variant="tertiary"
+        color={primaryColor.blue}
+        handleClick={handlePrev}
+      />
+    </Container>
   );
 };
 

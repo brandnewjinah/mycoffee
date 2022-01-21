@@ -1,4 +1,4 @@
-import { BeanErrors, NoteErrors } from "../interfaces/interface";
+import { BeanErrors, NoteErrors, RecipeErrors } from "../interfaces/interface";
 
 export const beanValidate = (obj: BeanErrors) => {
   const errors: BeanErrors = {};
@@ -15,6 +15,13 @@ export const noteValidate = (obj: NoteErrors) => {
   if (obj.grind === "") errors.grind = "Grind size is required";
   if (obj.time === "") errors.time = "Brew time is required";
   if (obj.shot === "") errors.shot = "shot is required";
+
+  return Object.keys(errors).length === 0 ? null : errors;
+};
+
+export const recipeValidate = (obj: RecipeErrors) => {
+  const errors: BeanErrors = {};
+  if (obj.name === "") errors.name = "Name is required";
 
   return Object.keys(errors).length === 0 ? null : errors;
 };

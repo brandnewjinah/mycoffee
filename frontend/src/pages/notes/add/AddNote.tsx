@@ -85,7 +85,7 @@ const AddNote = () => {
     } else {
       let newNote = { ...data, features };
       dispatch(addNote({ newNote, beanId }));
-      history.push(`/note/${beanId}/${data.id}`);
+      history.push(`/note/b/${beanId}/${data.id}`);
     }
   };
 
@@ -94,7 +94,7 @@ const AddNote = () => {
       <Header overlay={thisBean.roaster} title={thisBean.name} />
       {page === 1 && (
         <>
-          <Section>
+          <Section gap="2rem">
             <Input
               label="Roast Date"
               name="roastDate"
@@ -167,7 +167,7 @@ const AddNote = () => {
               />
             </div>
           </Section>
-          <Section>
+          <Section gap="2rem">
             {features &&
               features.map((item, idx) => (
                 <Slider

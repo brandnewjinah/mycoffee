@@ -43,7 +43,7 @@ const Saved = () => {
   let sorted = _.orderBy(result, [(res) => res.initial.toLowerCase()], ["asc"]);
 
   const handleNew = () => {
-    history.push("/notes/newbean");
+    history.push("/beans/newbean");
   };
 
   const handleSearch = () => {};
@@ -53,7 +53,7 @@ const Saved = () => {
       {sorted && sorted.length > 0 ? (
         <Container>
           <Header
-            title="Notes"
+            title="Beans"
             button
             btnLabel="New Bean"
             handleClick={handleNew}
@@ -67,9 +67,7 @@ const Saved = () => {
                 <InitialHeader>{item.initial}</InitialHeader>
                 {item.beans.map((bean) => (
                   <Card
-                    key={bean.id}
-                    linkToNote={`/notes/b/${bean.id}/new`}
-                    linkToBean={`/notes/b/${bean.id}`}
+                    linkToBean={`/beans/b/${bean.id}`}
                     overline={bean.roaster}
                     header={bean.name}
                     caption={bean.level}
