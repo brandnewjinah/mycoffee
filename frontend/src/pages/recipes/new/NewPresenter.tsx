@@ -8,9 +8,15 @@ import { Section } from "../../../components/container/Section";
 import { Button, LinkButton } from "../../../components/Buttons";
 import { primaryColor } from "../../../components/token";
 import { Input } from "../../../components/Input";
+import Modal from "../../../components/Modal";
+
+//data
+import { unitOptions } from "../../../data/data";
 
 //interface
 import { Recipe, RecipeErrors } from "../../../interfaces/interface";
+import { utimes } from "fs";
+import { ListItem } from "../../../components/Lists";
 
 interface Props {
   page: number;
@@ -23,6 +29,8 @@ interface Props {
 }
 
 const RecipesPresenter: FC<Props> = (props) => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <Container gap="2.5rem">
       <Header title="New Recipe" />
@@ -53,15 +61,47 @@ const RecipesPresenter: FC<Props> = (props) => {
       {props.page === 2 && (
         <>
           {props.recipe.ingredients.map((item, idx) => (
-            <InputContainer key={idx}>
-              <Input
-                id={item.id}
-                name="ingredient"
-                label="Ingredient"
-                value={item.ingredient}
-                onChange={props.handleIngredients}
-              />
-            </InputContainer>
+            <>
+              <InputContainer key={idx}>
+                <div className="flexThree">
+                  <Input
+                    id={item.id}
+                    name="ingredient"
+                    placeholder="Ingredient"
+                    value={item.ingredient}
+                    onChange={props.handleIngredients}
+                  />
+                </div>
+                <div className="flexOne">
+                  <Input
+                    id={item.id}
+                    name="ingredient"
+                    placeholder="Amount"
+                    value={item.ingredient}
+                    onChange={props.handleIngredients}
+                  />
+                </div>
+                <div className="flexOne">
+                  <button onClick={() => setShowModal(true)}>unit</button>
+                </div>
+              </InputContainer>
+              <Modal
+                header="Select Unit"
+                open={showModal}
+                handleClose={() => setShowModal(false)}
+              >
+                <div>
+                  <ul>
+                    {unitOptions.map((unit) => (
+                      <ListItem
+                        key={unit.id}
+                        label={`${unit.name} (${unit.abbr})`}
+                      />
+                    ))}
+                  </ul>
+                </div>
+              </Modal>
+            </>
           ))}
 
           <LinkButton
@@ -74,6 +114,9 @@ const RecipesPresenter: FC<Props> = (props) => {
   );
 };
 
-const InputContainer = styled.div``;
+const InputContainer = styled.div`
+  display: flex;
+  gap: 0.25rem;
+`;
 
 export default RecipesPresenter;

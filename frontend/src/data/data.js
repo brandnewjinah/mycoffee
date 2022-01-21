@@ -202,3 +202,16 @@ export const liquidOptions = [
     name: "Milk Foam",
   },
 ];
+
+export const unitOptions = [
+  {
+    id: 1,
+    name: "grams",
+    abbr: "g",
+  },
+  {
+    id: 2,
+    name: "milliliter",
+    abbr: "ml",
+  },
+];

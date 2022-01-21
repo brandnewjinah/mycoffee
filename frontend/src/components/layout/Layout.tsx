@@ -25,6 +25,18 @@ const Container = styled.div`
     display: flex;
     align-items: center;
   }
+
+  .flexOne {
+    flex: 1;
+  }
+
+  .flexTwo {
+    flex: 2;
+  }
+
+  .flexThree {
+    flex: 3;
+  }
 `;
 
 const Main = styled.main`

@@ -42,6 +42,10 @@ const GlobalStyle = createGlobalStyle`
         background-color: #edf2f7;
         padding: 0 .5rem;
     }
+    ul {
+        list-style-type: none;
+    }
+    
   
 `;
 

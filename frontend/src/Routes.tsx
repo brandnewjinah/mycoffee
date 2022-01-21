@@ -33,7 +33,6 @@ import Setup1 from "./pages/profile/Setup1";
 import Suggested from "./pages/Suggested";
 import Quiz from "./pages/quiz";
 import Add from "./pages/add";
-import Edit from "./pages/edit";
 import Products from "./pages/products";
 import Detail from "./pages/detail";
 
@@ -67,7 +66,6 @@ const Routes = () => {
           <Route exact path="/add" component={Add} />
           <Route exact path="/products" component={Products} />
           <Route exact path="/products/:id" component={Detail} />
-          <Route exact path="/edit/:id" component={Edit} />
           <Route exact path="/tools/add" component={AddTools} />
           <Route exact path="/recipes/add" component={EditRecipe} />
           <Route exact path="/recipe/:id" component={Recipe} />

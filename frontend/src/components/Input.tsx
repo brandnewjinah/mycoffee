@@ -108,6 +108,7 @@ export const Input: FC<Props> = ({
           <InputTag
             id={id ? id : name}
             name={name}
+            placeholder={placeholder}
             type={
               type === "password" && isPassword
                 ? "password"

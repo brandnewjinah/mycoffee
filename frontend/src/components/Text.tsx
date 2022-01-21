@@ -58,8 +58,8 @@ const Heading2 = styled.h2<Props>`
 `;
 
 const Heading3 = styled.h3<Props>`
-  font-size: ${fontSize.lg2};
-  font-weight: 500;
+  font-size: ${fontSize.lg1};
+  font-weight: 600;
   padding: ${(props) => props.padding};
 `;
 
