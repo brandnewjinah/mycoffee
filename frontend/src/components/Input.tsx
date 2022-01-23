@@ -30,6 +30,7 @@ export const Input: FC<Props> = ({
   prefix,
   suffix,
   placeholder,
+  value,
   error,
   onChange,
   ...rest
@@ -61,6 +62,7 @@ export const Input: FC<Props> = ({
       ) : type === "number" ? (
         <>
           <InputTag
+            id={id ? id : name}
             name={name}
             type="text"
             inputMode="decimal"
@@ -291,7 +293,7 @@ const InputTag = styled.input`
 
   ::placeholder,
   ::-webkit-input-placeholder {
-    font-size: ${fontSize.base};
+    font-size: ${fontSize.sm2};
     color: ${neutral[200]};
   }
 `;

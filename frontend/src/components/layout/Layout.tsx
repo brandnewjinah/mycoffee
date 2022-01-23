@@ -37,6 +37,10 @@ const Container = styled.div`
   .flexThree {
     flex: 3;
   }
+
+  .flexFour {
+    flex: 4;
+  }
 `;
 
 const Main = styled.main`

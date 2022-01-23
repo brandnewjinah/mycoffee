@@ -9,28 +9,33 @@ import { Button, LinkButton } from "../../../components/Buttons";
 import { primaryColor } from "../../../components/token";
 import { Input } from "../../../components/Input";
 import Modal from "../../../components/Modal";
+import { ListItem } from "../../../components/Lists";
 
 //data
 import { unitOptions } from "../../../data/data";
 
 //interface
 import { Recipe, RecipeErrors } from "../../../interfaces/interface";
-import { utimes } from "fs";
-import { ListItem } from "../../../components/Lists";
+import { Plus } from "../../../assets/Icons";
+import Chips from "../../../components/Chips";
 
 interface Props {
   page: number;
   recipe: Recipe;
   errors: RecipeErrors;
+  showModal?: boolean;
+  unitSelected?: string;
+  setShowModal?: React.Dispatch<React.SetStateAction<boolean>>;
+  handleModalSelect?: (id: string, unit: string) => void;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleIngredients: (e: ChangeEvent<HTMLInputElement>) => void;
   handleIngredientAdd: () => void;
+  handleIngredientSave: () => void;
+  handleUnitSelect: (unit: string) => void;
   handleNext: (page: number) => void;
 }
 
 const RecipesPresenter: FC<Props> = (props) => {
-  const [showModal, setShowModal] = useState(false);
-
   return (
     <Container gap="2.5rem">
       <Header title="New Recipe" />
@@ -59,11 +64,17 @@ const RecipesPresenter: FC<Props> = (props) => {
         </>
       )}
       {props.page === 2 && (
-        <>
-          {props.recipe.ingredients.map((item, idx) => (
+        <Section gap="1rem">
+          <Header variant="small" title="Ingredients" />
+          {props.recipe.ingredients &&
+            props.recipe.ingredients.length > 0 &&
+            props.recipe.ingredients.map((item, idx) => (
+              <div key={idx}>{item.id}</div>
+            ))}
+          {/* {props.recipe.ingredients.map((item, idx) => (
             <>
               <InputContainer key={idx}>
-                <div className="flexThree">
+                <div className="flexFour">
                   <Input
                     id={item.id}
                     name="ingredient"
@@ -75,40 +86,66 @@ const RecipesPresenter: FC<Props> = (props) => {
                 <div className="flexOne">
                   <Input
                     id={item.id}
-                    name="ingredient"
+                    name="amount"
+                    type="number"
                     placeholder="Amount"
-                    value={item.ingredient}
+                    value={item.amount}
                     onChange={props.handleIngredients}
                   />
                 </div>
                 <div className="flexOne">
-                  <button onClick={() => setShowModal(true)}>unit</button>
+                  <button onClick={() => props.setShowModal!(true)}>
+                    {item.unit !== "" ? item.unit : "unit"}
+                  </button>
                 </div>
               </InputContainer>
-              <Modal
-                header="Select Unit"
-                open={showModal}
-                handleClose={() => setShowModal(false)}
-              >
-                <div>
-                  <ul>
-                    {unitOptions.map((unit) => (
-                      <ListItem
-                        key={unit.id}
-                        label={`${unit.name} (${unit.abbr})`}
-                      />
-                    ))}
-                  </ul>
-                </div>
-              </Modal>
+              
             </>
-          ))}
-
-          <LinkButton
-            label="Add More"
-            handleClick={props.handleIngredientAdd}
-          />
-        </>
+          ))} */}
+          <Add>
+            <Button
+              label="Add Ingredient"
+              variant="primary"
+              color={primaryColor.blue}
+              icon={<Plus width="20" height="20" color="#fff" stroke="2" />}
+              handleClick={() => props.setShowModal!(true)}
+            />
+          </Add>
+          <Modal
+            header="Add Ingredient"
+            open={props.showModal!}
+            handleClose={() => props.setShowModal!(false)}
+          >
+            <Section gap="1rem">
+              <Input
+                name="ingredient"
+                placeholder="Ingredient"
+                onChange={props.handleIngredients}
+              />
+              <Input
+                name="value"
+                placeholder="Value"
+                onChange={props.handleIngredients}
+              />
+              <ul>
+                {unitOptions.map((unit) => (
+                  <Chips
+                    key={unit.id}
+                    label={unit.name}
+                    selected={props.unitSelected === unit.name}
+                    handleSelect={() => props.handleUnitSelect(unit.name)}
+                  />
+                ))}
+              </ul>
+            </Section>
+            <Button
+              label="Add"
+              variant="primary"
+              color={primaryColor.blue}
+              handleClick={props.handleIngredientSave}
+            />
+          </Modal>
+        </Section>
       )}
     </Container>
   );
@@ -116,7 +153,21 @@ const RecipesPresenter: FC<Props> = (props) => {
 
 const InputContainer = styled.div`
   display: flex;
+  justify-content: space-between;
   gap: 0.25rem;
+
+  button {
+    width: 100%;
+    height: 100%;
+    padding: 0.25rem;
+  }
+`;
+
+const Add = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
 `;
 
 export default RecipesPresenter;

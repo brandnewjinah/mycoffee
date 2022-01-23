@@ -4,10 +4,11 @@ import { neutral } from "./token";
 
 interface Props {
   label: string;
+  handleSelect?: () => void;
 }
 
-export const ListItem: FC<Props> = ({ label }) => {
-  return <Li>{label}</Li>;
+export const ListItem: FC<Props> = ({ label, handleSelect }) => {
+  return <Li onClick={handleSelect}>{label}</Li>;
 };
 
 const Li = styled.li`

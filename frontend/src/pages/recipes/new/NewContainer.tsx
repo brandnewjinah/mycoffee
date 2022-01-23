@@ -73,6 +73,31 @@ const NewContainer = () => {
     }
   };
 
+  //optional modal
+  const [showModal, setShowModal] = useState(false);
+  const [unitSelected, setUnitSelected] = useState<string>("");
+
+  const handleModalSelect = (id: string, unit: string) => {
+    let index = recipe.ingredients.findIndex((i) => i.id === id);
+    let newIng = [...newRecipe.ingredients];
+    let currentItem = { ...newIng[index] };
+
+    currentItem.unit = unit;
+    newIng[index] = currentItem;
+    newRecipe = { ...newRecipe, ingredients: newIng };
+    setRecipe(newRecipe);
+
+    setShowModal!(false);
+  };
+
+  const handleUnitSelect = (unit: string) => {
+    setUnitSelected(unit);
+  };
+
+  const handleIngredientSave = () => {
+    console.log(unitSelected);
+  };
+
   return (
     <NewPresenter
       page={page}
@@ -81,7 +106,13 @@ const NewContainer = () => {
       handleInputChange={handleInputChange}
       handleIngredients={handleIngredients}
       handleIngredientAdd={handleIngredientAdd}
+      handleIngredientSave={handleIngredientSave}
       handleNext={handleNext}
+      showModal={showModal}
+      unitSelected={unitSelected}
+      handleUnitSelect={handleUnitSelect}
+      setShowModal={setShowModal}
+      handleModalSelect={handleModalSelect}
     />
   );
 };

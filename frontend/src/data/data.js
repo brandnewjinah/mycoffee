@@ -214,4 +214,24 @@ export const unitOptions = [
     name: "milliliter",
     abbr: "ml",
   },
+  {
+    id: 3,
+    name: "cup",
+    abbr: "cup",
+  },
+  {
+    id: 4,
+    name: "teaspoon",
+    abbr: "tsp",
+  },
+  {
+    id: 5,
+    name: "tablespoon",
+    abbr: "tbsp",
+  },
+  {
+    id: 6,
+    name: "each",
+    abbr: "ea",
+  },
 ];
