@@ -15,7 +15,11 @@ import { ListItem } from "../../../components/Lists";
 import { unitOptions } from "../../../data/data";
 
 //interface
-import { Recipe, RecipeErrors } from "../../../interfaces/interface";
+import {
+  Recipe,
+  Ingredients,
+  RecipeErrors,
+} from "../../../interfaces/interface";
 import { Plus } from "../../../assets/Icons";
 import Chips from "../../../components/Chips";
 
@@ -24,7 +28,7 @@ interface Props {
   recipe: Recipe;
   errors: RecipeErrors;
   showModal?: boolean;
-  unitSelected?: string;
+  thisIngredient: Ingredients;
   setShowModal?: React.Dispatch<React.SetStateAction<boolean>>;
   handleModalSelect?: (id: string, unit: string) => void;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -132,7 +136,7 @@ const RecipesPresenter: FC<Props> = (props) => {
                   <Chips
                     key={unit.id}
                     label={unit.name}
-                    selected={props.unitSelected === unit.name}
+                    selected={props.thisIngredient.unit === unit.name}
                     handleSelect={() => props.handleUnitSelect(unit.name)}
                   />
                 ))}

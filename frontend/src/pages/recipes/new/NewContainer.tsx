@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { nanoid } from "nanoid";
 
@@ -9,7 +9,11 @@ import NewPresenter from "./NewPresenter";
 import { recipeValidate } from "../../../utils/validate";
 
 //interface
-import { Recipe, RecipeErrors } from "../../../interfaces/interface";
+import {
+  Recipe,
+  Ingredients,
+  RecipeErrors,
+} from "../../../interfaces/interface";
 
 const NewContainer = () => {
   const history = useHistory();
@@ -19,12 +23,15 @@ const NewContainer = () => {
     id: nanoid(),
     name: "",
     desc: "",
-    ingredients: [{ id: nanoid(), ingredient: "", amount: "", unit: "" }],
+    // ingredients: [{ id: nanoid(), ingredient: "", amount: "", unit: "" }],
+    ingredients: [],
     directions: [{ id: 1, direction: "" }],
     ratio: [{ index: 1, id: 1, ingredient: "", value: "" }],
   });
 
   const [errors, setErrors] = useState<RecipeErrors>({});
+
+  const [thisIngredient, setThisIngredient] = useState<Ingredients>({});
 
   //common variables clones
   let newRecipe = { ...recipe };
@@ -39,16 +46,23 @@ const NewContainer = () => {
     setRecipe(userInput);
   };
 
-  const handleIngredients = (e: ChangeEvent<HTMLInputElement>) => {
-    const { id, value, name } = e.target;
-    let index = recipe.ingredients.findIndex((i) => i.id === id);
-    let newIng = [...newRecipe.ingredients];
-    let currentItem = { ...newIng[index] };
+  // const handleIngredients = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const { id, value, name } = e.target;
+  //   let index = recipe.ingredients.findIndex((i) => i.id === id);
+  //   let newIng = [...newRecipe.ingredients];
+  //   let currentItem = { ...newIng[index] };
 
-    currentItem[name] = value;
-    newIng[index] = currentItem;
-    newRecipe = { ...newRecipe, ingredients: newIng };
-    setRecipe(newRecipe);
+  //   currentItem[name] = value;
+  //   newIng[index] = currentItem;
+  //   newRecipe = { ...newRecipe, ingredients: newIng };
+  //   setRecipe(newRecipe);
+  // };
+
+  const handleIngredients = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    let currentIngredient = { ...thisIngredient };
+    currentIngredient[name] = value;
+    setThisIngredient(currentIngredient);
   };
 
   const handleIngredientAdd = () => {
@@ -75,7 +89,6 @@ const NewContainer = () => {
 
   //optional modal
   const [showModal, setShowModal] = useState(false);
-  const [unitSelected, setUnitSelected] = useState<string>("");
 
   const handleModalSelect = (id: string, unit: string) => {
     let index = recipe.ingredients.findIndex((i) => i.id === id);
@@ -91,11 +104,18 @@ const NewContainer = () => {
   };
 
   const handleUnitSelect = (unit: string) => {
-    setUnitSelected(unit);
+    let currentIngredient = { ...thisIngredient };
+    currentIngredient.unit = unit;
+    setThisIngredient(currentIngredient);
   };
 
   const handleIngredientSave = () => {
-    console.log(unitSelected);
+    let newIngredients = [...recipe.ingredients];
+    newIngredients = [...newIngredients, thisIngredient];
+    let newRecipe = { ...recipe, ingredients: newIngredients };
+    setRecipe(newRecipe);
+    setShowModal!(false);
+    //dispatch redux
   };
 
   return (
@@ -103,13 +123,13 @@ const NewContainer = () => {
       page={page}
       recipe={recipe}
       errors={errors}
+      thisIngredient={thisIngredient}
       handleInputChange={handleInputChange}
       handleIngredients={handleIngredients}
       handleIngredientAdd={handleIngredientAdd}
       handleIngredientSave={handleIngredientSave}
       handleNext={handleNext}
       showModal={showModal}
-      unitSelected={unitSelected}
       handleUnitSelect={handleUnitSelect}
       setShowModal={setShowModal}
       handleModalSelect={handleModalSelect}
