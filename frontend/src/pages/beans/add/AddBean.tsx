@@ -1,6 +1,5 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
 import styled from "styled-components";
 import { nanoid } from "nanoid";
 
@@ -23,6 +22,8 @@ import { addBean } from "../../../redux/collectionRedux";
 import { Bean, BeanErrors, Duplicate } from "../../../interfaces/interface";
 import { Button } from "../../../components/Buttons";
 import { neutral, primaryColor } from "../../../components/token";
+import { getRoasters } from "../../../redux/roastersRedux";
+import { getBeans } from "../../../redux/beansRedux";
 
 export interface StateProps {
   id: number;
@@ -32,9 +33,9 @@ export interface StateProps {
 const AddBean = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [roasters, setRoasters] = useState<StateProps[]>([]);
+
   const [suggestions, setSuggestions] = useState<StateProps[]>([]);
-  const beans = useSelector((state: RootState) => state.collection.beans);
+
   const [duplicate, setDuplicate] = useState<Duplicate>({});
   const [data, setData] = useState<Bean>({
     id: nanoid(),
@@ -45,6 +46,21 @@ const AddBean = () => {
   });
   const [errors, setErrors] = useState<BeanErrors>({});
 
+  //get roasters list from data for suggestions
+  useEffect(() => {
+    dispatch(getRoasters());
+  }, [dispatch]);
+
+  const { roasters } = useSelector((state: RootState) => state.roasters);
+
+  // //get beans list to check duplicate
+  // useEffect(() => {
+  //   dispatch(getBeans());
+  // }, [dispatch]);
+
+  const beans = useSelector((state: RootState) => state.beans.beans);
+
+  //get roasters suggestions as user types
   const handleRoasterChange = (value: string) => {
     let matches: { id: number; name: string }[] = [];
     if (value.length > 0) {
@@ -57,6 +73,7 @@ const AddBean = () => {
     setData({ ...data, roaster: value });
   };
 
+  //user clicks on a suggestion
   const handleSuggestClick = (value: string) => {
     setData({ ...data, roaster: value });
     setSuggestions([]);
@@ -94,15 +111,6 @@ const AddBean = () => {
       history.push(`/beans/b/${data.id}/details`);
     }
   };
-
-  useEffect(() => {
-    const loadData = async () => {
-      const response = await axios.get("/data/coffeeData.json");
-      setRoasters(response.data.roasters);
-    };
-
-    loadData();
-  }, []);
 
   return (
     <Container gap="2.5rem">
@@ -182,7 +190,7 @@ const AddBean = () => {
 };
 
 const Suggestions = styled.ul`
-  background-color: #fff;
+  background-color: yellow;
 `;
 
 const Suggestion = styled.li`

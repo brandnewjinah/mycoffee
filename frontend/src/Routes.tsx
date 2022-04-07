@@ -19,7 +19,9 @@ import Bean from "./pages/beans/Bean";
 
 //Recipes
 import Recipes from "./pages/recipes";
-import NewRecipe from "./pages/recipes/new";
+import AddRecipe from "./pages/recipes/new/AddRecipe";
+import AddIngredients from "./pages/recipes/new/AddIngredients";
+import AddDirections from "./pages/recipes/new/AddDirections";
 import Recipe from "./pages/recipe";
 import EditRecipe from "./pages/recipe/edit";
 
@@ -56,7 +58,17 @@ const Routes = () => {
           />
           <Route exact path="/beans/b/:beanId" component={Bean} />
           <Route exact path="/recipes" component={Recipes} />
-          <Route exact path="/recipes/new" component={NewRecipe} />
+          <Route exact path="/recipes/new" component={AddRecipe} />
+          <Route
+            exact
+            path="/recipes/new/:recipeId/ingredients"
+            component={AddIngredients}
+          />
+          <Route
+            exact
+            path="/recipes/new/:recipeId/directions"
+            component={AddDirections}
+          />
           <Route exact path="/tools" component={Tools} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />

@@ -46,6 +46,7 @@ export const Input: FC<Props> = ({
             name={name}
             type={type}
             maxLength={maxLength}
+            value={value}
             onChange={onChange}
             {...rest}
           />
@@ -68,6 +69,7 @@ export const Input: FC<Props> = ({
             inputMode="decimal"
             pattern="[0-9]*"
             maxLength={maxLength}
+            value={value}
             onChange={onChange}
             {...rest}
           />
@@ -90,6 +92,7 @@ export const Input: FC<Props> = ({
               type="text"
               inputMode="decimal"
               maxLength={maxLength}
+              value={value}
               onChange={onChange}
               {...rest}
             />
@@ -119,6 +122,7 @@ export const Input: FC<Props> = ({
                 : type
             }
             maxLength={maxLength}
+            value={value}
             onChange={onChange}
             {...rest}
           />

@@ -1,3 +1,8 @@
+export interface Roaster {
+  id: number;
+  name: string;
+}
+
 export interface Bean {
   id: string;
   roaster: string;
@@ -68,7 +73,11 @@ export interface Ingredients {
 
 export interface Directions {
   id: number;
-  direction: string;
+  direction: Direction[];
+}
+
+export interface Direction {
+  [key: string]: string | undefined;
 }
 
 export interface Ratio {

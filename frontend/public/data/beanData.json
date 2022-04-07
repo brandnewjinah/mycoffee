@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "roaster": "roaster1",
+    "name": "name1",
+    "level": "light",
+    "notes": []
+  },
+  {
+    "id": 2,
+    "roaster": "roaster2",
+    "name": "name3",
+    "level": "light",
+    "notes": []
+  }
+]

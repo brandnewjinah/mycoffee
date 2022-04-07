@@ -18,3 +18,13 @@ const Wrapper = styled.div<Props>`
   flex-direction: column;
   gap: ${(props) => (props.gap ? props.gap : "2.5rem")};
 `;
+
+export const Flex: FC<Props> = ({ gap, children }) => {
+  return <FlexWrapper gap={gap}>{children}</FlexWrapper>;
+};
+
+const FlexWrapper = styled.div<Props>`
+  display: flex;
+  align-items: center;
+  gap: ${(props) => (props.gap ? props.gap : ".5rem")};
+`;

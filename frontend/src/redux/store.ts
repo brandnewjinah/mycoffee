@@ -11,7 +11,10 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+import roastersReducer from "./roastersRedux";
+import beansReducer from "./beansRedux";
 import collectionReducer from "./collectionRedux";
+import recipeReducer from "./recipeRedux";
 
 const persistConfig = {
   key: "root",
@@ -20,7 +23,10 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  roasters: roastersReducer,
+  beans: beansReducer,
   collection: collectionReducer,
+  recipe: recipeReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

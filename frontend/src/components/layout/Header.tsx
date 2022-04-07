@@ -4,7 +4,6 @@ import styled, { css } from "styled-components";
 
 //comp
 import { Logo } from "../../assets/Icons";
-import { gray } from "../Colors";
 import { breakpoint, fontSize, size } from "../token";
 
 export interface Props {}

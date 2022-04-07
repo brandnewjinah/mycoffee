@@ -18,6 +18,7 @@ import { beanValidate } from "../../../utils/validate";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { addBean } from "../../../redux/collectionRedux";
+import { getRoasters } from "../../../redux/roastersRedux";
 
 //interface
 import { Bean, BeanErrors, Duplicate } from "../../../interfaces/interface";
@@ -32,7 +33,7 @@ export interface StateProps {
 const AddBean = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [roasters, setRoasters] = useState<StateProps[]>([]);
+
   const [suggestions, setSuggestions] = useState<StateProps[]>([]);
   const beans = useSelector((state: RootState) => state.collection.beans);
   const [duplicate, setDuplicate] = useState<Duplicate>({});
@@ -45,6 +46,14 @@ const AddBean = () => {
   });
   const [errors, setErrors] = useState<BeanErrors>({});
 
+  //get roasters list from data for suggestions
+  useEffect(() => {
+    dispatch(getRoasters());
+  }, [dispatch]);
+
+  const { roasters } = useSelector((state: RootState) => state.roasters);
+
+  //get roasters suggestions as user types
   const handleRoasterChange = (value: string) => {
     let matches: { id: number; name: string }[] = [];
     if (value.length > 0) {
@@ -94,15 +103,6 @@ const AddBean = () => {
       history.push(`/notes/b/${data.id}/new`);
     }
   };
-
-  useEffect(() => {
-    const loadData = async () => {
-      const response = await axios.get("/data/coffeeData.json");
-      setRoasters(response.data.roasters);
-    };
-
-    loadData();
-  }, []);
 
   return (
     <Container gap="2.5rem">

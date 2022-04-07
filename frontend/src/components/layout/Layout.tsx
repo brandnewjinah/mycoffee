@@ -1,4 +1,4 @@
-import React, { useEffect, FC } from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 import { size } from "../token";
 

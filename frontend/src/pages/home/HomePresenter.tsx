@@ -1,5 +1,4 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 //comp
