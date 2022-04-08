@@ -41,6 +41,7 @@ const AddBeanDetails = () => {
     roaster: "",
     name: "",
     level: "light",
+    img: "",
     notes: [],
   });
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent, SyntheticEvent } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { nanoid } from "nanoid";
@@ -22,19 +22,14 @@ import { addBean } from "../../../redux/collectionRedux";
 import { getRoasters } from "../../../redux/roastersRedux";
 import { getBeans } from "../../../redux/beansRedux";
 
-//interface
-import { Bean, BeanErrors, Duplicate } from "../../../interfaces/interface";
-
-export interface StateProps {
-  id: number;
-  name: string;
-}
-
 const AddBean = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [data, setData] = useState<Bean>({
+  const [suggestions, setSuggestions] = useState([]);
+
+  const [duplicate, setDuplicate] = useState({});
+  const [data, setData] = useState({
     id: nanoid(),
     roaster: "",
     name: "",
@@ -42,30 +37,25 @@ const AddBean = () => {
     img: "",
     notes: [],
   });
-
-  const [suggestions, setSuggestions] = useState<StateProps[]>([]);
-
-  const [duplicate, setDuplicate] = useState<Duplicate>({});
-
-  const [errors, setErrors] = useState<BeanErrors>({});
+  const [errors, setErrors] = useState({});
 
   //get roasters list from data for suggestions
   useEffect(() => {
     dispatch(getRoasters());
   }, [dispatch]);
 
-  const { roasters } = useSelector((state: RootState) => state.roasters);
+  const { roasters } = useSelector((state) => state.roasters);
 
   // //get beans list to check duplicate
   // useEffect(() => {
   //   dispatch(getBeans());
   // }, [dispatch]);
 
-  const beans = useSelector((state: RootState) => state.beans.beans);
+  const beans = useSelector((state) => state.beans.beans);
 
   //get roasters suggestions as user types
-  const handleRoasterChange = (value: string) => {
-    let matches: { id: number; name: string }[] = [];
+  const handleRoasterChange = (value) => {
+    let matches = [];
     if (value.length > 0) {
       matches = roasters.filter((roaster) => {
         const regex = new RegExp(`${value}`, "gi");
@@ -77,42 +67,38 @@ const AddBean = () => {
   };
 
   //user clicks on a suggestion
-  const handleSuggestClick = (value: string) => {
+  const handleSuggestClick = (value) => {
     setData({ ...data, roaster: value });
     setSuggestions([]);
   };
 
-  //set bean name
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e) => {
     const { value } = e.target;
     const userInput = { ...data };
     userInput.name = value;
     setData(userInput);
   };
 
-  //select roast level
-  const handleSelect = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSelect = (e) => {
     const value = e.target.value;
     setData({ ...data, level: value });
   };
 
-  //upload image from file
   const [previewSource, setPreviewSource] = useState("");
 
-  const handleImageFile = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files && e.target.files[0];
+  const handleImageFile = (e) => {
+    const file = e.target.files[0];
     previewFile(file);
   };
 
-  const previewFile = (file: File | null) => {
+  const previewFile = (file) => {
     const reader = new FileReader();
-    reader.readAsDataURL(file as Blob);
+    reader.readAsDataURL(file);
     reader.onload = () => {
-      setPreviewSource(reader.result!.toString());
+      setPreviewSource(reader.result);
     };
   };
 
-  //submit data
   const handleNext = () => {
     const errors = beanValidate(data);
 
@@ -129,11 +115,10 @@ const AddBean = () => {
     if (hasDuplicate.length > 0) {
       setDuplicate(hasDuplicate[0]);
     }
-
     if (!previewSource) return;
     const newBeanData = { ...data, img: previewSource };
     console.log(newBeanData);
-    // dispatch(addBean(newBeanData));
+    // dispatch(addBean(data));
     // history.push(`/beans/b/${data.id}/details`);
   };
 
@@ -202,12 +187,9 @@ const AddBean = () => {
           <input
             type="file"
             name="img"
-            // value={data.img}
+            value={data.img}
             onChange={handleImageFile}
           />
-          {previewSource && (
-            <img src={previewSource} alt="chosen" style={{ width: "100%" }} />
-          )}
         </Article>
       </Section>
       <Button

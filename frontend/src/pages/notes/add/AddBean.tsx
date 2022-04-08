@@ -42,6 +42,7 @@ const AddBean = () => {
     roaster: "",
     name: "",
     level: "light",
+    img: "",
     notes: [],
   });
   const [errors, setErrors] = useState<BeanErrors>({});

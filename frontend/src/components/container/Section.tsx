@@ -1,9 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
-import Text from "../Text";
-import { neutral, fontSize } from "../token";
-
 interface Props {
   image?: string;
   imageText?: string;
@@ -60,4 +57,14 @@ const ImageContainer = styled.div`
   p {
     margin-top: 1rem;
   }
+`;
+
+export const Article: FC<Props> = ({ children, gap }) => {
+  return <ArticleWrapper gap={gap}>{children}</ArticleWrapper>;
+};
+
+const ArticleWrapper = styled.article<Props>`
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => props.gap && props.gap};
 `;

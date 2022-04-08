@@ -8,6 +8,7 @@ export interface Bean {
   roaster: string;
   name: string;
   level: string;
+  img?: string;
   notes: Note[];
 }
 
