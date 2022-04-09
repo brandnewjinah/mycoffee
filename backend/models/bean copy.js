@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const productSchema = mongoose.Schema(
+const beanSchema = mongoose.Schema(
   {
     roaster: {
       type: String,
@@ -10,10 +10,14 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    origin: {
+    level: {
+      type: String,
+      required: true,
+    },
+    img: {
       type: String,
     },
-    roast: {
+    origin: {
       type: String,
     },
     taste: {
@@ -22,9 +26,6 @@ const productSchema = mongoose.Schema(
     price: {
       type: String,
       required: true,
-    },
-    image: {
-      type: String,
     },
     description: {
       type: String,
@@ -72,4 +73,6 @@ const productSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("product", productSchema);
+const Bean = mongoose.model("Bean", beanSchema);
+
+export default Bean;

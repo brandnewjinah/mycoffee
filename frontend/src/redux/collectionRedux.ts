@@ -1,6 +1,6 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Bean } from "../interfaces/interface";
+import { Bean, Note } from "../interfaces/interface";
 
 export interface Beans {
   beans: Bean[];
@@ -10,30 +10,38 @@ const initialState: Beans = {
   beans: [],
 };
 
+export const addBeansss = createAsyncThunk(
+  "collection/addBeanss",
+  async (file: Bean) => {
+    console.log(file);
+  }
+);
+
 const collectionSlice = createSlice({
   name: "collection",
   initialState,
   reducers: {
     addBean: (state, action) => {
-      state.beans = [...state.beans, action.payload];
+      // state.beans = [...state.beans, action.payload];
+      console.log(action.payload);
     },
     addNote: (state, action) => {
       const newNote = action.payload;
       let newBeans = [...current(state.beans)];
-      const index = newBeans.findIndex((item) => item.id === newNote.beanId);
-      let thisBean = newBeans[index];
+      // const index = newBeans.findIndex((item) => item.id === newNote.beanId);
+      // let thisBean = newBeans[index];
 
-      let newNotes = [...thisBean.notes, newNote.newNote];
-      thisBean = { ...thisBean, notes: newNotes };
+      // let newNotes = [...thisBean.notes, newNote.newNote];
+      // thisBean = { ...thisBean, notes: newNotes };
 
-      newBeans[index] = thisBean;
+      // newBeans[index] = thisBean;
 
-      state.beans = newBeans;
+      // state.beans = newBeans;
     },
     deleteBean: (state, action) => {
       let newBeans = [...current(state.beans)];
-      newBeans = newBeans.filter((bean) => bean.id !== action.payload);
-      state.beans = newBeans;
+      // newBeans = newBeans.filter((bean) => bean.id !== action.payload);
+      // state.beans = newBeans;
     },
   },
 });

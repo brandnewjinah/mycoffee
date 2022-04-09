@@ -28,9 +28,9 @@ const BeanPage: FC<Props> = () => {
   const dispatch = useDispatch();
   const { beanId } = useParams<{ beanId: string }>();
   const beans = useSelector((state: RootState) => state.collection.beans);
-  const thisBean: Bean = beans.find(
-    (bean: { id: string }) => bean.id === beanId
-  )!;
+  // const thisBean: Bean = beans.find(
+  //   (bean: { id: string }) => bean.id === beanId
+  // )!;
 
   const handleDeleteBean = () => {
     if (window.confirm("Delete this bean?")) {
@@ -42,7 +42,7 @@ const BeanPage: FC<Props> = () => {
 
   return (
     <Container gap="1.5rem">
-      <Header title={thisBean.name} overlay={thisBean.roaster} />
+      {/* <Header title={thisBean.name} overlay={thisBean.roaster} /> */}
       <Section>
         <Preview ratio={ratio.landscape_169}>
           <Coffee width="24" height="24" color="#000" stroke="1" />

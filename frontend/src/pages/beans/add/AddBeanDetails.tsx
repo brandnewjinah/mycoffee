@@ -32,12 +32,11 @@ const AddBeanDetails = () => {
   const dispatch = useDispatch();
   const { beanId } = useParams<{ beanId: string }>();
   const beans = useSelector((state: RootState) => state.collection.beans);
-  const thisBean: Bean = beans.find(
-    (bean: { id: string }) => bean.id === beanId
-  )!;
+  // const thisBean: Bean = beans.find(
+  //   (bean: { id: string }) => bean.id === beanId
+  // )!;
   const [duplicate, setDuplicate] = useState<Duplicate>({});
   const [data, setData] = useState<Bean>({
-    id: nanoid(),
     roaster: "",
     name: "",
     level: "light",
@@ -95,13 +94,13 @@ const AddBeanDetails = () => {
       setDuplicate(hasDuplicate[0]);
     } else {
       dispatch(addBean(data));
-      history.push(`/notes/b/${data.id}/new`);
+      // history.push(`/notes/b/${data.id}/new`);
     }
   };
 
   return (
     <Container gap="2.5rem">
-      <Header overlay={thisBean.roaster} title={thisBean.name} />
+      {/* <Header overlay={thisBean.roaster} title={thisBean.name} /> */}
       <Section gap="1.625rem">
         <input
           type="file"

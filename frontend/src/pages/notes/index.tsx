@@ -67,9 +67,9 @@ const Saved = () => {
                 <InitialHeader>{item.initial}</InitialHeader>
                 {item.beans.map((bean) => (
                   <Card
-                    key={bean.id}
-                    linkToNote={`/notes/b/${bean.id}/new`}
-                    linkToBean={`/notes/b/${bean.id}`}
+                    // key={bean.id}
+                    // linkToNote={`/notes/b/${bean.id}/new`}
+                    // linkToBean={`/notes/b/${bean.id}`}
                     overline={bean.roaster}
                     header={bean.name}
                     caption={bean.level}

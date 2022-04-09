@@ -12,7 +12,7 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import roastersReducer from "./roastersRedux";
-import beansReducer from "./beansRedux";
+import beansReducer from "./beanRedux";
 import collectionReducer from "./collectionRedux";
 import recipeReducer from "./recipeRedux";
 

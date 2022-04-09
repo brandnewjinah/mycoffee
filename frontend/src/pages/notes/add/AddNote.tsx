@@ -27,9 +27,9 @@ const AddNote = () => {
   const history = useHistory();
   const { beanId } = useParams<{ beanId: string }>();
   const beans = useSelector((state: RootState) => state.collection.beans);
-  const thisBean: Bean = beans.find(
-    (bean: { id: string }) => bean.id === beanId
-  )!;
+  // const thisBean: Bean = beans.find(
+  //   (bean: { id: string }) => bean.id === beanId
+  // )!;
   const [page, setPage] = useState(1);
   const [data, setData] = useState<{ [key: string]: string }>({
     id: new Date().valueOf().toString(),
@@ -91,7 +91,7 @@ const AddNote = () => {
 
   return (
     <Container>
-      <Header overlay={thisBean.roaster} title={thisBean.name} />
+      {/* <Header overlay={thisBean.roaster} title={thisBean.name} /> */}
       {page === 1 && (
         <>
           <Section gap="2rem">

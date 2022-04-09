@@ -4,7 +4,6 @@ export interface Roaster {
 }
 
 export interface Bean {
-  id: string;
   roaster: string;
   name: string;
   level: string;

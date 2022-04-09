@@ -10,44 +10,13 @@ const beanSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    origin: {
-      type: String,
-    },
-    roast: {
-      type: String,
-    },
-    taste: {
-      type: [String],
-    },
-    price: {
+    level: {
       type: String,
       required: true,
     },
-    image: {
+    img: {
       type: String,
     },
-    description: {
-      type: String,
-      max: 100,
-    },
-    comments: [
-      {
-        user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "user",
-        },
-        text: {
-          type: String,
-        },
-        name: {
-          type: String,
-        },
-        date: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
     notes: [
       {
         user: {
@@ -72,4 +41,6 @@ const beanSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("bean", beanSchema);
+const Bean = mongoose.model("Bean", beanSchema);
+
+export default Bean;

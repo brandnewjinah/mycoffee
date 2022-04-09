@@ -21,9 +21,9 @@ const BeanPage = () => {
   const dispatch = useDispatch();
   const { beanId } = useParams<{ beanId: string }>();
   const beans = useSelector((state: RootState) => state.collection.beans);
-  const thisBean: Bean = beans.find(
-    (bean: { id: string }) => bean.id === beanId
-  )!;
+  // const thisBean: Bean = beans.find(
+  //   (bean: { id: string }) => bean.id === beanId
+  // )!;
 
   const handleNext = () => {
     history.push(`/notes/${beanId}/new`);
@@ -40,13 +40,14 @@ const BeanPage = () => {
   return (
     <Container gap="1.5rem">
       <Header
-        title={thisBean.name}
+        // title={thisBean.name}
+        title="Test"
         overlay="Notes for"
         button
         btnLabel="New Note"
         handleClick={handleNext}
       />
-      {thisBean.notes &&
+      {/* {thisBean.notes &&
         thisBean.notes.map((note, idx) => (
           <List
             key={idx}
@@ -57,7 +58,7 @@ const BeanPage = () => {
             body={note.features[2].value}
             flavor={note.features[3].value}
           />
-        ))}
+        ))} */}
       {/* <Button
         label="Delete this bean"
         variant="tertiary"

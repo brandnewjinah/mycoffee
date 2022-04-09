@@ -23,35 +23,35 @@ const NotePage = () => {
   const history = useHistory();
   let { beanId, noteId } = useParams<{ beanId: string; noteId: string }>();
   const beans = useSelector((state: RootState) => state.collection.beans);
-  const thisBean: Bean = beans.find(
-    (bean: { id: string }) => bean.id === beanId
-  )!;
-  const thisNote: Note = thisBean.notes.find((note) => note.id === noteId)!;
+  // const thisBean: Bean = beans.find(
+  //   (bean: { id: string }) => bean.id === beanId
+  // )!;
+  // const thisNote: Note = thisBean.notes.find((note) => note.id === noteId)!;
 
   const [data, setData] = useState([
     {
       feature: "crema",
-      value: thisNote.features[0].value,
+      // value: thisNote.features[0].value,
     },
     {
       feature: "aroma",
-      value: thisNote.features[1].value,
+      // value: thisNote.features[1].value,
     },
     {
       feature: "body",
-      value: thisNote.features[2].value,
+      // value: thisNote.features[2].value,
     },
     {
       feature: "flavor",
-      value: thisNote.features[3].value,
+      // value: thisNote.features[3].value,
     },
   ]);
 
-  const getFreshness = () => {
-    let recordDate = moment(thisNote.today);
-    let roastDate = moment(thisNote.roastDate);
-    return `${recordDate.diff(roastDate, "days")} days`;
-  };
+  // const getFreshness = () => {
+  //   let recordDate = moment(thisNote.today);
+  //   let roastDate = moment(thisNote.roastDate);
+  //   return `${recordDate.diff(roastDate, "days")} days`;
+  // };
 
   const handlePrev = () => {
     history.push(`/notes`);
@@ -59,7 +59,7 @@ const NotePage = () => {
 
   return (
     <Container gap="1rem">
-      <Header title={`Note for ${thisBean.name}`} />
+      {/* <Header title={`Note for ${thisBean.name}`} /> */}
       <Section>
         <div style={{ height: `350px` }}>
           <ResponsiveRadar
@@ -89,39 +89,39 @@ const NotePage = () => {
           <Text variant="caption" bold>
             Recorded on
           </Text>
-          <Text variant="caption">
+          {/* <Text variant="caption">
             {moment(thisNote.today).format("MM-DD-YYYY")}
-          </Text>
+          </Text> */}
         </Item>
         <Item>
           <Text variant="caption" bold>
             Freshness
           </Text>
-          <Text variant="caption">{getFreshness()}</Text>
+          {/* <Text variant="caption">{getFreshness()}</Text> */}
         </Item>
         <Item>
           <Text variant="caption" bold>
             Dose
           </Text>
-          <Text variant="caption">{`${thisNote.dose} grams`}</Text>
+          {/* <Text variant="caption">{`${thisNote.dose} grams`}</Text> */}
         </Item>
         <Item>
           <Text variant="caption" bold>
             Grind Level
           </Text>
-          <Text variant="caption">{thisNote.grind}</Text>
+          {/* <Text variant="caption">{thisNote.grind}</Text> */}
         </Item>
         <Item>
           <Text variant="caption" bold>
             Time
           </Text>
-          <Text variant="caption">{`${thisNote.time} seconds`}</Text>
+          {/* <Text variant="caption">{`${thisNote.time} seconds`}</Text> */}
         </Item>
         <Item>
           <Text variant="caption" bold>
             Shot
           </Text>
-          <Text variant="caption">{`${thisNote.shot} grams`}</Text>
+          {/* <Text variant="caption">{`${thisNote.shot} grams`}</Text> */}
         </Item>
       </Section>
       <LinkButton

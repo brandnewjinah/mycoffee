@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { addBean } from "../../../redux/collectionRedux";
 import { getRoasters } from "../../../redux/roastersRedux";
-import { getBeans } from "../../../redux/beansRedux";
+import { getBeans } from "../../../redux/beanRedux";
 
 const AddBean = () => {
   const history = useHistory();

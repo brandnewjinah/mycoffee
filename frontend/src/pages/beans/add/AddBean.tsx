@@ -18,24 +18,21 @@ import { beanValidate } from "../../../utils/validate";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { addBean } from "../../../redux/collectionRedux";
-import { getRoasters } from "../../../redux/roastersRedux";
-import { getBeans } from "../../../redux/beansRedux";
+import { getBeans, addBean } from "../../../redux/beanRedux";
 
 //interface
-import { Bean, BeanErrors, Duplicate } from "../../../interfaces/interface";
-
-export interface StateProps {
-  id: number;
-  name: string;
-}
+import {
+  Bean,
+  Beans,
+  BeanErrors,
+  Duplicate,
+} from "../../../interfaces/interface";
 
 const AddBean = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [data, setData] = useState<Bean>({
-    id: nanoid(),
+  const [newBean, setNewBean] = useState<Bean>({
     roaster: "",
     name: "",
     level: "light",
@@ -43,57 +40,50 @@ const AddBean = () => {
     notes: [],
   });
 
-  const [suggestions, setSuggestions] = useState<StateProps[]>([]);
+  const [suggestions, setSuggestions] = useState<Beans>([]);
 
   const [duplicate, setDuplicate] = useState<Duplicate>({});
 
   const [errors, setErrors] = useState<BeanErrors>({});
 
-  //get roasters list from data for suggestions
+  //get beans list from data for suggestions and duplicates
   useEffect(() => {
-    dispatch(getRoasters());
+    dispatch(getBeans());
   }, [dispatch]);
 
-  const { roasters } = useSelector((state: RootState) => state.roasters);
-
-  // //get beans list to check duplicate
-  // useEffect(() => {
-  //   dispatch(getBeans());
-  // }, [dispatch]);
-
-  const beans = useSelector((state: RootState) => state.beans.beans);
+  const { beans } = useSelector((state: RootState) => state.beans);
 
   //get roasters suggestions as user types
   const handleRoasterChange = (value: string) => {
-    let matches: { id: number; name: string }[] = [];
+    let matches: Beans = [];
     if (value.length > 0) {
-      matches = roasters.filter((roaster) => {
+      matches = beans.filter((bean) => {
         const regex = new RegExp(`${value}`, "gi");
-        return roaster.name.match(regex);
+        return bean.roaster.match(regex);
       });
     }
     setSuggestions(matches);
-    setData({ ...data, roaster: value });
+    setNewBean({ ...newBean, roaster: value });
   };
 
   //user clicks on a suggestion
   const handleSuggestClick = (value: string) => {
-    setData({ ...data, roaster: value });
+    setNewBean({ ...newBean, roaster: value });
     setSuggestions([]);
   };
 
   //set bean name
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const userInput = { ...data };
+    const userInput = { ...newBean };
     userInput.name = value;
-    setData(userInput);
+    setNewBean(userInput);
   };
 
   //select roast level
   const handleSelect = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setData({ ...data, level: value });
+    setNewBean({ ...newBean, level: value });
   };
 
   //upload image from file
@@ -114,27 +104,27 @@ const AddBean = () => {
 
   //submit data
   const handleNext = () => {
-    const errors = beanValidate(data);
+    const errors = beanValidate(newBean);
 
     setErrors(errors || {});
     if (errors) return;
 
     const hasDuplicate = beans.filter(
       (bean) =>
-        bean.roaster === data.roaster &&
-        bean.name === data.name &&
-        bean.level === data.level
+        bean.roaster.toLowerCase() === newBean.roaster.toLowerCase() &&
+        bean.name.toLowerCase() === newBean.name.toLowerCase() &&
+        bean.level === newBean.level
     );
 
     if (hasDuplicate.length > 0) {
       setDuplicate(hasDuplicate[0]);
+    } else if (!previewSource) {
+      return;
+    } else {
+      const newBeanData = { ...newBean, img: previewSource };
+      dispatch(addBean(newBeanData));
+      // history.push(`/beans/b/${data.id}/details`);
     }
-
-    if (!previewSource) return;
-    const newBeanData = { ...data, img: previewSource };
-    console.log(newBeanData);
-    // dispatch(addBean(newBeanData));
-    // history.push(`/beans/b/${data.id}/details`);
   };
 
   return (
@@ -144,7 +134,7 @@ const AddBean = () => {
         <Input
           name="roaster"
           label="Roaster"
-          value={data.roaster}
+          value={newBean.roaster}
           error={errors.roaster}
           onChange={(e) => handleRoasterChange(e.target.value)}
           onBlur={() => {
@@ -158,9 +148,9 @@ const AddBean = () => {
             {suggestions.map((suggestion, i) => (
               <Suggestion
                 key={i}
-                onClick={() => handleSuggestClick(suggestion.name)}
+                onClick={() => handleSuggestClick(suggestion.roaster)}
               >
-                {suggestion.name}
+                {suggestion.roaster}
               </Suggestion>
             ))}
           </Suggestions>
@@ -178,21 +168,21 @@ const AddBean = () => {
               label="Light"
               name="group"
               value="light"
-              checked={data.level === "light"}
+              checked={newBean.level === "light"}
               onChange={handleSelect}
             />
             <Radio
               label="Medium"
               name="group"
               value="medium"
-              checked={data.level === "medium"}
+              checked={newBean.level === "medium"}
               onChange={handleSelect}
             />
             <Radio
               label="Dark"
               name="group"
               value="dark"
-              checked={data.level === "dark"}
+              checked={newBean.level === "dark"}
               onChange={handleSelect}
             />
           </div>

@@ -38,7 +38,6 @@ const AddBean = () => {
   const beans = useSelector((state: RootState) => state.collection.beans);
   const [duplicate, setDuplicate] = useState<Duplicate>({});
   const [data, setData] = useState<Bean>({
-    id: nanoid(),
     roaster: "",
     name: "",
     level: "light",
@@ -101,7 +100,7 @@ const AddBean = () => {
       setDuplicate(hasDuplicate[0]);
     } else {
       dispatch(addBean(data));
-      history.push(`/notes/b/${data.id}/new`);
+      // history.push(`/notes/b/${data.id}/new`);
     }
   };
 
