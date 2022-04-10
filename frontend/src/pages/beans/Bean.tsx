@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
@@ -15,9 +15,7 @@ import { neutral, ratio } from "../../components/token";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
 import { deleteBean } from "../../redux/collectionRedux";
-
-//interface
-import { Bean } from "../../interfaces/interface";
+import { getBeanDetails } from "../../redux/beanRedux";
 
 export interface Props {
   ratio?: string;
@@ -27,10 +25,13 @@ const BeanPage: FC<Props> = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { beanId } = useParams<{ beanId: string }>();
-  const beans = useSelector((state: RootState) => state.collection.beans);
-  // const thisBean: Bean = beans.find(
-  //   (bean: { id: string }) => bean.id === beanId
-  // )!;
+
+  //get this bean data
+  useEffect(() => {
+    dispatch(getBeanDetails(beanId));
+  }, [dispatch, beanId]);
+
+  const { beanDetails } = useSelector((state: RootState) => state.beans);
 
   const handleDeleteBean = () => {
     if (window.confirm("Delete this bean?")) {
@@ -42,7 +43,7 @@ const BeanPage: FC<Props> = () => {
 
   return (
     <Container gap="1.5rem">
-      {/* <Header title={thisBean.name} overlay={thisBean.roaster} /> */}
+      <Header title={beanDetails.name} overlay={beanDetails.roaster} />
       <Section>
         <Preview ratio={ratio.landscape_169}>
           <Coffee width="24" height="24" color="#000" stroke="1" />

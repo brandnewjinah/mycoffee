@@ -1,7 +1,6 @@
 import React, { useState, useEffect, ChangeEvent, SyntheticEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { nanoid } from "nanoid";
 
 //comp
 import { Container } from "../../../components/container/Container";
@@ -18,7 +17,8 @@ import { beanValidate } from "../../../utils/validate";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { getBeans, addBean } from "../../../redux/beanRedux";
+import { getBeans } from "../../../redux/beanRedux";
+import { addBean } from "../../../redux/beanActionsRedux";
 
 //interface
 import {

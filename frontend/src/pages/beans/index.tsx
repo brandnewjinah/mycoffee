@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import _ from "lodash";
 import styled from "styled-components";
 
@@ -10,13 +10,12 @@ import { Section } from "../../components/container/Section";
 import { Card } from "../../components/Cards";
 import { Button } from "../../components/Buttons";
 import { Plus } from "../../assets/Icons";
-import { Input } from "../../components/Input";
-import Text from "../../components/Text";
 import { neutral, primaryColor, ratio } from "../../components/token";
 
 //redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { getBeans } from "../../redux/beanRedux";
 
 //interface
 import { Bean, Initial } from "../../interfaces/interface";
@@ -27,7 +26,14 @@ export interface accTypes {
 
 const Saved = () => {
   const history = useHistory();
-  const beans = useSelector((state: RootState) => state.collection.beans);
+  const dispatch = useDispatch();
+
+  //get beans list from data for suggestions and duplicates
+  useEffect(() => {
+    dispatch(getBeans());
+  }, [dispatch]);
+
+  const { beans } = useSelector((state: RootState) => state.beans);
 
   let alphabeticalGroups = beans.reduce((acc: accTypes, bean: Bean) => {
     let initial = bean.roaster[0];
@@ -45,8 +51,6 @@ const Saved = () => {
   const handleNew = () => {
     history.push("/beans/newbean");
   };
-
-  const handleSearch = () => {};
 
   return (
     <>
@@ -67,11 +71,12 @@ const Saved = () => {
                 <InitialHeader>{item.initial}</InitialHeader>
                 {item.beans.map((bean) => (
                   <Card
-                    // linkToBean={`/beans/b/${bean.id}`}
+                    linkToBean={`/beans/b/${bean._id}`}
+                    imgsrc={bean.img}
                     overline={bean.roaster}
                     header={bean.name}
                     caption={bean.level}
-                    ratio={ratio.landscape_169}
+                    ratio={ratio.portrait_34}
                     margin="0 0 1rem 0"
                   />
                 ))}

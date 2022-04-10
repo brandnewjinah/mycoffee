@@ -19,20 +19,31 @@ const beanSchema = mongoose.Schema(
     },
     notes: [
       {
-        user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "user",
-        },
-        text: {
+        roastDate: {
           type: String,
         },
-        name: {
+        dose: {
           type: String,
         },
-        date: {
-          type: Date,
-          default: Date.now,
+        grind: {
+          type: String,
         },
+        time: {
+          type: String,
+        },
+        shot: {
+          type: String,
+        },
+        features: [
+          {
+            feature: {
+              type: String,
+            },
+            value: {
+              type: Number,
+            },
+          },
+        ],
       },
     ],
   },

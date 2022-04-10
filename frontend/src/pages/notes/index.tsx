@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import _ from "lodash";
 import styled from "styled-components";
@@ -15,8 +15,9 @@ import Text from "../../components/Text";
 import { neutral, primaryColor, ratio } from "../../components/token";
 
 //redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { getBeans } from "../../redux/beanRedux";
 
 //interface
 import { Bean, Initial } from "../../interfaces/interface";
@@ -27,7 +28,14 @@ export interface accTypes {
 
 const Saved = () => {
   const history = useHistory();
-  const beans = useSelector((state: RootState) => state.collection.beans);
+  const dispatch = useDispatch();
+
+  //get beans list
+  useEffect(() => {
+    dispatch(getBeans());
+  }, [dispatch]);
+
+  const { beans } = useSelector((state: RootState) => state.beans);
 
   let alphabeticalGroups = beans.reduce((acc: accTypes, bean: Bean) => {
     let initial = bean.roaster[0];
@@ -48,6 +56,8 @@ const Saved = () => {
 
   const handleSearch = () => {};
 
+  console.log(sorted);
+
   return (
     <>
       {sorted && sorted.length > 0 ? (
@@ -67,9 +77,9 @@ const Saved = () => {
                 <InitialHeader>{item.initial}</InitialHeader>
                 {item.beans.map((bean) => (
                   <Card
-                    // key={bean.id}
-                    // linkToNote={`/notes/b/${bean.id}/new`}
-                    // linkToBean={`/notes/b/${bean.id}`}
+                    key={bean._id}
+                    linkToNote={`/notes/b/${bean._id}/new`}
+                    linkToBean={`/notes/b/${bean._id}`}
                     overline={bean.roaster}
                     header={bean.name}
                     caption={bean.level}

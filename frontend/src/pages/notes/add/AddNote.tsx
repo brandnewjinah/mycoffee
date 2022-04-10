@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, useEffect } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { ResponsiveRadar } from "@nivo/radar";
 
@@ -17,7 +17,8 @@ import { noteValidate } from "../../../utils/validate";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { addNote } from "../../../redux/collectionRedux";
+import { getBeanDetails } from "../../../redux/beanRedux";
+import { addNote } from "../../../redux/beanActionsRedux";
 
 //interface
 import { Bean, NoteErrors } from "../../../interfaces/interface";
@@ -26,13 +27,16 @@ const AddNote = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { beanId } = useParams<{ beanId: string }>();
-  const beans = useSelector((state: RootState) => state.collection.beans);
-  // const thisBean: Bean = beans.find(
-  //   (bean: { id: string }) => bean.id === beanId
-  // )!;
+
+  //get this bean data
+  useEffect(() => {
+    dispatch(getBeanDetails(beanId));
+  }, [dispatch, beanId]);
+
+  const { beanDetails } = useSelector((state: RootState) => state.beans);
+
   const [page, setPage] = useState(1);
   const [data, setData] = useState<{ [key: string]: string }>({
-    id: new Date().valueOf().toString(),
     roastDate: "",
     dose: "",
     grind: "",
@@ -85,13 +89,13 @@ const AddNote = () => {
     } else {
       let newNote = { ...data, features };
       dispatch(addNote({ newNote, beanId }));
-      history.push(`/note/b/${beanId}/${data.id}`);
+      // history.push(`/note/b/${beanId}/${data.id}`);
     }
   };
 
   return (
     <Container>
-      {/* <Header overlay={thisBean.roaster} title={thisBean.name} /> */}
+      <Header overlay={beanDetails.roaster} title={beanDetails.name} />
       {page === 1 && (
         <>
           <Section gap="2rem">
