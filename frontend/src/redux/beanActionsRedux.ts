@@ -5,18 +5,28 @@ import { Bean } from "../interfaces/interface";
 export interface Beans {
   isLoading: boolean;
   beanAdded: boolean;
+  beanDetails: Bean;
   isError: boolean;
 }
 
 const initialState: Beans = {
   isLoading: false,
   beanAdded: false,
+  beanDetails: {
+    _id: "",
+    roaster: "",
+    name: "",
+    level: "",
+    img: "",
+    notes: [],
+  },
   isError: false,
 };
 
 export const addBean = createAsyncThunk("beans/addBean", async (bean: Bean) => {
   try {
-    await api.publicRequest.post(`/beans`, bean);
+    const { data } = await api.publicRequest.post(`/beans`, bean);
+    return data;
   } catch (error) {
     return error;
   }
@@ -48,6 +58,7 @@ const beansSlice = createSlice({
     builder.addCase(addBean.fulfilled, (state, action) => {
       state.isLoading = false;
       state.beanAdded = true;
+      state.beanDetails = action.payload;
     });
     builder.addCase(addBean.rejected, (state, action) => {
       state.isLoading = false;

@@ -37,6 +37,7 @@ const AddNote = () => {
 
   const [page, setPage] = useState(1);
   const [data, setData] = useState<{ [key: string]: string }>({
+    date: new Date().valueOf().toString(),
     roastDate: "",
     dose: "",
     grind: "",

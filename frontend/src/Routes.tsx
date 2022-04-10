@@ -6,7 +6,6 @@ import Home from "./pages/home";
 
 //notes
 import Notes from "./pages/notes";
-import NewBeanFromNotes from "./pages/notes/add/AddBean";
 import AddNote from "./pages/notes/add/AddNote";
 import BeanForNotes from "./pages/notes/Bean";
 import Note from "./pages/notes/Note";
@@ -45,7 +44,7 @@ const Routes = () => {
         <Layout>
           <Route exact path="/" component={Home} />
           <Route exact path="/notes" component={Notes} />
-          <Route exact path="/notes/newbean" component={NewBeanFromNotes} />
+          <Route exact path="/notes/newbean" component={NewBean} />
           <Route exact path="/notes/b/:beanId/new" component={AddNote} />
           <Route exact path="/note/b/:beanId/:noteId" component={Note} />
           <Route exact path="/notes/b/:beanId/" component={BeanForNotes} />

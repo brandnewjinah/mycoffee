@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ChangeEvent, SyntheticEvent } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 //comp
@@ -30,6 +30,7 @@ import {
 
 const AddBean = () => {
   const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
 
   const [newBean, setNewBean] = useState<Bean>({
@@ -102,6 +103,19 @@ const AddBean = () => {
     };
   };
 
+  //actions after submitting data
+  const actions = useSelector((state: RootState) => state.beanActions);
+
+  useEffect(() => {
+    if (actions.beanAdded && location.pathname === "/notes/newbean") {
+      history.push(`/notes/b/${actions.beanDetails._id}/new`);
+    } else if (actions.beanAdded && location.pathname === "/beans/newbean") {
+      history.push(`/beans`);
+    } else if (actions.isError) {
+      alert("error");
+    }
+  }, [dispatch, actions.beanAdded]);
+
   //submit data
   const handleNext = () => {
     const errors = beanValidate(newBean);
@@ -123,7 +137,6 @@ const AddBean = () => {
     } else {
       const newBeanData = { ...newBean, img: previewSource };
       dispatch(addBean(newBeanData));
-      // history.push(`/beans/b/${data.id}/details`);
     }
   };
 

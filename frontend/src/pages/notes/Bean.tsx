@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import moment from "moment";
 
@@ -11,6 +11,7 @@ import { Button } from "../../components/Buttons";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
+import { getBeanDetails } from "../../redux/beanRedux";
 import { deleteBean } from "../../redux/collectionRedux";
 
 //interface
@@ -20,13 +21,16 @@ const BeanPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { beanId } = useParams<{ beanId: string }>();
-  const beans = useSelector((state: RootState) => state.collection.beans);
-  // const thisBean: Bean = beans.find(
-  //   (bean: { id: string }) => bean.id === beanId
-  // )!;
 
-  const handleNext = () => {
-    history.push(`/notes/${beanId}/new`);
+  //get this bean data
+  useEffect(() => {
+    dispatch(getBeanDetails(beanId));
+  }, [dispatch, beanId]);
+
+  const { beanDetails } = useSelector((state: RootState) => state.beans);
+
+  const handleNewNote = () => {
+    history.push(`/notes/b/${beanId}/new`);
   };
 
   const handleDeleteBean = () => {
@@ -40,15 +44,14 @@ const BeanPage = () => {
   return (
     <Container gap="1.5rem">
       <Header
-        // title={thisBean.name}
-        title="Test"
+        title={beanDetails.name}
         overlay="Notes for"
         button
         btnLabel="New Note"
-        handleClick={handleNext}
+        handleClick={handleNewNote}
       />
-      {/* {thisBean.notes &&
-        thisBean.notes.map((note, idx) => (
+      {beanDetails.notes &&
+        beanDetails.notes.map((note, idx) => (
           <List
             key={idx}
             link={`/note/${beanId}/${note.id}`}
@@ -58,12 +61,12 @@ const BeanPage = () => {
             body={note.features[2].value}
             flavor={note.features[3].value}
           />
-        ))} */}
-      {/* <Button
+        ))}
+      <Button
         label="Delete this bean"
         variant="tertiary"
         handleClick={handleDeleteBean}
-      /> */}
+      />
     </Container>
   );
 };

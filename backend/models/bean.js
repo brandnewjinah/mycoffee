@@ -19,6 +19,9 @@ const beanSchema = mongoose.Schema(
     },
     notes: [
       {
+        date: {
+          type: String,
+        },
         roastDate: {
           type: String,
         },

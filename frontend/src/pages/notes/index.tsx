@@ -56,8 +56,6 @@ const Saved = () => {
 
   const handleSearch = () => {};
 
-  console.log(sorted);
-
   return (
     <>
       {sorted && sorted.length > 0 ? (
