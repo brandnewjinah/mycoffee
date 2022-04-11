@@ -6,17 +6,38 @@ import { neutral, fontSize } from "../token";
 
 interface Props {
   gap?: string;
+  height?: string;
+  justifyContent?: "center";
+  alignItems?: "center";
   children?: any;
 }
 
-export const Container: FC<Props> = ({ gap, children }) => {
-  return <Wrapper gap={gap}>{children}</Wrapper>;
+export const Container: FC<Props> = ({
+  gap,
+  height,
+  justifyContent,
+  alignItems,
+  children,
+}) => {
+  return (
+    <Wrapper
+      gap={gap}
+      height={height}
+      justifyContent={justifyContent}
+      alignItems={alignItems}
+    >
+      {children}
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div<Props>`
   display: flex;
   flex-direction: column;
-  gap: ${(props) => (props.gap ? props.gap : "2.5rem")};
+  justify-content: ${(props) => props.justifyContent === "center" && "center"};
+  align-items: ${(props) => props.alignItems === "center" && "center"};
+  gap: ${(props) => props.gap && props.gap};
+  height: ${(props) => props.height && props.height};
 `;
 
 export const Flex: FC<Props> = ({ gap, children }) => {

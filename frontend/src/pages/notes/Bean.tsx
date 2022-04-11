@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import moment from "moment";
 
 //comp
+import Loading from "../../components/Loading";
 import { Container } from "../../components/container/Container";
 import Header from "../../components/Header";
 import { List } from "../../components/List";
@@ -27,7 +27,9 @@ const BeanPage = () => {
     dispatch(getBeanDetails(beanId));
   }, [dispatch, beanId]);
 
-  const { beanDetails } = useSelector((state: RootState) => state.beans);
+  const { isLoading, beanDetails } = useSelector(
+    (state: RootState) => state.beans
+  );
 
   const handleNewNote = () => {
     history.push(`/notes/b/${beanId}/new`);
@@ -41,7 +43,9 @@ const BeanPage = () => {
     }
   };
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <Container gap="1.5rem">
       <Header
         title={beanDetails.name}
@@ -52,15 +56,18 @@ const BeanPage = () => {
       />
       {beanDetails.notes &&
         beanDetails.notes.map((note, idx) => (
-          <List
-            key={idx}
-            link={`/note/${beanId}/${note.id}`}
-            date={moment(note.id).format("MM-DD-YYYY")}
-            crema={note.features[0].value}
-            aroma={note.features[1].value}
-            body={note.features[2].value}
-            flavor={note.features[3].value}
-          />
+          <>
+            <List
+              key={idx}
+              link={`/note/b/${beanId}/${note.date}`}
+              // date={moment(note.id).format("MM-DD-YYYY")}
+              date={note.date}
+              crema={note.features[0].value}
+              aroma={note.features[1].value}
+              body={note.features[2].value}
+              flavor={note.features[3].value}
+            />
+          </>
         ))}
       <Button
         label="Delete this bean"

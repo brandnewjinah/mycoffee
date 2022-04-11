@@ -26,13 +26,13 @@ const Header: FC<Props> = () => {
         <Center open={open}>
           <List>
             <Item>
-              <NavLink to="/brew" onClick={() => setOpen(false)}>
-                Brew
+              <NavLink to="/notes" onClick={() => setOpen(false)}>
+                Notes
               </NavLink>
             </Item>
             <Item>
-              <NavLink to="/collection" onClick={() => setOpen(false)}>
-                Collection
+              <NavLink to="/beans" onClick={() => setOpen(false)}>
+                Beans
               </NavLink>
             </Item>
             <Item>

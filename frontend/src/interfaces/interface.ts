@@ -34,6 +34,7 @@ export interface Feature {
 
 export interface Note {
   id: string;
+  date: string;
   today: string;
   roastDate: string;
   dose: string;

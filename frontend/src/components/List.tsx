@@ -1,6 +1,9 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import moment from "moment";
+
+//comp
 import Text from "./Text";
 import { fontSize, neutral, primaryColor } from "./token";
 
@@ -17,7 +20,9 @@ export const List: FC<Props> = ({ link, date, crema, aroma, body, flavor }) => {
   return (
     <Wrapper>
       <Link to={`${link}`}>
-        <Text variant="caption">{date}</Text>
+        <Text variant="caption">
+          {moment(parseInt(date!)).format("MM-DD-YYYY")}
+        </Text>
         <Content>
           <Line>
             <Item>
