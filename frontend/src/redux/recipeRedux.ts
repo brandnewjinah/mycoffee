@@ -1,13 +1,19 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import axios from "axios";
 import { Recipe } from "../interfaces/interface";
 
 export interface Recipes {
-  recipes: Recipe[];
+  recipe: Recipe;
 }
 
-const initialState: Recipes = {
-  recipes: [],
+const initialState = {
+  recipe: {
+    id: "",
+    name: "",
+    desc: "",
+    ingredients: [],
+    directions: [],
+    ratio: [],
+  },
 };
 
 const recipeSlice = createSlice({
@@ -15,23 +21,21 @@ const recipeSlice = createSlice({
   initialState,
   reducers: {
     addRecipe: (state, action) => {
-      state.recipes = [...state.recipes, action.payload];
+      state.recipe = action.payload;
     },
     addIngredients: (state, action) => {
       const newIngredient = action.payload;
-      let newRecipes = [...current(state.recipes)];
-      const index = newRecipes.findIndex(
-        (item) => item.id === newIngredient.recipeId
-      );
-      let thisRecipe = newRecipes[index];
-
-      thisRecipe = { ...thisRecipe, ingredients: newIngredient.ingredients };
-
-      newRecipes[index] = thisRecipe;
-
-      state.recipes = newRecipes;
+      let newRecipe = { ...current(state.recipe) };
+      newRecipe = { ...newRecipe, ingredients: newIngredient };
+      state.recipe = newRecipe;
+    },
+    addDirections: (state, action) => {
+      const newDirections = action.payload;
+      let newRecipe = { ...current(state.recipe) };
+      newRecipe = { ...newRecipe, directions: newDirections };
+      state.recipe = newRecipe;
     },
   },
 });
-export const { addRecipe, addIngredients } = recipeSlice.actions;
+export const { addRecipe, addIngredients, addDirections } = recipeSlice.actions;
 export default recipeSlice.reducer;

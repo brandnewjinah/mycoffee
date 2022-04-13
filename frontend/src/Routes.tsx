@@ -21,6 +21,7 @@ import Recipes from "./pages/recipes";
 import AddRecipe from "./pages/recipes/new/AddRecipe";
 import AddIngredients from "./pages/recipes/new/AddIngredients";
 import AddDirections from "./pages/recipes/new/AddDirections";
+import AddRatio from "./pages/recipes/new/AddRatio";
 import Recipe from "./pages/recipe";
 import EditRecipe from "./pages/recipe/edit";
 
@@ -67,6 +68,11 @@ const Routes = () => {
             exact
             path="/recipes/new/:recipeId/directions"
             component={AddDirections}
+          />
+          <Route
+            exact
+            path="/recipes/new/:recipeId/ratio"
+            component={AddRatio}
           />
           <Route exact path="/tools" component={Tools} />
           <Route exact path="/signup" component={Signup} />

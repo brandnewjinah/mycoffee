@@ -1,3 +1,5 @@
+import React, { ChangeEvent } from "react";
+
 export interface Roaster {
   id: number;
   name: string;
@@ -93,4 +95,17 @@ export interface Ratio {
 export interface RecipeErrors {
   name?: string;
   desc?: string;
+}
+
+export interface SelectProps {
+  options?: SelectOptionProps[];
+  selected?: string;
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  fullWidth?: boolean;
+}
+
+export interface SelectOptionProps {
+  id: number;
+  value: string;
+  label: string;
 }

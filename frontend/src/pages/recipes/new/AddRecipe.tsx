@@ -29,6 +29,7 @@ interface Props {
 const AddRecipe: FC<Props> = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+
   const [recipe, setRecipe] = useState<Recipe>({
     id: nanoid(),
     name: "",
@@ -59,7 +60,7 @@ const AddRecipe: FC<Props> = () => {
   };
 
   return (
-    <Container>
+    <Container gap="2.5rem">
       <Header title="New Recipe" />
       <Section gap="1.625rem">
         <Input

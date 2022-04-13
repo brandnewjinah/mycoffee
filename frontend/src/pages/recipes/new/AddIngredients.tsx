@@ -9,6 +9,7 @@ import Header from "../../../components/Header";
 import { Section } from "../../../components/container/Section";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
+import Select from "../../../components/Select";
 import Modal from "../../../components/Modal";
 import { primaryColor } from "../../../components/token";
 import { Plus } from "../../../assets/Icons";
@@ -23,6 +24,7 @@ import {
 
 //data
 import { unitOptions } from "../../../data/data";
+import { categoryList } from "../../../data/category";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -37,11 +39,12 @@ interface Props {
 const AddRecipe: FC<Props> = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+
+  //get this recipe
   const { recipeId } = useParams<{ recipeId: string }>();
-  const recipes = useSelector((state: RootState) => state.recipe.recipes);
-  const thisRecipe: Recipe = recipes.find(
-    (recipe: { id: string }) => recipe.id === recipeId
-  )!;
+  const thisRecipe: Recipe = useSelector(
+    (state: RootState) => state.recipe.recipe
+  );
 
   const [ingredients, setIngredients] = useState<Ingredients[]>([]);
 
@@ -84,12 +87,12 @@ const AddRecipe: FC<Props> = () => {
   const handleNext = () => {
     if (ingredients.length === 0) return;
 
-    dispatch(addIngredients({ ingredients, recipeId }));
+    dispatch(addIngredients(ingredients));
     history.push(`/recipes/new/${recipeId}/directions`);
   };
 
   return (
-    <Container>
+    <Container gap="2.5rem">
       <Section gap="1rem">
         <Header title={thisRecipe.name} subtitle={thisRecipe.desc} />
         {ingredients &&
@@ -122,6 +125,7 @@ const AddRecipe: FC<Props> = () => {
               placeholder="Ingredient"
               onChange={handleIngredients}
             />
+
             <Input
               name="value"
               placeholder="Value"
