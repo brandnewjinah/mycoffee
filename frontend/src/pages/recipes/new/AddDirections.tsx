@@ -70,8 +70,7 @@ const AddDirections = () => {
           <Flex key={idx}>
             <span>{idx + 1}</span>
             <Input
-              name="minutes"
-              type="number"
+              name="direction"
               value={item.direction}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 handleInput(e, item.id!)

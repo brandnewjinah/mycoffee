@@ -17,17 +17,14 @@ const Select: FC<SelectProps> = ({
     <SelectWrapper>
       <SelectInput
         fullWidth={fullWidth}
-        // defaultValue={selected}
+        defaultValue={selected}
         onChange={onChange}
       >
-        <option disabled selected>
-          ---select options---
-        </option>
         {options &&
           options.map((option, idx) => (
             <>
-              <option key={idx} disabled>
-                {`-${option.label}-`}
+              <option key={idx} disabled selected>
+                {`---${option.label}---`}
               </option>
               {option.selections.map((item, i) => (
                 <option

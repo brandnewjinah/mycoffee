@@ -48,4 +48,24 @@ const FlexWrapper = styled.div<Props>`
   display: flex;
   align-items: center;
   gap: ${(props) => (props.gap ? props.gap : ".5rem")};
+
+  .flexHalf {
+    flex: 0.5;
+  }
+
+  .flexOne {
+    flex: 1;
+  }
+
+  .flexTwo {
+    flex: 2;
+  }
+
+  .flexThree {
+    flex: 3;
+  }
+
+  .flexFour {
+    flex: 4;
+  }
 `;

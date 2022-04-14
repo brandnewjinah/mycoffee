@@ -108,4 +108,11 @@ export interface SelectOptionProps {
   id: number;
   value: string;
   label: string;
+  selections: SelectOptionSubProps[];
+}
+
+export interface SelectOptionSubProps {
+  id: number;
+  value: string;
+  label: string;
 }

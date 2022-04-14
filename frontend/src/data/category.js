@@ -1,22 +1,75 @@
 export const categoryList = [
   {
-    id: 100,
-    value: "bakery",
-    label: "Bakery",
+    id: 1,
+    value: "coffee",
+    label: "Coffee",
+    selections: [
+      {
+        id: 101,
+        value: "espresso",
+        label: "Espresso",
+      },
+      {
+        id: 102,
+        value: "coffee",
+        label: "Coffee",
+      },
+    ],
   },
   {
-    id: 200,
-    value: "beverage",
-    label: "Beverage",
+    id: 2,
+    value: "dairy",
+    label: "Dairy",
+    selections: [
+      {
+        id: 201,
+        value: "wholeMilk",
+        label: "Whole Milk",
+      },
+      {
+        id: 202,
+        value: "reducedFatMilk",
+        label: "Reduced Fat Milk",
+      },
+      {
+        id: 203,
+        value: "heavyCream",
+        label: "Heavy Cream",
+      },
+    ],
   },
   {
-    id: 300,
-    value: "snacks",
-    label: "Snacks",
+    id: 3,
+    value: "nonDairy",
+    label: "Non Dairy",
+    selections: [
+      {
+        id: 301,
+        value: "soyMilk",
+        label: "Soy Milk",
+      },
+      {
+        id: 302,
+        value: "almondMilk",
+        label: "Almond Milk",
+      },
+      {
+        id: 303,
+        value: "oatCream",
+        label: "Oat Cream",
+      },
+    ],
   },
   {
-    id: 400,
-    value: "deli",
-    label: "Deli",
+    id: 4,
+    value: "otherLiquid",
+    label: "Other Liquid",
+    selections: [
+      {
+        id: 401,
+        value: "water",
+        label: "Water",
+      },
+    ],
   },
 ];

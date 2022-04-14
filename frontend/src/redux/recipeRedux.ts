@@ -35,7 +35,14 @@ const recipeSlice = createSlice({
       newRecipe = { ...newRecipe, directions: newDirections };
       state.recipe = newRecipe;
     },
+    addRatio: (state, action) => {
+      const newRatio = action.payload;
+      let newRecipe = { ...current(state.recipe) };
+      newRecipe = { ...newRecipe, ratio: newRatio };
+      state.recipe = newRecipe;
+    },
   },
 });
-export const { addRecipe, addIngredients, addDirections } = recipeSlice.actions;
+export const { addRecipe, addIngredients, addDirections, addRatio } =
+  recipeSlice.actions;
 export default recipeSlice.reducer;
