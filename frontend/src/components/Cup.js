@@ -1,103 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import _ from "lodash";
 
 //import styles and assets
 import styled from "styled-components";
+import { Container } from "./container/Container";
+
+//data
+import { categoryList } from "../data/category";
 
 const Cup = ({ data }) => {
-  const ratio = _.orderBy(data, ["id"], ["desc"]);
+  const mapFunction = data.map((item) => {
+    const found = categoryList
+      .find((category) =>
+        category.selections.find(
+          (selection) => selection.value === item.ingredient
+        )
+      )
+      .selections.find((element) => element.value === item.ingredient);
+    return { ...found, volume: item.value };
+  });
+
+  const ratio = _.orderBy(mapFunction, ["id"], ["desc"]);
 
   const total =
     data && data.reduce((sum, ratio) => sum + parseInt(ratio.value), 0);
 
-  const bgColor = (name) => {
-    const color =
-      name === "Honey"
-        ? `#FFC30B`
-        : name === "Espresso"
-        ? `#6f4e37`
-        : name === "Coffee"
-        ? `#8B715E`
-        : name === "Water"
-        ? `#DFEFFF`
-        : name === "Tea"
-        ? `#D0F0C0`
-        : name === "Liqueur"
-        ? `#613a2d`
-        : name === "Milk"
-        ? `#FDFFF5`
-        : name === "Milk Foam"
-        ? `#F7E8BE`
-        : null;
-
-    return color;
-  };
-
   return (
-    <Wrapper>
+    <Container>
       <Flex>
-        {total < 65 ? (
-          <>
-            <C60>
-              {ratio.map((r, idx) => (
-                <Liquid
-                  key={idx}
-                  style={{
-                    backgroundColor: `${bgColor(r.name)}`,
-                    height: `${(parseInt(r.value) / 60) * 100}%`,
-                  }}
-                ></Liquid>
-              ))}
-            </C60>
-            <Label>
-              {ratio.map((r, idx) => (
-                <>
-                  <Icon
-                    style={{
-                      backgroundColor: `${bgColor(r.name)}`,
-                    }}
-                  ></Icon>
-                  <span>{r.name}</span>
-                </>
-              ))}
-            </Label>
-          </>
-        ) : (
-          <>
-            <C180>
-              {ratio.map((r, idx) => (
-                <Liquid
-                  key={idx}
-                  style={{
-                    backgroundColor: `${bgColor(r.name)}`,
-                    height: `${(parseInt(r.value) / 180) * 100}%`,
-                  }}
-                ></Liquid>
-              ))}
-            </C180>
-            <Label>
-              {ratio.map((r, idx) => (
-                <div
-                  style={{ display: `flex`, alignItems: `center` }}
-                  key={idx}
-                >
-                  <Icon
-                    style={{
-                      backgroundColor: `${bgColor(r.name)}`,
-                    }}
-                  ></Icon>
-                  <span>{r.name}</span>
-                </div>
-              ))}
-            </Label>
-          </>
-        )}
+        <>
+          <C240>
+            {ratio.map((item, idx) => (
+              <Liquid
+                type={item.value}
+                volume={`${(parseInt(item.volume) / 60) * 100}%`}
+              >
+                {item.value}
+              </Liquid>
+            ))}
+          </C240>
+        </>
       </Flex>
-    </Wrapper>
+    </Container>
   );
 };
-
-const Wrapper = styled.div``;
 
 const Flex = styled.div`
   display: flex;
@@ -110,6 +56,15 @@ const Liquid = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: ${(props) =>
+    props.type === "espresso"
+      ? "#593431"
+      : props.type === "milk"
+      ? "#fdfff5"
+      : ""};
+  border-top: ${(props) => props.type === "espresso" && "4px solid #ba6324"};
+  height: ${(props) => props.volume && props.volume};
+  color: ${(props) => (props.type === "espresso" ? "#fff" : "#000")};
 `;
 
 const Glass = styled.div`
@@ -121,12 +76,12 @@ const Glass = styled.div`
   overflow: hidden;
 `;
 
-const C180 = styled(Glass)`
-  border-radius: 0.5em;
-  border-bottom-left-radius: 3em;
-  border-bottom-right-radius: 3em;
-  height: 90px;
-  width: 6.5em;
+const C240 = styled(Glass)`
+  border-radius: 0.5rem;
+  border-bottom-left-radius: 4.8rem;
+  border-bottom-right-radius: 4.8rem;
+  height: 140px;
+  width: 11rem;
 `;
 
 const C60 = styled(Glass)`
@@ -141,25 +96,6 @@ const C60 = styled(Glass)`
     text-align: center;
     font-size: 0.5rem;
   }
-`;
-
-const Label = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 0.5em;
-
-  span {
-    font-size: 0.75rem;
-    margin: 0 0.75em 0 0.25em;
-  }
-`;
-
-const Icon = styled.div`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 1px solid #dedcd8;
 `;
 
 export default Cup;

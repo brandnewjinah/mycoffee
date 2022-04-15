@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 //import routes
 import beanRoute from "./routes/beans.js";
+import recipeRoute from "./routes/recipe.js";
 
 const app = express();
 dotenv.config();
@@ -16,6 +17,7 @@ app.use(cors());
 
 //use router
 app.use("/beans", beanRoute);
+app.use("/recipe", recipeRoute);
 
 //db
 const dbOptions = {

@@ -29,7 +29,7 @@ import { categoryList } from "../../../data/category";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { addIngredients } from "../../../redux/recipeRedux";
+import { addIngredients } from "../../../redux/recipeActionsRedux";
 
 interface Props {
   errors: RecipeErrors;
@@ -43,7 +43,7 @@ const AddRecipe: FC<Props> = () => {
   //get this recipe
   const { recipeId } = useParams<{ recipeId: string }>();
   const thisRecipe: Recipe = useSelector(
-    (state: RootState) => state.recipe.recipe
+    (state: RootState) => state.recipeActions.recipe
   );
 
   const [ingredients, setIngredients] = useState<Ingredients[]>([]);

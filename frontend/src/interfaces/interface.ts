@@ -60,6 +60,7 @@ export interface Initial {
 }
 
 export interface Recipe {
+  _id?: string;
   id: string;
   name: string;
   desc: string;
@@ -86,8 +87,7 @@ export interface Direction {
 }
 
 export interface Ratio {
-  index: number;
-  id: number;
+  id: string;
   ingredient: string;
   value: string;
 }

@@ -18,7 +18,7 @@ import { Recipe, RecipeErrors } from "../../../interfaces/interface";
 
 //redux
 import { useDispatch } from "react-redux";
-import { addRecipe } from "../../../redux/recipeRedux";
+import { createRecipe } from "../../../redux/recipeActionsRedux";
 
 interface Props {
   errors: RecipeErrors;
@@ -34,10 +34,9 @@ const AddRecipe: FC<Props> = () => {
     id: nanoid(),
     name: "",
     desc: "",
-    // ingredients: [{ id: nanoid(), ingredient: "", amount: "", unit: "" }],
     ingredients: [],
     directions: [],
-    ratio: [{ index: 1, id: 1, ingredient: "", value: "" }],
+    ratio: [],
   });
 
   const [errors, setErrors] = useState<RecipeErrors>({});
@@ -55,7 +54,7 @@ const AddRecipe: FC<Props> = () => {
     setErrors(errors || {});
     if (errors) return;
 
-    dispatch(addRecipe(recipe));
+    dispatch(createRecipe(recipe));
     history.push(`/recipes/new/${recipe.id}/ingredients`);
   };
 

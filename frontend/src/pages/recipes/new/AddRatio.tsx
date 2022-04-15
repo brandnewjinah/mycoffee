@@ -1,5 +1,5 @@
-import React, { useState, ChangeEvent } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, ChangeEvent, useEffect } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { nanoid } from "nanoid";
 
 //comp
@@ -10,21 +10,25 @@ import Select from "../../../components/Select";
 import { Input } from "../../../components/Input";
 import { Button, LinkButton } from "../../../components/Buttons";
 import { primaryColor } from "../../../components/token";
+import Text from "../../../components/Text";
 
 //redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { Recipe } from "../../../interfaces/interface";
-import { addRatio } from "../../../redux/recipeRedux";
+import { addRecipe, reset } from "../../../redux/recipeActionsRedux";
 
 //data
 import { categoryList } from "../../../data/category";
 
 const AddRatio = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   //get this recipe
   const { recipeId } = useParams<{ recipeId: string }>();
   const thisRecipe: Recipe = useSelector(
-    (state: RootState) => state.recipe.recipe
+    (state: RootState) => state.recipeActions.recipe
   );
 
   //ratio data
@@ -70,20 +74,29 @@ const AddRatio = () => {
     setRatio(newRatio);
   };
 
+  const { recipeAdded, recipe } = useSelector(
+    (state: RootState) => state.recipeActions
+  );
+
+  useEffect(() => {
+    if (recipeAdded) {
+      alert("success");
+      dispatch(reset());
+      history.push(`/recipe/${recipe._id}`);
+    }
+  }, [recipeAdded, dispatch]);
+
   const handleSubmit = () => {
     //if any of the ingredient or value is missing
     const validate = ratio.every(
       (item) => item.ingredient !== "" && item.value !== ""
     );
-    // if (
-    //   (ratio.length === 1 && ratio[0].ingredient === "") ||
-    //   (ratio.length === 1 && ratio[0].value === "")
-    // )
 
     //add error messge to error
     if (!validate) return;
 
-    console.log("saved");
+    const newRecipe = { ...thisRecipe, ratio: ratio };
+    dispatch(addRecipe(newRecipe));
   };
 
   const handleSkip = () => {};
@@ -91,6 +104,7 @@ const AddRatio = () => {
   return (
     <Container gap="2.5rem">
       <Header title={thisRecipe.name} subtitle={thisRecipe.desc} />
+      <Text variant="caption">only in same unit, parts, ratio...</Text>
       <Section gap="1rem">
         {ratio.map((item, idx) => (
           <Flex>

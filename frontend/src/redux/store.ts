@@ -16,6 +16,7 @@ import beansReducer from "./beanRedux";
 import beanActionsReducer from "./beanActionsRedux";
 import collectionReducer from "./collectionRedux";
 import recipeReducer from "./recipeRedux";
+import recipeActionsReducer from "./recipeActionsRedux";
 
 const persistConfig = {
   key: "root",
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   beanActions: beanActionsReducer,
   collection: collectionReducer,
   recipe: recipeReducer,
+  recipeActions: recipeActionsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

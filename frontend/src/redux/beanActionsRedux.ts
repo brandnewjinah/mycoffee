@@ -58,7 +58,7 @@ const beansSlice = createSlice({
     builder.addCase(addBean.fulfilled, (state, action) => {
       state.isLoading = false;
       state.beanAdded = true;
-      state.beanDetails = action.payload;
+      // state.beanDetails = action.payload;
     });
     builder.addCase(addBean.rejected, (state, action) => {
       state.isLoading = false;

@@ -13,7 +13,7 @@ import { primaryColor } from "../../../components/token";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { addDirections } from "../../../redux/recipeRedux";
+import { addDirections } from "../../../redux/recipeActionsRedux";
 import { Recipe } from "../../../interfaces/interface";
 
 const AddDirections = () => {
@@ -23,7 +23,7 @@ const AddDirections = () => {
   //get this recipe
   const { recipeId } = useParams<{ recipeId: string }>();
   const thisRecipe: Recipe = useSelector(
-    (state: RootState) => state.recipe.recipe
+    (state: RootState) => state.recipeActions.recipe
   );
 
   //directions data
