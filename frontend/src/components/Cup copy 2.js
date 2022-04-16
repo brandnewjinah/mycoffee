@@ -40,17 +40,18 @@ const Cup = ({ data }) => {
             ))}
           </C75>
         ) : total < 150 ? (
-          <C150>
-            {ratio.map((item, idx) => (
-              <Liquid
-                type={item.value}
-                volume={`${(parseInt(item.volume) / 60) * 100}%`}
-              >
-                {item.label}
-              </Liquid>
-            ))}
-          </C150>
+          <TestCup></TestCup>
         ) : (
+          // <C150>
+          //   {ratio.map((item, idx) => (
+          //     <Liquid
+          //       type={item.value}
+          //       volume={`${(parseInt(item.volume) / 60) * 100}%`}
+          //     >
+          //       {item.label}
+          //     </Liquid>
+          //   ))}
+          // </C150>
           <C240>
             {ratio.map((item, idx) => (
               <Liquid
@@ -72,6 +73,7 @@ const Flex = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const Liquid = styled.div`
@@ -135,8 +137,8 @@ const C150 = styled(Glass)`
   border-radius: 0.5rem;
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
-  height: 120px;
-  width: 6rem;
+  height: 130px;
+  width: 7rem;
 `;
 
 const C75 = styled(Glass)`
@@ -146,5 +148,27 @@ const C75 = styled(Glass)`
   height: 75px;
   width: 4.75rem;
 `;
+
+const TestCup = styled.div`
+  width: 7rem;
+  height: 130px;
+  background-color: #eeedeb;
+  border: 4px solid transparent;
+  box-shadow: 0 0 0 4px #dedcd8;
+  position: absolute;
+`;
+
+// const Handle = styled.div`
+//   position: absolute;
+//   right: -40px;
+//   top: 0;
+//   width: 80px;
+//   height: 90px;
+//   border: 12px solid #000;
+//   border-left: 12px solid transparent;
+//   border-bottom: 12px solid transparent;
+//   border-radius: 50%;
+//   transform: rotate(42deg);
+// `;
 
 export default Cup;

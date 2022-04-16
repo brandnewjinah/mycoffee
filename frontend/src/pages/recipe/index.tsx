@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { Container } from "../../components/container/Container";
 import { Section } from "../../components/container/Section";
 import Cup from "../../components/Cup";
+import Test from "../../components/Test";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";

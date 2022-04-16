@@ -1,6 +1,6 @@
 import Recipe from "../models/recipe.js";
 
-//ADD BEAN
+//ADD RECIPE
 export const addRecipe = async (req, res) => {
   const recipe = req.body;
 
@@ -11,6 +11,30 @@ export const addRecipe = async (req, res) => {
     res.status(201).json(newRecipe);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+//GET ALL RECIPES
+export const getRecipes = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const pageSize = parseInt(req.query.limit) || 12;
+  const skip = (page - 1) * pageSize;
+
+  try {
+    let recipes = Recipe.find();
+    const total = await Recipe.countDocuments();
+    const pages = Math.ceil(total / pageSize);
+    recipes = recipes.skip(skip).limit(pageSize);
+    const result = await recipes;
+    res.status(200).json({
+      status: "success",
+      count: result.length,
+      page,
+      pages,
+      data: result,
+    });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
 };
 

@@ -59,6 +59,14 @@ export interface Initial {
   initial: string;
 }
 
+export interface Recipes {
+  data: Recipe[];
+  status: string;
+  count: number;
+  page: number;
+  pages: number;
+}
+
 export interface Recipe {
   _id?: string;
   id: string;

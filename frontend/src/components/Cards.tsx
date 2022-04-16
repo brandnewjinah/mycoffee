@@ -8,6 +8,10 @@ import Text from "./Text";
 import { Coffee } from "../assets/Icons";
 import { Button } from "./Buttons";
 import { link } from "fs";
+import Cup from "./Cup";
+
+//interface
+import { Ratio } from "../interfaces/interface";
 
 interface Props {
   linkToNote?: string;
@@ -18,6 +22,7 @@ interface Props {
   caption?: string;
   margin?: string;
   ratio?: string;
+  ratioData?: Ratio[];
 }
 
 export const Card: FC<Props> = ({
@@ -42,6 +47,58 @@ export const Card: FC<Props> = ({
           <Preview ratio={ratio}>
             <Coffee width="24" height="24" color="#000" stroke="1" />
           </Preview>
+        )}
+      </Link>
+      <Info>
+        <Link to={`${linkToBean}`}>
+          <Text variant="caption" color={primaryColor.orange}>
+            {overline}
+          </Text>
+          <Text>{header}</Text>
+          <Text variant="caption" color={neutral[300]}>
+            {caption}
+          </Text>
+        </Link>
+        {linkToNote && (
+          <Button
+            label="Add Note"
+            variant="primary"
+            color={primaryColor.blue}
+            small
+            handleClick={() => {
+              history.push(`${linkToNote}`);
+            }}
+          />
+        )}
+      </Info>
+    </Wrapper>
+  );
+};
+
+export const DiagramCard: FC<Props> = ({
+  linkToNote,
+  linkToBean,
+  imgsrc,
+  overline,
+  header,
+  caption,
+  margin,
+  ratioData,
+  ratio,
+}) => {
+  const history = useHistory();
+  return (
+    <Wrapper margin={margin}>
+      <Link to={`${linkToBean}`}>
+        {imgsrc ? (
+          <Cup data={ratioData} />
+        ) : (
+          // <Preview ratio={ratio}>
+          //   <Coffee width="24" height="24" color="#000" stroke="1" />
+          // </Preview>
+          <CupWrapper>
+            <Cup data={ratioData} />
+          </CupWrapper>
         )}
       </Link>
       <Info>
@@ -117,18 +174,9 @@ const Preview = styled.div<Props>`
   }
 `;
 
-const ImageContainer = styled.div`
-  position: relative;
+const CupWrapper = styled.div`
+  padding: 0.5rem;
+  background-color: bisque;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  border: 1px solid ${neutral[100]};
-  border-radius: 0.5rem;
-
-  img {
-    width: 100%;
-    height: 170px;
-    object-fit: cover;
-    transition: opacity 0.1s linear;
-  }
+  height: 100%;
 `;
