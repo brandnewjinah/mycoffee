@@ -16,6 +16,7 @@ import { Ratio } from "../interfaces/interface";
 interface Props {
   linkToNote?: string;
   linkToBean?: string;
+  linkToRecipe?: string;
   imgsrc?: string;
   overline?: string;
   header?: string;
@@ -76,8 +77,7 @@ export const Card: FC<Props> = ({
 };
 
 export const DiagramCard: FC<Props> = ({
-  linkToNote,
-  linkToBean,
+  linkToRecipe,
   imgsrc,
   overline,
   header,
@@ -89,7 +89,7 @@ export const DiagramCard: FC<Props> = ({
   const history = useHistory();
   return (
     <Wrapper margin={margin}>
-      <Link to={`${linkToBean}`}>
+      <Link to={`${linkToRecipe}`}>
         {imgsrc ? (
           <Cup data={ratioData} />
         ) : (
@@ -102,7 +102,7 @@ export const DiagramCard: FC<Props> = ({
         )}
       </Link>
       <Info>
-        <Link to={`${linkToBean}`}>
+        <Link to={`${linkToRecipe}`}>
           <Text variant="caption" color={primaryColor.orange}>
             {overline}
           </Text>
@@ -111,17 +111,6 @@ export const DiagramCard: FC<Props> = ({
             {caption}
           </Text>
         </Link>
-        {linkToNote && (
-          <Button
-            label="Add Note"
-            variant="primary"
-            color={primaryColor.blue}
-            small
-            handleClick={() => {
-              history.push(`${linkToNote}`);
-            }}
-          />
-        )}
       </Info>
     </Wrapper>
   );
@@ -176,7 +165,6 @@ const Preview = styled.div<Props>`
 
 const CupWrapper = styled.div`
   padding: 0.5rem;
-  background-color: bisque;
   width: 100%;
   height: 100%;
 `;

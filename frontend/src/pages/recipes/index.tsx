@@ -5,7 +5,7 @@ import styled from "styled-components";
 //import components
 import Header from "../../components/Header";
 import { Grid } from "../../components/container/Grid";
-import { DiagramCard } from "../../components/Cards";
+import { DiagramCard } from "../../components/Cards2";
 import { EmptyCard, Card } from "../../components/Card";
 import { Section } from "../../components/Section";
 import { Button } from "../../components/Buttons";
@@ -40,16 +40,20 @@ const RecipesPresenter = () => {
     <Wrapper>
       <Header title="Recipes" />
       <Grid>
-        {recipeList.data &&
+        {recipeList &&
+          recipeList.data &&
           recipeList.data.map((recipe, idx) => (
-            <DiagramCard
-              overline="overline"
-              header={recipe.name}
-              caption="caption"
-              ratio={ratio.square}
-              ratioData={recipe.ratio}
-              margin="0 0 1rem 0"
-            />
+            <Cardd>
+              <DiagramCard
+                linkToRecipe={`../recipe/${recipe._id}`}
+                overline="overline"
+                header={recipe.name}
+                caption="caption"
+                ratio={ratio.square}
+                ratioData={recipe.ratio}
+                margin="0 0 1rem 0"
+              />
+            </Cardd>
           ))}
       </Grid>
       {/* <Collection>
@@ -105,6 +109,10 @@ const Empty = styled.section`
   align-items: center;
   gap: 1rem;
   height: 300px;
+`;
+
+const Cardd = styled.div`
+  background-color: aliceblue;
 `;
 
 export default RecipesPresenter;

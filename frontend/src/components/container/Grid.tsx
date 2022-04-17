@@ -29,6 +29,6 @@ const Section = styled.ul`
 
   @media ${breakpoint.m} {
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 2rem;
+    grid-gap: 1.3125rem;
   }
 `;

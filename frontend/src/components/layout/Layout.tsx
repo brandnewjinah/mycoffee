@@ -46,7 +46,7 @@ const Container = styled.div`
 const Main = styled.main`
   width: 100%;
   max-width: ${size.xlg};
-  padding: 2rem 1.375rem;
+  padding: 2rem 1.3125rem;
   margin: 0 auto;
 `;
 
