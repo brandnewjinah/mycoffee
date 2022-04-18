@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 //import components
-import Header from "../../components/Header";
+import { Header } from "../../components/Header";
 import Cup from "../../components/Cup";
 
 //import redux

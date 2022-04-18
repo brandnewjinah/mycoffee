@@ -5,7 +5,7 @@ import moment from "moment";
 import styled from "styled-components";
 
 //comp
-import Header from "../../components/Header";
+import { Header } from "../../components/Header";
 import { Section } from "../../components/container/Section";
 import { neutral, primaryColor } from "../../components/token";
 import Text from "../../components/Text";

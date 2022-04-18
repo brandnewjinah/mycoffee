@@ -27,24 +27,37 @@ const Cup = ({ data }) => {
 
   return (
     <Container>
-      <Flex>
+      <Wrapper>
         {total < 75 ? (
           <C75>
             {ratio.map((item, idx) => (
               <Liquid
                 type={item.value}
-                volume={`${(parseInt(item.volume) / 60) * 100}%`}
+                volume={
+                  item.value === "espresso"
+                    ? `${(parseInt(item.volume) / 75) * 100 + 8}%`
+                    : idx === 1 && item.value !== "espresso"
+                    ? `${(parseInt(item.volume) / 75) * 100 - 8}%`
+                    : `${(parseInt(item.volume) / 75) * 100}%`
+                }
               >
                 {item.label}
               </Liquid>
             ))}
           </C75>
-        ) : total < 150 ? (
+        ) : total <= 150 ? (
           <C150>
             {ratio.map((item, idx) => (
               <Liquid
+                key={idx}
                 type={item.value}
-                volume={`${(parseInt(item.volume) / 60) * 100}%`}
+                volume={
+                  item.value === "espresso"
+                    ? `${(parseInt(item.volume) / 150) * 100 + 8}%`
+                    : idx === 1 && item.value !== "espresso"
+                    ? `${(parseInt(item.volume) / 150) * 100 - 8}%`
+                    : `${(parseInt(item.volume) / 150) * 100}%`
+                }
               >
                 {item.label}
               </Liquid>
@@ -54,24 +67,45 @@ const Cup = ({ data }) => {
           <C240>
             {ratio.map((item, idx) => (
               <Liquid
+                key={idx}
                 type={item.value}
-                volume={`${(parseInt(item.volume) / 60) * 100}%`}
+                volume={
+                  item.value === "espresso"
+                    ? `${(parseInt(item.volume) / 240) * 100 + 8}%`
+                    : idx === 1 && item.value !== "espresso"
+                    ? `${(parseInt(item.volume) / 240) * 100 - 8}%`
+                    : `${(parseInt(item.volume) / 240) * 100}%`
+                }
               >
                 {item.label}
               </Liquid>
             ))}
           </C240>
         )}
-      </Flex>
+      </Wrapper>
     </Container>
   );
 };
 
-const Flex = styled.div`
+const Wrapper = styled.div`
+  width: 200px; //375 device
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
+  background-color: lavender;
+`;
+
+const Glass = styled.div`
+  /* background-color: #eeedeb; */
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  border: 4px solid transparent;
+  box-shadow: 0 0 0 4px #dedcd8;
+  position: relative;
 `;
 
 const Liquid = styled.div`
@@ -87,64 +121,57 @@ const Liquid = styled.div`
       ? "#593431"
       : props.type === "steamedMilk"
       ? "#fdfff5"
+      : props.type === "milkFoam"
+      ? "#e6e8dc"
+      : props.type === "microFoam"
+      ? "#FDFFF6"
       : props.type === "water"
       ? "#d4f1f9"
       : ""};
-  /* background-image: radial-gradient(#fff 10%, transparent 11%),
-    radial-gradient(#fff 10%, transparent 11%);
+
+  background-image: ${(props) =>
+      props.type === "microFoam" &&
+      "radial-gradient(#eaebe1 10%, transparent 11%)"},
+    ${(props) =>
+      props.type === "microFoam" &&
+      "radial-gradient(#eaebe1 10%, transparent 11%)"};
   background-size: 14px 14px;
   background-position: 0 0, 7px 7px;
-  background-repeat: repeat; */
+  background-repeat: repeat;
 `;
 
-const Glass = styled.div`
-  /* background-color: #eeedeb; */
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  overflow: hidden;
-  border: 4px solid transparent;
-  box-shadow: 0 0 0 4px #dedcd8;
-  position: relative;
-
-  &:after {
-    content: "";
-    position: absolute;
-    right: -70px;
-    top: 0;
-    width: 80px;
-    height: 90px;
-    border: 12px solid #000;
-    border-left: 12px solid transparent;
-    border-bottom: 12px solid transparent;
-    border-radius: 50%;
-    transform: rotate(42deg);
-  }
-`;
+// const Test = styled.div`
+//   width: 158px;
+//   height: 123px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin: 0 auto;
+//   background-color: rgba(255, 99, 71, 0.5);
+// `;
 
 const C240 = styled(Glass)`
-  border-radius: 0.5rem;
-  border-bottom-left-radius: 4.8rem;
-  border-bottom-right-radius: 4.8rem;
-  height: 140px;
-  width: 11rem;
+  width: 158px; //375
+  height: 123px; //375
+  border-radius: 8px;
+  border-bottom-left-radius: 70px;
+  border-bottom-right-radius: 70px;
 `;
 
 const C150 = styled(Glass)`
-  border-radius: 0.5rem;
-  border-bottom-left-radius: 2rem;
-  border-bottom-right-radius: 2rem;
-  height: 120px;
-  width: 6rem;
+  width: 106px;
+  height: 125px;
+  border-radius: 8px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
 `;
 
 const C75 = styled(Glass)`
-  border-radius: 0.5rem;
-  border-bottom-left-radius: 2rem;
-  border-bottom-right-radius: 2rem;
-  height: 75px;
-  width: 4.75rem;
+  width: 100px;
+  height: 95px;
+  border-radius: 8px;
+  border-bottom-left-radius: 45px;
+  border-bottom-right-radius: 45px;
 `;
 
 export default Cup;

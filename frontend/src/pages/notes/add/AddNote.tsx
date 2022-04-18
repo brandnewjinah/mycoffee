@@ -5,7 +5,7 @@ import { ResponsiveRadar } from "@nivo/radar";
 //comp
 import { Container } from "../../../components/container/Container";
 import { Section } from "../../../components/container/Section";
-import Header from "../../../components/Header";
+import { Header } from "../../../components/Header";
 import { Input } from "../../../components/Input";
 import Slider from "../../../components/Range";
 import { Button } from "../../../components/Buttons";

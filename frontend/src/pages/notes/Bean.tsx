@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 //comp
 import Loading from "../../components/Loading";
 import { Container } from "../../components/container/Container";
-import Header from "../../components/Header";
+import { Header } from "../../components/Header";
 import { List } from "../../components/List";
 import { Button } from "../../components/Buttons";
 

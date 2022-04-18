@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 
 //comp
 import { Container, Flex } from "../../../components/container/Container";
-import Header from "../../../components/Header";
+import { Header } from "../../../components/Header";
 import { Section } from "../../../components/container/Section";
 import { Input } from "../../../components/Input";
 import { Button, LinkButton } from "../../../components/Buttons";
@@ -14,7 +14,7 @@ import { primaryColor } from "../../../components/token";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { addDirections } from "../../../redux/recipeActionsRedux";
-import { Recipe } from "../../../interfaces/interface";
+import { Directions, Recipe } from "../../../interfaces/interface";
 
 const AddDirections = () => {
   const history = useHistory();
@@ -27,7 +27,7 @@ const AddDirections = () => {
   );
 
   //directions data
-  const [directions, setDirections] = useState([
+  const [directions, setDirections] = useState<Directions[]>([
     { id: nanoid(), direction: "" },
   ]);
 

@@ -13,11 +13,23 @@ interface Props {
     | undefined;
   bold?: boolean;
   padding?: string;
-  children?: string;
+  uppercase?: boolean;
+  spacing?: string;
   color?: string;
+  className?: string;
+  children?: string;
 }
 
-const Text: FC<Props> = ({ variant, bold, padding, color, children }) => {
+const Text: FC<Props> = ({
+  className,
+  variant,
+  bold,
+  padding,
+  uppercase,
+  spacing,
+  color,
+  children,
+}) => {
   return (
     <>
       {variant === "h1" ? (
@@ -29,13 +41,32 @@ const Text: FC<Props> = ({ variant, bold, padding, color, children }) => {
       ) : variant === "body_big" ? (
         <BigParagraph padding={padding}>{children}</BigParagraph>
       ) : variant === "body_small" ? (
-        <SmallParagraph padding={padding}>{children}</SmallParagraph>
+        <SmallParagraph
+          className={className}
+          bold={bold}
+          uppercase={uppercase}
+          padding={padding}
+        >
+          {children}
+        </SmallParagraph>
       ) : variant === "caption" ? (
-        <Caption bold={bold} color={color} padding={padding}>
+        <Caption
+          className={className}
+          bold={bold}
+          uppercase={uppercase}
+          color={color}
+          spacing={spacing}
+          padding={padding}
+        >
           {children}
         </Caption>
       ) : (
-        <Paragraph bold={bold} color={color} padding={padding}>
+        <Paragraph
+          bold={bold}
+          color={color}
+          uppercase={uppercase}
+          padding={padding}
+        >
           {children}
         </Paragraph>
       )}
@@ -74,20 +105,25 @@ const Paragraph = styled.p<Props>`
   line-height: ${lineHeight.base};
   font-weight: ${(props) => (props.bold ? 600 : 400)};
   color: ${(props) => (props.color ? props.color : "#000")};
+  text-transform: ${(props) => props.uppercase && "uppercase"};
   padding: ${(props) => props.padding};
 `;
 
 const SmallParagraph = styled.p<Props>`
   font-size: ${fontSize.sm1};
   line-height: ${lineHeight.sm1};
+  font-weight: ${(props) => (props.bold ? 600 : 400)};
+  text-transform: ${(props) => props.uppercase && "uppercase"};
   padding: ${(props) => props.padding};
 `;
 
 const Caption = styled.p<Props>`
-  font-size: ${fontSize.sm2};
+  font-size: ${fontSize.sm3};
   line-height: ${lineHeight.sm2};
   font-weight: ${(props) => (props.bold ? 600 : 400)};
   color: ${(props) => props.color};
+  text-transform: ${(props) => props.uppercase && "uppercase"};
+  letter-spacing: ${(props) => props.spacing && props.spacing};
   padding: ${(props) => props.padding};
 `;
 

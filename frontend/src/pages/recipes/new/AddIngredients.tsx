@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 //comp
 import { Container, Flex } from "../../../components/container/Container";
-import Header from "../../../components/Header";
+import { Header } from "../../../components/Header";
 import { Section } from "../../../components/container/Section";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";

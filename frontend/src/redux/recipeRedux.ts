@@ -22,6 +22,7 @@ const initialState: RecipesInterface = {
     id: "",
     name: "",
     desc: "",
+    type: "",
     ingredients: [],
     directions: [],
     ratio: [],

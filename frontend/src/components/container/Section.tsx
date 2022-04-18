@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 interface Props {
+  backgroundColor?: string;
   image?: string;
   imageText?: string;
   image2Text?: string;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const Section: FC<Props> = ({
+  backgroundColor,
   image,
   imageText,
   image2Text,
@@ -21,7 +23,7 @@ export const Section: FC<Props> = ({
   text,
 }) => {
   return (
-    <Wrapper gap={gap}>
+    <Wrapper gap={gap} backgroundColor={backgroundColor}>
       {text && <>{text}</>}
       {image && (
         <ImageContainer>
@@ -43,6 +45,8 @@ export const Section: FC<Props> = ({
 const Wrapper = styled.section<Props>`
   display: flex;
   flex-direction: column;
+  background-color: ${(props) =>
+    props.backgroundColor && props.backgroundColor};
   gap: ${(props) => props.gap && props.gap};
 `;
 

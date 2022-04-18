@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from "react";
 
+//bean
 export interface Roaster {
   id: number;
   name: string;
@@ -34,6 +35,8 @@ export interface Feature {
   value: number;
 }
 
+//note
+
 export interface Note {
   id: string;
   date: string;
@@ -59,6 +62,8 @@ export interface Initial {
   initial: string;
 }
 
+//recipe
+
 export interface Recipes {
   data: Recipe[];
   status: string;
@@ -72,6 +77,7 @@ export interface Recipe {
   id: string;
   name: string;
   desc: string;
+  type: string;
   ingredients: Ingredients[];
   directions: Directions[];
   ratio: Ratio[];
@@ -86,13 +92,14 @@ export interface Ingredients {
 }
 
 export interface Directions {
-  id: number;
-  direction: Direction[];
-}
-
-export interface Direction {
   [key: string]: string | undefined;
 }
+
+// export interface Direction {
+//   // [key: string]: string | undefined;
+//   id: string;
+//   direction: string;
+// }
 
 export interface Ratio {
   id: string;

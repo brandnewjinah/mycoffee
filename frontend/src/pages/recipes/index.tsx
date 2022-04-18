@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 //import components
-import Header from "../../components/Header";
+import { Header } from "../../components/Header";
 import { Grid } from "../../components/container/Grid";
 import { DiagramCard } from "../../components/Cards2";
 import { EmptyCard, Card } from "../../components/Card";
@@ -46,7 +46,7 @@ const RecipesPresenter = () => {
             <Cardd>
               <DiagramCard
                 linkToRecipe={`../recipe/${recipe._id}`}
-                overline="overline"
+                overline={recipe.type}
                 header={recipe.name}
                 caption="caption"
                 ratio={ratio.square}
@@ -112,7 +112,7 @@ const Empty = styled.section`
 `;
 
 const Cardd = styled.div`
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
 `;
 
 export default RecipesPresenter;

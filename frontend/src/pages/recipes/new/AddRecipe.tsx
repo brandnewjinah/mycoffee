@@ -4,11 +4,12 @@ import { nanoid } from "nanoid";
 
 //comp
 import { Container } from "../../../components/container/Container";
-import Header from "../../../components/Header";
+import { Header } from "../../../components/Header";
 import { Section } from "../../../components/container/Section";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
 import { primaryColor } from "../../../components/token";
+import { Radio } from "../../../components/RadioButton";
 
 //util
 import { recipeValidate } from "../../../utils/validate";
@@ -34,6 +35,7 @@ const AddRecipe: FC<Props> = () => {
     id: nanoid(),
     name: "",
     desc: "",
+    type: "hot",
     ingredients: [],
     directions: [],
     ratio: [],
@@ -47,6 +49,12 @@ const AddRecipe: FC<Props> = () => {
     if (name === "name") userInput.name = value;
     if (name === "desc") userInput.desc = value;
     setRecipe(userInput);
+  };
+
+  //select recipe type
+  const handleSelect = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setRecipe({ ...recipe, type: value });
   };
 
   const handleNext = () => {
@@ -74,6 +82,25 @@ const AddRecipe: FC<Props> = () => {
           error={errors.desc}
           onChange={handleInputChange}
         />
+        <article>
+          <h4>Roast Level</h4>
+          <div>
+            <Radio
+              label="Hot"
+              name="group"
+              value="hot"
+              checked={recipe.type === "hot"}
+              onChange={handleSelect}
+            />
+            <Radio
+              label="Iced"
+              name="group"
+              value="iced"
+              checked={recipe.type === "iced"}
+              onChange={handleSelect}
+            />
+          </div>
+        </article>
       </Section>
       <Button
         label="Next"

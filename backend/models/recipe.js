@@ -13,6 +13,9 @@ const recipeSchema = mongoose.Schema(
     desc: {
       type: String,
     },
+    type: {
+      type: String,
+    },
     ingredients: [
       {
         id: {

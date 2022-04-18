@@ -33,6 +33,11 @@ export const categoryList = [
       },
       {
         id: 203,
+        value: "microFoam",
+        label: "Micro Foam",
+      },
+      {
+        id: 204,
         value: "milkFoam",
         label: "Milk Foam",
       },

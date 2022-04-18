@@ -17,7 +17,7 @@ export interface Props {
   children?: any;
 }
 
-const Header: FC<Props> = ({
+export const Header: FC<Props> = ({
   overlay,
   title,
   variant,
@@ -36,7 +36,9 @@ const Header: FC<Props> = ({
           </Text>
         )}
         {variant && variant === "small" ? (
-          <Text bold>{title}</Text>
+          <Text variant="caption" bold uppercase spacing=".05rem">
+            {title}
+          </Text>
         ) : (
           <Text variant="h1" padding=".35rem 0">
             {title}
@@ -65,5 +67,3 @@ const Wrapper = styled.header`
   align-items: center;
   /* background-color: honeydew; */
 `;
-
-export default Header;

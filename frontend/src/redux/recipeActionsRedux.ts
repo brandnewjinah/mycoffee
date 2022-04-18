@@ -18,6 +18,7 @@ const initialState = {
     id: "",
     name: "",
     desc: "",
+    type: "",
     ingredients: [],
     directions: [],
     ratio: [],

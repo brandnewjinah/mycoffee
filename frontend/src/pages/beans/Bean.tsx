@@ -5,7 +5,7 @@ import styled from "styled-components";
 //comp
 import { Container } from "../../components/container/Container";
 import { Section } from "../../components/container/Section";
-import Header from "../../components/Header";
+import { Header } from "../../components/Header";
 import { List } from "../../components/List";
 import { Button } from "../../components/Buttons";
 import { Coffee } from "../../assets/Icons";

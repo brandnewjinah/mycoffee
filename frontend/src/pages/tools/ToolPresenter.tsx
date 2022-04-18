@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
 //import components
-import Header from "../../components/Header";
+import { Header } from "../../components/Header";
 import { ToolCard } from "../../components/Card";
 import { BtnText } from "../../components/Button";
 

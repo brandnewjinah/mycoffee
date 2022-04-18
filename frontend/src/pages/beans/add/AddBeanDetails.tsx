@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 
 //comp
 import { Container } from "../../../components/container/Container";
-import Header from "../../../components/Header";
+import { Header } from "../../../components/Header";
 import { Input } from "../../../components/Input";
 import { Section } from "../../../components/container/Section";
 import { Radio } from "../../../components/RadioButton";

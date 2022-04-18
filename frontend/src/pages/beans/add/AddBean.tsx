@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 //comp
 import { Container } from "../../../components/container/Container";
-import Header from "../../../components/Header";
+import { Header } from "../../../components/Header";
 import { Input } from "../../../components/Input";
 import { Article, Section } from "../../../components/container/Section";
 import { Radio } from "../../../components/RadioButton";
