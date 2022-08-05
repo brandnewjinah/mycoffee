@@ -150,7 +150,7 @@ const C240 = styled(Glass)`
 `;
 
 const C150 = styled(Glass)`
-  width: 65px;
+  width: 60px;
   height: 75px;
   border-radius: 4px;
   border-bottom-left-radius: 10px;

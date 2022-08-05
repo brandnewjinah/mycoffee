@@ -8,16 +8,17 @@ import Text from "./Text";
 
 export interface Props {
   id?: string;
+  name?: string;
   label?: string;
-  name: string;
+  value?: string;
+  placeholder?: string;
   type?: "text" | "password" | "search" | "number" | "email" | "date";
   maxLength?: number;
-  value?: string;
   prefix?: string;
   suffix?: string;
-  placeholder?: string;
   error?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  margin?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
@@ -25,20 +26,21 @@ export const Input: FC<Props> = ({
   id,
   name,
   label,
-  maxLength,
+  value,
+  placeholder,
   type,
+  maxLength,
   prefix,
   suffix,
-  placeholder,
-  value,
   error,
+  margin,
   onChange,
   ...rest
 }) => {
   const [isPassword, setIsPassword] = useState(true);
 
   return (
-    <Container>
+    <Container margin={margin}>
       {label && <label htmlFor={name}>{label}</label>}
       {type === "search" ? (
         <form action=".">
@@ -206,9 +208,10 @@ export const InputMask: FC<CCProps> = ({
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<Props>`
   width: 100%;
   position: relative;
+  margin: ${(props) => props.margin && props.margin};
 
   label {
     display: inline-block;
@@ -251,6 +254,7 @@ const InputContainer = styled.div`
   height: 3rem;
   border-radius: 0.35rem;
   border: 1px solid #d2d2d7;
+  background-color: rgba(255, 255, 255, 0.8);
 
   &:focus-within {
     box-shadow: 0 0 0 4px rgba(0, 125, 250, 0.6);
@@ -284,7 +288,7 @@ const InputTag = styled.input`
   border: 1px solid #d2d2d7;
   padding: ${(props) =>
     props.type === "search" ? "0 0.875rem 0 2.5rem" : "0 0.875rem"};
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

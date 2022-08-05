@@ -99,7 +99,7 @@ const AddNote = () => {
       <Header overlay={beanDetails.roaster} title={beanDetails.name} />
       {page === 1 && (
         <>
-          <Section gap="2rem">
+          <Section gap="2rem" margin="2rem 0">
             <Input
               label="Roast Date"
               name="roastDate"
@@ -140,7 +140,7 @@ const AddNote = () => {
           <Button
             label="Next"
             variant="primary"
-            color={primaryColor.blue}
+            color={primaryColor.brickRed}
             handleClick={() => handleNext(1)}
           />
         </>
@@ -163,7 +163,7 @@ const AddNote = () => {
                 gridShape="circular"
                 gridLabelOffset={24}
                 enableDots={false}
-                colors={{ scheme: "accent" }}
+                colors={{ scheme: "nivo" }}
                 fillOpacity={0.35}
                 blendMode="multiply"
                 animate={true}
@@ -172,7 +172,7 @@ const AddNote = () => {
               />
             </div>
           </Section>
-          <Section gap="2rem">
+          <Section gap="2rem" padding="0 0 3rem">
             {features &&
               features.map((item, idx) => (
                 <Slider
@@ -183,9 +183,9 @@ const AddNote = () => {
                   step={1}
                   name={item.feature}
                   value={item.value}
-                  linearColor="#90C786"
+                  linearColor={primaryColor.brickRed}
                   rangeColor="#d7dcdf"
-                  thumbColor="#90C786"
+                  thumbColor={primaryColor.brickRed}
                   margin={`2rem 0`}
                   handleSliderValue={handleSliderChange(idx)}
                 />
@@ -194,7 +194,7 @@ const AddNote = () => {
           <Button
             label="Next"
             variant="primary"
-            color={primaryColor.blue}
+            color={primaryColor.brickRed}
             handleClick={() => handleNext(2)}
           />
         </>

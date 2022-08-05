@@ -1,17 +1,23 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { neutral } from "./token";
+import { fontSize, neutral } from "./token";
 
 interface Props {
-  label: string;
-  handleSelect?: () => void;
+  children?: any;
 }
 
-export const ListItem: FC<Props> = ({ label, handleSelect }) => {
-  return <Li onClick={handleSelect}>{label}</Li>;
+export const Ul: FC<Props> = ({ children }) => {
+  return <UlWrapper>{children}</UlWrapper>;
+};
+
+const UlWrapper = styled.ul`
+  list-style-type: circle;
+`;
+
+export const ListItem: FC<Props> = ({ children }) => {
+  return <Li>{children}</Li>;
 };
 
 const Li = styled.li`
-  padding: 0.5rem 0;
-  border-bottom: 1px solid ${neutral[100]};
+  font-size: ${fontSize.sm2};
 `;

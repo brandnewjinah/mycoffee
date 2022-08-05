@@ -76,6 +76,46 @@ export const Card: FC<Props> = ({
   );
 };
 
+export const DiagramCard: FC<Props> = ({
+  linkToRecipe,
+  imgsrc,
+  overline,
+  header,
+  caption,
+  margin,
+  ratioData,
+  ratio,
+}) => {
+  const history = useHistory();
+  return (
+    <Wrapper margin={margin}>
+      <Link to={`${linkToRecipe}`}>
+        {imgsrc ? (
+          <Cup data={ratioData} />
+        ) : (
+          // <Preview ratio={ratio}>
+          //   <Coffee width="24" height="24" color="#000" stroke="1" />
+          // </Preview>
+          <CupWrapper>
+            <Cup data={ratioData} />
+          </CupWrapper>
+        )}
+      </Link>
+      <Info>
+        <Link to={`${linkToRecipe}`}>
+          <Text variant="caption" color={primaryColor.orange}>
+            {overline}
+          </Text>
+          <Text>{header}</Text>
+          <Text variant="caption" color={neutral[300]}>
+            {caption}
+          </Text>
+        </Link>
+      </Info>
+    </Wrapper>
+  );
+};
+
 const Wrapper = styled.article<Props>`
   display: grid;
   gap: 0.25rem;
@@ -94,12 +134,13 @@ const Preview = styled.div<Props>`
   display: block;
   max-width: 100%;
   border: 1px solid ${neutral[100]};
+  margin-bottom: 0.75rem;
   background-color: aliceblue;
 
   &:before {
     content: "";
     display: block;
-    padding-bottom: ${(props) => (props.ratio ? props.ratio : "100%")};
+    padding-bottom: ${(props) => props.ratio && props.ratio};
     width: 100%;
   }
 
@@ -107,13 +148,14 @@ const Preview = styled.div<Props>`
     border: none;
     position: absolute;
     top: 50%;
+    bottom: 0;
     left: 50%;
     transform: translate(-50%, -50%);
     max-width: 100%;
     max-height: 100%;
-    width: 100%;
+    width: 350px;
     height: auto;
-    object-fit: cover;
+    /* object-fit: cover; */
   }
 
   svg {

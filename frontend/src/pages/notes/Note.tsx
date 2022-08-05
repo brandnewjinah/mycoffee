@@ -84,7 +84,10 @@ const NotePage = () => {
 
   return (
     <Container gap="1rem">
-      <Header title={`Note for ${beanDetails.name}`} />
+      <Header
+        overlay={`Note for ${beanDetails.roaster}`}
+        title={beanDetails.name}
+      />
       <Section>
         <div style={{ height: `350px` }}>
           <ResponsiveRadar
@@ -100,7 +103,7 @@ const NotePage = () => {
             gridShape="circular"
             gridLabelOffset={24}
             enableDots={false}
-            colors={{ scheme: "accent" }}
+            colors={{ scheme: "nivo" }}
             fillOpacity={0.35}
             blendMode="multiply"
             animate={true}

@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Layout from "./components/layout/Layout";
+import Layout from "./components/layout";
 import Home from "./pages/home";
 
 //notes
@@ -12,7 +12,7 @@ import Note from "./pages/notes/Note";
 
 //beans
 import Beans from "./pages/beans";
-import NewBean from "./pages/beans/add/AddBean";
+import AddBean from "./pages/beans/add";
 import NewBeanDetails from "./pages/beans/add/AddBeanDetails";
 import Bean from "./pages/beans/Bean";
 
@@ -45,12 +45,12 @@ const Routes = () => {
         <Layout>
           <Route exact path="/" component={Home} />
           <Route exact path="/notes" component={Notes} />
-          <Route exact path="/notes/newbean" component={NewBean} />
+          <Route exact path="/notes/newbean" component={AddBean} />
           <Route exact path="/notes/b/:beanId/new" component={AddNote} />
           <Route exact path="/note/b/:beanId/:noteId" component={Note} />
           <Route exact path="/notes/b/:beanId/" component={BeanForNotes} />
           <Route exact path="/beans" component={Beans} />
-          <Route exact path="/beans/newbean" component={NewBean} />
+          <Route exact path="/beans/newbean" component={AddBean} />
           <Route
             exact
             path="/beans/b/:beanId/details"

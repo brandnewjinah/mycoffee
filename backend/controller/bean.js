@@ -15,6 +15,7 @@ export const getBeans = async (req, res) => {
 //GET BEAN DETAILS
 export const getBeanDetails = async (req, res) => {
   const { id: _id } = req.params;
+
   try {
     const bean = await Bean.findById(_id);
     res.status(200).json(bean);
@@ -28,19 +29,25 @@ export const addBean = async (req, res) => {
   const bean = req.body;
   const image = req.body.img;
 
-  const newBean = { ...bean, img: "img" };
-  console.log(newBean);
+  // const newBean = { ...bean, img: image };
+  // console.log(newBean);
 
-  // try {
-  //   const uploadedResponse = await cloudinary.uploader.upload(image, {
-  //     upload_preset: "coffee",
-  //   });
-  //   const newBean = new Bean({ ...bean, img: uploadedResponse.url });
-  //   await newBean.save();
-  //   res.status(201).json(newBean);
-  // } catch (error) {
-  //   res.status(500).json({ message: error.message });
-  // }
+  try {
+    if (image === "") {
+      const newBean = new Bean({ ...bean, img: "" });
+      await newBean.save();
+      res.status(201).json(newBean);
+    } else {
+      const uploadedResponse = await cloudinary.uploader.upload(image, {
+        upload_preset: "coffee",
+      });
+      const newBean = new Bean({ ...bean, img: uploadedResponse.url });
+      await newBean.save();
+      res.status(201).json(newBean);
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 //ADD Note

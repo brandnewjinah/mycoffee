@@ -17,7 +17,7 @@ export interface Bean {
 }
 
 export interface Duplicate {
-  id?: string;
+  _id?: string;
   roaster?: string;
   name?: string;
   level?: string;

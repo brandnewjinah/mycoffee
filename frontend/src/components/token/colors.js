@@ -1,5 +1,5 @@
 export const neutral = {
-  10: "#FFFFFF",
+  10: "#fafaf7",
   100: "#F1F1F1",
   200: "#C0C0C0",
   300: "#808080",
@@ -32,6 +32,8 @@ export const peach = {
 };
 
 export const primaryColor = {
+  ivory: "#fffff5",
+  brickRed: "#c14758",
   blue: "#3883e5",
   lightBlue: "#e6ecf5",
   lightGold: "#d3a13b",

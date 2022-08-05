@@ -1,10 +1,10 @@
 import React, { useState, FC } from "react";
 import { Link } from "react-router-dom";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 //comp
 import { Logo } from "../../assets/Icons";
-import { breakpoint, fontSize, size } from "../token";
+import { primaryColor } from "../token";
 
 export interface Props {}
 
@@ -16,187 +16,108 @@ const Header: FC<Props> = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <Wrapper>
-      <Nav>
-        <Left>
-          <Link to="/">
-            <Logo width={32} height={29} color="#000"></Logo>
-          </Link>
-        </Left>
-        <Center open={open}>
-          <List>
-            <Item>
-              <NavLink to="/notes" onClick={() => setOpen(false)}>
-                Notes
-              </NavLink>
-            </Item>
-            <Item>
-              <NavLink to="/beans" onClick={() => setOpen(false)}>
-                Beans
-              </NavLink>
-            </Item>
-            <Item>
-              <NavLink to="/recipes" onClick={() => setOpen(false)}>
-                Recipes
-              </NavLink>
-            </Item>
-            <Item>
-              <NavLink to="/tools" onClick={() => setOpen(false)}>
-                Tools
-              </NavLink>
-            </Item>
-          </List>
-          <MobileLink>
-            <Item>
-              <NavLink to="/login" onClick={() => setOpen(false)}>
-                Login
-              </NavLink>
-            </Item>
-          </MobileLink>
-        </Center>
-        <Right>
-          <NavLink to="/login">Login</NavLink>
-        </Right>
-
-        <Mobile>
-          {open ? (
-            <button
-              type="button"
-              role="switch"
-              aria-pressed={open}
-              onClick={() => setOpen(!open)}
-            >
-              Close
-            </button>
-          ) : (
-            <button
-              type="button"
-              role="switch"
-              aria-pressed={open}
-              onClick={() => setOpen(!open)}
-            >
-              Menu
-            </button>
-          )}
-        </Mobile>
+    <HeaderWrapper>
+      <LogoContainer>
+        <Link to="/" onClick={() => setOpen(false)}>
+          <Logo width={32} height={32} color={primaryColor.brickRed}></Logo>
+        </Link>
+      </LogoContainer>
+      <MenuBtn open={open} onClick={() => setOpen(!open)}>
+        <div />
+        <div />
+      </MenuBtn>
+      <Nav open={open}>
+        <ul>
+          <li>
+            <Link to="/notes" onClick={() => setOpen(false)}>
+              Notes
+            </Link>
+          </li>
+          <li>
+            <Link to="/beans" onClick={() => setOpen(false)}>
+              Beans
+            </Link>
+          </li>
+          <li>
+            <Link to="/recipes" onClick={() => setOpen(false)}>
+              Recipes
+            </Link>
+          </li>
+          <li>
+            <Link to="/login" onClick={() => setOpen(false)}>
+              Login
+            </Link>
+          </li>
+        </ul>
       </Nav>
-    </Wrapper>
+    </HeaderWrapper>
   );
 };
 
-const Flex = css`
+const HeaderWrapper = styled.header`
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  padding: 0.875rem 1.3125rem;
 `;
 
-const Wrapper = styled.header`
-  ${Flex}
-  width: 100%;
-  height: 60px;
-  background-color: #fff;
-  /* background-color: palegreen; */
+const LogoContainer = styled.div`
+  line-height: 0;
+
+  a {
+    display: inline-block;
+    line-height: 0;
+  }
 `;
 
-const Nav = styled.nav`
-  ${Flex};
-  justify-content: space-between;
-  width: 100%;
-  max-width: ${size.xlg};
-  font-size: ${fontSize.sm2};
-  padding: 0 1.375rem;
-  margin: 0 auto;
-`;
-
-const Left = styled.div`
-  width: 100%;
-  flex: 0 1 auto;
-  justify-content: flex-start;
-`;
-
-const Center = styled.nav<Style>`
-  ${Flex}
+const MenuBtn = styled.button<Style>`
+  display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 32px;
+  width: 32px;
+  background-color: transparent;
+  outline: transparent;
+  border: transparent;
+  transform-origin: center;
+  cursor: pointer;
+
+  div {
+    width: 20px;
+    height: 1px;
+    background-color: #000;
+    transition: all 0.4s ease;
+    z-index: 1;
+
+    &:first-child {
+      opacity: 1;
+      transform: ${({ open }) =>
+        open ? "rotate(45deg)" : "rotate(0) translateY(-4px)"};
+    }
+
+    &:last-child {
+      opacity: 1;
+      transform: ${({ open }) =>
+        open ? "rotate(-45deg)" : "rotate(0) translateY(4px)"};
+    }
+  }
+`;
+
+const Nav = styled.nav<Style>`
   width: 100%;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: calc(100vh - 60px);
+  background-color: ${primaryColor.ivory};
+  transform: ${({ open }) => (open ? "scale(1)" : "scale(0)")};
+  z-index: 100;
 
-  @media ${breakpoint.lg} {
-    position: absolute;
-    top: 4rem;
-    left: 0;
-    right: 0;
-    background-color: #fff;
-    height: calc(100vh - 4rem);
-    flex-direction: column;
-    justify-content: flex-start;
-    transform: ${({ open }) => (open ? "scale(1)" : "scale(0)")};
-    z-index: 100;
-  }
-`;
-
-const List = styled.ul`
-  ${Flex}
-  justify-content: space-between;
-  list-style-type: none;
-  z-index: 2;
-
-  @media ${breakpoint.lg} {
-    flex-direction: column;
-    flex: 0 1 auto;
-    justify-content: flex-start;
-  }
-`;
-
-const Item = styled.li`
-  margin: 0 0.75rem;
-  text-align: center;
-  transition: border-bottom 0.5s ease-in-out;
-
-  @media ${breakpoint.lg} {
+  li {
+    text-align: center;
     margin: 1rem 0.75rem;
-  }
-`;
-
-const MobileLink = styled.ul`
-  display: none;
-  list-style-type: none;
-
-  @media ${breakpoint.lg} {
-    display: block;
-    ${Flex}
-    flex-direction: column;
-    flex: 0 1 auto;
-    justify-content: flex-start;
-  }
-`;
-
-const NavLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Right = styled.nav`
-  ${Flex}
-  width: 100%;
-  flex: 0 1 auto;
-  justify-content: flex-end;
-
-  @media ${breakpoint.lg} {
-    display: none;
-  }
-`;
-
-const Mobile = styled.div`
-  display: none;
-
-  button {
-    border: none;
-    background-color: transparent;
-    padding: 1rem 0;
-    cursor: pointer;
-  }
-
-  @media ${breakpoint.lg} {
-    display: block;
   }
 `;
 

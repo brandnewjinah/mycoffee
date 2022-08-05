@@ -151,7 +151,7 @@ const AddBeanDetails = () => {
       {duplicate && Object.keys(duplicate).length !== 0 && (
         <>
           <p>{`${duplicate.name} from ${duplicate.roaster} already exists.`}</p>
-          <Link to={`/note/${duplicate.id}`}>Go to Bean</Link>
+          <Link to={`/note/${duplicate._id}`}>Go to Bean</Link>
         </>
       )}
     </Container>

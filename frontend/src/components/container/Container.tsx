@@ -5,53 +5,88 @@ import Text from "../Text";
 import { neutral, fontSize } from "../token";
 
 interface Props {
-  backgroundColor?: string;
-  gap?: string;
+  width?: string;
   height?: string;
+  minHeight?: string;
+  bgColor?: string;
+  gap?: string;
   justifyContent?: "center";
-  alignItems?: "center";
+  alignItems?: string;
   children?: any;
 }
 
-export const Container: FC<Props> = ({
-  backgroundColor,
-  gap,
+export const Wrapper: FC<Props> = ({
+  width,
   height,
-  justifyContent,
-  alignItems,
+  minHeight,
+  bgColor,
   children,
 }) => {
   return (
-    <Wrapper
-      backgroundColor={backgroundColor}
-      gap={gap}
+    <WrapperWrapper
+      width={width}
       height={height}
-      justifyContent={justifyContent}
-      alignItems={alignItems}
+      minHeight={minHeight}
+      bgColor={bgColor}
     >
       {children}
-    </Wrapper>
+    </WrapperWrapper>
   );
 };
 
-const Wrapper = styled.div<Props>`
-  display: flex;
-  flex-direction: column;
-  justify-content: ${(props) => props.justifyContent === "center" && "center"};
-  align-items: ${(props) => props.alignItems === "center" && "center"};
-  background-color: ${(props) =>
-    props.backgroundColor && props.backgroundColor};
-  gap: ${(props) => props.gap && props.gap};
+const WrapperWrapper = styled.div<Props>`
+  width: 100%;
   height: ${(props) => props.height && props.height};
+  min-height: ${(props) => props.minHeight && props.height};
+  background-color: ${(props) => props.bgColor && props.bgColor};
 `;
 
-export const Flex: FC<Props> = ({ gap, children }) => {
-  return <FlexWrapper gap={gap}>{children}</FlexWrapper>;
+export const Container: FC<Props> = ({
+  width,
+  height,
+  bgColor,
+  justifyContent,
+  alignItems,
+  gap,
+  children,
+}) => {
+  return (
+    <ContainerWrapper
+      width={width}
+      height={height}
+      bgColor={bgColor}
+      justifyContent={justifyContent}
+      alignItems={alignItems}
+      gap={gap}
+    >
+      {children}
+    </ContainerWrapper>
+  );
+};
+
+const ContainerWrapper = styled.div<Props>`
+  width: ${(props) => (props.width ? props.width : "100%")};
+  height: ${(props) => (props.height ? props.height : "100%")};
+  display: flex;
+  flex-direction: column;
+  justify-content: ${(props) =>
+    props.justifyContent ? props.justifyContent : "center"};
+  align-items: ${(props) => (props.alignItems ? props.alignItems : "center")};
+  gap: ${(props) => props.gap && props.gap};
+  background-color: ${(props) => props.bgColor && props.bgColor};
+`;
+
+export const Flex: FC<Props> = ({ gap, alignItems, children }) => {
+  return (
+    <FlexWrapper gap={gap} alignItems={alignItems}>
+      {children}
+    </FlexWrapper>
+  );
 };
 
 const FlexWrapper = styled.div<Props>`
   display: flex;
-  align-items: center;
+  align-items: ${(props) => (props.alignItems ? props.alignItems : "center")};
   gap: ${(props) => (props.gap ? props.gap : ".5rem")};
 
   .flexHalf {
@@ -92,5 +127,9 @@ const FlexWrapper = styled.div<Props>`
 
   .flexNine {
     flex: 9;
+  }
+
+  .flexTen {
+    flex: 10;
   }
 `;

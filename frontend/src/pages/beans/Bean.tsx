@@ -7,9 +7,9 @@ import { Container } from "../../components/container/Container";
 import { Section } from "../../components/container/Section";
 import { Header } from "../../components/Header";
 import { List } from "../../components/List";
-import { Button } from "../../components/Buttons";
+import { Button, LinkButton } from "../../components/Buttons";
 import { Coffee } from "../../assets/Icons";
-import { neutral, ratio } from "../../components/token";
+import { neutral, primaryColor, ratio } from "../../components/token";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -45,10 +45,25 @@ const BeanPage: FC<Props> = () => {
     <Container gap="1.5rem">
       <Header title={beanDetails.name} overlay={beanDetails.roaster} />
       <Section>
-        <Preview ratio={ratio.landscape_169}>
+        {beanDetails.img && beanDetails.img ? (
+          <Preview ratio={ratio.portrait_23}>
+            <img src={beanDetails.img} alt="" />
+          </Preview>
+        ) : (
+          <Preview ratio={ratio.landscape_169}>
+            <Coffee width="24" height="24" color="#000" stroke="1" />
+          </Preview>
+        )}
+        {/* <Preview ratio={ratio.landscape_169}>
           <Coffee width="24" height="24" color="#000" stroke="1" />
-        </Preview>
+        </Preview> */}
       </Section>
+      {/*  <LinkButton
+        label="Delete"
+        variant="tertiary"
+        color={primaryColor.blue}
+        handleClick={handleDeleteBean}
+      /> */}
     </Container>
   );
 };
@@ -63,7 +78,7 @@ const Preview = styled.div<Props>`
   &:before {
     content: "";
     display: block;
-    padding-bottom: ${(props) => props.ratio && props.ratio};
+    padding-bottom: 100%;
     width: 100%;
   }
 
@@ -75,8 +90,6 @@ const Preview = styled.div<Props>`
     left: 0;
     width: 100%;
     max-width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 
   svg {

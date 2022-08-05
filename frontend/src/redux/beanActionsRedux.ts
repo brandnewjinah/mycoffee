@@ -26,6 +26,7 @@ const initialState: Beans = {
 export const addBean = createAsyncThunk("beans/addBean", async (bean: Bean) => {
   try {
     const { data } = await api.publicRequest.post(`/beans`, bean);
+
     return data;
   } catch (error) {
     return error;
@@ -50,7 +51,21 @@ export const addNote = createAsyncThunk(
 const beansSlice = createSlice({
   name: "beans",
   initialState,
-  reducers: {},
+  reducers: {
+    reset: (state) => {
+      state.isLoading = false;
+      state.beanAdded = false;
+      state.isError = false;
+      state.beanDetails = {
+        _id: "",
+        roaster: "",
+        name: "",
+        level: "",
+        img: "",
+        notes: [],
+      };
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(addBean.pending, (state) => {
       state.isLoading = true;
@@ -58,7 +73,7 @@ const beansSlice = createSlice({
     builder.addCase(addBean.fulfilled, (state, action) => {
       state.isLoading = false;
       state.beanAdded = true;
-      // state.beanDetails = action.payload;
+      state.beanDetails = action.payload;
     });
     builder.addCase(addBean.rejected, (state, action) => {
       state.isLoading = false;
@@ -66,5 +81,7 @@ const beansSlice = createSlice({
     });
   },
 });
+
+export const { reset } = beansSlice.actions;
 
 export default beansSlice.reducer;

@@ -9,6 +9,7 @@ interface Props {
     | "h3"
     | "body_big"
     | "body_small"
+    | "body_xsmall"
     | "caption"
     | undefined;
   bold?: boolean;
@@ -44,11 +45,22 @@ const Text: FC<Props> = ({
         <SmallParagraph
           className={className}
           bold={bold}
+          color={color}
           uppercase={uppercase}
+          spacing={spacing}
           padding={padding}
         >
           {children}
         </SmallParagraph>
+      ) : variant === "body_xsmall" ? (
+        <XSmallParagraph
+          className={className}
+          bold={bold}
+          uppercase={uppercase}
+          padding={padding}
+        >
+          {children}
+        </XSmallParagraph>
       ) : variant === "caption" ? (
         <Caption
           className={className}
@@ -111,7 +123,17 @@ const Paragraph = styled.p<Props>`
 
 const SmallParagraph = styled.p<Props>`
   font-size: ${fontSize.sm1};
-  line-height: ${lineHeight.sm1};
+  line-height: ${lineHeight.sm3};
+  font-weight: ${(props) => (props.bold ? 600 : 400)};
+  color: ${(props) => (props.color ? props.color : "#000")};
+  text-transform: ${(props) => props.uppercase && "uppercase"};
+  letter-spacing: ${(props) => props.spacing && props.spacing};
+  padding: ${(props) => props.padding};
+`;
+
+const XSmallParagraph = styled.p<Props>`
+  font-size: ${fontSize.sm2};
+  line-height: ${lineHeight.base};
   font-weight: ${(props) => (props.bold ? 600 : 400)};
   text-transform: ${(props) => props.uppercase && "uppercase"};
   padding: ${(props) => props.padding};

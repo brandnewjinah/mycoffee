@@ -16,6 +16,7 @@ import { deleteBean } from "../../redux/collectionRedux";
 
 //interface
 import { Bean } from "../../interfaces/interface";
+import Empty from "../../components/EmptyPage";
 
 const BeanPage = () => {
   const history = useHistory();
@@ -35,46 +36,54 @@ const BeanPage = () => {
     history.push(`/notes/b/${beanId}/new`);
   };
 
-  const handleDeleteBean = () => {
-    if (window.confirm("Delete this bean?")) {
-      dispatch(deleteBean(beanId));
-      //for future api, when success deleting, then move to next page
-      history.push("/brew");
-    }
-  };
+  // const handleDeleteBean = () => {
+  //   if (window.confirm("Delete this bean?")) {
+  //     dispatch(deleteBean(beanId));
+  //     //for future api, when success deleting, then move to next page
+  //     history.push("/brew");
+  //   }
+  // };
 
   return isLoading ? (
     <Loading />
   ) : (
-    <Container gap="1.5rem">
-      <Header
-        title={beanDetails.name}
-        overlay="Notes for"
-        button
-        btnLabel="New Note"
-        handleClick={handleNewNote}
-      />
-      {beanDetails.notes &&
-        beanDetails.notes.map((note, idx) => (
-          <>
-            <List
-              key={idx}
-              link={`/note/b/${beanId}/${note.date}`}
-              // date={moment(note.id).format("MM-DD-YYYY")}
-              date={note.date}
-              crema={note.features[0].value}
-              aroma={note.features[1].value}
-              body={note.features[2].value}
-              flavor={note.features[3].value}
-            />
-          </>
-        ))}
-      <Button
-        label="Delete this bean"
-        variant="tertiary"
-        handleClick={handleDeleteBean}
-      />
-    </Container>
+    <>
+      {beanDetails.notes && beanDetails.notes.length > 0 ? (
+        <Container gap="1.5rem">
+          <Header
+            title={beanDetails.name}
+            overlay="Notes for"
+            button
+            btnLabel="New Note"
+            handleClick={handleNewNote}
+          />
+          {beanDetails.notes &&
+            beanDetails.notes.map((note, idx) => (
+              <>
+                <List
+                  key={idx}
+                  link={`/note/b/${beanId}/${note.date}`}
+                  // date={moment(note.id).format("MM-DD-YYYY")}
+                  date={note.date}
+                  crema={note.features[0].value}
+                  aroma={note.features[1].value}
+                  body={note.features[2].value}
+                  flavor={note.features[3].value}
+                />
+              </>
+            ))}
+        </Container>
+      ) : (
+        <>
+          <Header title={beanDetails.name} overlay="Notes for" />
+          <Empty
+            title="No notes yet"
+            subtitle="Add a note to blah balh"
+            btnLabel="Add Note"
+          />
+        </>
+      )}
+    </>
   );
 };
 

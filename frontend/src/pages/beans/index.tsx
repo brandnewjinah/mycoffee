@@ -1,106 +1,112 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import _ from "lodash";
-import styled from "styled-components";
-
-//comp
-import { Container } from "../../components/container/Container";
-import { Header } from "../../components/Header";
-import { Section } from "../../components/container/Section";
-import { Card } from "../../components/Cards";
-import { Button } from "../../components/Buttons";
-import { Plus } from "../../assets/Icons";
-import { neutral, primaryColor, ratio } from "../../components/token";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import { getBeans } from "../../redux/beanRedux";
+import { RootState } from "../../redux/store";
 
 //interface
 import { Bean, Initial } from "../../interfaces/interface";
+
+//comp
+import Loading from "../../components/Loading";
+import Empty from "../../components/EmptyPage";
+import { Container } from "../../components/container/Container";
+import { Section } from "../../components/container/Section";
+import { Header } from "../../components/Header";
+import { Card } from "../../components/Cards";
+import { neutral } from "../../components/token";
 
 export interface accTypes {
   [key: string]: Initial;
 }
 
-const Saved = () => {
-  const history = useHistory();
+const BeansList = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  //get beans list from data for suggestions and duplicates
+  //get beans list from data
   useEffect(() => {
     dispatch(getBeans());
   }, [dispatch]);
 
-  const { beans } = useSelector((state: RootState) => state.beans);
+  //get beans list data from redux
+  const { isLoading, beans } = useSelector((state: RootState) => state.beans);
 
-  let alphabeticalGroups = beans.reduce((acc: accTypes, bean: Bean) => {
-    let initial = bean.roaster[0];
+  let alphabeticalGroups =
+    beans &&
+    beans.length > 0 &&
+    beans.reduce((acc: accTypes, bean: Bean) => {
+      let initial = bean.roaster[0];
 
-    if (!acc[initial]) acc[initial] = { initial, beans: [bean] };
-    else acc[initial].beans.push(bean);
+      if (!acc[initial]) acc[initial] = { initial, beans: [bean] };
+      else acc[initial].beans.push(bean);
 
-    return acc;
-  }, {});
+      return acc;
+    }, {});
 
   let result = Object.values(alphabeticalGroups);
-  // let sorted = _.orderBy(result, ["initial"], ["asc"]);
   let sorted = _.orderBy(result, [(res) => res.initial.toLowerCase()], ["asc"]);
+
+  const handleButtonClick = () => {
+    history.push("/beans/newbean");
+  };
 
   const handleNew = () => {
     history.push("/beans/newbean");
   };
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <>
       {sorted && sorted.length > 0 ? (
-        <Container>
+        <Container gap="2.5rem">
           <Header
             title="Beans"
+            subtitle="Bean not listed? Add bean first to start creating notes."
             button
             btnLabel="New Bean"
             handleClick={handleNew}
           />
-          {/* <Section>
-            <Input name="search" type="search" onChange={handleSearch} />
-          </Section> */}
           <Section>
             {sorted.map((item) => (
               <>
                 <InitialHeader>{item.initial}</InitialHeader>
-                {item.beans.map((bean) => (
-                  <Card
-                    linkToBean={`/beans/b/${bean._id}`}
-                    imgsrc={bean.img}
-                    overline={bean.roaster}
-                    header={bean.name}
-                    caption={bean.level}
-                    ratio={ratio.portrait_34}
-                    margin="0 0 1rem 0"
-                  />
-                ))}
+                {item.beans.map(
+                  (bean: {
+                    _id: any;
+                    img: string | undefined;
+                    roaster: string | undefined;
+                    name: string | undefined;
+                    level: string | undefined;
+                  }) => (
+                    <Card
+                      key={bean._id}
+                      linkToBean={`/beans/b/${bean._id}`}
+                      imgsrc={bean.img}
+                      overline={bean.roaster}
+                      header={bean.name}
+                      caption={bean.level}
+                      // ratio={ratio.portrait_34}
+                      margin="0 0 1rem 0"
+                    />
+                  )
+                )}
               </>
             ))}
           </Section>
         </Container>
       ) : (
-        <>
-          <Empty>
-            <Header
-              variant="small"
-              title="No beans yet"
-              subtitle="Add a bean to start recording brew notes."
-            />
-            <Button
-              label="Add Bean"
-              variant="primary"
-              color={primaryColor.blue}
-              icon={<Plus width="20" height="20" color="#fff" stroke="2" />}
-              handleClick={handleNew}
-            />
-          </Empty>
-        </>
+        <Empty
+          title="No Beans Yet"
+          subtitle="Add a new bean and start making your collection."
+          btnLabel="Add Bean"
+          handleButtonClick={handleButtonClick}
+        />
       )}
     </>
   );
@@ -112,13 +118,4 @@ const InitialHeader = styled.header`
   color: ${neutral[300]};
 `;
 
-const Empty = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  height: 300px;
-`;
-
-export default Saved;
+export default BeansList;

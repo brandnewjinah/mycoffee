@@ -18,7 +18,7 @@ import { beanValidate } from "../../../utils/validate";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { getBeans } from "../../../redux/beanRedux";
-import { addBean } from "../../../redux/beanActionsRedux";
+import { addBean, reset } from "../../../redux/beanActionsRedux";
 
 //interface
 import {
@@ -27,6 +27,7 @@ import {
   BeanErrors,
   Duplicate,
 } from "../../../interfaces/interface";
+import Toast from "../../../components/Toast";
 
 const AddBean = () => {
   const history = useHistory();
@@ -55,13 +56,22 @@ const AddBean = () => {
   const { beans } = useSelector((state: RootState) => state.beans);
 
   //get roasters suggestions as user types
+
   const handleRoasterChange = (value: string) => {
     let matches: Beans = [];
     if (value.length > 0) {
-      matches = beans.filter((bean) => {
-        const regex = new RegExp(`${value}`, "gi");
-        return bean.roaster.match(regex);
-      });
+      matches =
+        beans &&
+        beans.filter((bean) => {
+          const regex = new RegExp(`${value}`, "gi");
+          return bean.roaster.match(regex);
+        });
+      //matches remove duplicates
+      matches = matches.filter(
+        (match, index) =>
+          index ===
+          matches.findIndex((other) => match.roaster === other.roaster)
+      );
     }
     setSuggestions(matches);
     setNewBean({ ...newBean, roaster: value });
@@ -104,17 +114,19 @@ const AddBean = () => {
   };
 
   //actions after submitting data
-  const actions = useSelector((state: RootState) => state.beanActions);
+  // const actions = useSelector((state: RootState) => state.beanActions);
 
-  useEffect(() => {
-    if (actions.beanAdded && location.pathname === "/notes/newbean") {
-      history.push(`/notes/b/${actions.beanDetails._id}/new`);
-    } else if (actions.beanAdded && location.pathname === "/beans/newbean") {
-      history.push(`/beans`);
-    } else if (actions.isError) {
-      alert("error");
-    }
-  }, [dispatch, actions.beanAdded]);
+  // useEffect(() => {
+  //   if (actions.beanAdded && location.pathname === "/notes/newbean") {
+  //     history.push(`/notes/b/${actions.beanDetails._id}/new`);
+  //     // dispatch(reset());
+  //   } else if (actions.beanAdded && location.pathname === "/beans/newbean") {
+  //     history.push(`/beans`);
+  //     dispatch(reset());
+  //   } else if (actions.isError) {
+  //     alert("error");
+  //   }
+  // }, [dispatch, actions.beanAdded]);
 
   //submit data
   const handleNext = () => {
@@ -132,18 +144,20 @@ const AddBean = () => {
 
     if (hasDuplicate.length > 0) {
       setDuplicate(hasDuplicate[0]);
-    } else if (!previewSource) {
-      return;
     } else {
       const newBeanData = { ...newBean, img: previewSource };
       dispatch(addBean(newBeanData));
     }
   };
 
+  const clearDuplicate = () => {
+    setDuplicate({});
+  };
+
   return (
     <Container gap="2.5rem">
       <Header title="Add New Bean" />
-      <Section gap="1.625rem">
+      <Section>
         <Input
           name="roaster"
           label="Roaster"
@@ -171,10 +185,11 @@ const AddBean = () => {
         <Input
           name="name"
           label="Name"
+          margin="1.625rem 0"
           error={errors.name}
           onChange={handleInputChange}
         />
-        <article>
+        <Article margin="0 0 1.625rem">
           <h4>Roast Level</h4>
           <div>
             <Radio
@@ -199,7 +214,7 @@ const AddBean = () => {
               onChange={handleSelect}
             />
           </div>
-        </article>
+        </Article>
         <Article gap=".75rem">
           <h4>Bean Image (optional)</h4>
           <input
@@ -216,28 +231,33 @@ const AddBean = () => {
       <Button
         label="Next"
         variant="primary"
-        color={primaryColor.blue}
+        fullWidth
+        color={primaryColor.brickRed}
         handleClick={handleNext}
       />
       {duplicate && Object.keys(duplicate).length !== 0 && (
-        <>
-          <p>{`${duplicate.name} from ${duplicate.roaster} already exists.`}</p>
-          <Link to={`/note/${duplicate.id}`}>Go to Bean</Link>
-        </>
+        <Toast
+          message={`${duplicate.name} from ${duplicate.roaster} already exists.`}
+          btnLabel="Go to Bean"
+          linkUrl={`/beans/b/${duplicate._id}`}
+          handleCloseBtn={clearDuplicate}
+        />
       )}
     </Container>
   );
 };
 
 const Suggestions = styled.ul`
-  background-color: yellow;
+  background-color: ${neutral[10]};
+  border-left: 1px solid ${neutral[200]};
+  border-right: 1px solid ${neutral[200]};
 `;
 
 const Suggestion = styled.li`
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 1.35rem 0;
+  padding: 1rem;
   border-bottom: 1px solid ${neutral[200]};
 
   &:hover {
