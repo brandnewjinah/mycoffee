@@ -27,7 +27,7 @@ export interface Props {
 const NotePage = () => {
   const history = useHistory();
   let { noteId } = useParams<{ beanId: string; noteId: string }>();
-  const { beanDetails } = useSelector((state: RootState) => state.beans);
+  const { beanDetails } = useSelector((state: RootState) => state.beanDetails);
 
   //this note
   const thisNote: Note = beanDetails.notes.find(

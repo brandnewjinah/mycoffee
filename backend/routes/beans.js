@@ -3,6 +3,7 @@ import {
   getBeans,
   getBeanDetails,
   addBean,
+  deleteBean,
   addNote,
 } from "../controller/bean.js";
 
@@ -27,5 +28,10 @@ router.post("/", addBean);
 // @desc Add note
 // @access Private
 router.patch("/:id", addNote);
+
+// @route DELETE /beans/${id}
+// @desc Delete bean
+// @access Private
+router.delete("/:id", deleteBean);
 
 export default router;

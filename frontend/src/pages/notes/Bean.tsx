@@ -11,7 +11,7 @@ import { Button } from "../../components/Buttons";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
-import { getBeanDetails } from "../../redux/beanRedux";
+import { getBeanDetails } from "../../redux/beanDetailsRedux";
 import { deleteBean } from "../../redux/collectionRedux";
 
 //interface
@@ -29,7 +29,7 @@ const BeanPage = () => {
   }, [dispatch, beanId]);
 
   const { isLoading, beanDetails } = useSelector(
-    (state: RootState) => state.beans
+    (state: RootState) => state.beanDetails
   );
 
   const handleNewNote = () => {

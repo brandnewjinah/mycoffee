@@ -5,6 +5,7 @@ import { Bean } from "../interfaces/interface";
 export interface Beans {
   isLoading: boolean;
   beanAdded: boolean;
+  beanDeleted: boolean;
   beanDetails: Bean;
   isError: boolean;
 }
@@ -12,6 +13,7 @@ export interface Beans {
 const initialState: Beans = {
   isLoading: false,
   beanAdded: false,
+  beanDeleted: false,
   beanDetails: {
     _id: "",
     roaster: "",
@@ -32,6 +34,16 @@ export const addBean = createAsyncThunk("beans/addBean", async (bean: Bean) => {
     return error;
   }
 });
+
+export const deleteBean = createAsyncThunk(
+  "beans/deleteBean",
+  async (beanId: string) => {
+    try {
+      const { data } = await api.publicRequest.delete(`/beans/${beanId}`);
+      return data;
+    } catch (error) {}
+  }
+);
 
 export const addNote = createAsyncThunk(
   "beans/addNote",
@@ -76,6 +88,17 @@ const beansSlice = createSlice({
       state.beanDetails = action.payload;
     });
     builder.addCase(addBean.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+    });
+    builder.addCase(deleteBean.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteBean.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.beanDeleted = true;
+    });
+    builder.addCase(deleteBean.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
     });

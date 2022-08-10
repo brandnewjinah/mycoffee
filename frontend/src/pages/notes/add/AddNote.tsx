@@ -17,7 +17,7 @@ import { noteValidate } from "../../../utils/validate";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { getBeanDetails } from "../../../redux/beanRedux";
+import { getBeanDetails } from "../../../redux/beanDetailsRedux";
 import { addNote } from "../../../redux/beanActionsRedux";
 
 //interface
@@ -33,7 +33,7 @@ const AddNote = () => {
     dispatch(getBeanDetails(beanId));
   }, [dispatch, beanId]);
 
-  const { beanDetails } = useSelector((state: RootState) => state.beans);
+  const { beanDetails } = useSelector((state: RootState) => state.beanDetails);
 
   const [page, setPage] = useState(1);
   const [data, setData] = useState<{ [key: string]: string }>({

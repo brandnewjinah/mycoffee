@@ -8,7 +8,7 @@ export const getBeans = async (req, res) => {
     const result = await Bean.find();
     res.status(200).json(result);
   } catch (error) {
-    res.status(404).json(error);
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -18,9 +18,15 @@ export const getBeanDetails = async (req, res) => {
 
   try {
     const bean = await Bean.findById(_id);
+
+    if (!bean) {
+      return res.status(404).json({
+        message: "Bean not found.",
+      });
+    }
     res.status(200).json(bean);
   } catch (error) {
-    res.status(404).json({ message: "Bean doesn't exist" });
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -48,6 +54,17 @@ export const addBean = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+//DELETE BEAN
+export const deleteBean = async (req, res) => {
+  const { id: _id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("Bean doesn't exist with that id");
+
+  await Bean.findByIdAndRemove(_id);
+  res.status(204).json({ message: "Bean deleted" });
 };
 
 //ADD Note

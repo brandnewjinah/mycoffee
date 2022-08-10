@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 
 import roastersReducer from "./roastersRedux";
 import beansReducer from "./beanRedux";
+import beanDetailsReducer from "./beanDetailsRedux";
 import beanActionsReducer from "./beanActionsRedux";
 import collectionReducer from "./collectionRedux";
 import recipeReducer from "./recipeRedux";
@@ -27,6 +28,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   roasters: roastersReducer,
   beans: beansReducer,
+  beanDetails: beanDetailsReducer,
   beanActions: beanActionsReducer,
   collection: collectionReducer,
   recipe: recipeReducer,

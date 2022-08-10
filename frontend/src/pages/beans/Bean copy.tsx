@@ -26,12 +26,20 @@ const BeanPage: FC<Props> = () => {
   const dispatch = useDispatch();
   const { beanId } = useParams<{ beanId: string }>();
 
-  // get this bean data
+  //get this bean data
   useEffect(() => {
     dispatch(getBeanDetails(beanId));
   }, [dispatch, beanId]);
 
   const { beanDetails } = useSelector((state: RootState) => state.beanDetails);
+
+  const handleDeleteBean = () => {
+    if (window.confirm("Delete this bean?")) {
+      dispatch(deleteBean(beanId));
+      //for future api, when success deleting, then move to next page
+      // history.push("/brew");
+    }
+  };
 
   return (
     <Container gap="1.5rem">
@@ -54,7 +62,7 @@ const BeanPage: FC<Props> = () => {
         label="Delete"
         variant="tertiary"
         color={primaryColor.blue}
-        // handleClick={handleDeleteBean}
+        handleClick={handleDeleteBean}
       />
     </Container>
   );
