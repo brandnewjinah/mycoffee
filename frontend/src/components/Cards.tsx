@@ -65,7 +65,7 @@ export const Card: FC<Props> = ({
             label="Add Note"
             variant="primary"
             color={primaryColor.blue}
-            small
+            size="small"
             handleClick={() => {
               history.push(`${linkToNote}`);
             }}

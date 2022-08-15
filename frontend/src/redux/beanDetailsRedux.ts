@@ -25,7 +25,7 @@ const initialState: BeanDetailsStateIF = {
     notes: [],
   },
   isLoading: false,
-  status: 404,
+  status: 0,
   message: "",
 };
 

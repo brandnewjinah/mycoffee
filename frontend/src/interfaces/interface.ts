@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 
 //bean
 export interface Roaster {
@@ -36,6 +36,16 @@ export interface Feature {
 }
 
 //note
+
+export interface NoteIF {
+  _id?: string;
+  date: string;
+  roastDate: string;
+  dose: string;
+  grind: string;
+  time: string;
+  shot: string;
+}
 
 export interface Note {
   id: string;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, ChangeEvent, SyntheticEvent } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React, { useState, useEffect, ChangeEvent } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 //comp
@@ -113,21 +113,6 @@ const AddBean = () => {
     };
   };
 
-  //actions after submitting data
-  // const actions = useSelector((state: RootState) => state.beanActions);
-
-  // useEffect(() => {
-  //   if (actions.beanAdded && location.pathname === "/notes/newbean") {
-  //     history.push(`/notes/b/${actions.beanDetails._id}/new`);
-  //     // dispatch(reset());
-  //   } else if (actions.beanAdded && location.pathname === "/beans/newbean") {
-  //     history.push(`/beans`);
-  //     dispatch(reset());
-  //   } else if (actions.isError) {
-  //     alert("error");
-  //   }
-  // }, [dispatch, actions.beanAdded]);
-
   //submit data
   const handleNext = () => {
     const errors = beanValidate(newBean);
@@ -153,6 +138,26 @@ const AddBean = () => {
   const clearDuplicate = () => {
     setDuplicate({});
   };
+
+  //actions after submitting data
+  const { beanAdded } = useSelector((state: RootState) => state.beanActions);
+
+  useEffect(() => {
+    if (beanAdded.status === 201 && location.pathname === "/beans/newbean") {
+      alert("Bean successfully created!");
+      history.push(`/beans/b/${beanAdded.beanDetails._id}`);
+      dispatch(reset());
+    } else if (
+      beanAdded.status === 201 &&
+      location.pathname === "/notes/newbean"
+    ) {
+      alert("Bean successfully created!");
+      history.push(`/notes/b/${beanAdded.beanDetails._id}/new`);
+      dispatch(reset());
+    } else if (beanAdded.status !== 201 && beanAdded.status !== 0) {
+      alert("error");
+    }
+  }, [dispatch, beanAdded.status]);
 
   return (
     <Container gap="2.5rem">

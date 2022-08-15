@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 
 //import styles and assets
 import styled from "styled-components";
-import { Button } from "../../components/Button";
+import { Button } from "../../components/Buttons";
 import { Blob, Blob2 } from "../../assets/Icons";
 
 //import components

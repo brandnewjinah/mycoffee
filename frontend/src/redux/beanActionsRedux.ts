@@ -1,49 +1,81 @@
-import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
 import { Bean } from "../interfaces/interface";
 
+export interface StatusIF {
+  status: number;
+  message: string;
+}
+
+export interface BeanAddedIF extends StatusIF {
+  beanDetails: Bean;
+}
+
 export interface Beans {
   isLoading: boolean;
-  beanAdded: boolean;
-  beanDeleted: boolean;
-  beanDetails: Bean;
-  isError: boolean;
+  beanAdded: BeanAddedIF;
+  beanDeleted: StatusIF;
 }
 
 const initialState: Beans = {
   isLoading: false,
-  beanAdded: false,
-  beanDeleted: false,
-  beanDetails: {
-    _id: "",
-    roaster: "",
-    name: "",
-    level: "",
-    img: "",
-    notes: [],
+  beanAdded: {
+    status: 0,
+    message: "",
+    beanDetails: {
+      _id: "",
+      roaster: "",
+      name: "",
+      level: "",
+      img: "",
+      notes: [],
+    },
   },
-  isError: false,
+  beanDeleted: {
+    status: 0,
+    message: "",
+  },
 };
 
-export const addBean = createAsyncThunk("beans/addBean", async (bean: Bean) => {
+export const addBean = createAsyncThunk<
+  BeanAddedIF,
+  Bean,
+  {
+    rejectValue: StatusIF;
+  }
+>("beans/addBean", async (bean: Bean, { rejectWithValue }) => {
   try {
-    const { data } = await api.publicRequest.post(`/beans`, bean);
-
-    return data;
-  } catch (error) {
-    return error;
+    const res = await api.publicRequest.post(`/beans`, bean);
+    return {
+      status: res.status,
+      beanDetails: res.data,
+      message: res.statusText,
+    } as BeanAddedIF;
+  } catch (error: any) {
+    return rejectWithValue({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
   }
 });
 
-export const deleteBean = createAsyncThunk(
-  "beans/deleteBean",
-  async (beanId: string) => {
-    try {
-      const { data } = await api.publicRequest.delete(`/beans/${beanId}`);
-      return data;
-    } catch (error) {}
+export const deleteBean = createAsyncThunk<
+  StatusIF,
+  string,
+  {
+    rejectValue: StatusIF;
   }
-);
+>("beans/deleteBean", async (beanId: string, { rejectWithValue }) => {
+  try {
+    const res = await api.publicRequest.delete(`/beans/${beanId}`);
+    return { status: res.status, message: res.statusText } as StatusIF;
+  } catch (error: any) {
+    return rejectWithValue({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+  }
+});
 
 export const addNote = createAsyncThunk(
   "beans/addNote",
@@ -66,15 +98,21 @@ const beansSlice = createSlice({
   reducers: {
     reset: (state) => {
       state.isLoading = false;
-      state.beanAdded = false;
-      state.isError = false;
-      state.beanDetails = {
-        _id: "",
-        roaster: "",
-        name: "",
-        level: "",
-        img: "",
-        notes: [],
+      state.beanAdded = {
+        status: 0,
+        message: "",
+        beanDetails: {
+          _id: "",
+          roaster: "",
+          name: "",
+          level: "",
+          img: "",
+          notes: [],
+        },
+      };
+      state.beanDeleted = {
+        status: 0,
+        message: "",
       };
     },
   },
@@ -84,23 +122,35 @@ const beansSlice = createSlice({
     });
     builder.addCase(addBean.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.beanAdded = true;
-      state.beanDetails = action.payload;
+      state.beanAdded.status = action.payload.status;
+      state.beanAdded.message = action.payload.message;
+      state.beanAdded.beanDetails = action.payload.beanDetails;
     });
     builder.addCase(addBean.rejected, (state, action) => {
       state.isLoading = false;
-      state.isError = true;
+      state.beanAdded.status = action.payload!.status;
+      state.beanAdded.message = action.payload!.message;
+      state.beanAdded.beanDetails = {
+        _id: "",
+        roaster: "",
+        name: "",
+        level: "",
+        img: "",
+        notes: [],
+      };
     });
     builder.addCase(deleteBean.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(deleteBean.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.beanDeleted = true;
+      state.beanDeleted.status = action.payload.status;
+      state.beanDeleted.message = action.payload.message;
     });
     builder.addCase(deleteBean.rejected, (state, action) => {
       state.isLoading = false;
-      state.isError = true;
+      state.beanDeleted.status = action.payload!.status;
+      state.beanDeleted.message = action.payload!.message;
     });
   },
 });

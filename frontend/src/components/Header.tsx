@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 //comp
 import Text from "./Text";
-import { Button } from "./Buttons";
+import { LinkButton } from "./Buttons";
 import { breakpoint, neutral, primaryColor } from "./token";
 
 export interface Props {
@@ -52,12 +52,12 @@ export const Header: FC<Props> = ({
       )}
       {children && children}
       {button && (
-        <Button
+        <LinkButton
           label={btnLabel}
           variant="tertiary"
           color={primaryColor.blue}
           bgColor={primaryColor.lightBlue}
-          small
+          size="small"
           handleClick={handleClick}
         />
       )}

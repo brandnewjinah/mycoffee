@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState, useEffect } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { ResponsiveRadar } from "@nivo/radar";
 
 //comp
@@ -18,10 +18,10 @@ import { noteValidate } from "../../../utils/validate";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { getBeanDetails } from "../../../redux/beanDetailsRedux";
-import { addNote } from "../../../redux/beanActionsRedux";
+import { addNote, reset } from "../../../redux/noteActionsRedux";
 
 //interface
-import { Bean, NoteErrors } from "../../../interfaces/interface";
+import { NoteErrors, NoteIF } from "../../../interfaces/interface";
 
 const AddNote = () => {
   const dispatch = useDispatch();
@@ -36,7 +36,8 @@ const AddNote = () => {
   const { beanDetails } = useSelector((state: RootState) => state.beanDetails);
 
   const [page, setPage] = useState(1);
-  const [data, setData] = useState<{ [key: string]: string }>({
+
+  const [noteData, setNoteData] = useState<NoteIF>({
     date: new Date().valueOf().toString(),
     roastDate: "",
     dose: "",
@@ -66,16 +67,15 @@ const AddNote = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const userInput = { ...data };
-    userInput[name] = value;
-    setData(userInput);
+    const userInput = { ...noteData };
+    userInput[name as keyof NoteIF] = value;
+    setNoteData(userInput);
   };
 
   const handleSliderChange =
     (idx: number) => (e: ChangeEvent<HTMLInputElement>) => {
       let featureCopy = [...features];
       let thisFeature = featureCopy[idx];
-      console.log(e.target.valueAsNumber);
       thisFeature.value = e.target.valueAsNumber;
       featureCopy[idx] = thisFeature;
       setFeatures(featureCopy);
@@ -83,16 +83,33 @@ const AddNote = () => {
 
   const handleNext = (page: number) => {
     if (page === 1) {
-      const errors = noteValidate(data);
+      const errors = noteValidate(noteData);
       setErrors(errors || {});
       if (errors) return;
       setPage(page + 1);
     } else {
-      let newNote = { ...data, features };
+      let newNote = { ...noteData, features };
+
       dispatch(addNote({ newNote, beanId }));
       // history.push(`/note/b/${beanId}/${data.id}`);
     }
   };
+
+  //actions after submitting data
+  const { noteAdded } = useSelector((state: RootState) => state.noteActions);
+
+  useEffect(() => {
+    if (noteAdded.status === 200) {
+      alert("Note successfully added!");
+      history.push(
+        `/note/b/${noteAdded.beanDetails._id}/${
+          noteAdded.beanDetails.notes[noteAdded.beanDetails.notes.length - 1]
+            .date
+        }`
+      );
+      dispatch(reset());
+    }
+  }, [dispatch, noteAdded.status]);
 
   return (
     <Container>

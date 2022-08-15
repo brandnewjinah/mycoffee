@@ -1,9 +1,7 @@
-import React, { FC } from "react";
-import { Link } from "react-router-dom";
+import React, { FC, MouseEventHandler } from "react";
 
 //import styles and assets
 import styled from "styled-components";
-import { Checkmark } from "../assets/Icons";
 import { primaryColor, neutral } from "./token";
 
 interface Props {
@@ -13,7 +11,7 @@ interface Props {
   url?: string;
   saveKeyword?: string;
   liked?: string;
-  handleSelect?: React.MouseEventHandler<HTMLDivElement>;
+  handleSelect?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Chips: FC<Props> = ({
@@ -27,58 +25,31 @@ const Chips: FC<Props> = ({
 }) => {
   return (
     <Container onClick={handleSelect} selected={selected}>
-      {label}
-      {/* <Flex>
-        {liked && (
-          <Check onClick={saveKeyword} saved={saved}>
-            <Checkmark width="16" height="16" color="#fff" stroke="3" />
-          </Check>
-        )}
-        <Content>
-          <Link to={`/movies/keyword/${url}`}>{label}</Link>
-        </Content>
-      </Flex> */}
+      <Content>{label}</Content>
     </Container>
   );
 };
 
-const Container = styled.div<Props>`
+const Container = styled.button<Props>`
   display: inline-block;
   border-radius: 2rem;
-  border: 1px solid ${neutral[100]};
-  background-color: ${(props) => props.selected && "#7dd248"};
-  padding: 0.2rem 0.875rem;
-  margin: 0.35rem 0.5rem 0.35rem 0;
-`;
-
-const Flex = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Check = styled(Flex)`
-  padding: 0.15em;
-  border-radius: 100%;
-
-  opacity: 0.8;
-  transition: opacity 0.1s linear;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 1;
-  }
+  border: transparent;
+  background-color: ${(props) =>
+    props.disabled
+      ? neutral[300]
+      : props.selected
+      ? primaryColor.blue
+      : neutral[100]};
+  color: ${(props) => props.selected && "#fff"};
+  padding: 0.45rem;
+  margin: 0.35em 0.5em 0.35em 0;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
 const Content = styled.div`
   font-size: 0.75rem;
   letter-spacing: 0.015rem;
   margin: 0 0.5em 0 0.75em;
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 export default Chips;

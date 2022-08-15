@@ -6,7 +6,7 @@ import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props
 //import components
 import Header from "../../components/layout/Header";
 import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
+import { Button } from "../../components/Buttons";
 
 //import styles and assets
 import styled from "styled-components";

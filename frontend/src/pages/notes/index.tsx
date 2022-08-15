@@ -9,7 +9,7 @@ import { Container } from "../../components/container/Container";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/container/Section";
 import { Card } from "../../components/Cards";
-import { neutral, primaryColor, ratio } from "../../components/token";
+import { neutral } from "../../components/token";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -48,7 +48,7 @@ const Saved = () => {
   // let sorted = _.orderBy(result, ["initial"], ["asc"]);
   let sorted = _.orderBy(result, [(res) => res.initial.toLowerCase()], ["asc"]);
 
-  const handleButtonClick = () => {
+  const handleNewBean = () => {
     history.push("/notes/newbean");
   };
 
@@ -96,7 +96,7 @@ const Saved = () => {
           title="No Beans Yet"
           subtitle="Add a bean first to start recording your coffee notes."
           btnLabel="Add Bean"
-          handleButtonClick={handleButtonClick}
+          handleButtonClick={handleNewBean}
         />
       )}
     </>

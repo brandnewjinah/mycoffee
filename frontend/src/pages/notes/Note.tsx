@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import React, { useState, FC, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { ResponsiveRadar } from "@nivo/radar";
 import moment from "moment";
@@ -12,12 +12,15 @@ import Text from "../../components/Text";
 import { Container } from "../../components/container/Container";
 
 //redux
+
 import { RootState } from "../../redux/store";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 //interface
 import { Bean, Note } from "../../interfaces/interface";
 import { Button, LinkButton } from "../../components/Buttons";
+import { getBeanDetails } from "../../redux/beanDetailsRedux";
+import { deleteNote, reset } from "../../redux/noteActionsRedux";
 
 export interface Props {
   title: string;
@@ -26,7 +29,14 @@ export interface Props {
 
 const NotePage = () => {
   const history = useHistory();
-  let { noteId } = useParams<{ beanId: string; noteId: string }>();
+  const dispatch = useDispatch();
+  let { noteId, beanId } = useParams<{ beanId: string; noteId: string }>();
+
+  // get this bean data
+  useEffect(() => {
+    dispatch(getBeanDetails(beanId));
+  }, [dispatch, beanId]);
+
   const { beanDetails } = useSelector((state: RootState) => state.beanDetails);
 
   //this note
@@ -37,19 +47,19 @@ const NotePage = () => {
   const features = [
     {
       feature: "crema",
-      value: thisNote.features[0].value,
+      value: thisNote && thisNote.features && thisNote.features[0].value,
     },
     {
       feature: "aroma",
-      value: thisNote.features[1].value,
+      value: thisNote && thisNote.features && thisNote.features[1].value,
     },
     {
       feature: "body",
-      value: thisNote.features[2].value,
+      value: thisNote && thisNote.features && thisNote.features[2].value,
     },
     {
       feature: "flavor",
-      value: thisNote.features[3].value,
+      value: thisNote && thisNote.features && thisNote.features[3].value,
     },
   ];
 
@@ -62,6 +72,21 @@ const NotePage = () => {
   const handlePrev = () => {
     history.push(`/notes`);
   };
+
+  const handleDelete = () => {
+    dispatch(deleteNote({ beanId, noteId }));
+  };
+
+  //after delete
+  const { noteDeleted } = useSelector((state: RootState) => state.noteActions);
+
+  useEffect(() => {
+    if (noteDeleted.status === 200) {
+      alert("Note successfully deleted");
+      history.push(`/notes/b/${beanId}`);
+      dispatch(reset());
+    }
+  }, [dispatch, noteDeleted.status]);
 
   const Items = ({ title, value }: Props) => {
     return (
@@ -123,6 +148,12 @@ const NotePage = () => {
         <Items title="Time" value={`${thisNote.time} seconds`} />
         <Items title="Shot" value={`${thisNote.shot} grams`} />
       </Section>
+      <LinkButton
+        label="Delete this note"
+        variant="tertiary"
+        color={primaryColor.brickRed}
+        handleClick={handleDelete}
+      />
       <LinkButton
         label="Back to Notes"
         variant="tertiary"

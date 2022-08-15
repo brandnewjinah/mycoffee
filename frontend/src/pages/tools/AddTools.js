@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 //import components
 import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
+import { Button } from "../../components/Buttons";
 
 //redux
 import { connect } from "react-redux";

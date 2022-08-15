@@ -5,6 +5,7 @@ import {
   addBean,
   deleteBean,
   addNote,
+  deleteNote,
 } from "../controller/bean.js";
 
 const router = express.Router();
@@ -24,14 +25,19 @@ router.get("/:id", getBeanDetails);
 // @access Private
 router.post("/", addBean);
 
-// @route PATCH /beans/${id}
-// @desc Add note
-// @access Private
-router.patch("/:id", addNote);
-
 // @route DELETE /beans/${id}
 // @desc Delete bean
 // @access Private
 router.delete("/:id", deleteBean);
+
+// @route PATCH /beans/addnote/${id}
+// @desc Add note
+// @access Private
+router.patch("/addnote/:id", addNote);
+
+// @route PATCH /beans/deletenote/${id}
+// @desc Delete note
+// @access Private
+router.patch("/deletenote/:id", deleteNote);
 
 export default router;

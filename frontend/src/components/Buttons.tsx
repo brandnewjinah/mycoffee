@@ -1,6 +1,5 @@
 import React, { FC, MouseEvent } from "react";
 import styled from "styled-components";
-import { BooleanLiteral } from "typescript";
 import { fontSize, neutral } from "./token";
 
 interface Props {
@@ -10,7 +9,7 @@ interface Props {
   color?: string;
   bgColor?: string;
   icon?: any;
-  small?: boolean;
+  size?: "big" | "small" | undefined;
   handleClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -21,17 +20,17 @@ export const Button: FC<Props> = ({
   color,
   bgColor,
   icon,
-  small,
+  size,
   handleClick,
 }) => {
   return (
     <Container
-      onClick={handleClick}
       variant={variant}
       fullWidth={fullWidth}
       bgColor={bgColor}
       color={color}
-      small={small}
+      size={size}
+      onClick={handleClick}
     >
       {icon && icon}
       {label}
@@ -40,29 +39,25 @@ export const Button: FC<Props> = ({
 };
 
 const Container = styled.button<Props>`
+  width: ${(props) => props.fullWidth && "100%"};
+  font-size: ${(props) =>
+    props.size === "small" ? fontSize.sm3 : fontSize.sm1};
+  font-weight: 600;
+  color: ${(props) => (props.variant === "primary" ? "#fff" : props.color)};
+  background-color: ${(props) =>
+    props.variant === "secondary" ? "transparent" : props.color};
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.35rem;
   width: ${(props) => (props.fullWidth ? "100%" : "auto")};
   height: auto;
-  border: none;
+  border-style: solid;
+  border-width: 1px;
+  border-color: ${(props) =>
+    props.variant === "secondary" ? props.color : "transparent"};
   border-radius: ${(props) => (props.variant === "tertiary" ? 0 : "2rem")};
-  background-color: ${(props) =>
-    props.variant === "primary"
-      ? props.color
-      : props.variant === "secondary"
-      ? props.bgColor
-      : "transparent"};
-  font-size: ${(props) => (props.small ? fontSize.sm2 : fontSize.base)};
-  font-weight: 600;
-  color: ${(props) => (props.variant === "primary" ? "#fff" : props.color)};
-  padding: ${(props) =>
-    props.variant === "tertiary"
-      ? "auto"
-      : props.small
-      ? ".65rem 1rem"
-      : "1rem 2rem"};
+  padding: ${(props) => (props.size === "small" ? ".65rem 1rem" : "1rem 2rem")};
   cursor: pointer;
 
   &:hover {
@@ -72,9 +67,9 @@ const Container = styled.button<Props>`
   }
 `;
 
-export const LinkButton: FC<Props> = ({ label, color, small, handleClick }) => {
+export const LinkButton: FC<Props> = ({ label, color, size, handleClick }) => {
   return (
-    <LinkContainer onClick={handleClick} color={color} small={small}>
+    <LinkContainer onClick={handleClick} color={color} size={size}>
       {label}
     </LinkContainer>
   );

@@ -61,23 +61,42 @@ export const deleteBean = async (req, res) => {
   const { id: _id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("Bean doesn't exist with that id");
+    return res.status(404).send({ message: "Not a valid Id" });
 
   await Bean.findByIdAndRemove(_id);
-  res.status(204).json({ message: "Bean deleted" });
+  res.status(200).json({ message: "Bean deleted successfully" });
 };
 
-//ADD Note
+//Add Note
 export const addNote = async (req, res) => {
   const { id: _id } = req.params;
   const note = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("Bean doesn't exist with that id");
+    return res.status(404).send({ message: "Bean doesn't exist with that Id" });
 
   const updatedBean = await Bean.findByIdAndUpdate(
     _id,
     { $push: { notes: note } },
+    {
+      new: true,
+    }
+  );
+
+  res.status(200).json(updatedBean);
+};
+
+//Delete Note
+export const deleteNote = async (req, res) => {
+  const { id: _id } = req.params;
+  const { noteId } = req.query;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send({ message: "Bean doesn't exist with that Id" });
+
+  const updatedBean = await Bean.findByIdAndUpdate(
+    _id,
+    { $pull: { notes: { date: noteId } } },
     {
       new: true,
     }

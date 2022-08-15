@@ -15,6 +15,7 @@ import roastersReducer from "./roastersRedux";
 import beansReducer from "./beanRedux";
 import beanDetailsReducer from "./beanDetailsRedux";
 import beanActionsReducer from "./beanActionsRedux";
+import noteActionsReducer from "./noteActionsRedux";
 import collectionReducer from "./collectionRedux";
 import recipeReducer from "./recipeRedux";
 import recipeActionsReducer from "./recipeActionsRedux";
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   beans: beansReducer,
   beanDetails: beanDetailsReducer,
   beanActions: beanActionsReducer,
+  noteActions: noteActionsReducer,
   collection: collectionReducer,
   recipe: recipeReducer,
   recipeActions: recipeActionsReducer,

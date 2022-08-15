@@ -6,14 +6,14 @@ import Home from "./pages/home";
 
 //notes
 import Notes from "./pages/notes";
-import AddNote from "./pages/notes/add/AddNote";
-import BeanForNotes from "./pages/notes/Bean";
-import Note from "./pages/notes/Note";
+import NewNote from "./pages/notes/new";
+import NoteList from "./pages/notes/Bean";
+import NoteDetails from "./pages/notes/Note";
 
 //beans
 import Beans from "./pages/beans";
-import AddBean from "./pages/beans/add";
-import NewBeanDetails from "./pages/beans/add/AddBeanDetails";
+import NewBean from "./pages/beans/new";
+import NewBeanDetails from "./pages/beans/new/AddBeanDetails";
 import Bean from "./pages/beans/Bean";
 
 //Recipes
@@ -31,12 +31,10 @@ import AddTools from "./pages/tools/AddTools";
 
 import Signup from "./pages/user/Signup";
 import Login from "./pages/user/Login";
-import Setup1 from "./pages/profile/Setup1";
 import Suggested from "./pages/Suggested";
 import Quiz from "./pages/quiz";
-import Add from "./pages/add";
+
 import Products from "./pages/products";
-import Detail from "./pages/detail";
 
 const Routes = () => {
   return (
@@ -45,12 +43,12 @@ const Routes = () => {
         <Layout>
           <Route exact path="/" component={Home} />
           <Route exact path="/notes" component={Notes} />
-          <Route exact path="/notes/newbean" component={AddBean} />
-          <Route exact path="/notes/b/:beanId/new" component={AddNote} />
-          <Route exact path="/note/b/:beanId/:noteId" component={Note} />
-          <Route exact path="/notes/b/:beanId/" component={BeanForNotes} />
+          <Route exact path="/notes/newbean" component={NewBean} />
+          <Route exact path="/notes/b/:beanId/new" component={NewNote} />
+          <Route exact path="/note/b/:beanId/:noteId" component={NoteDetails} />
+          <Route exact path="/notes/b/:beanId/" component={NoteList} />
           <Route exact path="/beans" component={Beans} />
-          <Route exact path="/beans/newbean" component={AddBean} />
+          <Route exact path="/beans/newbean" component={NewBean} />
           <Route
             exact
             path="/beans/b/:beanId/details"
@@ -77,12 +75,12 @@ const Routes = () => {
           <Route exact path="/tools" component={Tools} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/setup1" component={Setup1} />
+
           <Route exact path="/suggested" component={Suggested} />
           <Route exact path="/quiz" component={Quiz} />
-          <Route exact path="/add" component={Add} />
+
           <Route exact path="/products" component={Products} />
-          <Route exact path="/products/:id" component={Detail} />
+
           <Route exact path="/tools/add" component={AddTools} />
           <Route exact path="/recipes/add" component={EditRecipe} />
           <Route exact path="/recipe/:id" component={Recipe} />
