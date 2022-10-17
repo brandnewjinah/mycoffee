@@ -4,16 +4,15 @@ import { nanoid } from "nanoid";
 import styled from "styled-components";
 
 //comp
-import { Container, Flex } from "../../../components/container/Div";
+import { Flex } from "../../../components/container/Div";
 import { Header } from "../../../components/Header";
 import { Section } from "../../../components/container/Section";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
-import Select from "../../../components/Select";
 import Modal from "../../../components/Modal";
-import { primaryColor } from "../../../components/token";
-import { Plus } from "../../../assets/Icons";
 import Chips from "../../../components/Chips";
+import { Plus } from "../../../assets/Icons";
+import { primaryColor } from "../../../components/token";
 
 //interface
 import {
@@ -24,7 +23,6 @@ import {
 
 //data
 import { unitOptions } from "../../../data/data";
-import { categoryList } from "../../../data/category";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -48,7 +46,7 @@ const AddRecipe: FC<Props> = () => {
 
   const [ingredients, setIngredients] = useState<Ingredients[]>([]);
 
-  const [errors, setErrors] = useState<RecipeErrors>({});
+  // const [errors, setErrors] = useState<RecipeErrors>({});
 
   const handleIngredientDelete = (id: string) => {
     let newIngredients = [...ingredients];
@@ -92,7 +90,7 @@ const AddRecipe: FC<Props> = () => {
   };
 
   return (
-    <Container gap="2.5rem">
+    <Flex flexCol gap="2.5rem">
       <Section gap="1rem">
         <Header title={thisRecipe.name} subtitle={thisRecipe.desc} />
         {ingredients &&
@@ -109,7 +107,7 @@ const AddRecipe: FC<Props> = () => {
           <Button
             label="Add Ingredient"
             variant="primary"
-            color={primaryColor.blue}
+            color={primaryColor.brickRed}
             icon={<Plus width="20" height="20" color="#fff" stroke="2" />}
             handleClick={() => setShowModal!(true)}
           />
@@ -145,7 +143,7 @@ const AddRecipe: FC<Props> = () => {
           <Button
             label="Add"
             variant="primary"
-            color={primaryColor.blue}
+            color={primaryColor.brickRed}
             handleClick={handleIngredientSave}
           />
         </Modal>
@@ -153,10 +151,10 @@ const AddRecipe: FC<Props> = () => {
       <Button
         label="Next"
         variant="primary"
-        color={primaryColor.blue}
+        color={primaryColor.brickRed}
         handleClick={handleNext}
       />
-    </Container>
+    </Flex>
   );
 };
 

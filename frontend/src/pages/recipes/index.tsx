@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 //import components
-import { Container } from "../../components/container/Div";
+import { Flex } from "../../components/container/Div";
 import { Header } from "../../components/Header";
 import { Grid } from "../../components/container/Grid";
-import { DiagramCard } from "../../components/Cards2";
+import { DiagramCard } from "../../components/DiagramCard";
 import { ratio } from "../../components/token";
 import Loading from "../../components/Loading";
 import Empty from "../../components/EmptyPage";
@@ -40,7 +40,7 @@ const RecipesPresenter = () => {
   ) : (
     <>
       {recipes && recipes.count > 0 ? (
-        <Container gap="2.5rem">
+        <Flex flexCol gap="2.5rem">
           <Header
             title="Recipes"
             subtitle="Add recipe to start creating collection."
@@ -64,7 +64,7 @@ const RecipesPresenter = () => {
                 />
               ))}
           </Grid>
-        </Container>
+        </Flex>
       ) : (
         <Empty
           title="No Recipes Yet"

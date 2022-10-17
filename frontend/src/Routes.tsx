@@ -26,12 +26,10 @@ import AddRatio from "./pages/recipes/new/AddRatio";
 
 //tools
 import Tools from "./pages/tools";
+import AddTool from "./pages/tools/new";
 
 import Signup from "./pages/user/Signup";
 import Login from "./pages/user/Login";
-import Suggested from "./pages/Suggested";
-
-import Products from "./pages/products";
 
 const Routes = () => {
   return (
@@ -70,11 +68,9 @@ const Routes = () => {
             component={AddRatio}
           />
           <Route exact path="/tools" component={Tools} />
+          <Route exact path="/tools/new" component={AddTool} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/suggested" component={Suggested} />
-
-          <Route exact path="/products" component={Products} />
 
           <Route exact path="/recipe/:id" component={Recipe} />
         </Layout>

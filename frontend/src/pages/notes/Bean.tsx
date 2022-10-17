@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 
 //comp
 import Loading from "../../components/Loading";
-import { Container } from "../../components/container/Div";
+import { Flex } from "../../components/container/Div";
 import { Header } from "../../components/Header";
 import { List } from "../../components/List";
 
@@ -46,7 +46,7 @@ const BeanPage = () => {
   ) : (
     <>
       {beanDetails.notes && beanDetails.notes.length > 0 ? (
-        <Container gap="1.5rem">
+        <Flex flexCol gap="1.5rem">
           <Header
             title={beanDetails.name}
             overlay="Notes for"
@@ -67,7 +67,7 @@ const BeanPage = () => {
                 flavor={note.features[3].value}
               />
             ))}
-        </Container>
+        </Flex>
       ) : (
         <>
           <Header title={beanDetails.name} overlay="Notes for" />

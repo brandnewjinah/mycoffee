@@ -3,13 +3,14 @@ import { useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 //comp
-import { Container, Flex } from "../../components/container/Div";
+import { Flex } from "../../components/container/Div";
 import { Section } from "../../components/container/Section";
 import { Header } from "../../components/Header";
-import { Button, LinkButton } from "../../components/Buttons";
 import { Coffee } from "../../assets/Icons";
 import Chips from "../../components/Chips";
 import { ListItem, Ul } from "../../components/Lists";
+import Text from "../../components/Text";
+import { Button, LinkButton } from "../../components/Buttons";
 import { neutral, primaryColor, ratio } from "../../components/token";
 
 //redux
@@ -17,7 +18,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
 import { getBeanDetails } from "../../redux/beanDetailsRedux";
 import { deleteBean, reset } from "../../redux/beanActionsRedux";
-import Text from "../../components/Text";
 
 export interface Props {
   ratio?: string;
@@ -74,7 +74,7 @@ const BeanPage: FC<Props> = () => {
   };
 
   return (
-    <Container gap="1.5rem">
+    <Flex flexCol gap="1.5rem">
       <Header title={beanDetails.name} overlay={beanDetails.roaster} />
       <Section>
         {beanDetails.img && beanDetails.img ? (
@@ -144,7 +144,7 @@ const BeanPage: FC<Props> = () => {
         color={primaryColor.blue}
         handleClick={handleDelete}
       />
-    </Container>
+    </Flex>
   );
 };
 

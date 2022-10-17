@@ -5,10 +5,11 @@ import styled from "styled-components";
 
 //comp
 import Loading from "../../components/Loading";
-import { Container } from "../../components/container/Div";
+import { Flex } from "../../components/container/Div";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/container/Section";
 import { Card } from "../../components/Cards";
+import Empty from "../../components/EmptyPage";
 import { neutral } from "../../components/token";
 
 //redux
@@ -18,7 +19,6 @@ import { getBeans } from "../../redux/beanRedux";
 
 //interface
 import { Bean, Initial } from "../../interfaces/interface";
-import Empty from "../../components/EmptyPage";
 
 export interface accTypes {
   [key: string]: Initial;
@@ -57,7 +57,7 @@ const Saved = () => {
   ) : (
     <>
       {sorted && sorted.length > 0 ? (
-        <Container gap="2.5rem">
+        <Flex flexCol gap="2.5rem">
           <Header
             title="Coffee Notes"
             subtitle="Bean not listed? Add bean first to start creating notes."
@@ -88,7 +88,7 @@ const Saved = () => {
               </div>
             ))}
           </Section>
-        </Container>
+        </Flex>
       ) : (
         <Empty
           title="No Beans Yet"
@@ -106,14 +106,5 @@ const InitialHeader = styled.header`
   font-weight: 700;
   color: ${neutral[300]};
 `;
-
-// const Empty = styled.section`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   gap: 1rem;
-//   height: 300px;
-// `;
 
 export default Saved;

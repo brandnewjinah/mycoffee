@@ -1,9 +1,9 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { nanoid } from "nanoid";
 
 //comp
-import { Container, Flex } from "../../../components/container/Div";
+import { Flex } from "../../../components/container/Div";
 import { Header } from "../../../components/Header";
 import { Section } from "../../../components/container/Section";
 import Select from "../../../components/Select";
@@ -26,7 +26,7 @@ const AddRatio = () => {
   const dispatch = useDispatch();
 
   //get this recipe
-  const { recipeId } = useParams<{ recipeId: string }>();
+  // const { recipeId } = useParams<{ recipeId: string }>();
   const thisRecipe: Recipe = useSelector(
     (state: RootState) => state.recipeActions.recipe
   );
@@ -84,7 +84,7 @@ const AddRatio = () => {
       dispatch(reset());
       history.push(`/recipe/${recipe._id}`);
     }
-  }, [recipeAdded, dispatch]);
+  }, [recipeAdded, dispatch, history, recipe._id]);
 
   const handleSubmit = () => {
     //if any of the ingredient or value is missing
@@ -99,15 +99,15 @@ const AddRatio = () => {
     dispatch(addRecipe(newRecipe));
   };
 
-  const handleSkip = () => {};
+  // const handleSkip = () => {};
 
   return (
-    <Container gap="2.5rem">
+    <Flex flexCol gap="2.5rem">
       <Header title={thisRecipe.name} subtitle={thisRecipe.desc} />
       <Text variant="caption">only in same unit, parts, ratio...</Text>
       <Section gap="1rem">
         {ratio.map((item, idx) => (
-          <Flex>
+          <Flex key={idx}>
             <div className="flexFour">
               <Select
                 key={idx}
@@ -136,16 +136,16 @@ const AddRatio = () => {
       <Button
         label="Submit"
         variant="primary"
-        color={primaryColor.blue}
+        color={primaryColor.brickRed}
         handleClick={handleSubmit}
       />
       <Button
         label="Skip and Submit"
         variant="primary"
-        color={primaryColor.blue}
+        color={primaryColor.brickRed}
         handleClick={handleSubmit}
       />
-    </Container>
+    </Flex>
   );
 };
 

@@ -19,6 +19,7 @@ import noteActionsReducer from "./noteActionsRedux";
 import recipeReducer from "./recipeRedux";
 import recipeDetailsReducer from "./recipeDetailsRedux";
 import recipeActionsReducer from "./recipeActionsRedux";
+import toolActionsReducer from "./toolActionsRedux";
 
 const persistConfig = {
   key: "root",
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   recipes: recipeReducer,
   recipeDetails: recipeDetailsReducer,
   recipeActions: recipeActionsReducer,
+  toolActions: toolActionsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

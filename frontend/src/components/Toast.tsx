@@ -1,7 +1,6 @@
 import React, { FC, MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Button } from "./Buttons";
 
 //comp
 import Text from "./Text";

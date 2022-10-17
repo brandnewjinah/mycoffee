@@ -5,11 +5,12 @@ import moment from "moment";
 import styled from "styled-components";
 
 //comp
+import { Flex } from "../../components/container/Div";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/container/Section";
-import { neutral, primaryColor } from "../../components/token";
 import Text from "../../components/Text";
-import { Container } from "../../components/container/Div";
+import { LinkButton } from "../../components/Buttons";
+import { neutral, primaryColor } from "../../components/token";
 
 //redux
 
@@ -18,7 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 //interface
 import { Note } from "../../interfaces/interface";
-import { LinkButton } from "../../components/Buttons";
+
 import { getBeanDetails } from "../../redux/beanDetailsRedux";
 import { deleteNote, reset } from "../../redux/noteActionsRedux";
 
@@ -108,7 +109,7 @@ const NotePage = () => {
   `;
 
   return (
-    <Container gap="1rem">
+    <Flex flexCol gap="1rem">
       <Header
         overlay={`Note for ${beanDetails.roaster}`}
         title={beanDetails.name}
@@ -162,7 +163,7 @@ const NotePage = () => {
         color={primaryColor.blue}
         handleClick={handlePrev}
       />
-    </Container>
+    </Flex>
   );
 };
 

@@ -3,12 +3,13 @@ import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 //comp
-import { Container } from "../../../components/container/Div";
+import { Flex } from "../../../components/container/Div";
 import { Header } from "../../../components/Header";
 import { Input } from "../../../components/Input";
 import { Article, Section } from "../../../components/container/Section";
 import { Radio } from "../../../components/RadioButton";
 import { Button } from "../../../components/Buttons";
+import Toast from "../../../components/Toast";
 import { neutral, primaryColor } from "../../../components/token";
 
 //util
@@ -27,7 +28,6 @@ import {
   BeanErrors,
   Duplicate,
 } from "../../../interfaces/interface";
-import Toast from "../../../components/Toast";
 
 const AddBean = () => {
   const history = useHistory();
@@ -167,7 +167,7 @@ const AddBean = () => {
   ]);
 
   return (
-    <Container gap="2.5rem">
+    <Flex flexCol gap="2.5rem">
       <Header title="Add New Bean" />
       <Section>
         <Input
@@ -255,7 +255,7 @@ const AddBean = () => {
           handleCloseBtn={clearDuplicate}
         />
       )}
-    </Container>
+    </Flex>
   );
 };
 

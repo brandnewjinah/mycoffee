@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { nanoid } from "nanoid";
 
 //comp
-import { Container, Flex } from "../../../components/container/Div";
+import { Flex } from "../../../components/container/Div";
 import { Header } from "../../../components/Header";
 import { Section } from "../../../components/container/Section";
 import { Input } from "../../../components/Input";
@@ -63,7 +63,7 @@ const AddDirections = () => {
   };
 
   return (
-    <Container gap="2.5rem">
+    <Flex flexCol gap="2.5rem">
       <Header title={thisRecipe.name} subtitle={thisRecipe.desc} />
       <Section gap="1rem">
         {directions.map((item, idx) => (
@@ -86,10 +86,10 @@ const AddDirections = () => {
       <Button
         label="Next"
         variant="primary"
-        color={primaryColor.blue}
+        color={primaryColor.brickRed}
         handleClick={handleNext}
       />
-    </Container>
+    </Flex>
   );
 };
 

@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { ResponsiveRadar } from "@nivo/radar";
 
 //comp
-import { Container } from "../../../components/container/Div";
+import { Flex } from "../../../components/container/Div";
 import { Section } from "../../../components/container/Section";
 import { Header } from "../../../components/Header";
 import { Input } from "../../../components/Input";
@@ -118,7 +118,7 @@ const AddNote = () => {
   ]);
 
   return (
-    <Container>
+    <Flex flexCol>
       <Header overlay={beanDetails.roaster} title={beanDetails.name} />
       {page === 1 && (
         <>
@@ -222,7 +222,7 @@ const AddNote = () => {
           />
         </>
       )}
-    </Container>
+    </Flex>
   );
 };
 

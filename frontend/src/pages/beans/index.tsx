@@ -6,7 +6,7 @@ import _ from "lodash";
 //comp
 import Loading from "../../components/Loading";
 import Empty from "../../components/EmptyPage";
-import { Container } from "../../components/container/Div";
+import { Flex } from "../../components/container/Div";
 import { Section } from "../../components/container/Section";
 import { Header } from "../../components/Header";
 import { Card } from "../../components/Cards";
@@ -65,7 +65,7 @@ const BeansList = () => {
   ) : (
     <>
       {sorted && sorted.length > 0 ? (
-        <Container gap="2.5rem">
+        <Flex flexCol gap="2.5rem">
           <Header
             title="Beans"
             subtitle="Bean not listed? Add bean first to start creating notes."
@@ -100,7 +100,7 @@ const BeansList = () => {
               </div>
             ))}
           </Section>
-        </Container>
+        </Flex>
       ) : (
         <Empty
           title="No Beans Yet"

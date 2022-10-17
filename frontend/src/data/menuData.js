@@ -7,16 +7,16 @@ export const menuData = [
 export const homeMenu = [
   {
     id: 1,
-    title: "Notes",
-    link: "/notes",
-    desc: "espresso brew notes",
+    title: "Beans",
+    link: "/beans",
+    desc: "collection of beans",
     delay: 100,
   },
   {
     id: 2,
-    title: "Beans",
-    link: "/beans",
-    desc: "collection of beans",
+    title: "Notes",
+    link: "/notes",
+    desc: "espresso brew notes",
     delay: 200,
   },
   {

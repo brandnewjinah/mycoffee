@@ -62,7 +62,7 @@ export const Card: FC<Props> = ({
           <Button
             label="Add Note"
             variant="primary"
-            color={primaryColor.blue}
+            color={primaryColor.brickRed}
             size="small"
             handleClick={() => {
               history.push(`${linkToNote}`);
