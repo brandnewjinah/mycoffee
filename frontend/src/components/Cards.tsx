@@ -7,8 +7,6 @@ import { neutral, primaryColor } from "./token";
 import Text from "./Text";
 import { Coffee } from "../assets/Icons";
 import { Button } from "./Buttons";
-import { link } from "fs";
-import Cup from "./Cup";
 
 //interface
 import { Ratio } from "../interfaces/interface";
@@ -122,10 +120,4 @@ const Preview = styled.div<Props>`
     left: 50%;
     transform: translate(-50%, -50%);
   }
-`;
-
-const CupWrapper = styled.div`
-  padding: 0.5rem;
-  width: 100%;
-  height: 100%;
 `;

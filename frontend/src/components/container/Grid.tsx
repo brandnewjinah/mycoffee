@@ -9,17 +9,15 @@ export interface Props {
 }
 
 export const Grid: FC<Props> = ({ children }) => {
-  return <Section>{children}</Section>;
+  return <GridWrapper>{children}</GridWrapper>;
 };
 
-const Section = styled.ul`
+const GridWrapper = styled.ul`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 2rem;
-  padding: 2rem 0;
 
   @media ${breakpoint.xlg} {
-    padding: 2rem 1rem;
   }
 
   @media ${breakpoint.lg} {

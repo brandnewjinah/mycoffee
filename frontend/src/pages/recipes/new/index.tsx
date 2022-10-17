@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { nanoid } from "nanoid";
 
 //comp
-import { Container } from "../../../components/container/Container";
+import { Container } from "../../../components/container/Div";
 import { Header } from "../../../components/Header";
 import { Section } from "../../../components/container/Section";
 import { Input } from "../../../components/Input";

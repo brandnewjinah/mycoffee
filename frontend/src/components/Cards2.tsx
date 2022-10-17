@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 //comp
 import Text from "./Text";
-import Cup from "./Cup2";
+import Cups from "./Cups";
 import { primaryColor } from "./token";
 
 //interface
@@ -16,7 +16,6 @@ interface Props {
   overline?: string;
   header?: string;
   caption?: string;
-  margin?: string;
   ratio?: string;
   ratioData?: Ratio[];
 }
@@ -25,23 +24,18 @@ export const DiagramCard: FC<Props> = ({
   linkToRecipe,
   overline,
   header,
-  margin,
   ratioData,
 }) => {
   return (
     <Wrapper>
       <Link to={`${linkToRecipe}`}>
-        <CupWrapper>
-          <Cup data={ratioData} />
-        </CupWrapper>
-        <Info>
-          <div>
-            <Text variant="caption" color={primaryColor.orange}>
-              {overline}
-            </Text>
-            <Text>{header}</Text>
-          </div>
-        </Info>
+        <Cups data={ratioData} />
+        <div>
+          <Text variant="caption" color={primaryColor.orange}>
+            {overline}
+          </Text>
+          <Text>{header}</Text>
+        </div>
       </Link>
     </Wrapper>
   );
@@ -49,15 +43,5 @@ export const DiagramCard: FC<Props> = ({
 
 const Wrapper = styled.article<Props>`
   width: 100%;
-`;
-
-const CupWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
-const Info = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background-color: aliceblue;
 `;

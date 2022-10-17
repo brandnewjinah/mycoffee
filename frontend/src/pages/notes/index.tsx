@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 //comp
 import Loading from "../../components/Loading";
-import { Container } from "../../components/container/Container";
+import { Container } from "../../components/container/Div";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/container/Section";
 import { Card } from "../../components/Cards";
@@ -52,8 +52,6 @@ const Saved = () => {
     history.push("/notes/newbean");
   };
 
-  const handleSearch = () => {};
-
   return isLoading ? (
     <Loading />
   ) : (
@@ -71,8 +69,8 @@ const Saved = () => {
             <Input name="search" type="search" onChange={handleSearch} />
           </Section> */}
           <Section>
-            {sorted.map((item) => (
-              <>
+            {sorted.map((item, idx) => (
+              <div key={idx}>
                 <InitialHeader>{item.initial}</InitialHeader>
                 {item.beans.map((bean) => (
                   <Card
@@ -87,7 +85,7 @@ const Saved = () => {
                     margin="0 0 1rem 0"
                   />
                 ))}
-              </>
+              </div>
             ))}
           </Section>
         </Container>

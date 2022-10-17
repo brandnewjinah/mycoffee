@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import styled from "styled-components";
 
 //comp
-import { Container, Flex } from "../../../components/container/Container";
+import { Container, Flex } from "../../../components/container/Div";
 import { Header } from "../../../components/Header";
 import { Section } from "../../../components/container/Section";
 import { Input } from "../../../components/Input";

@@ -1,7 +1,7 @@
 import React from "react";
 
 //comp
-import { Wrapper, Container } from "../../components/container/Container";
+import { Div, Flex } from "../../components/container/Div";
 import MenuItem from "../../components/MenuItem";
 
 //data
@@ -9,8 +9,8 @@ import { homeMenu } from "../../data/menuData";
 
 const Home = () => {
   return (
-    <Wrapper height="calc(100vh - 120px)">
-      <Container>
+    <Div height="calc(100vh - 120px)">
+      <Flex flexCol>
         {homeMenu.map((item) => (
           <MenuItem
             key={item.id}
@@ -21,8 +21,8 @@ const Home = () => {
             delay={item.delay}
           />
         ))}
-      </Container>
-    </Wrapper>
+      </Flex>
+    </Div>
   );
 };
 

@@ -3,7 +3,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
 
 //comp
-import { Container } from "../../../components/container/Container";
+import { Container } from "../../../components/container/Div";
 import { Header } from "../../../components/Header";
 import { Input } from "../../../components/Input";
 import { Section } from "../../../components/container/Section";
@@ -15,7 +15,7 @@ import { beanValidate } from "../../../utils/validate";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { addBean } from "../../../redux/collectionRedux";
+import { addBean } from "../../../redux/beanActionsRedux";
 
 //interface
 import { Bean, BeanErrors, Duplicate } from "../../../interfaces/interface";
@@ -31,7 +31,7 @@ const AddBeanDetails = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { beanId } = useParams<{ beanId: string }>();
-  const beans = useSelector((state: RootState) => state.collection.beans);
+  const beans = useSelector((state: RootState) => state.beans);
   // const thisBean: Bean = beans.find(
   //   (bean: { id: string }) => bean.id === beanId
   // )!;
@@ -83,19 +83,19 @@ const AddBeanDetails = () => {
     setErrors(errors || {});
     if (errors) return;
 
-    const hasDuplicate = beans.filter(
-      (bean) =>
-        bean.roaster === data.roaster &&
-        bean.name === data.name &&
-        bean.level === data.level
-    );
+    // const hasDuplicate = beans.filter(
+    //   (bean) =>
+    //     bean.roaster === data.roaster &&
+    //     bean.name === data.name &&
+    //     bean.level === data.level
+    // );
 
-    if (hasDuplicate.length > 0) {
-      setDuplicate(hasDuplicate[0]);
-    } else {
-      dispatch(addBean(data));
-      // history.push(`/notes/b/${data.id}/new`);
-    }
+    // if (hasDuplicate.length > 0) {
+    //   setDuplicate(hasDuplicate[0]);
+    // } else {
+    //   dispatch(addBean(data));
+    //   // history.push(`/notes/b/${data.id}/new`);
+    // }
   };
 
   return (

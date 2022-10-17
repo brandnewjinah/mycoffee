@@ -38,6 +38,7 @@ export const getBeanDetails = createAsyncThunk<
 >("beanDetails/getBeanDetails", async (beanId: string, { rejectWithValue }) => {
   try {
     const res = await api.publicRequest.get(`/beans/${beanId}`);
+    console.log(res);
     return {
       status: res.status,
       beanDetails: res.data,

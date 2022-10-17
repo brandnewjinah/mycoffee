@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { nanoid } from "nanoid";
 
 //comp
-import { Container, Flex } from "../../../components/container/Container";
+import { Container, Flex } from "../../../components/container/Div";
 import { Header } from "../../../components/Header";
 import { Section } from "../../../components/container/Section";
 import Select from "../../../components/Select";

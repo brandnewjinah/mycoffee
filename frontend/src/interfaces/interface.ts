@@ -31,6 +31,7 @@ export interface BeanErrors {
 export interface Beans extends Array<Bean> {}
 
 export interface Feature {
+  _id?: string;
   feature: string;
   value: number;
 }
@@ -48,9 +49,9 @@ export interface NoteIF {
 }
 
 export interface Note {
-  id: string;
+  _id: string;
   date: string;
-  today: string;
+  today?: string;
   roastDate: string;
   dose: string;
   grind: string;

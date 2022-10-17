@@ -77,21 +77,6 @@ export const deleteBean = createAsyncThunk<
   }
 });
 
-export const addNote = createAsyncThunk(
-  "beans/addNote",
-  async (obj: { newNote: {}; beanId: string }) => {
-    try {
-      const { data } = await api.publicRequest.patch(
-        `/beans/${obj.beanId}`,
-        obj.newNote
-      );
-      // return data;
-    } catch (error) {
-      return error;
-    }
-  }
-);
-
 const beansSlice = createSlice({
   name: "beans",
   initialState,

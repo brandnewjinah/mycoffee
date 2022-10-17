@@ -1,19 +1,43 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
-import Text from "../Text";
-import { neutral, fontSize } from "../token";
-
 interface Props {
   width?: string;
   height?: string;
   minHeight?: string;
+  flexCol?: boolean;
   bgColor?: string;
   gap?: string;
   justifyContent?: "center";
   alignItems?: string;
   children?: any;
 }
+
+export const Div: FC<Props> = ({
+  width,
+  height,
+  minHeight,
+  bgColor,
+  children,
+}) => {
+  return (
+    <DivWrapper
+      width={width}
+      height={height}
+      minHeight={minHeight}
+      bgColor={bgColor}
+    >
+      {children}
+    </DivWrapper>
+  );
+};
+
+const DivWrapper = styled.div<Props>`
+  width: 100%;
+  height: ${(props) => props.height && props.height};
+  min-height: ${(props) => props.minHeight && props.height};
+  background-color: ${(props) => props.bgColor && props.bgColor};
+`;
 
 export const Wrapper: FC<Props> = ({
   width,
@@ -76,18 +100,42 @@ const ContainerWrapper = styled.div<Props>`
   background-color: ${(props) => props.bgColor && props.bgColor};
 `;
 
-export const Flex: FC<Props> = ({ gap, alignItems, children }) => {
+export const Flex: FC<Props> = ({
+  flexCol,
+  width,
+  height,
+  bgColor,
+  justifyContent,
+  alignItems,
+  gap,
+  children,
+}) => {
   return (
-    <FlexWrapper gap={gap} alignItems={alignItems}>
+    <FlexWrapper
+      flexCol={flexCol}
+      width={width}
+      height={height}
+      bgColor={bgColor}
+      justifyContent={justifyContent}
+      alignItems={alignItems}
+      gap={gap}
+    >
       {children}
     </FlexWrapper>
   );
 };
 
 const FlexWrapper = styled.div<Props>`
+  width: ${(props) => (props.width ? props.width : "100%")};
+  height: ${(props) => (props.height ? props.height : "100%")};
   display: flex;
+  flex-direction: ${(props) => props.flexCol && "column"};
+  justify-content: ${(props) =>
+    props.justifyContent ? props.justifyContent : "center"};
   align-items: ${(props) => (props.alignItems ? props.alignItems : "center")};
+
   gap: ${(props) => (props.gap ? props.gap : ".5rem")};
+  background-color: ${(props) => props.bgColor && props.bgColor};
 
   .flexHalf {
     flex: 0.5;

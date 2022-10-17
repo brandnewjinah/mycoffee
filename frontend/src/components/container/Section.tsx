@@ -36,13 +36,13 @@ export const Section: FC<Props> = ({
       {text && <>{text}</>}
       {image && (
         <ImageContainer>
-          <img src={image} />
+          <img src={image} alt="" />
           {imageText && <p>{imageText}</p>}
         </ImageContainer>
       )}
       {image2 && (
         <ImageContainer>
-          <img src={image2} />
+          <img src={image2} alt="" />
           {image2Text && <p>{image2Text}</p>}
         </ImageContainer>
       )}

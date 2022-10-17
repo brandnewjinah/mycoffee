@@ -3,22 +3,22 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import _ from "lodash";
 
-//redux
-import { useDispatch, useSelector } from "react-redux";
-import { getBeans } from "../../redux/beanRedux";
-import { RootState } from "../../redux/store";
-
-//interface
-import { Bean, Initial } from "../../interfaces/interface";
-
 //comp
 import Loading from "../../components/Loading";
 import Empty from "../../components/EmptyPage";
-import { Container } from "../../components/container/Container";
+import { Container } from "../../components/container/Div";
 import { Section } from "../../components/container/Section";
 import { Header } from "../../components/Header";
 import { Card } from "../../components/Cards";
 import { neutral } from "../../components/token";
+
+//interface
+import { Bean, Initial } from "../../interfaces/interface";
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { getBeans } from "../../redux/beanRedux";
+import { RootState } from "../../redux/store";
 
 export interface accTypes {
   [key: string]: Initial;
@@ -28,14 +28,15 @@ const BeansList = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  //get beans list from data
+  //01. beans data API call
   useEffect(() => {
     dispatch(getBeans());
   }, [dispatch]);
 
-  //get beans list data from redux
+  //02. get beans data from redux
   const { isLoading, beans } = useSelector((state: RootState) => state.beans);
 
+  //03. sort beans list alphabetically
   let alphabeticalGroups =
     beans &&
     beans.length > 0 &&
@@ -74,7 +75,7 @@ const BeansList = () => {
           />
           <Section>
             {sorted.map((item) => (
-              <>
+              <div key={item.initial}>
                 <InitialHeader>{item.initial}</InitialHeader>
                 {item.beans.map(
                   (bean: {
@@ -96,7 +97,7 @@ const BeansList = () => {
                     />
                   )
                 )}
-              </>
+              </div>
             ))}
           </Section>
         </Container>

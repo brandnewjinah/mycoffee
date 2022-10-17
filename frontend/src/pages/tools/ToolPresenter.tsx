@@ -9,7 +9,6 @@ import { BtnText } from "../../components/Button";
 
 //redux
 import { connect } from "react-redux";
-import { deleteTool } from "../../reducers/toolReducer";
 
 //import styles and assets
 import styled from "styled-components";

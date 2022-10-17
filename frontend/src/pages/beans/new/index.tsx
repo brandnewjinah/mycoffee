@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 //comp
-import { Container } from "../../../components/container/Container";
+import { Container } from "../../../components/container/Div";
 import { Header } from "../../../components/Header";
 import { Input } from "../../../components/Input";
 import { Article, Section } from "../../../components/container/Section";
@@ -108,6 +108,7 @@ const AddBean = () => {
   const previewFile = (file: File | null) => {
     const reader = new FileReader();
     reader.readAsDataURL(file as Blob);
+
     reader.onload = () => {
       setPreviewSource(reader.result!.toString());
     };
@@ -157,7 +158,13 @@ const AddBean = () => {
     } else if (beanAdded.status !== 201 && beanAdded.status !== 0) {
       alert("error");
     }
-  }, [dispatch, beanAdded.status]);
+  }, [
+    dispatch,
+    beanAdded.status,
+    beanAdded.beanDetails._id,
+    history,
+    location.pathname,
+  ]);
 
   return (
     <Container gap="2.5rem">

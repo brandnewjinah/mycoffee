@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 //comp
-import { Container, Flex } from "../../components/container/Container";
+import { Container, Flex } from "../../components/container/Div";
 import { Section } from "../../components/container/Section";
 import { Header } from "../../components/Header";
 import { Button, LinkButton } from "../../components/Buttons";

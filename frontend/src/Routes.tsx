@@ -18,21 +18,18 @@ import Bean from "./pages/beans/Bean";
 
 //Recipes
 import Recipes from "./pages/recipes";
-import AddRecipe from "./pages/recipes/new/AddRecipe";
+import Recipe from "./pages/recipes/Recipe";
+import NewRecipe from "./pages/recipes/new";
 import AddIngredients from "./pages/recipes/new/AddIngredients";
 import AddDirections from "./pages/recipes/new/AddDirections";
 import AddRatio from "./pages/recipes/new/AddRatio";
-import Recipe from "./pages/recipe";
-import EditRecipe from "./pages/recipe/edit";
 
 //tools
 import Tools from "./pages/tools";
-import AddTools from "./pages/tools/AddTools";
 
 import Signup from "./pages/user/Signup";
 import Login from "./pages/user/Login";
 import Suggested from "./pages/Suggested";
-import Quiz from "./pages/quiz";
 
 import Products from "./pages/products";
 
@@ -56,7 +53,7 @@ const Routes = () => {
           />
           <Route exact path="/beans/b/:beanId" component={Bean} />
           <Route exact path="/recipes" component={Recipes} />
-          <Route exact path="/recipes/new" component={AddRecipe} />
+          <Route exact path="/recipes/new" component={NewRecipe} />
           <Route
             exact
             path="/recipes/new/:recipeId/ingredients"
@@ -75,16 +72,11 @@ const Routes = () => {
           <Route exact path="/tools" component={Tools} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
-
           <Route exact path="/suggested" component={Suggested} />
-          <Route exact path="/quiz" component={Quiz} />
 
           <Route exact path="/products" component={Products} />
 
-          <Route exact path="/tools/add" component={AddTools} />
-          <Route exact path="/recipes/add" component={EditRecipe} />
           <Route exact path="/recipe/:id" component={Recipe} />
-          <Route exact path="/recipe/edit/:id" component={EditRecipe} />
         </Layout>
       </Switch>
     </Router>

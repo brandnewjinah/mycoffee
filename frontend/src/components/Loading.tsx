@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 //comp
-import { Container } from "./container/Container";
+import { Container } from "./container/Div";
 import { Coffee } from "../assets/Icons";
 import Text from "./Text";
 

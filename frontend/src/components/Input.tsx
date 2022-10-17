@@ -136,9 +136,7 @@ export const Input: FC<Props> = ({
           {type === "password" && (
             <button
               type="button"
-              role="switch"
               className="pw"
-              aria-pressed={!isPassword}
               onClick={() => setIsPassword(!isPassword)}
             >
               {isPassword ? (

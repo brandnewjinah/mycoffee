@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 //comp
-import { Container, Flex } from "../../components/container/Container";
+import { Container, Flex } from "../../components/container/Div";
+import { ListItem, Ul } from "../../components/Lists";
 import { Section } from "../../components/container/Section";
 import { Header } from "../../components/Header";
 import Cup from "../../components/Cup";
@@ -11,9 +12,8 @@ import Loading from "../../components/Loading";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipeDetails } from "../../redux/recipeRedux";
+import { getRecipeDetails } from "../../redux/recipeDetailsRedux";
 import { RootState } from "../../redux/store";
-import { ListItem, Ul } from "../../components/Lists";
 
 const Recipe = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const Recipe = () => {
   }, [dispatch, id]);
 
   const { recipeDetails, isLoading } = useSelector(
-    (state: RootState) => state.recipe
+    (state: RootState) => state.recipeDetails
   );
 
   return isLoading ? (
@@ -41,7 +41,9 @@ const Recipe = () => {
         <Ul>
           {recipeDetails &&
             recipeDetails.ingredients.map((ing, idx) => (
-              <ListItem>{`${ing.value}${ing.unit} ${ing.ingredient}`}</ListItem>
+              <ListItem
+                key={idx}
+              >{`${ing.value}${ing.unit} ${ing.ingredient}`}</ListItem>
             ))}
         </Ul>
       </Section>
@@ -49,7 +51,7 @@ const Recipe = () => {
         <Header variant="small" title="directions" underline />
         {recipeDetails &&
           recipeDetails.directions.map((dir, idx) => (
-            <Flex alignItems="flex-start">
+            <Flex alignItems="flex-start" key={idx}>
               <Text variant="body_xsmall" className="flexOne">
                 {`${(idx + 1).toString()}.`}
               </Text>

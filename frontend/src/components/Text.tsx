@@ -19,7 +19,7 @@ interface Props {
   spacing?: string;
   color?: string;
   className?: string;
-  children?: string;
+  children?: string | number | undefined;
 }
 
 const Text: FC<Props> = ({
@@ -93,7 +93,7 @@ const Text: FC<Props> = ({
           {children}
         </XSmallParagraph>
       ) : variant === "body_demi" ? (
-        <Body_Demi
+        <BodyDemi
           className={className}
           bold={bold}
           color={color}
@@ -102,7 +102,7 @@ const Text: FC<Props> = ({
           padding={padding}
         >
           {children}
-        </Body_Demi>
+        </BodyDemi>
       ) : variant === "caption" ? (
         <Caption
           className={className}
@@ -182,7 +182,7 @@ const XSmallParagraph = styled(BodyBasics)<Props>`
   line-height: ${lineHeight.base};
 `;
 
-const Body_Demi = styled(BodyBasics)<Props>`
+const BodyDemi = styled(BodyBasics)<Props>`
   font-size: ${fontSize.sm3};
   line-height: ${lineHeight.base};
 `;

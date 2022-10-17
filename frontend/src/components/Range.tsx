@@ -1,6 +1,6 @@
 import React, { FC, ChangeEvent, useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import { fontSize, neutral, primaryColor } from "./token";
+import { fontSize, neutral } from "./token";
 
 interface Props {
   initialSize?: number;

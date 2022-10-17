@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { ResponsiveRadar } from "@nivo/radar";
 
 //comp
-import { Container } from "../../../components/container/Container";
+import { Container } from "../../../components/container/Div";
 import { Section } from "../../../components/container/Section";
 import { Header } from "../../../components/Header";
 import { Input } from "../../../components/Input";
@@ -109,7 +109,13 @@ const AddNote = () => {
       );
       dispatch(reset());
     }
-  }, [dispatch, noteAdded.status]);
+  }, [
+    dispatch,
+    noteAdded.status,
+    history,
+    noteAdded.beanDetails._id,
+    noteAdded.beanDetails.notes,
+  ]);
 
   return (
     <Container>

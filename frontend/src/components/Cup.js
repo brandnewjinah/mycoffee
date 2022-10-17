@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import _ from "lodash";
 
 //import styles and assets
 import styled from "styled-components";
-import { Container } from "./container/Container";
+import { Container } from "./container/Div";
 
 //data
 import { categoryList } from "../data/category";

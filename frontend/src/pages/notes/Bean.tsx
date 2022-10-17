@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 
 //comp
 import Loading from "../../components/Loading";
-import { Container } from "../../components/container/Container";
+import { Container } from "../../components/container/Div";
 import { Header } from "../../components/Header";
 import { List } from "../../components/List";
 
@@ -14,7 +14,6 @@ import { getBeanDetails } from "../../redux/beanDetailsRedux";
 
 //interface
 import Empty from "../../components/EmptyPage";
-import { Section } from "../../components/Section";
 
 const BeanPage = () => {
   const history = useHistory();

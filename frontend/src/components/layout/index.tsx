@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 //comp
-import { Wrapper } from "../container/Container";
+import { Wrapper } from "../container/Div";
 import Header from "./Header";
 import { size, primaryColor } from "../token";
 

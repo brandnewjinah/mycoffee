@@ -6,6 +6,7 @@ import moment from "moment";
 //comp
 import Text from "./Text";
 import { fontSize, neutral, primaryColor } from "./token";
+import HorizontalBar from "./HorizontalBar";
 
 interface Props {
   link?: string;
@@ -24,26 +25,58 @@ export const List: FC<Props> = ({ link, date, crema, aroma, body, flavor }) => {
           {moment(parseInt(date!)).format("MM-DD-YYYY")}
         </Text>
         <Content>
-          <Line>
-            <Item>
-              <p>Crema</p>
-              <p className="value">{crema}</p>
-            </Item>
-            <Item>
-              <p>Aroma</p>
-              <p className="value">{aroma}</p>
-            </Item>
-          </Line>
-          <Line>
-            <Item>
-              <p>Body</p>
-              <p className="value">{body}</p>
-            </Item>
-            <Item>
-              <p>Flavor</p>
-              <p className="value">{flavor}</p>
-            </Item>
-          </Line>
+          <Item>
+            <Text
+              variant="caption"
+              className="flexTwo"
+              spacing=".1rem"
+              uppercase
+              bold
+            >
+              Crema
+            </Text>
+            <HorizontalBar value={crema!} className="flexFive" />
+            <p className="value flexOne">{crema}</p>
+          </Item>
+          <Item>
+            <Text
+              variant="caption"
+              className="flexTwo"
+              spacing=".1rem"
+              uppercase
+              bold
+            >
+              Aroma
+            </Text>
+            <HorizontalBar value={aroma!} className="flexFive" />
+            <p className="value flexOne">{aroma}</p>
+          </Item>
+          <Item>
+            <Text
+              variant="caption"
+              className="flexTwo"
+              spacing=".1rem"
+              uppercase
+              bold
+            >
+              Body
+            </Text>
+            <HorizontalBar value={body!} className="flexFive" />
+            <p className="value flexOne">{body}</p>
+          </Item>
+          <Item>
+            <Text
+              variant="caption"
+              className="flexTwo"
+              spacing=".1rem"
+              uppercase
+              bold
+            >
+              Flavor
+            </Text>
+            <HorizontalBar value={flavor!} className="flexFive" />
+            <p className="value flexOne">{flavor}</p>
+          </Item>
         </Content>
       </Link>
     </Wrapper>
@@ -60,20 +93,30 @@ const Content = styled.div`
   padding: 0.5rem 0;
 `;
 
-const Line = styled.div`
-  display: flex;
-  justify-content: space-between;
-  font-size: ${fontSize.sm1};
-`;
-
 const Item = styled.div`
   flex: 0 0 40%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-weight: 600;
   color: ${neutral[500]};
 
+  .flexOne {
+    flex: 1;
+  }
+
+  .flexTwo {
+    flex: 2;
+  }
+
+  .flexFive {
+    flex: 5;
+  }
+
   .value {
+    font-size: ${fontSize.sm2};
+    font-weight: bold;
+    text-align: end;
     color: ${primaryColor.orange};
   }
 `;
