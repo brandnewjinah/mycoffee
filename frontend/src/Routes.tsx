@@ -13,7 +13,7 @@ import NoteDetails from "./pages/notes/Note";
 //beans
 import Beans from "./pages/beans";
 import NewBean from "./pages/beans/new";
-import NewBeanDetails from "./pages/beans/new/AddBeanDetails";
+import EditBeanDetails from "./pages/beans/EditBeanDetails";
 import Bean from "./pages/beans/Bean";
 
 //Recipes
@@ -27,6 +27,7 @@ import AddRatio from "./pages/recipes/new/AddRatio";
 //tools
 import Tools from "./pages/tools";
 import AddTool from "./pages/tools/new";
+import ToolDetails from "./pages/tools/Tool";
 
 import Signup from "./pages/user/Signup";
 import Login from "./pages/user/Login";
@@ -47,7 +48,7 @@ const Routes = () => {
           <Route
             exact
             path="/beans/b/:beanId/details"
-            component={NewBeanDetails}
+            component={EditBeanDetails}
           />
           <Route exact path="/beans/b/:beanId" component={Bean} />
           <Route exact path="/recipes" component={Recipes} />
@@ -69,6 +70,7 @@ const Routes = () => {
           />
           <Route exact path="/tools" component={Tools} />
           <Route exact path="/tools/new" component={AddTool} />
+          <Route exact path="/tool/:toolId" component={ToolDetails} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
 

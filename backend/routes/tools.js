@@ -1,5 +1,5 @@
 import express from "express";
-import { addTool } from "../controller/tool.js";
+import { addTool, getTools, getToolDetails } from "../controller/tool.js";
 
 const router = express.Router();
 
@@ -7,5 +7,15 @@ const router = express.Router();
 // @desc Add Tool
 // @access Public
 router.post("/", addTool);
+
+// @route GET /tools
+// @desc Get Tool
+// @access Public
+router.get("/", getTools);
+
+// @route GET /tools/${id}
+// @desc Get tool details
+// @access Public
+router.get("/:id", getToolDetails);
 
 export default router;

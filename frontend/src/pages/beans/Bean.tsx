@@ -139,6 +139,12 @@ const BeanPage: FC<Props> = () => {
         </Flex>
       </Section>
       <LinkButton
+        label="Edit This Bean"
+        variant="tertiary"
+        color={primaryColor.brickRed}
+        handleClick={() => history.push(`/beans/b/${beanId}/details`)}
+      />
+      <LinkButton
         label="Delete This Bean"
         variant="tertiary"
         color={primaryColor.blue}

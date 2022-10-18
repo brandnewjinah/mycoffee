@@ -66,7 +66,7 @@ const AddTool = () => {
   useEffect(() => {
     if (toolAdded.status === 201) {
       alert("Tool successfully added!");
-      history.push(`/tools/b/${toolAdded.toolDetails._id}`);
+      history.push(`/tool/${toolAdded.toolDetails._id}`);
       dispatch(reset());
     } else if (toolAdded.status !== 201 && toolAdded.status !== 0) {
       alert("error");
