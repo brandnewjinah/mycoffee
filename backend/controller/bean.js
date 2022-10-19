@@ -56,6 +56,27 @@ export const addBean = async (req, res) => {
   }
 };
 
+//UPDATE BEAN
+export const updateBean = async (req, res) => {
+  const { id: _id } = req.params;
+  const bean = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("Bean doesn't exist with that id");
+
+  const updatedBean = await Bean.findByIdAndUpdate(_id, {
+    $set: {
+      process: bean.process,
+      description: bean.description,
+      region: bean.region,
+      variety: bean.variety,
+      flavor: bean.flavor,
+    },
+  });
+
+  res.status(200).json(updatedBean);
+};
+
 //DELETE BEAN
 export const deleteBean = async (req, res) => {
   const { id: _id } = req.params;

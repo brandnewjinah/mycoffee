@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
-import { Bean } from "../interfaces/interface";
+import { Bean, BeanUpdated } from "../interfaces/interface";
 
 export interface StatusIF {
   status: number;
@@ -11,9 +11,14 @@ export interface BeanAddedIF extends StatusIF {
   beanDetails: Bean;
 }
 
+export interface BeanUpdatedIF extends StatusIF {
+  beanDetails: BeanUpdated;
+}
+
 export interface Beans {
   isLoading: boolean;
   beanAdded: BeanAddedIF;
+  beanUpdated: BeanUpdatedIF;
   beanDeleted: StatusIF;
 }
 
@@ -29,6 +34,18 @@ const initialState: Beans = {
       level: "",
       img: "",
       notes: [],
+    },
+  },
+  beanUpdated: {
+    status: 0,
+    message: "",
+    beanDetails: {
+      _id: "",
+      process: "",
+      description: "",
+      region: [],
+      variety: [],
+      flavor: [],
     },
   },
   beanDeleted: {
@@ -51,6 +68,28 @@ export const addBean = createAsyncThunk<
       beanDetails: res.data,
       message: res.statusText,
     } as BeanAddedIF;
+  } catch (error: any) {
+    return rejectWithValue({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+  }
+});
+
+export const updateBean = createAsyncThunk<
+  BeanUpdatedIF,
+  BeanUpdated,
+  {
+    rejectValue: StatusIF;
+  }
+>("beans/updateBean", async (bean: BeanUpdated, { rejectWithValue }) => {
+  try {
+    const res = await api.publicRequest.patch(`/beans/${bean._id}`, bean);
+    return {
+      status: res.status,
+      beanDetails: res.data,
+      message: res.statusText,
+    } as BeanUpdatedIF;
   } catch (error: any) {
     return rejectWithValue({
       status: error.response.status,
@@ -95,6 +134,18 @@ const beansSlice = createSlice({
           notes: [],
         },
       };
+      state.beanUpdated = {
+        status: 0,
+        message: "",
+        beanDetails: {
+          _id: "",
+          process: "",
+          description: "",
+          region: [],
+          variety: [],
+          flavor: [],
+        },
+      };
       state.beanDeleted = {
         status: 0,
         message: "",
@@ -122,6 +173,28 @@ const beansSlice = createSlice({
         level: "",
         img: "",
         notes: [],
+      };
+    });
+    builder.addCase(updateBean.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(updateBean.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.beanUpdated.status = action.payload.status;
+      state.beanUpdated.message = action.payload.message;
+      state.beanUpdated.beanDetails = action.payload.beanDetails;
+    });
+    builder.addCase(updateBean.rejected, (state, action) => {
+      state.isLoading = false;
+      state.beanUpdated.status = action.payload!.status;
+      state.beanUpdated.message = action.payload!.message;
+      state.beanUpdated.beanDetails = {
+        _id: "",
+        process: "",
+        description: "",
+        region: [],
+        variety: [],
+        flavor: [],
       };
     });
     builder.addCase(deleteBean.pending, (state) => {

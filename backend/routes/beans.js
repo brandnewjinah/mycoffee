@@ -3,6 +3,7 @@ import {
   getBeans,
   getBeanDetails,
   addBean,
+  updateBean,
   deleteBean,
   addNote,
   deleteNote,
@@ -24,6 +25,11 @@ router.get("/:id", getBeanDetails);
 // @desc Add bean
 // @access Private
 router.post("/", addBean);
+
+// @route PATCH /beans/${id}
+// @desc Update bean
+// @access Admin only
+router.patch("/:id", updateBean);
 
 // @route DELETE /beans/${id}
 // @desc Delete bean

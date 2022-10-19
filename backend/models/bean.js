@@ -17,6 +17,28 @@ const beanSchema = mongoose.Schema(
     img: {
       type: String,
     },
+    process: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    region: {
+      type: [String],
+    },
+    variety: {
+      type: [String],
+    },
+    flavor: [
+      {
+        id: {
+          type: Number,
+        },
+        value: {
+          type: String,
+        },
+      },
+    ],
     notes: [
       {
         date: {

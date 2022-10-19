@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import { BaseObjectIF } from "./baseInterface";
 
 //bean
 export interface Roaster {
@@ -14,6 +15,22 @@ export interface Bean {
   level: string;
   img?: string;
   notes: Note[];
+}
+
+export interface BeanDetails {
+  process?: string;
+  description?: string;
+  region?: string;
+  variety?: string;
+}
+
+export interface BeanUpdated {
+  _id?: string;
+  process?: string;
+  description?: string;
+  region?: string[];
+  variety?: string[];
+  flavor?: BaseObjectIF[];
 }
 
 export interface Duplicate {
