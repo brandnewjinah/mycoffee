@@ -92,7 +92,7 @@ const BeanPage: FC<Props> = () => {
           {extraDetails &&
             extraDetails.flavor &&
             extraDetails.flavor.map((item) => (
-              <Chips key={item.id} label={item.flavor} />
+              <Chips key={item.id} label={item.flavor} display />
             ))}
         </div>
       </Section>

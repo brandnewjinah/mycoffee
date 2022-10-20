@@ -1,55 +1,67 @@
 import React, { FC, MouseEventHandler } from "react";
-
-//import styles and assets
 import styled from "styled-components";
-import { primaryColor, neutral } from "./token";
+
+//comp
+import { Close } from "../assets/Icons";
+import { primaryColor, neutral, fontSize } from "./token";
 
 interface Props {
   label?: string;
   selected?: boolean;
-  saved?: string;
-  url?: string;
-  saveKeyword?: string;
-  liked?: string;
+  enableDelete?: boolean;
+  display?: boolean;
   handleSelect?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Chips: FC<Props> = ({
+  enableDelete,
   label,
   selected,
+  display,
   handleSelect,
-  saved,
-  url,
-  saveKeyword,
-  liked,
 }) => {
   return (
-    <Container onClick={handleSelect} selected={selected}>
-      <Content>{label}</Content>
+    <Container onClick={handleSelect} selected={selected} display={display}>
+      <div className="flex">
+        <p>{label}</p>
+        {enableDelete && (
+          <Close width="15" height="15" color={neutral[300]} stroke="3" />
+        )}
+      </div>
     </Container>
   );
 };
 
 const Container = styled.button<Props>`
   display: inline-block;
-  border-radius: 2rem;
-  border: transparent;
   background-color: ${(props) =>
     props.disabled
       ? neutral[300]
       : props.selected
-      ? primaryColor.blue
+      ? primaryColor.brickRed
+      : props.display
+      ? primaryColor.almond
       : neutral[100]};
-  color: ${(props) => props.selected && "#fff"};
-  padding: 0.45rem;
-  margin: 0.35em 0.5em 0.35em 0;
-  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
-`;
-
-const Content = styled.div`
-  font-size: 0.75rem;
+  border: transparent;
+  border-radius: 2rem;
+  color: ${(props) => (props.selected ? "#fff" : neutral[600])};
+  font-size: ${fontSize.sm2};
+  font-weight: 600;
   letter-spacing: 0.015rem;
-  margin: 0 0.5em 0 0.75em;
+  padding: 0.65rem 1.25rem;
+  margin: 0.35rem 0.5rem 0.35rem 0;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+
+  .flex {
+    display: flex;
+    align-items: start;
+    gap: 0.35rem;
+  }
+
+  svg {
+    display: block;
+    margin: auto;
+  }
 `;
 
 export default Chips;

@@ -42,7 +42,7 @@ const Container = styled.button<Props>`
   width: ${(props) => props.fullWidth && "100%"};
   font-size: ${(props) =>
     props.size === "small" ? fontSize.sm3 : fontSize.sm1};
-  font-weight: 600;
+  font-weight: 700;
   color: ${(props) => (props.variant === "primary" ? "#fff" : props.color)};
   background-color: ${(props) =>
     props.variant === "secondary" ? "transparent" : props.color};
@@ -55,7 +55,7 @@ const Container = styled.button<Props>`
   border-style: solid;
   border-width: 1px;
   border-color: ${(props) =>
-    props.variant === "secondary" ? props.color : "transparent"};
+    props.variant === "secondary" ? neutral[200] : "transparent"};
   border-radius: ${(props) => (props.variant === "tertiary" ? 0 : "2rem")};
   padding: ${(props) => (props.size === "small" ? ".65rem 1rem" : "1rem 2rem")};
   cursor: pointer;

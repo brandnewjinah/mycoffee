@@ -6,7 +6,7 @@ export const neutral = {
   400: "#606060",
   500: "#505165",
   600: "#404040",
-  700: "#222222",
+  700: "#333333",
 };
 
 export const blue = {
@@ -20,20 +20,12 @@ export const blue = {
   800: "#16184B",
 };
 
-export const peach = {
-  100: "#F6BF9C",
-  200: "#F5B892",
-  300: "#F4B187",
-  400: "#ffe0d8",
-  500: "#E69E72",
-  600: "#DA9367",
-  700: "#CD875C",
-  800: "#C17B50",
-};
-
 export const primaryColor = {
-  ivory: "#fffff5",
-  brickRed: "#c14758",
+  // ivory: "#fffff5",
+  ivory: "#FEFCF4",
+  // brickRed: "#c14758",
+  brickRed: "#D1654E",
+  almond: "#F8ECD8",
   blue: "#3883e5",
   lightBlue: "#e6ecf5",
   lightGold: "#d3a13b",

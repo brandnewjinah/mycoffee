@@ -105,7 +105,14 @@ const EditBeanDetails = () => {
             <p>flavor</p>
             {flavor &&
               flavor.length > 0 &&
-              flavor.map((item) => <p key={item.id}>{item.value}</p>)}
+              flavor.map((item) => (
+                <Chips
+                  key={item.id}
+                  label={item.value}
+                  enableDelete
+                  handleSelect={() => handleFlavorSelect(item)}
+                />
+              ))}
             <button onClick={() => setShowModal!(true)}>Add Flavor</button>
             <Modal
               header="Add Flavor"
