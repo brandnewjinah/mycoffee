@@ -244,7 +244,6 @@ const AddBean = () => {
         label="Next"
         variant="primary"
         fullWidth
-        color={primaryColor.brickRed}
         handleClick={handleNext}
       />
       {duplicate && Object.keys(duplicate).length !== 0 && (

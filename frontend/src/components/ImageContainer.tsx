@@ -29,6 +29,7 @@ const ImageContainer: FC<Props> = ({ imgUrl }) => {
 const Container = styled.div<Props>`
   position: relative;
   max-width: 100%;
+  background-color: #fff;
   border: 1px solid ${neutral[100]};
   margin-bottom: 0.75rem;
 

@@ -45,7 +45,8 @@ const RecipesPresenter = () => {
             title="Recipes"
             subtitle="Add recipe to start creating collection."
             button
-            btnLabel="New Recipe"
+            addIcon
+            btnLabel="Add Recipe"
             handleClick={handleNew}
           />
           <Grid>

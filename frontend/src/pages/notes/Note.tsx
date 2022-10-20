@@ -154,13 +154,11 @@ const NotePage = () => {
       <LinkButton
         label="Delete this note"
         variant="tertiary"
-        color={primaryColor.brickRed}
         handleClick={handleDelete}
       />
       <LinkButton
         label="Back to Notes"
         variant="tertiary"
-        color={primaryColor.blue}
         handleClick={handlePrev}
       />
     </Flex>

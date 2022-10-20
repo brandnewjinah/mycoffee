@@ -108,12 +108,7 @@ const AddTool = () => {
           )}
         </Article>
       </Section>
-      <Button
-        label="Next"
-        variant="primary"
-        color={primaryColor.brickRed}
-        handleClick={handleNext}
-      />
+      <Button label="Next" variant="primary" handleClick={handleNext} />
     </Flex>
   );
 };

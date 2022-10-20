@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 //comp
 import Text from "./Text";
-import { LinkButton } from "./Buttons";
+import { Button } from "./Buttons";
 import { breakpoint, neutral, primaryColor } from "./token";
 
 export interface Props {
@@ -12,6 +12,7 @@ export interface Props {
   subtitle?: string;
   overlay?: string;
   button?: boolean;
+  addIcon?: boolean;
   btnLabel?: string;
   underline?: boolean;
   handleClick?: () => void;
@@ -24,6 +25,7 @@ export const Header: FC<Props> = ({
   variant,
   subtitle,
   button,
+  addIcon,
   btnLabel,
   underline,
   handleClick,
@@ -41,23 +43,22 @@ export const Header: FC<Props> = ({
           {title}
         </Text>
       ) : (
-        <Text variant="h1" padding="0 0 .75rem">
+        <Text variant="h1" padding="0 0 .65rem">
           {title}
         </Text>
       )}
       {subtitle && (
-        <Text variant="body_small" color={neutral[400]} padding="0 0 .75rem">
+        <Text variant="body_small" color={neutral[400]} padding="0 0 .65rem">
           {subtitle}
         </Text>
       )}
       {children && children}
       {button && (
-        <LinkButton
+        <Button
           label={btnLabel}
-          variant="tertiary"
-          color={primaryColor.blue}
-          bgColor={primaryColor.lightBlue}
+          variant="secondary"
           size="small"
+          addIcon={addIcon}
           handleClick={handleClick}
         />
       )}
@@ -76,6 +77,6 @@ const Wrapper = styled.header<Props>`
 
   @media ${breakpoint.m} {
     width: 100%;
-    max-width: 250px;
+    padding: 0 2rem;
   }
 `;

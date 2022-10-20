@@ -136,7 +136,6 @@ const EditBeanDetails = () => {
           label="Next"
           variant="primary"
           fullWidth
-          color={primaryColor.brickRed}
           handleClick={handleNext}
         />
       </Flex>

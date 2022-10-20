@@ -70,7 +70,8 @@ const BeansList = () => {
             title="Beans"
             subtitle="Bean not listed? Add bean first to start creating notes."
             button
-            btnLabel="New Bean"
+            addIcon
+            btnLabel="Add Bean"
             handleClick={handleNew}
           />
           <Section>

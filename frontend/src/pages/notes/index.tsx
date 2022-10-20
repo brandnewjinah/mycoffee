@@ -62,6 +62,7 @@ const Saved = () => {
             title="Coffee Notes"
             subtitle="Bean not listed? Add bean first to start creating notes."
             button
+            addIcon
             btnLabel="Add Bean"
             handleClick={() => history.push(`notes/newbean`)}
           />

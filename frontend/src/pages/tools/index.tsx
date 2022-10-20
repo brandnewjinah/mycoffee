@@ -41,7 +41,8 @@ const Tools = () => {
           title="Tools"
           subtitle="Access manuals and tutorials."
           button
-          btnLabel="New Tool"
+          addIcon
+          btnLabel="Add Tool"
           handleClick={handleNew}
         />
         <Section>

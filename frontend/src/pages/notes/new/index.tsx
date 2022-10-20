@@ -163,7 +163,6 @@ const AddNote = () => {
           <Button
             label="Next"
             variant="primary"
-            color={primaryColor.brickRed}
             handleClick={() => handleNext(1)}
           />
         </>
@@ -217,7 +216,6 @@ const AddNote = () => {
           <Button
             label="Next"
             variant="primary"
-            color={primaryColor.brickRed}
             handleClick={() => handleNext(2)}
           />
         </>

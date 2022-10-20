@@ -11,8 +11,6 @@ import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
 import Modal from "../../../components/Modal";
 import Chips from "../../../components/Chips";
-import { Plus } from "../../../assets/Icons";
-import { primaryColor } from "../../../components/token";
 
 //interface
 import {
@@ -107,8 +105,7 @@ const AddRecipe: FC<Props> = () => {
           <Button
             label="Add Ingredient"
             variant="primary"
-            color={primaryColor.brickRed}
-            icon={<Plus width="20" height="20" color="#fff" stroke="2" />}
+            addIcon
             handleClick={() => setShowModal!(true)}
           />
         </Add>
@@ -143,17 +140,11 @@ const AddRecipe: FC<Props> = () => {
           <Button
             label="Add"
             variant="primary"
-            color={primaryColor.brickRed}
             handleClick={handleIngredientSave}
           />
         </Modal>
       </Section>
-      <Button
-        label="Next"
-        variant="primary"
-        color={primaryColor.brickRed}
-        handleClick={handleNext}
-      />
+      <Button label="Next" variant="primary" handleClick={handleNext} />
     </Flex>
   );
 };

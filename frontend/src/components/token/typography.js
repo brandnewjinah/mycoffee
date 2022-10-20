@@ -14,6 +14,7 @@ export const fontSize = {
 };
 
 export const lineHeight = {
+  sm4: "1.25rem",
   sm3: "1.25rem",
   sm2: "1.4rem",
   sm1: "1.625rem",

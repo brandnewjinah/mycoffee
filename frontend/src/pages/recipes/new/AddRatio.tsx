@@ -133,16 +133,10 @@ const AddRatio = () => {
         ))}
         <LinkButton label="add" handleClick={handleAddRatio} />
       </Section>
-      <Button
-        label="Submit"
-        variant="primary"
-        color={primaryColor.brickRed}
-        handleClick={handleSubmit}
-      />
+      <Button label="Submit" variant="primary" handleClick={handleSubmit} />
       <Button
         label="Skip and Submit"
         variant="primary"
-        color={primaryColor.brickRed}
         handleClick={handleSubmit}
       />
     </Flex>
