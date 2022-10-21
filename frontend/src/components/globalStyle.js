@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import { black } from "./Colors";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -22,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
         font-size: 1rem;
         line-height: 1.875rem;
         font-weight: 400;
-        color: ${black.dark}
+        color: #292929;
     }
     a {
         text-decoration: none;

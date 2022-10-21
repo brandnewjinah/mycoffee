@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { Flex } from "../../components/container/Div";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/container/Section";
-import Text from "../../components/Text";
+import { Body } from "../../components/Text";
 import { LinkButton } from "../../components/Buttons";
 import { neutral, primaryColor } from "../../components/token";
 
@@ -92,10 +92,10 @@ const NotePage = () => {
   const Items = ({ title, value }: Props) => {
     return (
       <ItemWrapper>
-        <Text variant="caption" bold>
+        <Body variant="caption" bold>
           {title}
-        </Text>
-        <Text variant="caption">{value}</Text>
+        </Body>
+        <Body variant="caption">{value}</Body>
       </ItemWrapper>
     );
   };

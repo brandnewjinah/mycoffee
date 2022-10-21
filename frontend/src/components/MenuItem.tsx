@@ -5,7 +5,6 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 
 //comp
-import Text from "./Text";
 import { neutral, primaryColor, fontSize } from "./token";
 
 interface Props {
@@ -30,7 +29,7 @@ const MenuItem: FC<Props> = ({ label, link, id, desc, delay }) => {
     >
       <Title data-aos="fade-up" data-aos-duration="800">
         <span className="sub">{`0${id}`}</span>
-        <Text variant="h2">{label}</Text>
+        <h1 className="heading">{label}</h1>
       </Title>
       {desc && <Desc>{desc}</Desc>}
     </Item>
@@ -59,6 +58,12 @@ const Title = styled.div`
   .sub {
     font-size: ${fontSize.sm2};
     margin-right: 0.5rem;
+  }
+
+  .heading {
+    font-family: "Saira Condensed", sans-serif;
+    font-size: 1.875rem;
+    font-weight: 600;
   }
 `;
 

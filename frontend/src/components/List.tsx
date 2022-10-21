@@ -4,7 +4,7 @@ import styled from "styled-components";
 import moment from "moment";
 
 //comp
-import Text from "./Text";
+import { Body } from "./Text";
 import { fontSize, neutral, primaryColor } from "./token";
 import HorizontalBar from "./HorizontalBar";
 
@@ -21,12 +21,12 @@ export const List: FC<Props> = ({ link, date, crema, aroma, body, flavor }) => {
   return (
     <Wrapper>
       <Link to={`${link}`}>
-        <Text variant="caption">
+        <Body variant="caption">
           {moment(parseInt(date!)).format("MM-DD-YYYY")}
-        </Text>
+        </Body>
         <Content>
           <Item>
-            <Text
+            <Body
               variant="caption"
               className="flexTwo"
               spacing=".1rem"
@@ -34,12 +34,12 @@ export const List: FC<Props> = ({ link, date, crema, aroma, body, flavor }) => {
               bold
             >
               Crema
-            </Text>
+            </Body>
             <HorizontalBar value={crema!} className="flexFive" />
             <p className="value flexOne">{crema}</p>
           </Item>
           <Item>
-            <Text
+            <Body
               variant="caption"
               className="flexTwo"
               spacing=".1rem"
@@ -47,12 +47,12 @@ export const List: FC<Props> = ({ link, date, crema, aroma, body, flavor }) => {
               bold
             >
               Aroma
-            </Text>
+            </Body>
             <HorizontalBar value={aroma!} className="flexFive" />
             <p className="value flexOne">{aroma}</p>
           </Item>
           <Item>
-            <Text
+            <Body
               variant="caption"
               className="flexTwo"
               spacing=".1rem"
@@ -60,12 +60,12 @@ export const List: FC<Props> = ({ link, date, crema, aroma, body, flavor }) => {
               bold
             >
               Body
-            </Text>
+            </Body>
             <HorizontalBar value={body!} className="flexFive" />
             <p className="value flexOne">{body}</p>
           </Item>
           <Item>
-            <Text
+            <Body
               variant="caption"
               className="flexTwo"
               spacing=".1rem"
@@ -73,7 +73,7 @@ export const List: FC<Props> = ({ link, date, crema, aroma, body, flavor }) => {
               bold
             >
               Flavor
-            </Text>
+            </Body>
             <HorizontalBar value={flavor!} className="flexFive" />
             <p className="value flexOne">{flavor}</p>
           </Item>

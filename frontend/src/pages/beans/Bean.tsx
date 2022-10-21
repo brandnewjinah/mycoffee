@@ -8,7 +8,7 @@ import { Header } from "../../components/Header";
 import Chips from "../../components/Chips";
 import ImageContainer from "../../components/ImageContainer";
 import { ListItem, Ul } from "../../components/Lists";
-import Text from "../../components/Text";
+import { Body } from "../../components/Text";
 import { Button, LinkButton } from "../../components/Buttons";
 
 //redux
@@ -97,12 +97,12 @@ const BeanPage: FC<Props> = () => {
               padding=".65rem"
               line
             >
-              <Text variant="caption" spacing=".1rem" uppercase bold>
+              <Body variant="caption" spacing=".1rem" uppercase bold>
                 {item.key}
-              </Text>
-              <Text variant="body_demi" spacing=".05rem">
+              </Body>
+              <Body variant="body_xsmall" spacing=".05rem">
                 {item.value}
-              </Text>
+              </Body>
             </ListItem>
           ))}
       </Ul>

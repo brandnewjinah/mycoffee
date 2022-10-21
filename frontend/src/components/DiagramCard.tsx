@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //comp
-import Text from "./Text";
+import { Body } from "./Text";
 import Cups from "./Cups";
 import { primaryColor } from "./token";
 
@@ -31,10 +31,10 @@ export const DiagramCard: FC<Props> = ({
       <Link to={`${linkToRecipe}`}>
         <Cups data={ratioData} />
         <div>
-          <Text variant="caption" color={primaryColor.orange}>
+          <Body variant="caption" color={primaryColor.orange}>
             {overline}
-          </Text>
-          <Text>{header}</Text>
+          </Body>
+          <Body>{header}</Body>
         </div>
       </Link>
     </Wrapper>

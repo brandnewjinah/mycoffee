@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import Text from "./Text";
+import { Heading } from "./Text";
 
 interface Props {
   open: boolean;
@@ -17,7 +17,7 @@ const Modal: FC<Props> = ({ open, header, children, handleClose }) => {
       <Overlay onClick={handleClose} />
       <Container>
         <Header>
-          <Text variant="h3">{header}</Text>
+          <Heading>{header}</Heading>
           <button onClick={handleClose}>close</button>
         </Header>
         <Content>{children}</Content>

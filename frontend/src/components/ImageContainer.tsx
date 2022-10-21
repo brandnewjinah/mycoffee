@@ -1,9 +1,8 @@
 import React, { FC } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //comp
-import { neutral, ratio } from "./token";
+import { neutral, primaryColor, ratio } from "./token";
 import { Coffee } from "../assets/Icons";
 
 interface Props {
@@ -29,8 +28,7 @@ const ImageContainer: FC<Props> = ({ imgUrl }) => {
 const Container = styled.div<Props>`
   position: relative;
   max-width: 100%;
-  background-color: #fff;
-  border: 1px solid ${neutral[100]};
+  background-color: ${primaryColor.darkIvory};
   margin-bottom: 0.75rem;
 
   &:before {

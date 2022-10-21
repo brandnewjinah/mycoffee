@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 //comp
-import Text from "./Text";
+import { Heading, Body } from "./Text";
 import { Button } from "./Buttons";
 import { breakpoint, neutral, primaryColor } from "./token";
 
@@ -34,23 +34,21 @@ export const Header: FC<Props> = ({
   return (
     <Wrapper underline={underline}>
       {overlay && (
-        <Text variant="caption" color={primaryColor.orange}>
+        <Body variant="caption" color={primaryColor.orange}>
           {overlay}
-        </Text>
+        </Body>
       )}
       {variant && variant === "small" ? (
-        <Text variant="body_small" bold spacing=".025rem">
+        <Body variant="body_small" bold spacing=".025rem">
           {title}
-        </Text>
+        </Body>
       ) : (
-        <Text variant="h1" padding="0 0 .65rem">
-          {title}
-        </Text>
+        <Heading padding="0 0 .65rem">{title}</Heading>
       )}
       {subtitle && (
-        <Text variant="body_small" color={neutral[400]} padding="0 0 .65rem">
+        <Body variant="body_small" color={neutral[400]} padding="0 0 .65rem">
           {subtitle}
-        </Text>
+        </Body>
       )}
       {children && children}
       {button && (

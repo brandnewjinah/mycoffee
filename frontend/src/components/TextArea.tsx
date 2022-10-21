@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 //layout component
 import { fontSize, neutral } from "./token";
-import Text from "./Text";
+import { Body } from "./Text";
 
 export interface Props {
   id?: string;
@@ -41,9 +41,9 @@ export const TextArea: FC<Props> = ({
           {...rest}
         />
         {error && (
-          <Text variant="caption" color="red">
+          <Body variant="caption" color="red">
             {error}
-          </Text>
+          </Body>
         )}
       </>
     </Container>

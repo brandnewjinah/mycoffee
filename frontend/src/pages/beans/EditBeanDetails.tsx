@@ -10,7 +10,6 @@ import { Input } from "../../components/Input";
 import Modal from "../../components/Modal";
 import Chips from "../../components/Chips";
 import { Button } from "../../components/Buttons";
-import { primaryColor } from "../../components/token";
 
 //interface
 import { BeanDetails } from "../../interfaces/interface";

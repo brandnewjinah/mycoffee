@@ -4,7 +4,7 @@ import styled from "styled-components";
 //layout component
 import { fontSize, neutral } from "./token";
 import { Eye, EyeOff, SearchIcon } from "../assets/Icons";
-import Text from "./Text";
+import { Body } from "./Text";
 
 export interface Props {
   id?: string;
@@ -76,9 +76,9 @@ export const Input: FC<Props> = ({
             {...rest}
           />
           {error && (
-            <Text variant="caption" color="red">
+            <Body variant="caption" color="red">
               {error}
-            </Text>
+            </Body>
           )}
         </>
       ) : prefix || suffix ? (
@@ -105,9 +105,9 @@ export const Input: FC<Props> = ({
             )}
           </InputContainer>
           {error && (
-            <Text variant="caption" color="red">
+            <Body variant="caption" color="red">
               {error}
-            </Text>
+            </Body>
           )}
         </>
       ) : (
@@ -129,9 +129,9 @@ export const Input: FC<Props> = ({
             {...rest}
           />
           {error && (
-            <Text variant="caption" color="red">
+            <Body variant="caption" color="red">
               {error}
-            </Text>
+            </Body>
           )}
           {type === "password" && (
             <button

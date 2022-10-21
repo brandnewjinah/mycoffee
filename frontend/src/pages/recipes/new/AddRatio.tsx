@@ -9,8 +9,7 @@ import { Section } from "../../../components/container/Section";
 import Select from "../../../components/Select";
 import { Input } from "../../../components/Input";
 import { Button, LinkButton } from "../../../components/Buttons";
-import { primaryColor } from "../../../components/token";
-import Text from "../../../components/Text";
+import { Body } from "../../../components/Text";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -104,7 +103,7 @@ const AddRatio = () => {
   return (
     <Flex flexCol gap="2.5rem">
       <Header title={thisRecipe.name} subtitle={thisRecipe.desc} />
-      <Text variant="caption">only in same unit, parts, ratio...</Text>
+      <Body variant="caption">only in same unit, parts, ratio...</Body>
       <Section gap="1rem">
         {ratio.map((item, idx) => (
           <Flex key={idx}>

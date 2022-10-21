@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { neutral, primaryColor } from "./token";
 
 //comp
-import Text from "./Text";
+import { Body } from "./Text";
 import { Coffee } from "../assets/Icons";
 import ImageContainer from "./ImageContainer";
 import { Button } from "./Buttons";
@@ -42,13 +42,13 @@ export const Card: FC<Props> = ({
       </Link>
       <Info>
         <Link to={`${linkToBean}`}>
-          <Text variant="caption" color={primaryColor.orange}>
+          <Body variant="body_xsmall" capitalize color={primaryColor.orange}>
             {overline}
-          </Text>
-          <Text>{header}</Text>
-          <Text variant="caption" color={neutral[300]}>
+          </Body>
+          <Body bold>{header}</Body>
+          <Body variant="body_xsmall" capitalize color={neutral[300]}>
             {caption}
-          </Text>
+          </Body>
         </Link>
         {linkToNote && (
           <Button

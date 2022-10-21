@@ -1,131 +1,69 @@
 import React, { FC } from "react";
 import styled, { css } from "styled-components";
-import { fontSize, lineHeight, headingFontFamily } from "./token";
 
 interface Props {
+  type?: "heading" | "body" | undefined;
   variant?:
     | "h1"
     | "h2"
     | "h3"
-    | "body_big"
+    | "body_large"
     | "body_small"
     | "body_xsmall"
-    | "body_demi"
     | "caption"
     | undefined;
   bold?: boolean;
-  padding?: string;
   uppercase?: boolean;
+  capitalize?: boolean;
+  padding?: string;
   spacing?: string;
   color?: string;
   className?: string;
   children?: string | number | undefined;
 }
 
-const Text: FC<Props> = ({
-  className,
+export const Heading: FC<Props> = ({
   variant,
+  type,
   bold,
   padding,
   uppercase,
+  capitalize,
   spacing,
   color,
   children,
 }) => {
   return (
-    <>
-      {variant === "h1" ? (
-        <Heading1
-          color={color}
-          uppercase={uppercase}
-          spacing={spacing}
-          padding={padding}
-        >
-          {children}
-        </Heading1>
-      ) : variant === "h2" ? (
-        <Heading2
-          color={color}
-          uppercase={uppercase}
-          spacing={spacing}
-          padding={padding}
-        >
-          {children}
-        </Heading2>
-      ) : variant === "h3" ? (
-        <Heading3
-          color={color}
-          uppercase={uppercase}
-          spacing={spacing}
-          padding={padding}
-        >
-          {children}
-        </Heading3>
-      ) : variant === "body_big" ? (
-        <BigParagraph
-          color={color}
-          uppercase={uppercase}
-          spacing={spacing}
-          padding={padding}
-        >
-          {children}
-        </BigParagraph>
-      ) : variant === "body_small" ? (
-        <SmallParagraph
-          className={className}
-          bold={bold}
-          color={color}
-          uppercase={uppercase}
-          spacing={spacing}
-          padding={padding}
-        >
-          {children}
-        </SmallParagraph>
-      ) : variant === "body_xsmall" ? (
-        <XSmallParagraph
-          className={className}
-          bold={bold}
-          color={color}
-          uppercase={uppercase}
-          spacing={spacing}
-          padding={padding}
-        >
-          {children}
-        </XSmallParagraph>
-      ) : variant === "body_demi" ? (
-        <BodyDemi
-          className={className}
-          bold={bold}
-          color={color}
-          uppercase={uppercase}
-          spacing={spacing}
-          padding={padding}
-        >
-          {children}
-        </BodyDemi>
-      ) : variant === "caption" ? (
-        <Caption
-          className={className}
-          bold={bold}
-          uppercase={uppercase}
-          color={color}
-          spacing={spacing}
-          padding={padding}
-        >
-          {children}
-        </Caption>
-      ) : (
-        <Paragraph
-          bold={bold}
-          color={color}
-          uppercase={uppercase}
-          spacing={spacing}
-          padding={padding}
-        >
-          {children}
-        </Paragraph>
-      )}
-    </>
+    <H1 color={color} uppercase={uppercase} spacing={spacing} padding={padding}>
+      {children}
+    </H1>
+  );
+};
+
+export const Body: FC<Props> = ({
+  className,
+  variant,
+  bold,
+  padding,
+  uppercase,
+  capitalize,
+  spacing,
+  color,
+  children,
+}) => {
+  return (
+    <P
+      className={className}
+      variant={variant}
+      bold={bold}
+      uppercase={uppercase}
+      capitalize={capitalize}
+      color={color}
+      spacing={spacing}
+      padding={padding}
+    >
+      {children}
+    </P>
   );
 };
 
@@ -136,60 +74,36 @@ const Basics = css<Props>`
   padding: ${(props) => props.padding};
 `;
 
-const BodyBasics = styled.p<Props>`
+const H1 = styled.h1<Props>`
   ${Basics}
-  font-weight: ${(props) => (props.bold ? 600 : 400)};
-`;
-
-const Heading1 = styled.h1<Props>`
-  ${Basics}
-  font-family: ${headingFontFamily};
-  font-size: ${fontSize.lg4};
+  font-family: "Saira Condensed", sans-serif;
+  font-size: 1.75rem;
   font-weight: 700;
 `;
 
-const Heading2 = styled.h2<Props>`
+const P = styled.p<Props>`
   ${Basics}
-  font-family: ${headingFontFamily};
-  font-size: ${fontSize.lg5};
-  font-weight: 600;
+  font-size: ${(props) =>
+    props.variant === "body_large"
+      ? "1.125rem"
+      : props.variant === "body_small"
+      ? "0.9375rem"
+      : props.variant === "body_xsmall"
+      ? "0.75rem"
+      : props.variant === "caption"
+      ? "0.625rem"
+      : "16px"};
+  line-height: ${(props) =>
+    props.variant === "body_large"
+      ? "1.625rem"
+      : props.variant === "body_small"
+      ? "1.25rem"
+      : props.variant === "body_xsmall"
+      ? "1.25rem"
+      : props.variant === "caption"
+      ? "1.25rem"
+      : "1.625rem"};
+  font-weight: ${(props) => (props.bold ? 600 : 400)};
+  text-transform: ${(props) =>
+    props.capitalize ? "capitalize" : props.uppercase ? "uppsercase" : null};
 `;
-
-const Heading3 = styled.h3<Props>`
-  ${Basics}
-  font-family: ${headingFontFamily};
-  font-size: ${fontSize.lg1};
-  font-weight: 600;
-`;
-
-const BigParagraph = styled(BodyBasics)<Props>`
-  font-size: ${fontSize.lg1};
-  line-height: ${lineHeight.base};
-`;
-
-const Paragraph = styled(BodyBasics)<Props>`
-  font-size: ${fontSize.base};
-  line-height: ${lineHeight.base};
-`;
-
-const SmallParagraph = styled(BodyBasics)<Props>`
-  font-size: ${fontSize.sm1};
-  line-height: ${lineHeight.sm3};
-`;
-
-const XSmallParagraph = styled(BodyBasics)<Props>`
-  font-size: ${fontSize.sm2};
-  line-height: ${lineHeight.base};
-`;
-
-const BodyDemi = styled(BodyBasics)<Props>`
-  font-size: ${fontSize.sm3};
-  line-height: ${lineHeight.base};
-`;
-
-const Caption = styled(BodyBasics)<Props>`
-  font-size: ${fontSize.sm4};
-  line-height: ${lineHeight.sm2};
-`;
-
-export default Text;

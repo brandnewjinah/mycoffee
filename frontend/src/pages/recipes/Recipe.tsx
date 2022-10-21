@@ -7,7 +7,7 @@ import { ListItem, Ul } from "../../components/Lists";
 import { Section } from "../../components/container/Section";
 import { Header } from "../../components/Header";
 import Cup from "../../components/Cup";
-import Text from "../../components/Text";
+import { Body } from "../../components/Text";
 import Loading from "../../components/Loading";
 
 //redux
@@ -52,12 +52,12 @@ const Recipe = () => {
         {recipeDetails &&
           recipeDetails.directions.map((dir, idx) => (
             <Flex alignItems="flex-start" key={idx}>
-              <Text variant="body_xsmall" className="flexOne">
+              <Body variant="body_xsmall" className="flexOne">
                 {`${(idx + 1).toString()}.`}
-              </Text>
-              <Text variant="body_xsmall" className="flexTen">
+              </Body>
+              <Body variant="body_xsmall" className="flexTen">
                 {dir.direction}
-              </Text>
+              </Body>
             </Flex>
           ))}
       </Section>

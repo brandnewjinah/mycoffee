@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //comp
-import Text from "./Text";
+import { Body } from "./Text";
 import { primaryColor } from "./token";
 
 export interface Props {
@@ -17,7 +17,7 @@ const Toast: FC<Props> = ({ message, btnLabel, linkUrl, handleCloseBtn }) => {
   return (
     <ToastContainer>
       <CloseBtn onClick={handleCloseBtn}>x</CloseBtn>
-      <Text variant="body_small">{message}</Text>
+      <Body variant="body_small">{message}</Body>
       {btnLabel && <Link to={`${linkUrl}`}>{btnLabel}</Link>}
     </ToastContainer>
   );

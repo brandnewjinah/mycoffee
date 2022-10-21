@@ -23,6 +23,7 @@ export const blue = {
 export const primaryColor = {
   // ivory: "#fffff5",
   ivory: "#FEFCF4",
+  darkIvory: "#FBF6ED",
   // brickRed: "#c14758",
   brickRed: "#D1654E",
   almond: "#F8ECD8",
@@ -35,4 +36,22 @@ export const primaryColor = {
   darksage: "#6e7e74",
   turquoise: "#7eb7a7",
   wintergreen: "#184c5f",
+};
+
+export const gray = {
+  black: "#000000",
+  darkestgray: "#4c4b4b",
+  darkergray: "#666564",
+  darkgray: "#b2b1af",
+  gray: "#cccac8",
+  lightgray: "#e5e3e1",
+  lightergray: "#f2f0ed",
+  faintgray: "#fffdfa",
+};
+
+export const yellow = {
+  lighter: "#fffcf5",
+  light: "#fffcf3",
+  dark: "#f5f2e9",
+  darker: "#ffefc0",
 };
