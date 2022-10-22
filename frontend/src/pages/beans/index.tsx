@@ -41,7 +41,7 @@ const BeansList = () => {
     beans &&
     beans.length > 0 &&
     beans.reduce((acc: accTypes, bean: BeanDetails) => {
-      let initial = bean.roaster[0];
+      let initial = bean.roaster[0].toUpperCase();
 
       if (!acc[initial]) acc[initial] = { initial, beans: [bean] };
       else acc[initial].beans.push(bean);
@@ -93,7 +93,6 @@ const BeansList = () => {
                       overline={bean.roaster}
                       header={bean.name}
                       caption={bean.level}
-                      // ratio={ratio.portrait_34}
                       margin="0 0 1rem 0"
                     />
                   )

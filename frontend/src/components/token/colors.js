@@ -27,15 +27,11 @@ export const primaryColor = {
   // brickRed: "#c14758",
   brickRed: "#D1654E",
   almond: "#F8ECD8",
-  blue: "#3883e5",
-  lightBlue: "#e6ecf5",
+  salmon: "#e19780",
   lightGold: "#d3a13b",
   gold: "#b58d3d",
   error: "#ff0000",
   orange: "#d46f4a",
-  darksage: "#6e7e74",
-  turquoise: "#7eb7a7",
-  wintergreen: "#184c5f",
 };
 
 export const gray = {

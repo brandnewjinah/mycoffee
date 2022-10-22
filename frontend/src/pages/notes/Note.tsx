@@ -8,9 +8,8 @@ import styled from "styled-components";
 import { Flex } from "../../components/container/Div";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/container/Section";
-import { Body } from "../../components/Text";
+import { ListItem } from "../../components/ListItem";
 import { LinkButton } from "../../components/Buttons";
-import { neutral } from "../../components/token";
 
 //redux
 import { RootState } from "../../redux/store";
@@ -20,11 +19,6 @@ import { deleteNote, reset } from "../../redux/noteActionsRedux";
 
 //interface
 import { Note } from "../../interfaces/noteInterface";
-
-export interface Props {
-  title: string;
-  value: string;
-}
 
 const NotePage = () => {
   const history = useHistory();
@@ -87,25 +81,6 @@ const NotePage = () => {
     }
   }, [dispatch, noteDeleted.status, beanId, history]);
 
-  const Items = ({ title, value }: Props) => {
-    return (
-      <ItemWrapper>
-        <Body variant="caption" bold>
-          {title}
-        </Body>
-        <Body variant="caption">{value}</Body>
-      </ItemWrapper>
-    );
-  };
-
-  const ItemWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid ${neutral[100]};
-    padding: 0.875rem 0;
-  `;
-
   return (
     <Flex flexCol gap="1rem">
       <Header
@@ -137,17 +112,17 @@ const NotePage = () => {
         </div>
       </Section>
       <Section>
-        <Items
+        <ListItem
           title="Recorded on"
           value={moment(parseInt(thisNote && thisNote.date)).format(
             "MM-DD-YYYY"
           )}
         />
-        <Items title="Freshness" value={getFreshness()} />
-        <Items title="Dose" value={`${thisNote && thisNote.dose} grams`} />
-        <Items title="Grind Level" value={thisNote && thisNote.grind} />
-        <Items title="Time" value={`${thisNote && thisNote.time} seconds`} />
-        <Items title="Shot" value={`${thisNote && thisNote.shot} grams`} />
+        <ListItem title="Freshness" value={getFreshness()} />
+        <ListItem title="Dose" value={`${thisNote && thisNote.dose} grams`} />
+        <ListItem title="Grind Level" value={thisNote && thisNote.grind} />
+        <ListItem title="Time" value={`${thisNote && thisNote.time} seconds`} />
+        <ListItem title="Shot" value={`${thisNote && thisNote.shot} grams`} />
       </Section>
       <LinkButton
         label="Delete this note"

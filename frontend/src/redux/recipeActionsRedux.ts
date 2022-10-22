@@ -1,18 +1,23 @@
 import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
 import { Recipe } from "../interfaces/recipeInterface";
+import { Status } from "../interfaces/baseInterface";
+
+export interface RecipeResponse extends Status {
+  recipeDetails: {
+    _id: string;
+  };
+}
 
 export interface Recipes {
   isLoading: boolean;
-  recipeAdded: boolean;
   recipe: Recipe;
-  isError: boolean;
+  recipeAdded: RecipeResponse;
+  recipeDeleted: Status;
 }
 
-const initialState = {
+const initialState: Recipes = {
   isLoading: false,
-  recipeAdded: false,
-  isError: false,
   recipe: {
     _id: "",
     id: "",
@@ -23,19 +28,58 @@ const initialState = {
     directions: [],
     ratio: [],
   },
+  recipeAdded: {
+    status: 0,
+    message: "",
+    recipeDetails: {
+      _id: "",
+    },
+  },
+  recipeDeleted: {
+    status: 0,
+    message: "",
+  },
 };
 
-export const addRecipe = createAsyncThunk(
-  "recipe/addRecipe",
-  async (recipe: Recipe) => {
-    try {
-      const { data } = await api.publicRequest.post(`/recipe`, recipe);
-      return data;
-    } catch (error) {
-      return error;
-    }
+export const addRecipe = createAsyncThunk<
+  RecipeResponse,
+  Recipe,
+  {
+    rejectValue: Status;
   }
-);
+>("recipe/addRecipe", async (recipe: Recipe, { rejectWithValue }) => {
+  try {
+    const res = await api.publicRequest.post(`/recipe`, recipe);
+    return {
+      status: res.status,
+      recipeDetails: { _id: res.data._id },
+      message: res.statusText,
+    } as RecipeResponse;
+  } catch (error: any) {
+    return rejectWithValue({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+  }
+});
+
+export const deleteRecipe = createAsyncThunk<
+  Status,
+  string,
+  {
+    rejectValue: Status;
+  }
+>("recipe/deleteRecipe", async (recipeId: string, { rejectWithValue }) => {
+  try {
+    const res = await api.publicRequest.delete(`/recipe/${recipeId}`);
+    return { status: res.status, message: res.statusText } as Status;
+  } catch (error: any) {
+    return rejectWithValue({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+  }
+});
 
 const recipeSlice = createSlice({
   name: "recipe",
@@ -57,9 +101,14 @@ const recipeSlice = createSlice({
       state.recipe = newRecipe;
     },
     reset: (state) => {
-      state.recipeAdded = false;
       state.isLoading = false;
-      state.isError = false;
+      state.recipeAdded = {
+        status: 0,
+        message: "",
+        recipeDetails: {
+          _id: "",
+        },
+      };
     },
   },
   extraReducers: (builder) => {
@@ -68,12 +117,30 @@ const recipeSlice = createSlice({
     });
     builder.addCase(addRecipe.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.recipeAdded = true;
-      state.recipe = action.payload;
+      state.recipeAdded.status = action.payload!.status;
+      state.recipeAdded.message = action.payload!.message;
+      state.recipeAdded.recipeDetails = action.payload.recipeDetails;
     });
-    builder.addCase(addRecipe.rejected, (state) => {
+    builder.addCase(addRecipe.rejected, (state, action) => {
       state.isLoading = false;
-      state.isError = true;
+      state.recipeAdded.status = action.payload!.status;
+      state.recipeAdded.message = action.payload!.message;
+      state.recipeAdded.recipeDetails = {
+        _id: "",
+      };
+    });
+    builder.addCase(deleteRecipe.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteRecipe.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.recipeDeleted.status = action.payload.status;
+      state.recipeDeleted.message = action.payload.message;
+    });
+    builder.addCase(deleteRecipe.rejected, (state, action) => {
+      state.isLoading = false;
+      state.recipeDeleted.status = action.payload!.status;
+      state.recipeDeleted.message = action.payload!.message;
     });
   },
 });

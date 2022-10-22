@@ -75,18 +75,6 @@ const AddRatio = () => {
     setRatio(newRatio);
   };
 
-  const { recipeAdded, recipe } = useSelector(
-    (state: RootState) => state.recipeActions
-  );
-
-  useEffect(() => {
-    if (recipeAdded) {
-      alert("success");
-      dispatch(reset());
-      history.push(`/recipe/${recipe._id}`);
-    }
-  }, [recipeAdded, dispatch, history, recipe._id]);
-
   const handleSubmit = () => {
     //if any of the ingredient or value is missing
     const validate = ratio.every(
@@ -100,7 +88,18 @@ const AddRatio = () => {
     dispatch(addRecipe(newRecipe));
   };
 
-  // const handleSkip = () => {};
+  //actions after submitting data
+  const { recipeAdded, recipe } = useSelector(
+    (state: RootState) => state.recipeActions
+  );
+
+  useEffect(() => {
+    if (recipeAdded) {
+      alert("success");
+      dispatch(reset());
+      history.push(`/recipe/${recipe._id}`);
+    }
+  }, [recipeAdded, dispatch, history, recipe._id]);
 
   return (
     <Flex flexCol gap="2.5rem">

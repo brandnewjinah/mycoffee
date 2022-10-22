@@ -62,7 +62,6 @@ const RecipesPresenter = () => {
                   caption="caption"
                   ratio={ratio.square}
                   ratioData={recipe.ratio}
-                  type={recipe.type}
                 />
               ))}
           </Grid>

@@ -9,6 +9,7 @@ import { primaryColor } from "./token";
 
 //interface
 import { Ratio } from "../interfaces/recipeInterface";
+import CupsVariety from "./CupsVariety";
 
 interface Props {
   linkToRecipe?: string;
@@ -18,6 +19,7 @@ interface Props {
   caption?: string;
   ratio?: string;
   ratioData?: Ratio[];
+  type?: string;
 }
 
 export const DiagramCard: FC<Props> = ({
@@ -25,11 +27,13 @@ export const DiagramCard: FC<Props> = ({
   overline,
   header,
   ratioData,
+  type,
 }) => {
   return (
     <Wrapper>
       <Link to={`${linkToRecipe}`}>
-        <Cups data={ratioData} />
+        {/* <Cups data={ratioData} /> */}
+        <CupsVariety data={ratioData} type={type} />
         <div>
           <Body variant="caption" color={primaryColor.orange}>
             {overline}

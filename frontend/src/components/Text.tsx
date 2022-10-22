@@ -15,6 +15,7 @@ interface Props {
   bold?: boolean;
   uppercase?: boolean;
   capitalize?: boolean;
+  align?: string;
   padding?: string;
   spacing?: string;
   color?: string;
@@ -47,6 +48,7 @@ export const Body: FC<Props> = ({
   padding,
   uppercase,
   capitalize,
+  align,
   spacing,
   color,
   children,
@@ -58,6 +60,7 @@ export const Body: FC<Props> = ({
       bold={bold}
       uppercase={uppercase}
       capitalize={capitalize}
+      align={align}
       color={color}
       spacing={spacing}
       padding={padding}
@@ -87,7 +90,7 @@ const P = styled.p<Props>`
     props.variant === "body_large"
       ? "1.125rem"
       : props.variant === "body_small"
-      ? "0.9375rem"
+      ? "0.875rem"
       : props.variant === "body_xsmall"
       ? "0.75rem"
       : props.variant === "caption"
@@ -97,7 +100,7 @@ const P = styled.p<Props>`
     props.variant === "body_large"
       ? "1.625rem"
       : props.variant === "body_small"
-      ? "1.25rem"
+      ? "1.5rem"
       : props.variant === "body_xsmall"
       ? "1.25rem"
       : props.variant === "caption"
@@ -106,4 +109,5 @@ const P = styled.p<Props>`
   font-weight: ${(props) => (props.bold ? 600 : 400)};
   text-transform: ${(props) =>
     props.capitalize ? "capitalize" : props.uppercase ? "uppsercase" : null};
+  text-align: ${(props) => props.align && props.align};
 `;

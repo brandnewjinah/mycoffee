@@ -92,6 +92,11 @@ export const categoryList = [
         value: "liquor",
         label: "Liquor",
       },
+      {
+        id: 503,
+        value: "ice",
+        label: "Ice",
+      },
     ],
   },
 ];

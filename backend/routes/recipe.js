@@ -3,6 +3,7 @@ import {
   addRecipe,
   getRecipes,
   getRecipeDetails,
+  deleteRecipe,
 } from "../controller/recipe.js";
 
 const router = express.Router();
@@ -21,5 +22,10 @@ router.get("/", getRecipes);
 // @desc Get recipe details
 // @access Public
 router.get("/:id", getRecipeDetails);
+
+// @route DELETE /berecipeans/${id}
+// @desc Delete recipe
+// @access Private
+router.delete("/:id", deleteRecipe);
 
 export default router;

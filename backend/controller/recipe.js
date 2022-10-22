@@ -1,4 +1,5 @@
 import Recipe from "../models/recipe.js";
+import mongoose from "mongoose";
 
 //ADD RECIPE
 export const addRecipe = async (req, res) => {
@@ -47,4 +48,15 @@ export const getRecipeDetails = async (req, res) => {
   } catch (error) {
     res.status(404).json({ message: "Recipe doesn't exist" });
   }
+};
+
+//DELETE RECIPE
+export const deleteRecipe = async (req, res) => {
+  const { id: _id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send({ message: "Not a valid Id" });
+
+  await Recipe.findByIdAndRemove(_id);
+  res.status(200).json({ message: "Recipe deleted successfully" });
 };

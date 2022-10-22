@@ -1,22 +1,25 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 //comp
-import { Container, Flex } from "../../components/container/Div";
-import { ListItem, Ul } from "../../components/Lists";
+import { Container } from "../../components/container/Div";
+import { Ul } from "../../components/Lists";
 import { Section } from "../../components/container/Section";
 import { Header } from "../../components/Header";
 import Cup from "../../components/Cup";
-import { Body } from "../../components/Text";
 import Loading from "../../components/Loading";
+import { ListItem, RecipeItem } from "../../components/ListItem";
+import { LinkButton } from "../../components/Buttons";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipeDetails } from "../../redux/recipeDetailsRedux";
 import { RootState } from "../../redux/store";
+import { deleteRecipe, reset } from "../../redux/recipeActionsRedux";
 
 const Recipe = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { id } = useParams<{ id: string }>();
 
   //get this recipe data
@@ -28,6 +31,25 @@ const Recipe = () => {
     (state: RootState) => state.recipeDetails
   );
 
+  const handleDelete = () => {
+    dispatch(deleteRecipe(id));
+  };
+
+  //actions after submitting button
+  const { recipeDeleted } = useSelector(
+    (state: RootState) => state.recipeActions
+  );
+
+  useEffect(() => {
+    if (recipeDeleted.status === 200) {
+      alert("Recipe successfully deleted");
+      history.push(`/recipes`);
+      dispatch(reset());
+    } else if (recipeDeleted.status !== 200 && recipeDeleted.status !== 0) {
+      alert("error");
+    }
+  });
+
   return isLoading ? (
     <Loading />
   ) : (
@@ -37,30 +59,34 @@ const Recipe = () => {
         <Cup data={recipeDetails.ratio} />
       </Section>
       <Section>
-        <Header variant="small" title="ingredients" underline />
+        <Header variant="small" title="Ingredients" underline />
         <Ul>
           {recipeDetails &&
             recipeDetails.ingredients.map((ing, idx) => (
               <ListItem
                 key={idx}
-              >{`${ing.value}${ing.unit} ${ing.ingredient}`}</ListItem>
+                title={ing.ingredient}
+                value={`${ing.value}${ing.unit}`}
+              />
             ))}
         </Ul>
       </Section>
       <Section>
-        <Header variant="small" title="directions" underline />
+        <Header variant="small" title="Directions" underline />
         {recipeDetails &&
           recipeDetails.directions.map((dir, idx) => (
-            <Flex alignItems="flex-start" key={idx}>
-              <Body variant="body_xsmall" className="flexOne">
-                {`${(idx + 1).toString()}.`}
-              </Body>
-              <Body variant="body_xsmall" className="flexTen">
-                {dir.direction}
-              </Body>
-            </Flex>
+            <RecipeItem
+              key={idx}
+              title={`${(idx + 1).toString()}`}
+              value={dir.direction}
+            />
           ))}
       </Section>
+      <LinkButton
+        label="Delete This Recipe"
+        variant="tertiary"
+        handleClick={handleDelete}
+      />
     </Container>
   );
 };

@@ -39,7 +39,13 @@ export const Header: FC<Props> = ({
         </Body>
       )}
       {variant && variant === "small" ? (
-        <Body variant="body_small" bold spacing=".025rem">
+        <Body
+          variant="body_xsmall"
+          bold
+          uppercase
+          spacing=".025rem"
+          padding="1rem 0"
+        >
           {title}
         </Body>
       ) : (

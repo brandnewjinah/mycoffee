@@ -20,7 +20,7 @@ const UlWrapper = styled.ul<Props>`
   list-style-type: circle;
 `;
 
-export const ListItem: FC<Props> = ({
+export const List: FC<Props> = ({
   display,
   justifyContent,
   padding,

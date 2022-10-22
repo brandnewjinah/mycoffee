@@ -7,7 +7,8 @@ import { Section } from "../../components/container/Section";
 import { Header } from "../../components/Header";
 import Chips from "../../components/Chips";
 import ImageContainer from "../../components/ImageContainer";
-import { ListItem, Ul } from "../../components/Lists";
+import { Ul } from "../../components/Lists";
+import { ListItem } from "../../components/ListItem";
 import { Body } from "../../components/Text";
 import { Button, LinkButton } from "../../components/Buttons";
 
@@ -50,21 +51,6 @@ const BeanPage: FC<Props> = () => {
     }
   });
 
-  const extraDetails = {
-    flavor: [
-      { id: 1, flavor: "Nutty" },
-      { id: 2, flavor: "Chocolatey" },
-      { id: 3, flavor: "Roasted" },
-    ],
-    details: [
-      { id: 1, key: "Country", value: "Ethiopia" },
-      { id: 2, key: "Producer", value: "Smallholder Growers" },
-      { id: 3, key: "Elevation Range", value: "1900-2100 m" },
-      { id: 4, key: "Processing Method", value: "Washed" },
-      { id: 5, key: "Drying Method", value: "Raised Bed" },
-    ],
-  };
-
   const handleNote = (action: string) => {
     action === "view"
       ? history.push(`../../notes/b/${beanId}`)
@@ -79,32 +65,30 @@ const BeanPage: FC<Props> = () => {
       </Section>
       <Section>
         <div>
-          {extraDetails &&
-            extraDetails.flavor &&
-            extraDetails.flavor.map((item) => (
-              <Chips key={item.id} label={item.flavor} display />
+          {beanDetails.flavor &&
+            beanDetails.flavor.length > 0 &&
+            beanDetails.flavor.map((item) => (
+              <Chips key={item.id} label={item.value} display />
             ))}
         </div>
       </Section>
+      {beanDetails.description && (
+        <Section>
+          <Body variant="body_small">{beanDetails.description}</Body>
+        </Section>
+      )}
       <Ul width="100%">
-        {extraDetails &&
-          extraDetails.details &&
-          extraDetails.details.map((item) => (
-            <ListItem
-              key={item.id}
-              display="flex"
-              justifyContent="space-between"
-              padding=".65rem"
-              line
-            >
-              <Body variant="caption" spacing=".1rem" uppercase bold>
-                {item.key}
-              </Body>
-              <Body variant="body_xsmall" spacing=".05rem">
-                {item.value}
-              </Body>
-            </ListItem>
-          ))}
+        <ListItem title="Roast Level" value={beanDetails.level} />
+
+        {beanDetails.region && beanDetails.region.length > 0 && (
+          <ListItem title="Region" value={beanDetails.region?.join()} />
+        )}
+        {beanDetails.variety && beanDetails.variety.length > 0 && (
+          <ListItem title="Variety" value={beanDetails.variety?.join()} />
+        )}
+        {beanDetails.process && (
+          <ListItem title="Process" value={beanDetails.process} />
+        )}
       </Ul>
       <Section>
         <Flex>
