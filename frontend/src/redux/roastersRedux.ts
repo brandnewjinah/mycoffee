@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
-import { Roaster } from "../interfaces/interface";
+import { Roaster } from "../interfaces/beanInterface";
 
 export interface Roasters {
   roasters: Roaster[];

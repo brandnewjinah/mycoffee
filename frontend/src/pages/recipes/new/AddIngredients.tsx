@@ -17,7 +17,7 @@ import {
   Recipe,
   RecipeErrors,
   Ingredients,
-} from "../../../interfaces/interface";
+} from "../../../interfaces/recipeInterface";
 
 //data
 import { unitOptions } from "../../../data/data";

@@ -1,27 +1,27 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
-import { Bean } from "../interfaces/interface";
+import { Status } from "../interfaces/baseInterface";
+import { BeanDetails } from "../interfaces/beanInterface";
 
-export interface ErrorIF {
-  status: number;
-  message: string;
+export interface BeanDetailsResponse extends Status {
+  beanDetails: BeanDetails;
 }
 
-export interface BeanDetailsIF extends ErrorIF {
-  beanDetails: Bean;
-}
-
-export interface BeanDetailsStateIF extends BeanDetailsIF {
+export interface BeanState extends BeanDetailsResponse {
   isLoading: boolean;
 }
 
-const initialState: BeanDetailsStateIF = {
+const initialState: BeanState = {
   beanDetails: {
     _id: "",
     roaster: "",
     name: "",
     level: "",
     img: "",
+    process: "",
+    description: "",
+    region: [],
+    variety: [],
     notes: [],
   },
   isLoading: false,
@@ -30,20 +30,19 @@ const initialState: BeanDetailsStateIF = {
 };
 
 export const getBeanDetails = createAsyncThunk<
-  BeanDetailsIF,
+  BeanDetailsResponse,
   string,
   {
-    rejectValue: ErrorIF;
+    rejectValue: Status;
   }
 >("beanDetails/getBeanDetails", async (beanId: string, { rejectWithValue }) => {
   try {
     const res = await api.publicRequest.get(`/beans/${beanId}`);
-    console.log(res);
     return {
       status: res.status,
       beanDetails: res.data,
       message: res.statusText,
-    } as BeanDetailsIF;
+    } as BeanDetailsResponse;
   } catch (error: any) {
     return rejectWithValue({
       status: error.response.status,
@@ -76,6 +75,10 @@ const beanDetailsSlice = createSlice({
         name: "",
         level: "",
         img: "",
+        process: "",
+        description: "",
+        region: [],
+        variety: [],
         notes: [],
       };
     });

@@ -13,7 +13,7 @@ import { Card } from "../../components/Cards";
 import { neutral } from "../../components/token";
 
 //interface
-import { Bean, Initial } from "../../interfaces/interface";
+import { BeanDetails, Initial } from "../../interfaces/beanInterface";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -40,7 +40,7 @@ const BeansList = () => {
   let alphabeticalGroups =
     beans &&
     beans.length > 0 &&
-    beans.reduce((acc: accTypes, bean: Bean) => {
+    beans.reduce((acc: accTypes, bean: BeanDetails) => {
       let initial = bean.roaster[0];
 
       if (!acc[initial]) acc[initial] = { initial, beans: [bean] };

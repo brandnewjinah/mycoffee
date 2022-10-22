@@ -61,10 +61,10 @@ const BeanPage = () => {
                 link={`/note/b/${beanId}/${note.date}`}
                 // date={moment(note.id).format("MM-DD-YYYY")}
                 date={note.date}
-                crema={note.features[0].value}
-                aroma={note.features[1].value}
-                body={note.features[2].value}
-                flavor={note.features[3].value}
+                crema={note.features && note.features[0].value}
+                aroma={note.features && note.features[1].value}
+                body={note.features && note.features[2].value}
+                flavor={note.features && note.features[3].value}
               />
             ))}
         </Flex>

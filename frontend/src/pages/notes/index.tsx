@@ -18,7 +18,7 @@ import { RootState } from "../../redux/store";
 import { getBeans } from "../../redux/beanRedux";
 
 //interface
-import { Bean, Initial } from "../../interfaces/interface";
+import { Initial } from "../../interfaces/beanInterface";
 
 export interface accTypes {
   [key: string]: Initial;
@@ -35,7 +35,7 @@ const Saved = () => {
 
   const { isLoading, beans } = useSelector((state: RootState) => state.beans);
 
-  let alphabeticalGroups = beans.reduce((acc: accTypes, bean: Bean) => {
+  let alphabeticalGroups = beans.reduce((acc: accTypes, bean) => {
     let initial = bean.roaster[0];
 
     if (!acc[initial]) acc[initial] = { initial, beans: [bean] };

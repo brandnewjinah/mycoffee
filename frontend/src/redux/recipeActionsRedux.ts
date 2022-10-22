@@ -1,6 +1,6 @@
 import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
-import { Recipe } from "../interfaces/interface";
+import { Recipe } from "../interfaces/recipeInterface";
 
 export interface Recipes {
   isLoading: boolean;

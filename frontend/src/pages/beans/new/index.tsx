@@ -10,7 +10,7 @@ import { Article, Section } from "../../../components/container/Section";
 import { Radio } from "../../../components/RadioButton";
 import { Button } from "../../../components/Buttons";
 import Toast from "../../../components/Toast";
-import { neutral, primaryColor } from "../../../components/token";
+import { neutral } from "../../../components/token";
 
 //util
 import { beanValidate } from "../../../utils/validate";
@@ -23,23 +23,22 @@ import { addBean, reset } from "../../../redux/beanActionsRedux";
 
 //interface
 import {
-  Bean,
   Beans,
-  BeanErrors,
+  NewBean,
   Duplicate,
-} from "../../../interfaces/interface";
+  BeanErrors,
+} from "../../../interfaces/beanInterface";
 
 const AddBean = () => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const [newBean, setNewBean] = useState<Bean>({
+  const [newBean, setNewBean] = useState<NewBean>({
     roaster: "",
     name: "",
     level: "light",
     img: "",
-    notes: [],
   });
 
   const [suggestions, setSuggestions] = useState<Beans>([]);

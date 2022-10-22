@@ -1,11 +1,28 @@
-import React, { FC } from "react";
+import React, { ChangeEvent, FC } from "react";
 import styled from "styled-components";
 
 //comp
 import { neutral } from "./token";
 
-//interface
-import { SelectProps } from "../interfaces/interface";
+export interface SelectProps {
+  options?: SelectOptionProps[];
+  selected?: string;
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  fullWidth?: boolean;
+}
+
+export interface SelectOptionProps {
+  id: number;
+  value: string;
+  label: string;
+  selections: SelectOptionSubProps[];
+}
+
+export interface SelectOptionSubProps {
+  id: number;
+  value: string;
+  label: string;
+}
 
 const Select: FC<SelectProps> = ({
   options,

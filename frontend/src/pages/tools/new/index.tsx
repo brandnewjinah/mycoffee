@@ -10,7 +10,7 @@ import { Button } from "../../../components/Buttons";
 import { primaryColor } from "../../../components/token";
 
 //interface
-import { Tool, ToolErrors } from "../../../interfaces/interface";
+import { Tool, ToolErrors } from "../../../interfaces/toolInterface";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";

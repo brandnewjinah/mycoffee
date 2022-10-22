@@ -15,7 +15,7 @@ import { Radio } from "../../../components/RadioButton";
 import { recipeValidate } from "../../../utils/validate";
 
 //interface
-import { Recipe, RecipeErrors } from "../../../interfaces/interface";
+import { Recipe, RecipeErrors } from "../../../interfaces/recipeInterface";
 
 //redux
 import { useDispatch } from "react-redux";

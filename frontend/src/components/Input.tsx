@@ -152,60 +152,6 @@ export const Input: FC<Props> = ({
   );
 };
 
-export interface CCProps {
-  label?: string;
-  name: string;
-  mask: string;
-  value: string;
-  placeholder?: string;
-  onChange: (cleanValue: string, name: string) => void;
-}
-
-export const InputMask: FC<CCProps> = ({
-  value,
-  mask,
-  label,
-  name,
-  placeholder,
-  onChange,
-  ...rest
-}) => {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
-    const cleanValue = value.replace(/[^\d]/g, "");
-    onChange(cleanValue, name);
-  };
-
-  const formatValue = (value: string, mask: string) => {
-    let i = 0;
-    let lastReplacedIndex = -1;
-    const filledMask = mask.replace(/#/g, (_, j) => {
-      if (i >= value.length) {
-        return "#";
-      }
-      lastReplacedIndex = j;
-      return value[i++];
-    });
-    return filledMask.substring(0, lastReplacedIndex + 1);
-  };
-
-  return (
-    <Container>
-      {label && <label htmlFor={name}>{label}</label>}
-      <InputTag
-        value={formatValue(value, mask)}
-        name={name}
-        placeholder={placeholder ? placeholder : mask}
-        type="text"
-        inputMode="numeric"
-        pattern="[0-9]*"
-        onChange={handleChange}
-        {...rest}
-      />
-    </Container>
-  );
-};
-
 const Container = styled.div<Props>`
   width: 100%;
   position: relative;

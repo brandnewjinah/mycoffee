@@ -8,7 +8,7 @@ import Cups from "./Cups";
 import { primaryColor } from "./token";
 
 //interface
-import { Ratio } from "../interfaces/interface";
+import { Ratio } from "../interfaces/recipeInterface";
 
 interface Props {
   linkToRecipe?: string;

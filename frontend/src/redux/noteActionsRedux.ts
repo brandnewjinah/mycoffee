@@ -1,30 +1,29 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
-import { Bean } from "../interfaces/interface";
+import { Note } from "../interfaces/noteInterface";
+import { Status } from "../interfaces/baseInterface";
 
-export interface AddNoteObjIF {
-  newNote: {};
+export interface AddNoteParamsIF {
+  newNote: Note;
   beanId: string;
 }
 
-export interface DeleteNoteObjIF {
+export interface DeleteNoteParamsIF {
   beanId: string;
   noteId: string;
 }
 
-export interface StatusIF {
-  status: number;
-  message: string;
-}
-
-export interface NoteAddedIF extends StatusIF {
-  beanDetails: Bean;
+export interface NoteAddedResponse extends Status {
+  beanDetails: {
+    _id: string;
+    notes: Note[];
+  };
 }
 
 export interface Notes {
   isLoading: boolean;
-  noteAdded: NoteAddedIF;
-  noteDeleted: StatusIF;
+  noteAdded: NoteAddedResponse;
+  noteDeleted: Status;
 }
 
 const initialState: Notes = {
@@ -34,10 +33,6 @@ const initialState: Notes = {
     message: "",
     beanDetails: {
       _id: "",
-      roaster: "",
-      name: "",
-      level: "",
-      img: "",
       notes: [],
     },
   },
@@ -48,12 +43,12 @@ const initialState: Notes = {
 };
 
 export const addNote = createAsyncThunk<
-  NoteAddedIF,
-  AddNoteObjIF,
+  NoteAddedResponse,
+  AddNoteParamsIF,
   {
-    rejectValue: StatusIF;
+    rejectValue: Status;
   }
->("note/addNote", async (obj: AddNoteObjIF, { rejectWithValue }) => {
+>("note/addNote", async (obj: AddNoteParamsIF, { rejectWithValue }) => {
   try {
     const res = await api.publicRequest.patch(
       `/beans/addnote/${obj.beanId}`,
@@ -61,9 +56,9 @@ export const addNote = createAsyncThunk<
     );
     return {
       status: res.status,
-      beanDetails: res.data,
+      beanDetails: { _id: res.data._id, notes: res.data.notes },
       message: res.statusText,
-    } as NoteAddedIF;
+    } as NoteAddedResponse;
   } catch (error: any) {
     return rejectWithValue({
       status: error.response.status,
@@ -73,12 +68,12 @@ export const addNote = createAsyncThunk<
 });
 
 export const deleteNote = createAsyncThunk<
-  StatusIF,
-  DeleteNoteObjIF,
+  Status,
+  DeleteNoteParamsIF,
   {
-    rejectValue: StatusIF;
+    rejectValue: Status;
   }
->("note/deleteNote", async (obj: DeleteNoteObjIF, { rejectWithValue }) => {
+>("note/deleteNote", async (obj: DeleteNoteParamsIF, { rejectWithValue }) => {
   try {
     const res = await api.publicRequest.patch(
       `/beans/deletenote/${obj.beanId}?noteId=${obj.noteId}`
@@ -86,7 +81,7 @@ export const deleteNote = createAsyncThunk<
     return {
       status: res.status,
       message: res.statusText,
-    } as StatusIF;
+    } as Status;
   } catch (error: any) {
     return rejectWithValue({
       status: error.response.status,
@@ -106,10 +101,6 @@ const noteSlice = createSlice({
         message: "",
         beanDetails: {
           _id: "",
-          roaster: "",
-          name: "",
-          level: "",
-          img: "",
           notes: [],
         },
       };
@@ -135,10 +126,6 @@ const noteSlice = createSlice({
       state.noteAdded.message = action.payload!.message;
       state.noteAdded.beanDetails = {
         _id: "",
-        roaster: "",
-        name: "",
-        level: "",
-        img: "",
         notes: [],
       };
     });

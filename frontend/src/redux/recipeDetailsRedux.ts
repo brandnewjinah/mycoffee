@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
-import { Recipe, Recipes } from "../interfaces/interface";
+import { Recipe, Recipes } from "../interfaces/recipeInterface";
 
 export interface RecipesInterface {
   recipes: Recipes;

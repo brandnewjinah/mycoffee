@@ -45,10 +45,10 @@ const Container = styled.button<Props>`
   border: transparent;
   border-radius: 2rem;
   color: ${(props) => (props.selected ? "#fff" : neutral[600])};
-  font-size: ${fontSize.sm2};
+  font-size: ${fontSize.sm3};
   font-weight: 600;
   letter-spacing: 0.015rem;
-  padding: 0.65rem 1.25rem;
+  padding: 0.5rem 1rem;
   margin: 0.35rem 0.5rem 0.35rem 0;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 

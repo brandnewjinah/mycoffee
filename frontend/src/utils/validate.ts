@@ -1,4 +1,6 @@
-import { BeanErrors, NoteErrors, RecipeErrors } from "../interfaces/interface";
+import { RecipeErrors } from "../interfaces/recipeInterface";
+import { BeanErrors } from "../interfaces/beanInterface";
+import { NoteErrors } from "../interfaces/noteInterface";
 
 export const beanValidate = (obj: BeanErrors) => {
   const errors: BeanErrors = {};

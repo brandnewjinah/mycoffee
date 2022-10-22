@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
-import { Tool } from "../interfaces/interface";
+import { Tool } from "../interfaces/toolInterface";
 
 export interface StatusIF {
   status: number;

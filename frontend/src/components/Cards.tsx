@@ -1,16 +1,12 @@
 import React, { FC } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { neutral, primaryColor } from "./token";
 
 //comp
 import { Body } from "./Text";
-import { Coffee } from "../assets/Icons";
 import ImageContainer from "./ImageContainer";
 import { Button } from "./Buttons";
-
-//interface
-import { Ratio } from "../interfaces/interface";
+import { neutral, primaryColor } from "./token";
 
 interface Props {
   linkToNote?: string;
@@ -22,7 +18,6 @@ interface Props {
   caption?: string;
   margin?: string;
   ratio?: string;
-  ratioData?: Ratio[];
 }
 
 export const Card: FC<Props> = ({

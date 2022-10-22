@@ -14,8 +14,10 @@ import { Body } from "../../../components/Text";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { Recipe } from "../../../interfaces/interface";
 import { addRecipe, reset } from "../../../redux/recipeActionsRedux";
+
+//interface
+import { Recipe } from "../../../interfaces/recipeInterface";
 
 //data
 import { categoryList } from "../../../data/category";

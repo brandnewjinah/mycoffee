@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
-import { Bean } from "../interfaces/interface";
+import { BeanDetails } from "../interfaces/beanInterface";
 
 export interface Beans {
-  beans: Bean[];
+  beans: BeanDetails[];
   isLoading: boolean;
   isError: boolean;
 }

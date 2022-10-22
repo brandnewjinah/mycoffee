@@ -14,7 +14,7 @@ import { primaryColor } from "../../../components/token";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { addDirections } from "../../../redux/recipeActionsRedux";
-import { Directions, Recipe } from "../../../interfaces/interface";
+import { Directions, Recipe } from "../../../interfaces/recipeInterface";
 
 const AddDirections = () => {
   const history = useHistory();

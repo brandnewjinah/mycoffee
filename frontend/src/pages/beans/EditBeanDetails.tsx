@@ -12,8 +12,8 @@ import Chips from "../../components/Chips";
 import { Button } from "../../components/Buttons";
 
 //interface
-import { BeanDetails } from "../../interfaces/interface";
 import { BaseObjectIF } from "../../interfaces/baseInterface";
+import { BeanUpdates } from "../../interfaces/beanInterface";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -28,7 +28,7 @@ const EditBeanDetails = () => {
   const history = useHistory();
   const { beanId } = useParams<{ beanId: string }>();
 
-  const [beanUpdates, setBeanUpdates] = useState<BeanDetails>({
+  const [beanUpdates, setBeanUpdates] = useState<BeanUpdates>({
     process: "",
     description: "",
     region: "",
@@ -40,7 +40,7 @@ const EditBeanDetails = () => {
   ) => {
     const { name, value } = e.target;
     const userInput = { ...beanUpdates };
-    userInput[name as keyof BeanDetails] = value;
+    userInput[name as keyof BeanUpdates] = value;
     setBeanUpdates(userInput);
   };
 

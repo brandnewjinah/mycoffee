@@ -9,7 +9,7 @@ import { Section } from "../../components/container/Section";
 import ImageContainer from "../../components/ImageContainer";
 
 //interface
-import { Tool } from "../../interfaces/interface";
+import { Tool } from "../../interfaces/toolInterface";
 
 interface Props {
   ratio?: string;

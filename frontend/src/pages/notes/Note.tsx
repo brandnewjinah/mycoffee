@@ -10,18 +10,16 @@ import { Header } from "../../components/Header";
 import { Section } from "../../components/container/Section";
 import { Body } from "../../components/Text";
 import { LinkButton } from "../../components/Buttons";
-import { neutral, primaryColor } from "../../components/token";
+import { neutral } from "../../components/token";
 
 //redux
-
 import { RootState } from "../../redux/store";
 import { useSelector, useDispatch } from "react-redux";
-
-//interface
-import { Note } from "../../interfaces/interface";
-
 import { getBeanDetails } from "../../redux/beanDetailsRedux";
 import { deleteNote, reset } from "../../redux/noteActionsRedux";
+
+//interface
+import { Note } from "../../interfaces/noteInterface";
 
 export interface Props {
   title: string;

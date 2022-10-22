@@ -1,25 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../api";
-import { Bean, BeanUpdated } from "../interfaces/interface";
+import { NewBean, BeanUpdated } from "../interfaces/beanInterface";
+import { Status } from "../interfaces/baseInterface";
 
-export interface StatusIF {
-  status: number;
-  message: string;
-}
-
-export interface BeanAddedIF extends StatusIF {
-  beanDetails: Bean;
-}
-
-export interface BeanUpdatedIF extends StatusIF {
-  beanDetails: BeanUpdated;
+export interface BeanResponse extends Status {
+  beanDetails: {
+    _id: string;
+  };
 }
 
 export interface Beans {
   isLoading: boolean;
-  beanAdded: BeanAddedIF;
-  beanUpdated: BeanUpdatedIF;
-  beanDeleted: StatusIF;
+  beanAdded: BeanResponse;
+  beanUpdated: BeanResponse;
+  beanDeleted: Status;
 }
 
 const initialState: Beans = {
@@ -29,11 +23,6 @@ const initialState: Beans = {
     message: "",
     beanDetails: {
       _id: "",
-      roaster: "",
-      name: "",
-      level: "",
-      img: "",
-      notes: [],
     },
   },
   beanUpdated: {
@@ -41,11 +30,6 @@ const initialState: Beans = {
     message: "",
     beanDetails: {
       _id: "",
-      process: "",
-      description: "",
-      region: [],
-      variety: [],
-      flavor: [],
     },
   },
   beanDeleted: {
@@ -55,19 +39,19 @@ const initialState: Beans = {
 };
 
 export const addBean = createAsyncThunk<
-  BeanAddedIF,
-  Bean,
+  BeanResponse,
+  NewBean,
   {
-    rejectValue: StatusIF;
+    rejectValue: Status;
   }
->("beans/addBean", async (bean: Bean, { rejectWithValue }) => {
+>("beans/addBean", async (bean: NewBean, { rejectWithValue }) => {
   try {
     const res = await api.publicRequest.post(`/beans`, bean);
     return {
       status: res.status,
-      beanDetails: res.data,
+      beanDetails: { _id: res.data._id },
       message: res.statusText,
-    } as BeanAddedIF;
+    } as BeanResponse;
   } catch (error: any) {
     return rejectWithValue({
       status: error.response.status,
@@ -77,10 +61,10 @@ export const addBean = createAsyncThunk<
 });
 
 export const updateBean = createAsyncThunk<
-  BeanUpdatedIF,
+  BeanResponse,
   BeanUpdated,
   {
-    rejectValue: StatusIF;
+    rejectValue: Status;
   }
 >("beans/updateBean", async (bean: BeanUpdated, { rejectWithValue }) => {
   try {
@@ -89,7 +73,7 @@ export const updateBean = createAsyncThunk<
       status: res.status,
       beanDetails: res.data,
       message: res.statusText,
-    } as BeanUpdatedIF;
+    } as BeanResponse;
   } catch (error: any) {
     return rejectWithValue({
       status: error.response.status,
@@ -99,15 +83,15 @@ export const updateBean = createAsyncThunk<
 });
 
 export const deleteBean = createAsyncThunk<
-  StatusIF,
+  Status,
   string,
   {
-    rejectValue: StatusIF;
+    rejectValue: Status;
   }
 >("beans/deleteBean", async (beanId: string, { rejectWithValue }) => {
   try {
     const res = await api.publicRequest.delete(`/beans/${beanId}`);
-    return { status: res.status, message: res.statusText } as StatusIF;
+    return { status: res.status, message: res.statusText } as Status;
   } catch (error: any) {
     return rejectWithValue({
       status: error.response.status,
@@ -127,11 +111,6 @@ const beansSlice = createSlice({
         message: "",
         beanDetails: {
           _id: "",
-          roaster: "",
-          name: "",
-          level: "",
-          img: "",
-          notes: [],
         },
       };
       state.beanUpdated = {
@@ -139,11 +118,6 @@ const beansSlice = createSlice({
         message: "",
         beanDetails: {
           _id: "",
-          process: "",
-          description: "",
-          region: [],
-          variety: [],
-          flavor: [],
         },
       };
       state.beanDeleted = {
@@ -168,11 +142,6 @@ const beansSlice = createSlice({
       state.beanAdded.message = action.payload!.message;
       state.beanAdded.beanDetails = {
         _id: "",
-        roaster: "",
-        name: "",
-        level: "",
-        img: "",
-        notes: [],
       };
     });
     builder.addCase(updateBean.pending, (state) => {
@@ -190,11 +159,6 @@ const beansSlice = createSlice({
       state.beanUpdated.message = action.payload!.message;
       state.beanUpdated.beanDetails = {
         _id: "",
-        process: "",
-        description: "",
-        region: [],
-        variety: [],
-        flavor: [],
       };
     });
     builder.addCase(deleteBean.pending, (state) => {

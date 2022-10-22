@@ -21,7 +21,7 @@ import { getBeanDetails } from "../../../redux/beanDetailsRedux";
 import { addNote, reset } from "../../../redux/noteActionsRedux";
 
 //interface
-import { NoteErrors, NoteIF } from "../../../interfaces/interface";
+import { NewNote, NoteErrors } from "../../../interfaces/noteInterface";
 
 const AddNote = () => {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const AddNote = () => {
 
   const [page, setPage] = useState(1);
 
-  const [noteData, setNoteData] = useState<NoteIF>({
+  const [noteData, setNoteData] = useState<NewNote>({
     date: new Date().valueOf().toString(),
     roastDate: "",
     dose: "",
@@ -68,7 +68,7 @@ const AddNote = () => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const userInput = { ...noteData };
-    userInput[name as keyof NoteIF] = value;
+    userInput[name as keyof NewNote] = value;
     setNoteData(userInput);
   };
 
