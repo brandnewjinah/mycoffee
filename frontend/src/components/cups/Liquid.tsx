@@ -12,14 +12,16 @@ interface Props {
   type?: string;
   volume?: string;
   ingredients?: Array<Ingredient>;
+  pathIsRecipe?: boolean;
 }
 
-const LiquidContent: FC<Props> = ({ ingredients }) => {
+const LiquidContent: FC<Props> = ({ ingredients, pathIsRecipe }) => {
   return (
     <>
       {ingredients &&
-        ingredients.map((item, idx) => (
+        ingredients.map((item) => (
           <Liquid
+            pathIsRecipe={pathIsRecipe}
             key={item.id}
             type={item.value}
             volume={
@@ -27,7 +29,9 @@ const LiquidContent: FC<Props> = ({ ingredients }) => {
                 ? `${(item.volume / 150) * 100 + 10}%`
                 : `${(item.volume / 150) * 100}%`
             }
-          />
+          >
+            {pathIsRecipe && item.label}
+          </Liquid>
         ))}
     </>
   );
@@ -37,6 +41,7 @@ const Liquid = styled.div<Props>`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: ${(props) => (props.pathIsRecipe ? "0.675rem" : "0.6rem")};
   color: ${(props) => (props.type === "espresso" ? "#fff" : "#000")};
   border-top: ${(props) => props.type === "espresso" && "3px solid #ba6324"};
   height: ${(props) => props.volume && props.volume};

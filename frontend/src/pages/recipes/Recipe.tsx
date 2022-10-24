@@ -6,7 +6,7 @@ import { Container } from "../../components/container/Div";
 import { Ul } from "../../components/Lists";
 import { Section } from "../../components/container/Section";
 import { Header } from "../../components/Header";
-import Cup from "../../components/Cup";
+import CupsVariety from "../../components/CupsVariety";
 import Loading from "../../components/Loading";
 import { ListItem, RecipeItem } from "../../components/ListItem";
 import { LinkButton } from "../../components/Buttons";
@@ -56,7 +56,7 @@ const Recipe = () => {
     <Container gap="1.5rem">
       <Header title={recipeDetails.name} />
       <Section>
-        <Cup data={recipeDetails.ratio} />
+        <CupsVariety data={recipeDetails.ratio} type={recipeDetails.type} />
       </Section>
       <Section>
         <Header variant="small" title="Ingredients" underline />

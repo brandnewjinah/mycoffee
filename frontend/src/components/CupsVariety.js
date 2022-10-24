@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import _ from "lodash";
 import styled from "styled-components";
 
@@ -10,6 +11,8 @@ import { categoryList } from "../data/category";
 import { primaryColor } from "./token";
 
 const CupsVariety = ({ data, type }) => {
+  const location = useLocation();
+  const pathIsRecipe = location.pathname.includes("/recipe/");
   //01. match ingredient from data to categoryList
   const findRatioItem = data.map((item) => {
     const found = categoryList
@@ -28,7 +31,7 @@ const CupsVariety = ({ data, type }) => {
     data && data.reduce((sum, ratio) => sum + parseInt(ratio.value), 0);
 
   return (
-    <Wrapper>
+    <Wrapper pathIsRecipe={pathIsRecipe}>
       {/* {type === "hot" && drinkTotalVolume <= 65 ? (
         <Hot2oz />
       ) : type === "hot" && drinkTotalVolume <= 150 ? (
@@ -41,13 +44,13 @@ const CupsVariety = ({ data, type }) => {
         <IcedBig />
       )} */}
       {type === "hot" && volume < 177 ? (
-        <Hot6oz ingredients={ingredients} />
+        <Hot6oz ingredients={ingredients} pathIsRecipe={pathIsRecipe} />
       ) : type === "hot" && volume < 240 ? (
-        <Hot8oz ingredients={ingredients} />
+        <Hot8oz ingredients={ingredients} pathIsRecipe={pathIsRecipe} />
       ) : type === "hot" && volume < 360 ? (
-        <Hot12oz ingredients={ingredients} />
+        <Hot12oz ingredients={ingredients} pathIsRecipe={pathIsRecipe} />
       ) : type === "iced" && volume >= 350 ? (
-        <IcedBig ingredients={ingredients} />
+        <IcedBig ingredients={ingredients} pathIsRecipe={pathIsRecipe} />
       ) : (
         <p>no cup available yet</p>
       )}
@@ -57,11 +60,12 @@ const CupsVariety = ({ data, type }) => {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 150px;
+  height: ${(props) => (props.pathIsRecipe ? "180px" : "150px")};
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  padding: 0.75rem 0;
+  /* padding: 0.75rem 0; */
+  padding: ${(props) => (props.pathIsRecipe ? "1.5rem 0" : ".75rem 0")};
   /* background-color: #faf1e5; */
   background-color: ${primaryColor.darkIvory};
 `;
