@@ -8,7 +8,7 @@ import { Hot2oz, Hot5oz, Hot8oz, IcedBig } from "./CupSizes";
 //data
 import { categoryList } from "../data/category";
 
-const CupsVariety = ({ data, type }) => {
+const CupsVariety = ({ data, type, volume }) => {
   //01. match ingredient from data to categoryList
   const findRatioItem = data.map((item) => {
     const found = categoryList
@@ -21,21 +21,26 @@ const CupsVariety = ({ data, type }) => {
     return { ...found, volume: parseInt(item.value) };
   });
 
-  const ingredientRatio = _.orderBy(findRatioItem, ["id"], ["desc"]);
+  const ingredients = _.orderBy(findRatioItem, ["id"], ["desc"]);
 
-  const drinkTotalVolume =
-    data && data.reduce((sum, ratio) => sum + parseInt(ratio.value), 0);
-
+  console.log(ingredients);
   return (
     <Wrapper>
-      {type === "hot" && drinkTotalVolume <= 65 ? (
-        <Hot2oz>cup</Hot2oz>
+      {/* {type === "hot" && drinkTotalVolume <= 65 ? (
+        <Hot2oz />
       ) : type === "hot" && drinkTotalVolume <= 150 ? (
-        <Hot5oz>cup</Hot5oz>
+        <Hot5oz />
       ) : type === "hot" && drinkTotalVolume <= 240 ? (
-        <Hot8oz>cup</Hot8oz>
+        <Hot8oz />
+      ) : type === "cold" && drinkTotalVolume <= 240 ? (
+        <IcedBig />
       ) : (
-        <IcedBig>cup</IcedBig>
+        <IcedBig />
+      )} */}
+      {type === "hot" && volume >= 240 ? (
+        <Hot8oz ingredients={ingredients} />
+      ) : (
+        <p>no cup available yet</p>
       )}
     </Wrapper>
   );

@@ -5,11 +5,11 @@ import styled from "styled-components";
 //comp
 import { Body } from "./Text";
 import Cups from "./Cups";
+import CupsVariety from "./CupsVariety";
 import { primaryColor } from "./token";
 
 //interface
 import { Ratio } from "../interfaces/recipeInterface";
-import CupsVariety from "./CupsVariety";
 
 interface Props {
   linkToRecipe?: string;
@@ -29,11 +29,15 @@ export const DiagramCard: FC<Props> = ({
   ratioData,
   type,
 }) => {
+  const volume =
+    ratioData &&
+    ratioData.reduce((sum, ratio) => sum + parseInt(ratio.value), 0);
+
   return (
     <Wrapper>
       <Link to={`${linkToRecipe}`}>
         {/* <Cups data={ratioData} /> */}
-        <CupsVariety data={ratioData} type={type} />
+        <CupsVariety data={ratioData} type={type} volume={volume} />
         <div>
           <Body variant="caption" color={primaryColor.orange}>
             {overline}

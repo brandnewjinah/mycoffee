@@ -104,7 +104,7 @@ const AddRecipe: FC<Props> = () => {
         <Add>
           <Button
             label="Add Ingredient"
-            variant="primary"
+            variant="secondary"
             addIcon
             handleClick={() => setShowModal!(true)}
           />

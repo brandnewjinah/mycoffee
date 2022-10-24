@@ -21,7 +21,6 @@ const Empty: FC<Props> = ({ title, subtitle, btnLabel, handleButtonClick }) => {
       <Button
         label={btnLabel}
         variant="primary"
-        addIcon
         handleClick={handleButtonClick}
       />
     </Wrapper>

@@ -102,12 +102,26 @@ const recipeSlice = createSlice({
     },
     reset: (state) => {
       state.isLoading = false;
+      state.recipe = {
+        _id: "",
+        id: "",
+        name: "",
+        desc: "",
+        type: "",
+        ingredients: [],
+        directions: [],
+        ratio: [],
+      };
       state.recipeAdded = {
         status: 0,
         message: "",
         recipeDetails: {
           _id: "",
         },
+      };
+      state.recipeDeleted = {
+        status: 0,
+        message: "",
       };
     },
   },

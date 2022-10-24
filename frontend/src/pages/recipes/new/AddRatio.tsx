@@ -89,17 +89,19 @@ const AddRatio = () => {
   };
 
   //actions after submitting data
-  const { recipeAdded, recipe } = useSelector(
+  const { recipeAdded } = useSelector(
     (state: RootState) => state.recipeActions
   );
 
   useEffect(() => {
-    if (recipeAdded) {
-      alert("success");
+    if (recipeAdded.status === 201) {
+      alert("Recipe successfully added!");
+      history.push(`/recipe/${recipeAdded.recipeDetails._id}`);
       dispatch(reset());
-      history.push(`/recipe/${recipe._id}`);
+    } else if (recipeAdded.status !== 201 && recipeAdded.status !== 0) {
+      alert("error");
     }
-  }, [recipeAdded, dispatch, history, recipe._id]);
+  }, [dispatch, recipeAdded.status, history, recipeAdded.recipeDetails._id]);
 
   return (
     <Flex flexCol gap="2.5rem">

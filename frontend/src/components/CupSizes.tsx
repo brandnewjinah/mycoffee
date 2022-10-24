@@ -1,8 +1,18 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import LiquidContent from "./cups/Liquid";
 import { primaryColor } from "./token";
 
-interface Props {}
+interface Ingredient {
+  id: number;
+  value: string;
+  label: string;
+  volume: number;
+}
+
+interface Props {
+  ingredients?: Array<Ingredient>;
+}
 
 export const Hot2oz: FC<Props> = () => {
   return <H2oz>CupSizes</H2oz>;
@@ -12,8 +22,12 @@ export const Hot5oz: FC<Props> = () => {
   return <H5oz>CupSizes</H5oz>;
 };
 
-export const Hot8oz: FC<Props> = () => {
-  return <H8oz>CupSizes</H8oz>;
+export const Hot8oz: FC<Props> = ({ ingredients }) => {
+  return (
+    <H8oz>
+      <LiquidContent ingredients={ingredients} />
+    </H8oz>
+  );
 };
 
 export const IcedBig: FC<Props> = () => {
