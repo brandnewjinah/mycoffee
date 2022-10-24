@@ -10,6 +10,8 @@ import ImageContainer from "../../components/ImageContainer";
 
 //interface
 import { Tool } from "../../interfaces/toolInterface";
+import { LinkButton } from "../../components/Buttons";
+import Link from "../../components/Link";
 
 interface Props {
   ratio?: string;
@@ -45,9 +47,11 @@ const ToolDetail = () => {
       <Section>
         <ImageContainer imgUrl={toolData.img} />
         <p>{toolData.description}</p>
-        <a href={`${toolData.instructionsUrl}`} target="_blank">
-          Link to manual
-        </a>
+        <Link
+          label="See Manual"
+          linkUrl={`${toolData.instructionsUrl}`}
+          blank
+        />
       </Section>
     </Flex>
   );

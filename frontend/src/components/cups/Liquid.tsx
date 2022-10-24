@@ -44,7 +44,7 @@ const Liquid = styled.div<Props>`
     props.type === "espresso"
       ? "#593431"
       : props.type === "steamedMilk"
-      ? "#fdfff5"
+      ? "#f8f6f0"
       : props.type === "milkFoam"
       ? "#e6e8dc"
       : props.type === "microFoam"

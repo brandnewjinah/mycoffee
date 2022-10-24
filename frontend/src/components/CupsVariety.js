@@ -3,12 +3,13 @@ import _ from "lodash";
 import styled from "styled-components";
 
 //comp
-import { Hot2oz, Hot5oz, Hot8oz, IcedBig } from "./CupSizes";
+import { Hot2oz, Hot6oz, Hot8oz, Hot12oz, IcedBig } from "./CupSizes";
 
 //data
 import { categoryList } from "../data/category";
+import { primaryColor } from "./token";
 
-const CupsVariety = ({ data, type, volume }) => {
+const CupsVariety = ({ data, type }) => {
   //01. match ingredient from data to categoryList
   const findRatioItem = data.map((item) => {
     const found = categoryList
@@ -23,7 +24,9 @@ const CupsVariety = ({ data, type, volume }) => {
 
   const ingredients = _.orderBy(findRatioItem, ["id"], ["desc"]);
 
-  console.log(ingredients);
+  const volume =
+    data && data.reduce((sum, ratio) => sum + parseInt(ratio.value), 0);
+
   return (
     <Wrapper>
       {/* {type === "hot" && drinkTotalVolume <= 65 ? (
@@ -37,8 +40,14 @@ const CupsVariety = ({ data, type, volume }) => {
       ) : (
         <IcedBig />
       )} */}
-      {type === "hot" && volume >= 240 ? (
+      {type === "hot" && volume < 177 ? (
+        <Hot6oz ingredients={ingredients} />
+      ) : type === "hot" && volume < 240 ? (
         <Hot8oz ingredients={ingredients} />
+      ) : type === "hot" && volume < 360 ? (
+        <Hot12oz ingredients={ingredients} />
+      ) : type === "iced" && volume >= 350 ? (
+        <IcedBig ingredients={ingredients} />
       ) : (
         <p>no cup available yet</p>
       )}
@@ -53,7 +62,8 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: flex-end;
   padding: 0.75rem 0;
-  background-color: lavender;
+  /* background-color: #faf1e5; */
+  background-color: ${primaryColor.darkIvory};
 `;
 
 export default CupsVariety;

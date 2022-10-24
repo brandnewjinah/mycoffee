@@ -26,6 +26,7 @@ const GridWrapper = styled.ul`
   }
 
   @media ${breakpoint.m} {
+    width: 100%;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1.3125rem;
   }

@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 
 //comp
 import { Flex } from "../../components/container/Div";
-import { Grid } from "../../components/container/Grid";
 import { Header } from "../../components/Header";
 import Loading from "../../components/Loading";
 import Empty from "../../components/EmptyPage";
@@ -50,6 +49,7 @@ const Tools = () => {
             tools.map((tool) => (
               <Card
                 key={tool._id}
+                linkToBean={`/tool/${tool._id}`}
                 imgsrc={tool.img}
                 overline={tool.brand}
                 header={tool.name}
@@ -57,10 +57,10 @@ const Tools = () => {
             ))
           ) : (
             <Empty
-              title="No Beans Yet"
-              subtitle="Add a new bean and start making your collection."
-              btnLabel="Add Bean"
-              handleButtonClick={() => history.push(``)}
+              title="No Tools Yet"
+              subtitle="Add a new tool"
+              btnLabel="Add Tool"
+              handleButtonClick={handleNew}
             />
           )}
         </Section>

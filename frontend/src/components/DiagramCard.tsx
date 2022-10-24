@@ -29,15 +29,11 @@ export const DiagramCard: FC<Props> = ({
   ratioData,
   type,
 }) => {
-  const volume =
-    ratioData &&
-    ratioData.reduce((sum, ratio) => sum + parseInt(ratio.value), 0);
-
   return (
     <Wrapper>
       <Link to={`${linkToRecipe}`}>
         {/* <Cups data={ratioData} /> */}
-        <CupsVariety data={ratioData} type={type} volume={volume} />
+        <CupsVariety data={ratioData} type={type} />
         <div>
           <Body variant="caption" color={primaryColor.orange}>
             {overline}
@@ -51,5 +47,4 @@ export const DiagramCard: FC<Props> = ({
 
 const Wrapper = styled.article<Props>`
   width: 100%;
-  background-color: aliceblue;
 `;
