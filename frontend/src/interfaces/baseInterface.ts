@@ -1,4 +1,5 @@
 export interface BaseObjectIF {
+  _id?: string;
   id: number;
   value: string;
 }

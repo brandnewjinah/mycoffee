@@ -12,6 +12,7 @@ import ImageContainer from "../../components/ImageContainer";
 import { Tool } from "../../interfaces/toolInterface";
 import { LinkButton } from "../../components/Buttons";
 import Link from "../../components/Link";
+import { Body } from "../../components/Text";
 
 interface Props {
   ratio?: string;
@@ -46,7 +47,8 @@ const ToolDetail = () => {
       <Header title={toolData.name} overlay={toolData.brand} />
       <Section>
         <ImageContainer imgUrl={toolData.img} />
-        <p>{toolData.description}</p>
+        <Body variant="body_small">{toolData.description}</Body>
+
         <Link
           label="See Manual"
           linkUrl={`${toolData.instructionsUrl}`}

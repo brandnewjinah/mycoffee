@@ -25,7 +25,9 @@ const LiquidContent: FC<Props> = ({ ingredients, pathIsRecipe }) => {
             key={item.id}
             type={item.value}
             volume={
-              item.value === "espresso"
+              item.value === "espresso" && !pathIsRecipe
+                ? `${(item.volume / 150) * 100 + 15}%`
+                : item.value === "espresso" && pathIsRecipe
                 ? `${(item.volume / 150) * 100 + 10}%`
                 : `${(item.volume / 150) * 100}%`
             }

@@ -27,12 +27,13 @@ const EditBeanDetails = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { beanId } = useParams<{ beanId: string }>();
+  const { beanDetails } = useSelector((state: RootState) => state.beanDetails);
 
   const [beanUpdates, setBeanUpdates] = useState<BeanUpdates>({
-    process: "",
-    description: "",
-    region: "",
-    variety: "",
+    process: beanDetails.process,
+    description: beanDetails.description,
+    region: String(beanDetails.region),
+    variety: String(beanDetails.variety),
   });
 
   const handleInputChange = (
@@ -48,7 +49,7 @@ const EditBeanDetails = () => {
   const [showModal, setShowModal] = useState(false);
 
   //flavor
-  const [flavor, setFlavor] = useState<BaseObjectIF[]>([]);
+  const [flavor, setFlavor] = useState<BaseObjectIF[]>(beanDetails.flavor!);
 
   const handleFlavorSelect = (selected: BaseObjectIF) => {
     let newFlavorArray = [...flavor];
@@ -95,11 +96,27 @@ const EditBeanDetails = () => {
           <TextArea
             name="description"
             label="Description"
+            value={beanUpdates.description}
             onChange={handleInputChange}
           />
-          <Input name="process" label="Process" onChange={handleInputChange} />
-          <Input name="region" label="Region" onChange={handleInputChange} />
-          <Input name="variety" label="Variety" onChange={handleInputChange} />
+          <Input
+            name="process"
+            label="Process"
+            value={beanUpdates.process}
+            onChange={handleInputChange}
+          />
+          <Input
+            name="region"
+            label="Region"
+            value={beanUpdates.region}
+            onChange={handleInputChange}
+          />
+          <Input
+            name="variety"
+            label="Variety"
+            value={beanUpdates.variety}
+            onChange={handleInputChange}
+          />
           <div>
             <p>flavor</p>
             {flavor &&
@@ -124,7 +141,7 @@ const EditBeanDetails = () => {
                   <Chips
                     key={item.id}
                     label={item.value}
-                    selected={flavor.includes(item)}
+                    selected={flavor.some((fl) => fl.id === item.id)}
                     handleSelect={() => handleFlavorSelect(item)}
                   />
                 ))}
