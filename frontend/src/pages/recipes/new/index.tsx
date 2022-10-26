@@ -102,7 +102,12 @@ const AddRecipe: FC<Props> = () => {
           </div>
         </article>
       </Section>
-      <Button label="Next" variant="primary" handleClick={handleNext} />
+      <Button
+        label="Next"
+        variant="primary"
+        fullWidth
+        handleClick={handleNext}
+      />
     </Flex>
   );
 };

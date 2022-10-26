@@ -92,7 +92,7 @@ const EditBeanDetails = () => {
     <div>
       <Flex flexCol gap="2.5rem">
         <Header title="Add More Details" />
-        <Section>
+        <Section gap="1rem">
           <TextArea
             name="description"
             label="Description"
@@ -118,7 +118,7 @@ const EditBeanDetails = () => {
             onChange={handleInputChange}
           />
           <div>
-            <p>flavor</p>
+            <p>Flavor</p>
             {flavor &&
               flavor.length > 0 &&
               flavor.map((item) => (
@@ -129,7 +129,13 @@ const EditBeanDetails = () => {
                   handleSelect={() => handleFlavorSelect(item)}
                 />
               ))}
-            <button onClick={() => setShowModal!(true)}>Add Flavor</button>
+            <Button
+              label="Add Flavor"
+              variant="secondary"
+              size="small"
+              addIcon
+              handleClick={() => setShowModal!(true)}
+            />
             <Modal
               header="Add Flavor"
               open={showModal!}

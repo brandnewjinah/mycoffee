@@ -51,6 +51,7 @@ const BeanPage = () => {
             title={beanDetails.name}
             overlay="Notes for"
             button
+            addIcon
             btnLabel="New Note"
             handleClick={handleNewNote}
           />

@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 //comp
 import { Body } from "./Text";
-import Cups from "./Cups";
 import CupsVariety from "./CupsVariety";
 import { primaryColor } from "./token";
 

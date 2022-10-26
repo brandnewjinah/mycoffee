@@ -30,22 +30,22 @@ export const TextArea: FC<Props> = ({
   return (
     <Container margin={margin}>
       {label && <label htmlFor={name}>{label}</label>}
-      <>
-        <TextAreaElement
-          id={id ? id : name}
-          name={name}
-          rows={4}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          {...rest}
-        />
-        {error && (
-          <Body variant="caption" color="red">
-            {error}
-          </Body>
-        )}
-      </>
+
+      <TextAreaElement
+        id={id ? id : name}
+        name={name}
+        rows={4}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        {...rest}
+      />
+
+      {error && (
+        <Body variant="caption" color="red">
+          {error}
+        </Body>
+      )}
     </Container>
   );
 };
@@ -53,7 +53,7 @@ export const TextArea: FC<Props> = ({
 const Container = styled.div<Props>`
   width: 100%;
   position: relative;
-  margin: ${(props) => props.margin && props.margin};
+  margin: ${(props) => (props.margin ? props.margin : "0 0 -.5rem 0")};
 
   label {
     display: inline-block;

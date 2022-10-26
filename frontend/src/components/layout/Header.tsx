@@ -29,13 +29,13 @@ const Header: FC<Props> = () => {
       <Nav open={open}>
         <ul>
           <li>
-            <Link to="/notes" onClick={() => setOpen(false)}>
-              Notes
+            <Link to="/beans" onClick={() => setOpen(false)}>
+              Beans
             </Link>
           </li>
           <li>
-            <Link to="/beans" onClick={() => setOpen(false)}>
-              Beans
+            <Link to="/notes" onClick={() => setOpen(false)}>
+              Notes
             </Link>
           </li>
           <li>

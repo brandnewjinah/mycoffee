@@ -105,6 +105,7 @@ const AddRecipe: FC<Props> = () => {
           <Button
             label="Add Ingredient"
             variant="secondary"
+            size="small"
             addIcon
             handleClick={() => setShowModal!(true)}
           />
@@ -144,7 +145,12 @@ const AddRecipe: FC<Props> = () => {
           />
         </Modal>
       </Section>
-      <Button label="Next" variant="primary" handleClick={handleNext} />
+      <Button
+        label="Next"
+        variant="primary"
+        fullWidth
+        handleClick={handleNext}
+      />
     </Flex>
   );
 };
@@ -152,7 +158,7 @@ const AddRecipe: FC<Props> = () => {
 const Add = styled.section`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 1rem;
 `;
 

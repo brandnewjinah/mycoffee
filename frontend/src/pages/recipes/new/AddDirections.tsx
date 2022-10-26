@@ -81,9 +81,20 @@ const AddDirections = () => {
             )}
           </Flex>
         ))}
-        <LinkButton label="add" handleClick={handleAddDirection} />
+        <Button
+          label="Additional Row"
+          variant="secondary"
+          size="small"
+          addIcon
+          handleClick={handleAddDirection}
+        />
       </Section>
-      <Button label="Next" variant="primary" handleClick={handleNext} />
+      <Button
+        label="Next"
+        variant="primary"
+        fullWidth
+        handleClick={handleNext}
+      />
     </Flex>
   );
 };
