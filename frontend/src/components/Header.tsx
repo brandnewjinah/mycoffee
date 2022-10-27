@@ -34,7 +34,7 @@ export const Header: FC<Props> = ({
   return (
     <Wrapper underline={underline}>
       {overlay && (
-        <Body variant="caption" color={primaryColor.orange}>
+        <Body variant="body_xsmall" color={primaryColor.orange}>
           {overlay}
         </Body>
       )}

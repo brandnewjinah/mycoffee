@@ -8,25 +8,31 @@ interface BeansParams {
   page?: number;
 }
 
-interface BeansGroup {
-  initial: string;
+interface BeansList {
+  initial?: string;
   beans: BeanDetails[];
 }
 
-interface BeansState extends Status {
-  isLoading: boolean;
-  list: BeansGroup[];
+interface BeansResponse extends Status {
+  list: BeansList[];
 }
 
-const initialState: BeansState = {
+interface Beans {
+  isLoading: boolean;
+  beans: BeansResponse;
+}
+
+const initialState: Beans = {
   isLoading: false,
-  status: 0,
-  message: "",
-  list: [], //or
+  beans: {
+    status: 0,
+    message: "",
+    list: [],
+  },
 };
 
 export const getBeans = createAsyncThunk<
-  BeansState,
+  BeansResponse,
   BeansParams,
   {
     rejectValue: Status;
@@ -35,11 +41,10 @@ export const getBeans = createAsyncThunk<
   try {
     const res = await api.publicRequest.get(`/beans?category=${obj.category}`);
     return {
-      isLoading: false,
       status: res.status,
       message: res.statusText,
       list: res.data,
-    } as BeansState;
+    } as BeansResponse;
   } catch (error: any) {
     return rejectWithValue({
       status: error.response.status,
@@ -58,14 +63,14 @@ const beansSlice = createSlice({
     });
     builder.addCase(getBeans.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.status = action.payload.status;
-      state.message = action.payload.message;
-      state.list = action.payload.list;
+      state.beans.status = action.payload.status;
+      state.beans.message = action.payload.message;
+      state.beans.list = action.payload.list;
     });
     builder.addCase(getBeans.rejected, (state, action) => {
       state.isLoading = false;
-      state.status = action.payload!.status;
-      state.message = action.payload!.message;
+      state.beans.status = action.payload!.status;
+      state.beans.message = action.payload!.message;
     });
   },
 });

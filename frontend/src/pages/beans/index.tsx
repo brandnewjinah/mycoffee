@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import _ from "lodash";
@@ -27,30 +27,17 @@ export interface accTypes {
 const BeansList = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [currentPage, setCurrentPage] = useState(1);
 
   //01. beans data API call
   useEffect(() => {
-    dispatch(getBeans());
+    dispatch(getBeans({ category: "beansList", page: currentPage }));
   }, [dispatch]);
 
   //02. get beans data from redux
-  const { isLoading, beans } = useSelector((state: RootState) => state.beans);
-
-  //03. sort beans list alphabetically
-  let alphabeticalGroups =
-    beans &&
-    beans.length > 0 &&
-    beans.reduce((acc: accTypes, bean: BeanDetails) => {
-      let initial = bean.roaster[0].toUpperCase();
-
-      if (!acc[initial]) acc[initial] = { initial, beans: [bean] };
-      else acc[initial].beans.push(bean);
-
-      return acc;
-    }, {});
-
-  let result = Object.values(alphabeticalGroups);
-  let sorted = _.orderBy(result, [(res) => res.initial.toLowerCase()], ["asc"]);
+  const { isLoading, list } = useSelector(
+    (state: RootState) => state.beansList
+  );
 
   const handleButtonClick = () => {
     history.push("/beans/newbean");
@@ -64,7 +51,7 @@ const BeansList = () => {
     <Loading />
   ) : (
     <>
-      {sorted && sorted.length > 0 ? (
+      {list && list.length > 0 ? (
         <Flex flexCol gap="2.5rem">
           <Header
             title="Beans"
@@ -75,17 +62,12 @@ const BeansList = () => {
             handleClick={handleNew}
           />
           <Section>
-            {sorted.map((item) => (
+            {list.map((item) => (
               <div key={item.initial}>
                 <InitialHeader>{item.initial}</InitialHeader>
-                {item.beans.map(
-                  (bean: {
-                    _id: any;
-                    img: string | undefined;
-                    roaster: string | undefined;
-                    name: string | undefined;
-                    level: string | undefined;
-                  }) => (
+                {item &&
+                  item.beans &&
+                  item.beans.map((bean) => (
                     <Card
                       key={bean._id}
                       linkToBean={`/beans/b/${bean._id}`}
@@ -95,8 +77,7 @@ const BeansList = () => {
                       caption={bean.level}
                       margin="0 0 1rem 0"
                     />
-                  )
-                )}
+                  ))}
               </div>
             ))}
           </Section>

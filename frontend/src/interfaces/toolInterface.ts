@@ -11,5 +11,5 @@ export interface Tool {
 export interface ToolErrors {
   name?: string;
   description?: string;
-  imageUrl?: string;
+  instructionsUrl?: string;
 }

@@ -1,6 +1,7 @@
 import { RecipeErrors } from "../interfaces/recipeInterface";
 import { BeanErrors } from "../interfaces/beanInterface";
 import { NoteErrors } from "../interfaces/noteInterface";
+import { ToolErrors } from "../interfaces/toolInterface";
 
 export const beanValidate = (obj: BeanErrors) => {
   const errors: BeanErrors = {};
@@ -24,6 +25,15 @@ export const noteValidate = (obj: NoteErrors) => {
 export const recipeValidate = (obj: RecipeErrors) => {
   const errors: BeanErrors = {};
   if (obj.name === "") errors.name = "Name is required";
+
+  return Object.keys(errors).length === 0 ? null : errors;
+};
+
+export const toolValidate = (obj: ToolErrors) => {
+  const errors: ToolErrors = {};
+  if (obj.name === "") errors.name = "Name is required";
+  if (obj.instructionsUrl === "")
+    errors.instructionsUrl = "Link to instructions is required";
 
   return Object.keys(errors).length === 0 ? null : errors;
 };

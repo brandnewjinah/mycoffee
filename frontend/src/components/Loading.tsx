@@ -1,13 +1,11 @@
-import React, { FC } from "react";
+import React from "react";
 
 //comp
 import { Container } from "./container/Div";
 import { Coffee } from "../assets/Icons";
 import { Body } from "./Text";
 
-export interface Props {}
-
-const Loading: FC<Props> = () => {
+const Loading = () => {
   return (
     <Container
       justifyContent="center"
@@ -16,7 +14,7 @@ const Loading: FC<Props> = () => {
     >
       <Coffee width="20" height="20" color="#6f4e37" stroke="2" />
       <Body variant="caption" color="#6f4e37" padding=".5rem 0">
-        loading...
+        Loading...
       </Body>
     </Container>
   );

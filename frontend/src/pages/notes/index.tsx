@@ -30,23 +30,12 @@ const Saved = () => {
 
   //get beans list
   useEffect(() => {
-    dispatch(getBeans());
+    dispatch(getBeans({ category: "beansList" }));
   }, [dispatch]);
 
-  const { isLoading, beans } = useSelector((state: RootState) => state.beans);
-
-  let alphabeticalGroups = beans.reduce((acc: accTypes, bean) => {
-    let initial = bean.roaster[0];
-
-    if (!acc[initial]) acc[initial] = { initial, beans: [bean] };
-    else acc[initial].beans.push(bean);
-
-    return acc;
-  }, {});
-
-  let result = Object.values(alphabeticalGroups);
-  // let sorted = _.orderBy(result, ["initial"], ["asc"]);
-  let sorted = _.orderBy(result, [(res) => res.initial.toLowerCase()], ["asc"]);
+  const { isLoading, list } = useSelector(
+    (state: RootState) => state.beansList
+  );
 
   const handleNewBean = () => {
     history.push("/notes/newbean");
@@ -56,7 +45,7 @@ const Saved = () => {
     <Loading />
   ) : (
     <>
-      {sorted && sorted.length > 0 ? (
+      {list && list.length > 0 ? (
         <Flex flexCol gap="2.5rem">
           <Header
             title="Coffee Notes"
@@ -70,7 +59,7 @@ const Saved = () => {
             <Input name="search" type="search" onChange={handleSearch} />
           </Section> */}
           <Section>
-            {sorted.map((item, idx) => (
+            {list.map((item, idx) => (
               <div key={idx}>
                 <InitialHeader>{item.initial}</InitialHeader>
                 {item.beans.map((bean) => (

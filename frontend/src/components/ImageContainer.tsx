@@ -34,9 +34,10 @@ const ImageContainer: FC<Props> = ({ imgUrl }) => {
 const Container = styled.div<Props>`
   position: relative;
   max-width: 100%;
+  max-height: 70vw;
   background-color: ${(props) =>
     props.pathIsTools ? "#fff" : primaryColor.darkIvory};
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 
   &:before {
     content: "";

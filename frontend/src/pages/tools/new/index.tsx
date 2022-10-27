@@ -6,11 +6,14 @@ import { Flex } from "../../../components/container/Div";
 import { Article, Section } from "../../../components/container/Section";
 import { Header } from "../../../components/Header";
 import { Input } from "../../../components/Input";
+import { TextArea } from "../../../components/TextArea";
 import { Button } from "../../../components/Buttons";
-import { primaryColor } from "../../../components/token";
 
 //interface
 import { Tool, ToolErrors } from "../../../interfaces/toolInterface";
+
+//util
+import { toolValidate } from "../../../utils/validate";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -31,7 +34,9 @@ const AddTool = () => {
 
   const [errors, setErrors] = useState<ToolErrors>({});
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     const userInput = { ...tool };
     userInput[name as keyof Tool] = value;
@@ -56,6 +61,11 @@ const AddTool = () => {
   };
 
   const handleNext = () => {
+    const errors = toolValidate(tool);
+
+    setErrors(errors || {});
+    if (errors) return;
+
     const newToolData = { ...tool, img: previewSource };
     dispatch(addTool(newToolData));
   };
@@ -84,15 +94,15 @@ const AddTool = () => {
           onChange={handleInputChange}
         />
         <Input name="brand" label="Brand" onChange={handleInputChange} />
-        <Input
+        <TextArea
           name="description"
           label="Description"
-          error={errors.description}
           onChange={handleInputChange}
         />
         <Input
           name="instructionsUrl"
           label="Instructions URL"
+          error={errors.instructionsUrl}
           onChange={handleInputChange}
         />
         <Article gap=".75rem">
@@ -108,7 +118,12 @@ const AddTool = () => {
           )}
         </Article>
       </Section>
-      <Button label="Next" variant="primary" handleClick={handleNext} />
+      <Button
+        label="Submit"
+        variant="primary"
+        fullWidth
+        handleClick={handleNext}
+      />
     </Flex>
   );
 };

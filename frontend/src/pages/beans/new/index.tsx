@@ -18,7 +18,7 @@ import { beanValidate } from "../../../utils/validate";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { getBeans } from "../../../redux/beanRedux";
+import { searchBeans } from "../../../redux/searchRedux";
 import { addBean, reset } from "../../../redux/beanActionsRedux";
 
 //interface
@@ -49,10 +49,10 @@ const AddBean = () => {
 
   //get beans list from data for suggestions and duplicates
   useEffect(() => {
-    dispatch(getBeans());
+    dispatch(searchBeans({ category: "search" }));
   }, [dispatch]);
 
-  const { beans } = useSelector((state: RootState) => state.beans);
+  const { result } = useSelector((state: RootState) => state.search);
 
   //get roasters suggestions as user types
 
@@ -60,8 +60,8 @@ const AddBean = () => {
     let matches: Beans = [];
     if (value.length > 0) {
       matches =
-        beans &&
-        beans.filter((bean) => {
+        result &&
+        result.filter((bean) => {
           const regex = new RegExp(`${value}`, "gi");
           return bean.roaster.match(regex);
         });
@@ -120,7 +120,7 @@ const AddBean = () => {
     setErrors(errors || {});
     if (errors) return;
 
-    const hasDuplicate = beans.filter(
+    const hasDuplicate = result.filter(
       (bean) =>
         bean.roaster.toLowerCase() === newBean.roaster.toLowerCase() &&
         bean.name.toLowerCase() === newBean.name.toLowerCase() &&

@@ -21,6 +21,7 @@ import recipeDetailsReducer from "./recipeDetailsRedux";
 import recipeActionsReducer from "./recipeActionsRedux";
 import toolsReducer from "./toolRedux";
 import toolActionsReducer from "./toolActionsRedux";
+import searchReducer from "./searchRedux";
 
 const persistConfig = {
   key: "root",
@@ -30,7 +31,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   roasters: roastersReducer,
-  beans: beansReducer,
+  beansList: beansReducer,
   beanDetails: beanDetailsReducer,
   beanActions: beanActionsReducer,
   noteActions: noteActionsReducer,
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
   recipeActions: recipeActionsReducer,
   toolActions: toolActionsReducer,
   tools: toolsReducer,
+  search: searchReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

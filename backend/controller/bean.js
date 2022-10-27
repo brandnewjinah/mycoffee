@@ -3,10 +3,36 @@ import Bean from "../models/bean.js";
 import cloudinary from "../middleware/cloudinary.js";
 
 //GET BEANS
+
 export const getBeans = async (req, res) => {
+  const category = req.query.category;
+  const pageSize = parseInt(req.query.limit) || 6;
+
   try {
-    const result = await Bean.find();
-    res.status(200).json(result);
+    if (category === "beansList") {
+      let result = await Bean.find()
+        .collation({ locale: "en" })
+        .sort({ roaster: 1 })
+        .limit(pageSize);
+
+      let groups = result.reduce((acc, bean) => {
+        let initial = bean.roaster[0].toUpperCase();
+
+        if (!acc.some((item) => item.initial === initial)) {
+          acc.push({ initial, beans: [bean] });
+        } else {
+          const index = acc.findIndex((item) => item.initial === initial);
+          acc[index].beans.push(bean);
+        }
+
+        return acc;
+      }, []);
+
+      res.status(200).json(groups);
+    } else {
+      const result = await Bean.find();
+      res.status(200).json(result);
+    }
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

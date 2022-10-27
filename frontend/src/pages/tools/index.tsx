@@ -13,7 +13,6 @@ import { getTools } from "../../redux/toolRedux";
 import { RootState } from "../../redux/store";
 import { Section } from "../../components/container/Section";
 import { Card } from "../../components/Cards";
-import { toolOptions } from "../../data/data";
 
 const Tools = () => {
   const dispatch = useDispatch();
@@ -44,7 +43,7 @@ const Tools = () => {
           btnLabel="Add Tool"
           handleClick={handleNew}
         />
-        <Section>
+        <Section gap="2rem">
           {tools && tools.length > 0 ? (
             tools.map((tool) => (
               <Card

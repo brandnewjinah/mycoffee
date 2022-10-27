@@ -8,25 +8,20 @@ interface BeansParams {
   page?: number;
 }
 
-interface BeansGroup {
-  initial: string;
-  beans: BeanDetails[];
-}
-
-interface BeansState extends Status {
+interface SearchState extends Status {
   isLoading: boolean;
-  list: BeansGroup[];
+  result: BeanDetails[];
 }
 
-const initialState: BeansState = {
+const initialState: SearchState = {
   isLoading: false,
   status: 0,
   message: "",
-  list: [], //or
+  result: [],
 };
 
-export const getBeans = createAsyncThunk<
-  BeansState,
+export const searchBeans = createAsyncThunk<
+  SearchState,
   BeansParams,
   {
     rejectValue: Status;
@@ -38,8 +33,8 @@ export const getBeans = createAsyncThunk<
       isLoading: false,
       status: res.status,
       message: res.statusText,
-      list: res.data,
-    } as BeansState;
+      result: res.data,
+    } as SearchState;
   } catch (error: any) {
     return rejectWithValue({
       status: error.response.status,
@@ -48,21 +43,21 @@ export const getBeans = createAsyncThunk<
   }
 });
 
-const beansSlice = createSlice({
-  name: "beans",
+const searchSlice = createSlice({
+  name: "search",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getBeans.pending, (state) => {
+    builder.addCase(searchBeans.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(getBeans.fulfilled, (state, action) => {
+    builder.addCase(searchBeans.fulfilled, (state, action) => {
       state.isLoading = false;
       state.status = action.payload.status;
       state.message = action.payload.message;
-      state.list = action.payload.list;
+      state.result = action.payload.result;
     });
-    builder.addCase(getBeans.rejected, (state, action) => {
+    builder.addCase(searchBeans.rejected, (state, action) => {
       state.isLoading = false;
       state.status = action.payload!.status;
       state.message = action.payload!.message;
@@ -70,4 +65,4 @@ const beansSlice = createSlice({
   },
 });
 
-export default beansSlice.reducer;
+export default searchSlice.reducer;

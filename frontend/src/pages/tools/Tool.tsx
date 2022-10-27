@@ -10,8 +10,7 @@ import ImageContainer from "../../components/ImageContainer";
 
 //interface
 import { Tool } from "../../interfaces/toolInterface";
-import { LinkButton } from "../../components/Buttons";
-import Link from "../../components/Link";
+import { Link } from "../../components/Link";
 import { Body } from "../../components/Text";
 
 interface Props {
@@ -45,15 +44,15 @@ const ToolDetail = () => {
   return (
     <Flex flexCol gap="1.5rem">
       <Header title={toolData.name} overlay={toolData.brand} />
-      <Section>
+      <Section gap="1rem">
         <ImageContainer imgUrl={toolData.img} />
-        <Body variant="body_small">{toolData.description}</Body>
-
         <Link
+          buttonLink
           label="See Manual"
           linkUrl={`${toolData.instructionsUrl}`}
           blank
         />
+        <Body variant="body_small">{toolData.description}</Body>
       </Section>
     </Flex>
   );
