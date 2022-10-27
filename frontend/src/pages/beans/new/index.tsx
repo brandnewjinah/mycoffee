@@ -1,6 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import * as api from "../../../api";
 
 //comp
 import { Flex } from "../../../components/container/Div";
@@ -27,6 +28,7 @@ import {
   NewBean,
   Duplicate,
   BeanErrors,
+  NewBeanTest,
 } from "../../../interfaces/beanInterface";
 
 const AddBean = () => {
@@ -48,33 +50,42 @@ const AddBean = () => {
   const [errors, setErrors] = useState<BeanErrors>({});
 
   //get beans list from data for suggestions and duplicates
+
   useEffect(() => {
-    dispatch(searchBeans({ category: "search" }));
-  }, [dispatch]);
+    const fetchRoaster = async () => {
+      const res = await api.publicRequest.get(
+        `/beans?search=${newBean.roaster}`
+      );
+      setSuggestions(res.data);
+    };
+    fetchRoaster();
+  }, [newBean.roaster]);
+
+  console.log(suggestions);
 
   const { result } = useSelector((state: RootState) => state.search);
 
   //get roasters suggestions as user types
 
-  const handleRoasterChange = (value: string) => {
-    let matches: Beans = [];
-    if (value.length > 0) {
-      matches =
-        result &&
-        result.filter((bean) => {
-          const regex = new RegExp(`${value}`, "gi");
-          return bean.roaster.match(regex);
-        });
-      //matches remove duplicates
-      matches = matches.filter(
-        (match, index) =>
-          index ===
-          matches.findIndex((other) => match.roaster === other.roaster)
-      );
-    }
-    setSuggestions(matches);
-    setNewBean({ ...newBean, roaster: value });
-  };
+  // const handleRoasterChange = (value: string) => {
+  //   let matches: Beans = [];
+  //   if (value.length > 0) {
+  //     matches =
+  //       result &&
+  //       result.filter((bean) => {
+  //         const regex = new RegExp(`${value}`, "gi");
+  //         return bean.roaster.match(regex);
+  //       });
+  //     //matches remove duplicates
+  //     matches = matches.filter(
+  //       (match, index) =>
+  //         index ===
+  //         matches.findIndex((other) => match.roaster === other.roaster)
+  //     );
+  //   }
+  //   setSuggestions(matches);
+  //   setNewBean({ ...newBean, roaster: value });
+  // };
 
   //user clicks on a suggestion
   const handleSuggestClick = (value: string) => {
@@ -83,10 +94,11 @@ const AddBean = () => {
   };
 
   //set bean name
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+    const { name, value } = e.target;
     const userInput = { ...newBean };
-    userInput.name = value;
+    userInput[name as keyof NewBeanTest] = value;
     setNewBean(userInput);
   };
 
@@ -169,7 +181,7 @@ const AddBean = () => {
     <Flex flexCol gap="2.5rem">
       <Header title="Add New Bean" />
       <Section>
-        <Input
+        {/* <Input
           name="roaster"
           label="Roaster"
           value={newBean.roaster}
@@ -180,6 +192,12 @@ const AddBean = () => {
               setSuggestions([]);
             }, 100);
           }}
+        /> */}
+        <Input
+          name="roaster"
+          label="Roaster"
+          error={errors.roaster}
+          onChange={handleInputChange}
         />
         {suggestions && suggestions.length > 0 && (
           <Suggestions>

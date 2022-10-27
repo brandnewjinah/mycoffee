@@ -26,6 +26,11 @@ export interface NewBean {
   img?: string;
 }
 
+export interface NewBeanTest {
+  roaster: string;
+  name: string;
+}
+
 export interface BeanUpdates {
   process?: string;
   description?: string;

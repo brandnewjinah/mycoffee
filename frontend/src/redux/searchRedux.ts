@@ -3,11 +3,6 @@ import * as api from "../api";
 import { BeanDetails } from "../interfaces/beanInterface";
 import { Status } from "../interfaces/baseInterface";
 
-interface BeansParams {
-  category?: string;
-  page?: number;
-}
-
 interface SearchState extends Status {
   isLoading: boolean;
   result: BeanDetails[];
@@ -22,13 +17,13 @@ const initialState: SearchState = {
 
 export const searchBeans = createAsyncThunk<
   SearchState,
-  BeansParams,
+  string,
   {
     rejectValue: Status;
   }
->("beans/getBeans", async (obj: BeansParams, { rejectWithValue }) => {
+>("beans/getBeans", async (query: string, { rejectWithValue }) => {
   try {
-    const res = await api.publicRequest.get(`/beans?category=${obj.category}`);
+    const res = await api.publicRequest.get(`/beans?search=${query}`);
     return {
       isLoading: false,
       status: res.status,

@@ -6,6 +6,7 @@ import cloudinary from "../middleware/cloudinary.js";
 
 export const getBeans = async (req, res) => {
   const category = req.query.category;
+  const search = req.query.search;
   const pageSize = parseInt(req.query.limit) || 6;
 
   try {
@@ -29,6 +30,11 @@ export const getBeans = async (req, res) => {
       }, []);
 
       res.status(200).json(groups);
+    } else if (search) {
+      const result = await Bean.find({
+        roaster: { $regex: ".*" + search + ".*" },
+      });
+      res.status(200).json(result);
     } else {
       const result = await Bean.find();
       res.status(200).json(result);
