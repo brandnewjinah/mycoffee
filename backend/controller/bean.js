@@ -32,7 +32,7 @@ export const getBeans = async (req, res) => {
       res.status(200).json(groups);
     } else if (search) {
       const result = await Bean.find({
-        roaster: { $regex: ".*" + search + ".*" },
+        roaster: { $regex: search, $options: "i" },
       });
       res.status(200).json(result);
     } else {

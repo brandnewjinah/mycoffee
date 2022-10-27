@@ -19,7 +19,6 @@ import { beanValidate } from "../../../utils/validate";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { searchBeans } from "../../../redux/searchRedux";
 import { addBean, reset } from "../../../redux/beanActionsRedux";
 
 //interface
@@ -44,57 +43,34 @@ const AddBean = () => {
   });
 
   const [suggestions, setSuggestions] = useState<Beans>([]);
-
   const [duplicate, setDuplicate] = useState<Duplicate>({});
-
   const [errors, setErrors] = useState<BeanErrors>({});
 
   //get beans list from data for suggestions and duplicates
-
   useEffect(() => {
     const fetchRoaster = async () => {
       const res = await api.publicRequest.get(
-        `/beans?search=${newBean.roaster}`
+        `/search?roaster=${newBean.roaster}`
       );
       setSuggestions(res.data);
     };
-    fetchRoaster();
-  }, [newBean.roaster]);
 
-  console.log(suggestions);
+    if (newBean.roaster.length > 0) {
+      fetchRoaster();
+    } else {
+      setSuggestions([]);
+    }
+  }, [newBean.roaster]);
 
   const { result } = useSelector((state: RootState) => state.search);
 
-  //get roasters suggestions as user types
-
-  // const handleRoasterChange = (value: string) => {
-  //   let matches: Beans = [];
-  //   if (value.length > 0) {
-  //     matches =
-  //       result &&
-  //       result.filter((bean) => {
-  //         const regex = new RegExp(`${value}`, "gi");
-  //         return bean.roaster.match(regex);
-  //       });
-  //     //matches remove duplicates
-  //     matches = matches.filter(
-  //       (match, index) =>
-  //         index ===
-  //         matches.findIndex((other) => match.roaster === other.roaster)
-  //     );
-  //   }
-  //   setSuggestions(matches);
-  //   setNewBean({ ...newBean, roaster: value });
-  // };
-
   //user clicks on a suggestion
   const handleSuggestClick = (value: string) => {
-    setNewBean({ ...newBean, roaster: value });
     setSuggestions([]);
+    setNewBean({ ...newBean, roaster: value });
   };
 
   //set bean name
-
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const userInput = { ...newBean };
@@ -132,19 +108,19 @@ const AddBean = () => {
     setErrors(errors || {});
     if (errors) return;
 
-    const hasDuplicate = result.filter(
-      (bean) =>
-        bean.roaster.toLowerCase() === newBean.roaster.toLowerCase() &&
-        bean.name.toLowerCase() === newBean.name.toLowerCase() &&
-        bean.level === newBean.level
-    );
+    const checkDuplicate = async () => {
+      const res = await api.publicRequest.get(
+        `/search?roaster=${newBean.roaster}&beanName=${newBean.name}`
+      );
+      if (res.data.length > 0) {
+        setDuplicate(res.data[0]);
+      } else {
+        const newBeanData = { ...newBean, img: previewSource };
+        dispatch(addBean(newBeanData));
+      }
+    };
 
-    if (hasDuplicate.length > 0) {
-      setDuplicate(hasDuplicate[0]);
-    } else {
-      const newBeanData = { ...newBean, img: previewSource };
-      dispatch(addBean(newBeanData));
-    }
+    checkDuplicate();
   };
 
   const clearDuplicate = () => {
@@ -181,23 +157,17 @@ const AddBean = () => {
     <Flex flexCol gap="2.5rem">
       <Header title="Add New Bean" />
       <Section>
-        {/* <Input
+        <Input
           name="roaster"
           label="Roaster"
           value={newBean.roaster}
           error={errors.roaster}
-          onChange={(e) => handleRoasterChange(e.target.value)}
+          onChange={handleInputChange}
           onBlur={() => {
             setTimeout(() => {
               setSuggestions([]);
             }, 100);
           }}
-        /> */}
-        <Input
-          name="roaster"
-          label="Roaster"
-          error={errors.roaster}
-          onChange={handleInputChange}
         />
         {suggestions && suggestions.length > 0 && (
           <Suggestions>

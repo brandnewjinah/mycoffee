@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import beanRoute from "./routes/beans.js";
 import recipeRoute from "./routes/recipe.js";
 import toolRoute from "./routes/tools.js";
+import searchRoute from "./routes/search.js";
 
 const app = express();
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(cors());
 app.use("/beans", beanRoute);
 app.use("/recipe", recipeRoute);
 app.use("/tools", toolRoute);
+app.use("/search", searchRoute);
 
 //db
 const dbOptions = {
