@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { ResponsiveRadar } from "@nivo/radar";
 import moment from "moment";
-import styled from "styled-components";
 
 //comp
 import { Flex } from "../../components/container/Div";

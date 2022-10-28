@@ -35,7 +35,7 @@ const ToolDetail = () => {
     };
 
     fetchData();
-  }, []);
+  }, [toolId]);
 
   return (
     <Flex flexCol gap="1.5rem">

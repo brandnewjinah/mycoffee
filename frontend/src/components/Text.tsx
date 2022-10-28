@@ -24,12 +24,8 @@ interface Props {
 }
 
 export const Heading: FC<Props> = ({
-  variant,
-  type,
-  bold,
   padding,
   uppercase,
-  capitalize,
   spacing,
   color,
   children,
@@ -100,7 +96,7 @@ const P = styled.p<Props>`
     props.variant === "body_large"
       ? "1.625rem"
       : props.variant === "body_small"
-      ? "1.5rem"
+      ? "1.35rem"
       : props.variant === "body_xsmall"
       ? "1.25rem"
       : props.variant === "caption"

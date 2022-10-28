@@ -31,6 +31,7 @@ import ToolDetails from "./pages/tools/Tool";
 
 import Signup from "./pages/user/Signup";
 import Login from "./pages/user/Login";
+import Test from "./pages/Test";
 
 const Routes = () => {
   return (
@@ -75,6 +76,7 @@ const Routes = () => {
           <Route exact path="/login" component={Login} />
 
           <Route exact path="/recipe/:id" component={Recipe} />
+          <Route exact path="/test" component={Test} />
         </Layout>
       </Switch>
     </Router>

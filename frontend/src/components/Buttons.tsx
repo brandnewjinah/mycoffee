@@ -9,9 +9,9 @@ interface Props {
   label?: string;
   variant?: "primary" | "secondary" | "tertiary";
   fullWidth?: boolean;
-  bgColor?: string;
   addIcon?: boolean;
-  size?: "big" | "small" | undefined;
+  size?: "small" | undefined;
+  margin?: string;
   handleClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -19,17 +19,17 @@ export const Button: FC<Props> = ({
   label,
   variant,
   fullWidth,
-  bgColor,
   addIcon,
   size,
+  margin,
   handleClick,
 }) => {
   return (
     <Container
       variant={variant}
       fullWidth={fullWidth}
-      bgColor={bgColor}
       size={size}
+      margin={margin}
       onClick={handleClick}
     >
       {addIcon && (
@@ -61,6 +61,7 @@ const Container = styled.button<Props>`
     props.variant === "secondary" ? neutral[200] : "transparent"};
   border-radius: ${(props) => (props.variant === "tertiary" ? 0 : "2rem")};
   padding: ${(props) => (props.size === "small" ? ".5rem 1rem" : "1rem 2rem")};
+  margin: ${(props) => props.margin && props.margin};
   cursor: pointer;
 
   &:hover {
@@ -70,9 +71,9 @@ const Container = styled.button<Props>`
   }
 `;
 
-export const LinkButton: FC<Props> = ({ label, size, handleClick }) => {
+export const LinkButton: FC<Props> = ({ label, size, margin, handleClick }) => {
   return (
-    <LinkContainer onClick={handleClick} size={size}>
+    <LinkContainer onClick={handleClick} size={size} margin={margin}>
       {label}
     </LinkContainer>
   );
@@ -87,6 +88,7 @@ const LinkContainer = styled.button<Props>`
   font-weight: 600;
   line-height: 1.5rem;
   color: ${primaryColor.brickRed};
+  margin: ${(props) => props.margin && props.margin};
 
   &::after {
     content: "";

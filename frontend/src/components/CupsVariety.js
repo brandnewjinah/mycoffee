@@ -4,7 +4,7 @@ import _ from "lodash";
 import styled from "styled-components";
 
 //comp
-import { Hot2oz, Hot6oz, Hot8oz, Hot12oz, IcedBig } from "./CupSizes";
+import { Hot6oz, Hot8oz, Hot12oz, IcedBig } from "./CupSizes";
 
 //data
 import { categoryList } from "../data/category";

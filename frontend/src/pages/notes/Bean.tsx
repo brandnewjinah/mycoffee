@@ -33,14 +33,6 @@ const BeanPage = () => {
     history.push(`/notes/b/${beanId}/new`);
   };
 
-  // const handleDeleteBean = () => {
-  //   if (window.confirm("Delete this bean?")) {
-  //     dispatch(deleteBean(beanId));
-  //     //for future api, when success deleting, then move to next page
-  //     history.push("/brew");
-  //   }
-  // };
-
   return isLoading ? (
     <Loading />
   ) : (
@@ -70,14 +62,15 @@ const BeanPage = () => {
             ))}
         </Flex>
       ) : (
-        <>
+        <Flex flexCol gap="2.5rem">
           <Header title={beanDetails.name} overlay="Notes for" />
           <Empty
             title="No notes yet"
-            subtitle="Add a note to blah balh"
+            subtitle="Start adding a note for this bean"
             btnLabel="Add Note"
+            handleButtonClick={handleNewNote}
           />
-        </>
+        </Flex>
       )}
     </>
   );

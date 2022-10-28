@@ -7,8 +7,7 @@ import { Flex } from "../../../components/container/Div";
 import { Header } from "../../../components/Header";
 import { Section } from "../../../components/container/Section";
 import { Input } from "../../../components/Input";
-import { Button, LinkButton } from "../../../components/Buttons";
-import { primaryColor } from "../../../components/token";
+import { Button } from "../../../components/Buttons";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";

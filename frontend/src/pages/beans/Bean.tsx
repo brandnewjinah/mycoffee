@@ -16,7 +16,7 @@ import { Button, LinkButton } from "../../components/Buttons";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
 import { getBeanDetails } from "../../redux/beanDetailsRedux";
-import { deleteBean, reset } from "../../redux/beanActionsRedux";
+import { reset } from "../../redux/beanActionsRedux";
 
 export interface Props {
   ratio?: string;
@@ -34,10 +34,6 @@ const BeanPage: FC<Props> = () => {
 
   const { beanDetails } = useSelector((state: RootState) => state.beanDetails);
 
-  const handleDelete = () => {
-    dispatch(deleteBean(beanId));
-  };
-
   //actions after submitting button
   const { beanDeleted } = useSelector((state: RootState) => state.beanActions);
 
@@ -51,27 +47,19 @@ const BeanPage: FC<Props> = () => {
     }
   });
 
-  const handleNote = (action: string) => {
-    action === "view"
-      ? history.push(`../../notes/b/${beanId}`)
-      : history.push(`../../notes/b/${beanId}/new`);
-  };
-
   return (
     <Flex flexCol gap="1.5rem">
       <Header title={beanDetails.name} overlay={beanDetails.roaster} />
       <Section>
         <ImageContainer imgUrl={beanDetails.img} />
       </Section>
-      <Section>
-        <div>
-          {beanDetails.flavor &&
-            beanDetails.flavor.length > 0 &&
-            beanDetails.flavor.map((item) => (
-              <Chips key={item.id} label={item.value} display />
-            ))}
-        </div>
-      </Section>
+      {beanDetails.flavor && beanDetails.flavor.length > 0 && (
+        <Section>
+          {beanDetails.flavor.map((item) => (
+            <Chips key={item.id} label={item.value} display />
+          ))}
+        </Section>
+      )}
       {beanDetails.description && (
         <Section>
           <Body variant="body_small">{beanDetails.description}</Body>
@@ -97,7 +85,7 @@ const BeanPage: FC<Props> = () => {
               label="View Notes"
               variant="secondary"
               fullWidth
-              handleClick={() => handleNote("view")}
+              handleClick={() => history.push(`../../notes/b/${beanId}`)}
             />
           </div>
           <div className="flexOne">
@@ -105,20 +93,15 @@ const BeanPage: FC<Props> = () => {
               label="Add Note"
               variant="primary"
               fullWidth
-              handleClick={() => handleNote("add")}
+              handleClick={() => history.push(`../../notes/b/${beanId}/new`)}
             />
           </div>
         </Flex>
       </Section>
       <LinkButton
-        label="Edit This Bean"
+        label="Add more details"
         variant="tertiary"
         handleClick={() => history.push(`/beans/b/${beanId}/details`)}
-      />
-      <LinkButton
-        label="Delete This Bean"
-        variant="tertiary"
-        handleClick={handleDelete}
       />
     </Flex>
   );

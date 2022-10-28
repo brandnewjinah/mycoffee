@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import _ from "lodash";
 
 //comp
 import Loading from "../../components/Loading";
@@ -11,9 +10,6 @@ import { Section } from "../../components/container/Section";
 import { Card } from "../../components/Cards";
 import { neutral } from "../../components/token";
 import Empty from "../../components/EmptyPage";
-
-//interface
-import { BeanDetails, Initial } from "../../interfaces/beanInterface";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +28,7 @@ const BeansList = () => {
   //01. beans data API call
   useEffect(() => {
     dispatch(getBeans({ category: "beansList", page: currentPage }));
-  }, [dispatch]);
+  }, [dispatch, currentPage]);
 
   //02. get beans data from redux
   const { isLoading, list } = useSelector(

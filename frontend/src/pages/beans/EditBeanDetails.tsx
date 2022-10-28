@@ -9,7 +9,7 @@ import { TextArea } from "../../components/TextArea";
 import { Input } from "../../components/Input";
 import Modal from "../../components/Modal";
 import Chips from "../../components/Chips";
-import { Button } from "../../components/Buttons";
+import { Button, LinkButton } from "../../components/Buttons";
 
 //interface
 import { BaseObjectIF } from "../../interfaces/baseInterface";
@@ -18,7 +18,7 @@ import { BeanUpdates } from "../../interfaces/beanInterface";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { updateBean, reset } from "../../redux/beanActionsRedux";
+import { updateBean, deleteBean, reset } from "../../redux/beanActionsRedux";
 
 //data
 import { beanFlavor } from "../../data/flavor";
@@ -76,6 +76,10 @@ const EditBeanDetails = () => {
     dispatch(updateBean(newBeanDetails));
   };
 
+  const handleDelete = () => {
+    dispatch(deleteBean(beanId));
+  };
+
   //actions after submitting data
   const { beanUpdated } = useSelector((state: RootState) => state.beanActions);
 
@@ -87,7 +91,8 @@ const EditBeanDetails = () => {
     } else if (beanUpdated.status !== 200 && beanUpdated.status !== 0) {
       alert("error");
     }
-  }, [dispatch, beanUpdated.status, beanId]);
+  }, [dispatch, beanUpdated.status, beanId, history]);
+
   return (
     <div>
       <Flex flexCol gap="2.5rem">
@@ -96,25 +101,25 @@ const EditBeanDetails = () => {
           <TextArea
             name="description"
             label="Description"
-            value={beanUpdates.description}
+            value={beanUpdates.description || ""}
             onChange={handleInputChange}
           />
           <Input
             name="process"
             label="Process"
-            value={beanUpdates.process}
+            value={beanUpdates.process || ""}
             onChange={handleInputChange}
           />
           <Input
             name="region"
             label="Region"
-            value={beanUpdates.region}
+            value={beanUpdates.region || ""}
             onChange={handleInputChange}
           />
           <Input
             name="variety"
             label="Variety"
-            value={beanUpdates.variety}
+            value={beanUpdates.variety || ""}
             onChange={handleInputChange}
           />
           <div>
@@ -154,12 +159,20 @@ const EditBeanDetails = () => {
             </Modal>
           </div>
         </Section>
-        <Button
-          label="Next"
-          variant="primary"
-          fullWidth
-          handleClick={handleNext}
-        />
+        <Flex flexCol>
+          <Button
+            label="Save"
+            variant="primary"
+            fullWidth
+            handleClick={handleNext}
+          />
+          <LinkButton
+            label="Delete This Bean"
+            variant="tertiary"
+            margin="1rem 0"
+            handleClick={handleDelete}
+          />
+        </Flex>
       </Flex>
     </div>
   );

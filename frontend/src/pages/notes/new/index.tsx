@@ -215,7 +215,7 @@ const AddNote = () => {
               ))}
           </Section>
           <Button
-            label="Next"
+            label="Submit"
             variant="primary"
             fullWidth
             handleClick={() => handleNext(2)}

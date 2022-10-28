@@ -62,8 +62,6 @@ const AddBean = () => {
     }
   }, [newBean.roaster]);
 
-  const { result } = useSelector((state: RootState) => state.search);
-
   //user clicks on a suggestion
   const handleSuggestClick = (value: string) => {
     setSuggestions([]);
@@ -228,7 +226,7 @@ const AddBean = () => {
         </Article>
       </Section>
       <Button
-        label="Next"
+        label="Add"
         variant="primary"
         fullWidth
         handleClick={handleNext}

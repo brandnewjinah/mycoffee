@@ -3,14 +3,14 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 
+const app = express();
+dotenv.config();
+
 //import routes
 import beanRoute from "./routes/beans.js";
 import recipeRoute from "./routes/recipe.js";
 import toolRoute from "./routes/tools.js";
 import searchRoute from "./routes/search.js";
-
-const app = express();
-dotenv.config();
 
 //middleware
 app.use(express.json({ limit: "50mb" }));
