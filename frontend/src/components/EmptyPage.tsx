@@ -1,11 +1,9 @@
 import React, { FC, MouseEvent } from "react";
-import styled from "styled-components";
 
 //comp
 import { Button } from "./Buttons";
+import { Section } from "./container/Section";
 import { Header } from "./Header";
-import { primaryColor } from "./token";
-import { Plus } from "../assets/Icons";
 
 export interface Props {
   title: string;
@@ -16,24 +14,16 @@ export interface Props {
 
 const Empty: FC<Props> = ({ title, subtitle, btnLabel, handleButtonClick }) => {
   return (
-    <Wrapper>
+    <Section>
       <Header variant="small" title={title} subtitle={subtitle} />
       <Button
         label={btnLabel}
         variant="primary"
+        fullWidth
         handleClick={handleButtonClick}
       />
-    </Wrapper>
+    </Section>
   );
 };
-
-const Wrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  height: 300px;
-`;
 
 export default Empty;

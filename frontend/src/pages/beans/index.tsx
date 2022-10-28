@@ -5,12 +5,12 @@ import _ from "lodash";
 
 //comp
 import Loading from "../../components/Loading";
-import Empty from "../../components/EmptyPage";
 import { Flex } from "../../components/container/Div";
-import { Section } from "../../components/container/Section";
 import { Header } from "../../components/Header";
+import { Section } from "../../components/container/Section";
 import { Card } from "../../components/Cards";
 import { neutral } from "../../components/token";
+import Empty from "../../components/EmptyPage";
 
 //interface
 import { BeanDetails, Initial } from "../../interfaces/beanInterface";
@@ -20,9 +20,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBeans } from "../../redux/beanRedux";
 import { RootState } from "../../redux/store";
 
-export interface accTypes {
-  [key: string]: Initial;
-}
+// export interface accTypes {
+//   [key: string]: Initial;
+// }
 
 const BeansList = () => {
   const dispatch = useDispatch();

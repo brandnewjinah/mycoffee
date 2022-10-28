@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -6,13 +6,11 @@ import styled from "styled-components";
 import { Logo } from "../../assets/Icons";
 import { primaryColor } from "../token";
 
-export interface Props {}
-
 type Style = {
   open?: boolean;
 };
 
-const Header: FC<Props> = () => {
+const Header = () => {
   const [open, setOpen] = useState(false);
 
   return (

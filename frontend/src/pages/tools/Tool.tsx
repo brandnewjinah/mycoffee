@@ -13,10 +13,6 @@ import { Tool } from "../../interfaces/toolInterface";
 import { Link } from "../../components/Link";
 import { Body } from "../../components/Text";
 
-interface Props {
-  ratio?: string;
-}
-
 const ToolDetail = () => {
   const { toolId } = useParams<{ toolId: string }>();
   const [toolData, setToolData] = useState<Tool>({

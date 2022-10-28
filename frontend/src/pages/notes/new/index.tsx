@@ -163,6 +163,7 @@ const AddNote = () => {
           <Button
             label="Next"
             variant="primary"
+            fullWidth
             handleClick={() => handleNext(1)}
           />
         </>
@@ -216,6 +217,7 @@ const AddNote = () => {
           <Button
             label="Next"
             variant="primary"
+            fullWidth
             handleClick={() => handleNext(2)}
           />
         </>

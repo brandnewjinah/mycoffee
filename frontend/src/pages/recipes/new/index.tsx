@@ -8,7 +8,6 @@ import { Header } from "../../../components/Header";
 import { Section } from "../../../components/container/Section";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
-import { primaryColor } from "../../../components/token";
 import { Radio } from "../../../components/RadioButton";
 
 //util

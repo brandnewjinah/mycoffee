@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-
-
  * {
         box-sizing: border-box;
         margin: 0;
@@ -33,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
         &:hover,
         &:focus {
           outline: 0;
-          opacity: 0.75;
+          /* opacity: 0.75; */
         }
     }
     code {
@@ -44,8 +42,6 @@ const GlobalStyle = createGlobalStyle`
     ul {
         list-style-type: none;
     }
-    
-  
 `;
 
 export default GlobalStyle;

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
 //comp
-import { Container } from "../../components/container/Div";
+import { Flex } from "../../components/container/Div";
 import { Ul } from "../../components/Lists";
 import { Section } from "../../components/container/Section";
 import { Header } from "../../components/Header";
@@ -53,7 +53,7 @@ const Recipe = () => {
   return isLoading ? (
     <Loading />
   ) : (
-    <Container gap="1.5rem">
+    <Flex flexCol gap="1.5rem">
       <Header title={recipeDetails.name} />
       <Section>
         <CupsVariety data={recipeDetails.ratio} type={recipeDetails.type} />
@@ -87,7 +87,7 @@ const Recipe = () => {
         variant="tertiary"
         handleClick={handleDelete}
       />
-    </Container>
+    </Flex>
   );
 };
 

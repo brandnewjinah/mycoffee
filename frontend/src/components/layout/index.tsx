@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 //comp
-import { Wrapper } from "../container/Div";
+import { Div } from "../container/Div";
 import Header from "./Header";
 import { size, primaryColor } from "../token";
 
@@ -12,10 +12,10 @@ export interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   return (
-    <Wrapper bgColor={primaryColor.ivory} minHeight="100vh">
+    <Div bgColor={primaryColor.ivory} minHeight="100vh">
       <Header />
       <Main>{children}</Main>
-    </Wrapper>
+    </Div>
   );
 };
 

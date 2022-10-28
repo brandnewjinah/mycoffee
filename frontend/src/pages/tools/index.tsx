@@ -34,36 +34,45 @@ const Tools = () => {
     <Loading />
   ) : (
     <>
-      <Flex flexCol gap="2.5rem">
-        <Header
-          title="Tools"
-          subtitle="Access manuals and tutorials."
-          button
-          addIcon
-          btnLabel="Add Tool"
-          handleClick={handleNew}
-        />
-        <Section gap="2rem">
-          {tools && tools.length > 0 ? (
-            tools.map((tool) => (
-              <Card
-                key={tool._id}
-                linkToBean={`/tool/${tool._id}`}
-                imgsrc={tool.img}
-                overline={tool.brand}
-                header={tool.name}
+      {tools && tools.length > 0 ? (
+        <Flex flexCol gap="2.5rem">
+          <Header
+            title="Tools"
+            subtitle="Access manuals and tutorials."
+            button
+            addIcon
+            btnLabel="Add Tool"
+            handleClick={handleNew}
+          />
+          <Section gap="2rem">
+            {tools && tools.length > 0 ? (
+              tools.map((tool) => (
+                <Card
+                  key={tool._id}
+                  linkToBean={`/tool/${tool._id}`}
+                  imgsrc={tool.img}
+                  overline={tool.brand}
+                  header={tool.name}
+                />
+              ))
+            ) : (
+              <Empty
+                title="No Tools Yet"
+                subtitle="Add a new tool"
+                btnLabel="Add Tool"
+                handleButtonClick={handleNew}
               />
-            ))
-          ) : (
-            <Empty
-              title="No Tools Yet"
-              subtitle="Add a new tool"
-              btnLabel="Add Tool"
-              handleButtonClick={handleNew}
-            />
-          )}
-        </Section>
-      </Flex>
+            )}
+          </Section>
+        </Flex>
+      ) : (
+        <Empty
+          title="No Tools Yet"
+          subtitle="Add a new tool and easily access to manuals."
+          btnLabel="Add Tool"
+          handleButtonClick={handleNew}
+        />
+      )}
     </>
   );
 };
