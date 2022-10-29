@@ -1,5 +1,0 @@
-[build]
-  base = "frontend/"
-  publish = "frontend/dist"
-  command = "CI= npm run build"
-
