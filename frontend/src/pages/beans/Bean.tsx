@@ -54,11 +54,11 @@ const BeanPage: FC<Props> = () => {
         <ImageContainer imgUrl={beanDetails.img} />
       </Section>
       {beanDetails.flavor && beanDetails.flavor.length > 0 && (
-        <Section>
+        <div>
           {beanDetails.flavor.map((item) => (
             <Chips key={item.id} label={item.value} display />
           ))}
-        </Section>
+        </div>
       )}
       {beanDetails.description && (
         <Section>

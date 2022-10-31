@@ -1,35 +1,68 @@
-## React Home Barista Project
+# ☕️ &nbsp; What is COFFEE?
 
-A React App where I keep track of all my coffee things.
+**COFFEE** is a mobile first web app lets you record your daily espresso dialing in notes to help you pull the best tasting and most consistent espresso shots.
 
-## About the project
+### <h3 align="center">[👉 Live Demo](https://coffee-frontend.onrender.com/)</h3>
 
-<img src="https://raw.githubusercontent.com/brandnewjinah/mycoffee/main/frontend/src/assets/home.png" alt="button" width="700"/>
+## Introduction
 
-As an avid home barista, I wanted to create a place where I can easily store and access data about my favorite coffee beans and tools.<br><br>
+In order to pull the perfect espresso shot, you need to calibrate the dose, time, yield, and grind size depending on the type and the freshness of the beans. To help you with this process, this app lets you record your daily espresso dialing in notes. Refer to your notes history and get better calibration next time. Additionally, you can save espresso drink recipes and keep track of coffee tools you own. Think of it as your one stop handy app that can help you get organized as a home barista.
 
-## Backend
+<div align="center">
+    <img src="https://res.cloudinary.com/fw7128/image/upload/v1667250269/coffee/coffee_01_wfm9c6.jpg">
+</div>
 
-I used Node.js to create models and routes for
+<div align="center">
+    <img src="https://res.cloudinary.com/fw7128/image/upload/v1667250274/coffee/coffee_02_i1m0cu.jpg">
+</div>
 
-- Registering a user
-- Logging in a user
-- Storing a quiz profile
-- Creating, updating and deleting a coffee collection
-- Creating, updating and deleting a tool collection (code to be uploaded soon)
-- Creating, updating and deleting a recipe collection (code to be uploaded soon)
-- Commenting (code to be uploaded soon)
+## ⌨️ &nbsp; Technologies
 
-## Frontend
+#### Backend
 
-I used React, partially TypeScript and Redux to create frontend.
+- Node.js
+- Express
+- Mongoose
+- MongoDB
 
-### Quiz
+#### Frontend
 
-### Collection
+- React
+- Redux (Redux Toolkit)
+- TypeScript
+- Styled Components
 
-### Tools
+## 🧩 &nbsp; Features
 
-### Recipe
+#### Add Beans
 
-### User
+- Add beans to to start recording notes.
+- Get roaster suggestions as you type. Data generated from previously saved bean details.
+- Add additional details about beans (will be useful for the filtering option to come in the future).
+- View saved beans grouped by alphabetical order.
+
+#### Add Notes
+
+- Add espresso dialing in notes for each bean.
+- Get comprehensive graphs from data you entered.
+- View notes details organized by dates you recorded.
+- Filtering option to come in the future.
+- Track notes history.
+
+#### Add Recipes
+
+- Add espresso drink recipes.
+- Get automatically generated drink diagrams based on ratio you entered.
+- View ingredients and directions for each recipe.
+- Search for recipe to come in the future.
+
+#### Add Tools
+
+- Add coffee tools you own.
+- Link to tutorials and manuals for each tool.
+
+## 🧐 &nbsp; Updates to come
+
+- User registration and authentication.
+- Ability to search and save beans from what other users have saved.
+- Ability to search and filter beans and notes.
