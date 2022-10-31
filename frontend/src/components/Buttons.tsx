@@ -46,7 +46,7 @@ const Container = styled.button<Props>`
   height: auto;
   background-color: ${(props) =>
     props.variant === "secondary" ? "transparent" : primaryColor.brickRed};
-  display: inline-block;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   gap: 0.35rem;

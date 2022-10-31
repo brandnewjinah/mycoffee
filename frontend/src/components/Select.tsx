@@ -4,21 +4,21 @@ import styled from "styled-components";
 //comp
 import { neutral } from "./token";
 
-export interface SelectProps {
-  options?: SelectOptionProps[];
-  selected?: string;
-  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
-  fullWidth?: boolean;
-}
-
-export interface SelectOptionProps {
+interface SelectOptionProps {
   id: number;
   value: string;
   label: string;
   selections: SelectOptionSubProps[];
 }
 
-export interface SelectOptionSubProps {
+interface SelectProps {
+  options?: SelectOptionProps[];
+  selected?: string;
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  fullWidth?: boolean;
+}
+
+interface SelectOptionSubProps {
   id: number;
   value: string;
   label: string;
@@ -49,6 +49,7 @@ const Select: FC<SelectProps> = ({
               {option.selections.map((item, i) => (
                 <option
                   key={i}
+                  label={item.label}
                   value={item.value}
                   selected={selected === item.value}
                 >

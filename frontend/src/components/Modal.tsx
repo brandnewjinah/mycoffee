@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { Heading } from "./Text";
+import { Close } from "../assets/Icons";
+import { neutral } from "./token";
 
 interface Props {
   open: boolean;
@@ -17,8 +18,8 @@ const Modal: FC<Props> = ({ open, header, children, handleClose }) => {
       <Overlay onClick={handleClose} />
       <Container>
         <Header>
-          <Heading>{header}</Heading>
-          <button onClick={handleClose}>close</button>
+          <h1>{header}</h1>
+          <button onClick={handleClose}>Close</button>
         </Header>
         <Content>{children}</Content>
       </Container>
@@ -55,6 +56,15 @@ const Header = styled.header`
   justify-content: space-between;
   padding: 1rem;
   background-color: #fff;
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+  }
 `;
 
 const Content = styled.main`

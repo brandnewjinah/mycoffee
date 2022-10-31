@@ -16,14 +16,14 @@ export const homeMenu = [
     id: 2,
     title: "Notes",
     link: "/notes",
-    desc: "espresso brew notes",
+    desc: "espresso dialing notes",
     delay: 200,
   },
   {
     id: 3,
     title: "Recipes",
     link: "/recipes",
-    desc: "drink recipes",
+    desc: "espresso drink recipes",
     delay: 300,
   },
   {

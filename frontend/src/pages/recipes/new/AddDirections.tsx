@@ -80,13 +80,15 @@ const AddDirections = () => {
             )}
           </Flex>
         ))}
-        <Button
-          label="Additional Row"
-          variant="secondary"
-          size="small"
-          addIcon
-          handleClick={handleAddDirection}
-        />
+        <Flex flexCol>
+          <Button
+            label="Add Row"
+            variant="secondary"
+            size="small"
+            addIcon
+            handleClick={handleAddDirection}
+          />
+        </Flex>
       </Section>
       <Button
         label="Next"

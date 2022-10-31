@@ -1,7 +1,6 @@
 import React, { FC, ChangeEvent, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
-import styled from "styled-components";
 
 //comp
 import { Flex } from "../../../components/container/Div";
@@ -10,6 +9,7 @@ import { Section } from "../../../components/container/Section";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Buttons";
 import Modal from "../../../components/Modal";
+import Select from "../../../components/Select";
 import Chips from "../../../components/Chips";
 
 //interface
@@ -21,11 +21,13 @@ import {
 
 //data
 import { unitOptions } from "../../../data/data";
+import { ingredientList } from "../../../data/ingredient";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { addIngredients } from "../../../redux/recipeActionsRedux";
+import { ListItem } from "../../../components/ListItem";
 
 interface Props {
   errors: RecipeErrors;
@@ -57,6 +59,15 @@ const AddRecipe: FC<Props> = () => {
 
   const [thisIngredient, setThisIngredient] = useState<Ingredients>({});
 
+  const handleIngredientSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { options, value } = e.target;
+    const name = options[options.selectedIndex].getAttribute("label");
+    let currentIngredient = { ...thisIngredient };
+    currentIngredient.ingredient = value;
+    currentIngredient.label = name!;
+    setThisIngredient(currentIngredient);
+  };
+
   const handleIngredients = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     let currentIngredient = { ...thisIngredient };
@@ -69,6 +80,8 @@ const AddRecipe: FC<Props> = () => {
     currentIngredient.unit = unit;
     setThisIngredient(currentIngredient);
   };
+
+  console.log(ingredients);
 
   const handleIngredientSave = () => {
     let newIngredients = [...ingredients];
@@ -89,19 +102,19 @@ const AddRecipe: FC<Props> = () => {
 
   return (
     <Flex flexCol gap="2.5rem">
-      <Section gap="1rem">
+      <Section>
         <Header title={thisRecipe.name} subtitle={thisRecipe.desc} />
         {ingredients &&
           ingredients.length > 0 &&
           ingredients.map((item, idx) => (
-            <Flex key={idx}>
-              <p>{item.value}</p>
-              <p>{item.unit}</p>
-              <p>{item.ingredient}</p>
-              <div onClick={() => handleIngredientDelete(item.id!)}>delete</div>
-            </Flex>
+            <ListItem
+              key={idx}
+              title={item.label}
+              value={`${item.value}${item.unit}`}
+              handleDelete={() => handleIngredientDelete(item.id!)}
+            />
           ))}
-        <Add>
+        <Flex flexCol>
           <Button
             label="Add Ingredient"
             variant="secondary"
@@ -109,19 +122,18 @@ const AddRecipe: FC<Props> = () => {
             addIcon
             handleClick={() => setShowModal!(true)}
           />
-        </Add>
+        </Flex>
         <Modal
           header="Add Ingredient"
           open={showModal!}
           handleClose={() => setShowModal!(false)}
         >
           <Section gap="1rem">
-            <Input
-              name="ingredient"
-              placeholder="Ingredient"
-              onChange={handleIngredients}
+            <Select
+              options={ingredientList}
+              onChange={handleIngredientSelect}
+              fullWidth
             />
-
             <Input
               name="value"
               placeholder="Value"
@@ -141,6 +153,8 @@ const AddRecipe: FC<Props> = () => {
           <Button
             label="Add"
             variant="primary"
+            fullWidth
+            margin="1rem 0"
             handleClick={handleIngredientSave}
           />
         </Modal>
@@ -154,12 +168,5 @@ const AddRecipe: FC<Props> = () => {
     </Flex>
   );
 };
-
-const Add = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-`;
 
 export default AddRecipe;

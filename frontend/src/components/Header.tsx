@@ -39,14 +39,20 @@ export const Header: FC<Props> = ({
         </Body>
       )}
       {variant && variant === "small" ? (
-        <Body variant="body_xsmall" bold uppercase spacing=".025rem">
+        <Body
+          variant="body_xsmall"
+          bold
+          uppercase
+          spacing=".025rem"
+          padding="0 0 1rem"
+        >
           {title}
         </Body>
       ) : (
-        <Heading>{title}</Heading>
+        <Heading padding="0 0 1rem">{title}</Heading>
       )}
       {subtitle && (
-        <Body variant="body_small" color={neutral[400]} padding=".65rem 0 1rem">
+        <Body variant="body_small" color={neutral[400]} padding="0 0 1rem">
           {subtitle}
         </Body>
       )}

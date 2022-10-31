@@ -7,11 +7,11 @@ import { Flex } from "../../components/container/Div";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/container/Section";
 import ImageContainer from "../../components/ImageContainer";
+import { Link } from "../../components/Link";
+import { Body } from "../../components/Text";
 
 //interface
 import { Tool } from "../../interfaces/toolInterface";
-import { Link } from "../../components/Link";
-import { Body } from "../../components/Text";
 
 const ToolDetail = () => {
   const { toolId } = useParams<{ toolId: string }>();
